@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>kasper.osterbye</groupId>
-    <artifactId>LogInSample</artifactId>
+    <artifactId>FogCarport</artifactId>
     <version>0.1-Test</version>
     <packaging>war</packaging>
 
-    <name>LogInSample</name>
+    <name>FogCarport</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

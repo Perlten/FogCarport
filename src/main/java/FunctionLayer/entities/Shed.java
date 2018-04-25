@@ -6,7 +6,7 @@
 package FunctionLayer.entities;
 
 /**
- *
+ * Holds the specifications of a shed
  * @author adamlass
  */
 public class Shed {

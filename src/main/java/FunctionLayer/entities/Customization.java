@@ -6,7 +6,8 @@
 package FunctionLayer.entities;
 
 /**
- *
+ * Holds the information of the customization of a carport.
+ * 
  * @author adamlass
  */
 public class Customization {

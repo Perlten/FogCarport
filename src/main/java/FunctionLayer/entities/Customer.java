@@ -6,7 +6,7 @@
 package FunctionLayer.entities;
 
 /**
- *
+ * Holds the contact info on the customer.
  * @author adamlass
  */
 public class Customer {

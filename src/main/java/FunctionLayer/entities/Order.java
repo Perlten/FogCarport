@@ -8,7 +8,9 @@ package FunctionLayer.entities;
 import java.util.Calendar;
 
 /**
- *
+ * Order is both a customer request and an order.
+ * As long as it is not confirmed it is an order.
+ * A order holds the customer information and the specification of the carport.
  * @author adamlass
  */
 public class Order {

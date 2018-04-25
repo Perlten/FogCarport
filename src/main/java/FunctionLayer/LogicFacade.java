@@ -6,6 +6,6 @@ package FunctionLayer;
  * @author kasper
  */
 public class LogicFacade {
-
+    
 
 }

@@ -1,14 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DBAccess;
 
-/**
- *
- * @author adamlass
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class OrderMapper {
+
+    public void confirmOder(int id) {
+        String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
+        
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     
+    
+
 }

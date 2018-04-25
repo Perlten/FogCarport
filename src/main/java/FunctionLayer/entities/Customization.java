@@ -9,7 +9,7 @@ package FunctionLayer.entities;
  *
  * @author adamlass
  */
-class Customization {
+public class Customization {
 
     private int length;
     private int width;

@@ -1,5 +1,7 @@
 package DBAccess;
 
+import FunctionLayer.entities.Customer;
+import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -100,10 +102,22 @@ public class OrderMapper {
             ex.printStackTrace();
         }
     }
-
+    
+    /**
+     * Creates a order
+     * @param order 
+     */
     public static void MakeOrder(Order order) {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        boolean shed = order.getCustomization().getShed() != null;
+        int shedLength = 0;
+        int shedWidth = 0;
+        if(shed){
+            shedLength = order.getCustomization().getShed().getLength();
+            shedWidth = order.getCustomization().getShed().getWidth();
+        }
          try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -111,12 +125,23 @@ public class OrderMapper {
             ps.setString(2, order.getCustomer().getLastname());
             ps.setString(3, order.getCustomer().getEmail());
             ps.setInt(4, order.getCustomer().getPhonenumber());
-            
-            
+            ps.setInt(5, order.getCustomization().getLength());
+            ps.setInt(6, order.getCustomization().getWidth());
+            ps.setInt(7, order.getCustomization().getHeight());
+            ps.setDouble(8, order.getCustomization().getRoofangle());
+            ps.setBoolean(9, shed);
+            ps.setInt(10, shedLength);
+            ps.setInt(11, shedWidth);
+            //TODO: change order to incorporate tile and cladding
+            ps.setInt(12, 1);
+            ps.setInt(13, 1);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        
+    }
+    public static void main(String[] args) {
+        Order o = new Order(false, null, new Customer("Nikolai p", "pp", "pppp", 32), new Customization(6, 6, 6, 1.5, null));
+        OrderMapper.MakeOrder(o);
     }
 }

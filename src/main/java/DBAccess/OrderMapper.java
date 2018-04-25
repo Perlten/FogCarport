@@ -1,7 +1,9 @@
 package DBAccess;
 
+import FunctionLayer.entities.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class OrderMapper {
 
@@ -12,7 +14,8 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
+            //TODO: change the way i handle exceptions
             ex.printStackTrace();
         }
     }
@@ -28,7 +31,7 @@ public class OrderMapper {
             ps.setInt(4, roofAngle);
             ps.setInt(5, id);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -41,7 +44,7 @@ public class OrderMapper {
             ps.setInt(1, claddingId);
             ps.setInt(2, orderId);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -54,7 +57,7 @@ public class OrderMapper {
             ps.setInt(1, tileId);
             ps.setInt(2, orderId);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -68,7 +71,7 @@ public class OrderMapper {
             ps.setInt(2, width);
             ps.setInt(3, orderId);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -81,7 +84,7 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -93,8 +96,27 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void MakeOrder(Order order) {
+        String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
+                + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+         try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, order.getCustomer().getFirstname());
+            ps.setString(2, order.getCustomer().getLastname());
+            ps.setString(3, order.getCustomer().getEmail());
+            ps.setInt(4, order.getCustomer().getPhonenumber());
+            
+            
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 }

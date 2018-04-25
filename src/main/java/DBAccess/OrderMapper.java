@@ -26,16 +26,27 @@ import java.util.List;
 public class OrderMapper {
 
     /**
-     * Get a list of all the orders ever made.
+     * Get a list of all the orders or a specific order if orderid is 0 or over.
+     * 
+     * @param orderid under 0 for all orders. 0 or over for a specific order
      * @return A list of orders
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
-    public static List<Order> getOrders() throws ClassNotFoundException, SQLException {
+    public static List<Order> getOrders(int orderid) throws ClassNotFoundException, SQLException {
         List<Order> orderList = new ArrayList<>();
         Connection con = Connector.connection();
         String sql = "SELECT * FROM fog.order";
+        if(orderid >= 0){
+            sql += " where idorder=?";
+        }
+        
         PreparedStatement pre = con.prepareStatement(sql);
+        
+        if(orderid >= 0){
+            pre.setInt(1, orderid);
+        }
+        
         ResultSet res = pre.executeQuery();
 
         while (res.next()) {
@@ -72,5 +83,6 @@ public class OrderMapper {
         con.close();
         return orderList;
     }
+    
     
 }

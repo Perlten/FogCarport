@@ -41,4 +41,10 @@ public class Order {
         return customization;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" + "confirmed=" + confirmed + ", date=" + date.getTime() + ", customer=" + customer + ", customization=" + customization + '}';
+    }
+    
+
 }

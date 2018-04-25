@@ -38,4 +38,10 @@ public class Customer {
         return phonenumber;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" + "firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenumber=" + phonenumber + '}';
+    }
+    
+
 }

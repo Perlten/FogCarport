@@ -9,7 +9,7 @@ package FunctionLayer.entities;
  *
  * @author adamlass
  */
-class Shed {
+public class Shed {
     private int length;
     private int width;
 
@@ -25,6 +25,12 @@ class Shed {
     public int getWidth() {
         return width;
     }
+
+    @Override
+    public String toString() {
+        return "Shed{" + "length=" + length + ", width=" + width + '}';
+    }
+    
     
     
 }

@@ -9,7 +9,7 @@ package FunctionLayer.entities;
  *
  * @author adamlass
  */
-class Customization {
+public class Customization {
 
     private int length;
     private int width;
@@ -44,5 +44,11 @@ class Customization {
     public Shed getShed() {
         return shed;
     }
+
+    @Override
+    public String toString() {
+        return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';
+    }
+    
 
 }

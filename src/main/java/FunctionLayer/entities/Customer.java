@@ -6,7 +6,7 @@
 package FunctionLayer.entities;
 
 /**
- *
+ * Holds the contact info on the customer.
  * @author adamlass
  */
 public class Customer {
@@ -37,5 +37,11 @@ public class Customer {
     public int getPhonenumber() {
         return phonenumber;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenumber=" + phonenumber + '}';
+    }
+    
 
 }

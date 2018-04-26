@@ -29,55 +29,59 @@ public class OrderMapper {
      *
      * @param orderid under 0 for all orders. 0 or over for a specific order
      * @return A list of orders
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws LoginSampleException
      */
-    public static List<Order> getOrders(int orderid) throws ClassNotFoundException, SQLException {
+    public static List<Order> getOrders(int orderid) throws LoginSampleException {
         List<Order> orderList = new ArrayList<>();
+        try {
         Connection con = Connector.connection();
         String sql = "SELECT * FROM fog.order";
         if (orderid >= 0) {
             sql += " where idorder=?";
         }
 
-        PreparedStatement pre = con.prepareStatement(sql);
+            PreparedStatement pre = con.prepareStatement(sql);
 
-        if (orderid >= 0) {
-            pre.setInt(1, orderid);
-        }
-
-        ResultSet res = pre.executeQuery();
-
-        while (res.next()) {
-            int idorder = res.getInt("idorder");
-            boolean confirmed = res.getBoolean("confirmed");
-            Calendar date = Calendar.getInstance();
-            Timestamp ts = res.getTimestamp("date");
-            date.setTime((Date) ts);
-            String firstname = res.getString("firstname");
-            String lastname = res.getString("lastname");
-            String email = res.getString("email");
-            int phonenumber = res.getInt("phonenumber");
-            int length = res.getInt("length");
-            int width = res.getInt("width");
-            int height = res.getInt("height");
-            double roofangle = res.getDouble("roofangle");
-            boolean shed = res.getBoolean("shed");
-            Shed shedEntity = null;
-
-            if (shed) {
-                int shedLength = res.getInt("shed_length");
-                int shedWidth = res.getInt("shed_width");
-                shedEntity = new Shed(shedLength, shedWidth);
-
+            if (orderid >= 0) {
+                pre.setInt(1, orderid);
             }
 
-            int tile = res.getInt("tile");
-            int cladding = res.getInt("cladding");
-            Customer customer = new Customer(firstname, lastname, email, phonenumber);
-            Customization customization = new Customization(length, width, height, roofangle, shedEntity);
-            Order order = new Order(idorder, confirmed, date, customer, customization);
-            orderList.add(order);
+            ResultSet res = pre.executeQuery();
+
+            while (res.next()) {
+                int idorder = res.getInt("idorder");
+                boolean confirmed = res.getBoolean("confirmed");
+                Calendar date = Calendar.getInstance();
+                Timestamp ts = res.getTimestamp("date");
+                date.setTime((Date) ts);
+                String firstname = res.getString("firstname");
+                String lastname = res.getString("lastname");
+                String email = res.getString("email");
+                int phonenumber = res.getInt("phonenumber");
+                int length = res.getInt("length");
+                int width = res.getInt("width");
+                int height = res.getInt("height");
+                double roofangle = res.getDouble("roofangle");
+                boolean shed = res.getBoolean("shed");
+                Shed shedEntity = null;
+
+                if (shed) {
+                    int shedLength = res.getInt("shed_length");
+                    int shedWidth = res.getInt("shed_width");
+                    shedEntity = new Shed(shedLength, shedWidth);
+
+                }
+
+                int tile = res.getInt("tile");
+                int cladding = res.getInt("cladding");
+                Customer customer = new Customer(firstname, lastname, email, phonenumber);
+                Customization customization = new Customization(length, width, height, roofangle, shedEntity);
+                Order order = new Order(idorder, confirmed, date, customer, customization);
+                orderList.add(order);
+            }
+
+        } catch (Exception e) {
+            throw new LoginSampleException(e.getMessage());
         }
         return orderList;
     }
@@ -151,7 +155,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-           throw new LoginSampleException(ex.getMessage());
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 
@@ -190,7 +194,7 @@ public class OrderMapper {
             ps.setInt(13, 1);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-           throw new LoginSampleException(ex.getMessage());
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 
@@ -215,7 +219,7 @@ public class OrderMapper {
             List<Order> list = getOrders(rs.getInt("idorder"));
             return list.get(0);
         } catch (SQLException | ClassNotFoundException ex) {
-           throw new LoginSampleException(ex.getMessage());
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 }

@@ -5,15 +5,12 @@
  */
 package DBAccess;
 
-import FunctionLayer.LogicFacade;
+import FunctionLayer.LoginSampleException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
 import org.junit.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,21 +26,21 @@ public class OrderMapperTest {
     }
 
     @BeforeClass
-    public static void setUp() throws ClassNotFoundException, SQLException {
+    public static void setUp() throws LoginSampleException {
         size = OrderMapper.getOrders(-1).size();
         OrderMapper.MakeOrder(order1);
         OrderMapper.MakeOrder(order2);
     }
 
     @AfterClass
-    public static void tearDown() throws ClassNotFoundException, SQLException {
+    public static void tearDown() throws LoginSampleException {
         for (int i = 0; i < 2; i++) {
             OrderMapper.removeLast();
         }
     }
 
     @Test
-    public void testGetOrders() throws Exception {
+    public void testGetOrders() throws LoginSampleException {
         int actual;
         int expected = size + 2;
 
@@ -54,7 +51,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void testChangeOrder() throws ClassNotFoundException, SQLException {
+    public void testChangeOrder() throws LoginSampleException {
         String newName = "jeg laver test";
         Order order = OrderMapper.getLast();
         
@@ -66,7 +63,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void testConfirmOder() throws ClassNotFoundException, SQLException {
+    public void testConfirmOder() throws LoginSampleException {
         Order order = OrderMapper.getLast();
         OrderMapper.confirmOder(order.getOrderid());
         Order newOrder = OrderMapper.getOrders(order.getOrderid()).get(0);
@@ -74,7 +71,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void testRemoveOrder() throws ClassNotFoundException, SQLException {
+    public void testRemoveOrder() throws LoginSampleException {
         OrderMapper.MakeOrder(new Order(new Customer("PErt", "PErlt", "dsa", 123), new Customization(2, 2, 2, 2, null)));
         Order order = OrderMapper.getLast();
         OrderMapper.removeOrder(order.getOrderid());
@@ -85,7 +82,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void testMakeOrder() throws ClassNotFoundException, SQLException {
+    public void testMakeOrder() throws LoginSampleException {
         List<Order> orderList = OrderMapper.getOrders(-1);
         Order dbOrder = orderList.get(orderList.size() - 1);
 

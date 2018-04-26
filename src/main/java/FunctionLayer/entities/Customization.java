@@ -5,7 +5,6 @@
  */
 package FunctionLayer.entities;
 
-import DBAccess.OrderMapper;
 import java.util.Objects;
 
 /**
@@ -49,6 +48,28 @@ public class Customization {
         return shed;
     }
 
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setRoofangle(double roofangle) {
+        this.roofangle = roofangle;
+    }
+
+    public void setShed(Shed shed) {
+        this.shed = shed;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';

@@ -7,9 +7,11 @@ package FunctionLayer.entities;
 
 /**
  * Holds the specifications of a shed
+ *
  * @author adamlass
  */
 public class Shed {
+
     private int length;
     private int width;
 
@@ -24,6 +26,14 @@ public class Shed {
 
     public int getWidth() {
         return width;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     @Override
@@ -59,6 +69,5 @@ public class Shed {
         }
         return true;
     }
-    
-    
+
 }

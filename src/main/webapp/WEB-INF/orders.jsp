@@ -16,6 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
         <%@include file="../bootstrap.jsp" %>
+        <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%
             List<Order> orders = (List<Order>) request.getAttribute("orders");
             Order selectedOrder = (Order) request.getAttribute("selectedOrder");
@@ -48,7 +49,6 @@
                                 <form action="FrontController" method="post">
                                     <input type="hidden" name="command" value="ShowOrder">
                                     <input type="hidden" name="orderToShow" value="<%= order.getOrderid()%>">
-
                                     <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
                                 </form>
 
@@ -81,6 +81,15 @@
                             <th>Shed Length</th>
                             <th>Shed width</th>
                             </thead>
+                            <%
+                                int shedLength = 0;
+                                int shedWidth = 0;
+
+                                if (selectedOrder.getCustomization().getShed() != null) {
+                                    shedLength = selectedOrder.getCustomization().getShed().getLength();
+                                    shedWidth = selectedOrder.getCustomization().getShed().getWidth();
+                                }
+                            %>
                             <tbody>
                                 <tr>
                                     <td> <%= selectedOrder.getOrderid()%> </td>
@@ -88,8 +97,8 @@
                                     <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
                                     <td> <%= selectedOrder.getCustomization().getWidth()%> </td>
                                     <td> <%= selectedOrder.getCustomization().getRoofangle()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getShed().getLength()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getShed().getWidth()%> </td>
+                                    <td> <%= shedLength%> </td>
+                                    <td> <%= shedWidth%> </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -101,14 +110,15 @@
                         <input type="submit" class="btn btn-success" value="Confirm">
                     </form>
                     <%}%>
+
                     <form action="FrontController" method="post">
                         <input type="hidden" name="command" value="DeleteOrder">
                         <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                     <form action="FrontController" method="post">
-                        <input type="hidden" name="command" value="DeleteOrder">
-                        <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
+                        <input type="hidden" name="command" value="EditOrderPage">
+                        <input type="hidden" name="orderToEdit" value="<%= selectedOrder.getOrderid()%>">
                         <input type="submit" class="btn btn-primary" value="Edit">
                     </form>
                 </div>

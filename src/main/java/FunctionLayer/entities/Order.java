@@ -15,16 +15,22 @@ import java.util.Calendar;
  */
 public class Order {
 
+    private int orderid;
     private boolean confirmed;
     private Calendar date;
     private Customer customer;
     private Customization customization;
 
-    public Order(boolean confirmed, Calendar date, Customer customer, Customization customization) {
+    public Order(int orderid, boolean confirmed, Calendar date, Customer customer, Customization customization) {
+        this.orderid = orderid;
         this.confirmed = confirmed;
         this.date = date;
         this.customer = customer;
         this.customization = customization;
+    }
+
+    public int getOrderid() {
+        return orderid;
     }
 
     public boolean isConfirmed() {

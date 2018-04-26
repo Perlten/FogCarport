@@ -14,6 +14,10 @@
     <body>
         
         <h1>Hej Fog</h1>
+        <form action="FrontController" method="post">
+            <input type="hidden" name="command" value="GetOrders">
+            <input type="submit" value="GetOrders">
+        </form>
         
         <% String error = (String) request.getAttribute("error");
            if ( error != null) { %>

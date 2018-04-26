@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Using the LogicFacade to load all the orders from the database.
  * @author adamlass
  */
 public class GetOrders extends Command {

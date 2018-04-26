@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Using the LogicFacad to show a specific order on the "orders" page.
  * @author adamlass
  */
 public class ShowOrder extends Command {

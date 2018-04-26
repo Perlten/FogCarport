@@ -1,7 +1,10 @@
 package FunctionLayer;
 
 import DBAccess.OrderMapper;
+import FunctionLayer.entities.Customer;
+import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
+import FunctionLayer.entities.Shed;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class LogicFacade {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static List<Order> getOrders() throws ClassNotFoundException, SQLException {
+    public static List<Order> getOrders() throws LoginSampleException  {
         return OrderMapper.getOrders(-1);
     }
 
@@ -26,11 +29,15 @@ public class LogicFacade {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static Order getOrder(int orderid) throws ClassNotFoundException, SQLException {
+    public static Order getOrder(int orderid) throws LoginSampleException {
         if (orderid < 0) {
             throw new IllegalArgumentException("orderid can't be negative");
         }
         return OrderMapper.getOrders(orderid).get(0);
+    }
+    
+    public static void makeOrder(Order order) throws LoginSampleException{
+        OrderMapper.MakeOrder(order);
     }
 
     /**

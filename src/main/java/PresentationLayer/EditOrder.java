@@ -29,17 +29,17 @@ public class EditOrder extends Command {
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
         int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+        
+        String isShed = request.getParameter("shed");
         Order order = LogicFacade.getOrder(orderId);
 
         Customization c = order.getCustomization();
-        Shed shed = c.getShed();
         c.setLength(length);
         c.setHeight(height);
         c.setWidth(width);
         c.setRoofangle(roofAngle);
-        if (order.getCustomization().getShed() != null) {
-            shed.setLength(shedLength);
-            shed.setWidth(shedWidth);
+        if (isShed.equals("true")) {
+            order.getCustomization().setShed(new Shed(shedLength, shedWidth));
         }
         LogicFacade.changeOrder(order);
 

@@ -21,8 +21,7 @@ public class GetOrders extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         try {
             List<Order> orders = FunctionLayer.LogicFacade.getOrders();
-            request.getSession().setAttribute("orders", orders);
-
+            request.setAttribute("orders", orders);
         } catch (Exception e) {
             throw new LoginSampleException("Could not show all orders!");
         }

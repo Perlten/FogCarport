@@ -7,26 +7,20 @@ package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
-import FunctionLayer.entities.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author adamlass
+ * @author Perlt
  */
-public class ShowOrder extends Command {
+public class ConfirmOrder extends Command{
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        try {
-            int orderid = Integer.parseInt(request.getParameter("orderToShow"));
-            Order order = LogicFacade.getOrder(orderid);
-            request.setAttribute("selectedOrder", order);
-        } catch (Exception e) {
-            throw new LoginSampleException("Could not show specific order!");
-        }
+        int orderId = Integer.parseInt(request.getParameter("orderToConfirm"));
+        LogicFacade.confirmOrder(orderId);
         return new GetOrders().execute(request, response);
     }
-
+    
 }

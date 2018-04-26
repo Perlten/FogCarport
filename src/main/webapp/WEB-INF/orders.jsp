@@ -16,8 +16,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
         <%@include file="../bootstrap.jsp" %>
-        <% List<Order> orders = (List<Order>) session.getAttribute("orders");
-            Order selectedOrder = (Order) session.getAttribute("selectedOrder");
+        <%
+            List<Order> orders = (List<Order>) request.getAttribute("orders");
+            Order selectedOrder = (Order) request.getAttribute("selectedOrder");
         %>
     </head>
     <body>
@@ -25,7 +26,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <table class="table table-striped table-hover">
+                <table class="table table-xstriped table-hover">
                     <thead>
                         <tr>
                             <th>Order Number</th>
@@ -63,28 +64,59 @@
 
                 </table>
             </div>
-            <% if (selectedOrder != null){%>
+            <% if (selectedOrder != null) {%>
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3>Contents of Order</h3>
                     </div>
                     <div>
-
-                        <a><%= selectedOrder.getOrderid() %></a>
                         <table class="table table">
+                            <thead>
+                            <th>Id number</th>
+                            <th>Length</th>
+                            <th>Height</th>
+                            <th>Width</th>
+                            <th>Roof angle</th>
+                            <th>Shed Length</th>
+                            <th>Shed width</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <%= selectedOrder.getOrderid()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getLength()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getWidth()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getRoofangle()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getShed().getLength()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getShed().getWidth()%> </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
-                    <div>
-
-                    </div>
-
+                    <% if (!selectedOrder.isConfirmed()) {%>
+                    <form action="FrontController" method="post">
+                        <input type="hidden" name="command" value="ConfirmOrder">
+                        <input type="hidden" name="orderToConfirm" value="<%= selectedOrder.getOrderid()%>">
+                        <input type="submit" class="btn btn-success" value="Confirm">
+                    </form>
+                    <%}%>
+                    <form action="FrontController" method="post">
+                        <input type="hidden" name="command" value="DeleteOrder">
+                        <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                    <form action="FrontController" method="post">
+                        <input type="hidden" name="command" value="DeleteOrder">
+                        <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
+                        <input type="submit" class="btn btn-primary" value="Edit">
+                    </form>
                 </div>
 
 
 
             </div>
-            <% } %>
+            <% }%>
         </div>
     </body>
 </html>

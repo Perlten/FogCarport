@@ -30,4 +30,35 @@ public class Shed {
     public String toString() {
         return "Shed{" + "length=" + length + ", width=" + width + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + this.length;
+        hash = 71 * hash + this.width;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Shed other = (Shed) obj;
+        if (this.length != other.length) {
+            return false;
+        }
+        if (this.width != other.width) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

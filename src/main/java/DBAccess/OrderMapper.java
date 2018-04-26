@@ -9,10 +9,13 @@ import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,12 +78,12 @@ public class OrderMapper {
             Order order = new Order(idorder, confirmed, date, customer, customization);
             orderList.add(order);
         }
-//        con.close();
         return orderList;
     }
 
     /**
-     *Changes the order in the database
+     * Changes the order in the database
+     *
      * @param order
      */
     public static void changeOrder(Order order) {
@@ -116,7 +119,6 @@ public class OrderMapper {
             ps.setInt(14, 2);
             ps.setInt(15, order.getOrderid());
             ps.execute();
-            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -134,7 +136,6 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             //TODO: change the way i handle exceptions
             ex.printStackTrace();
@@ -148,7 +149,6 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();
-            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -188,7 +188,17 @@ public class OrderMapper {
             ps.setInt(12, 1);
             ps.setInt(13, 1);
             ps.execute();
-            con.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void removeLast() {
+        String sql = "delete from fog.order"
+                + "order by idorder desc limit 1";
+        try {
+            Statement state = Connector.connection().createStatement();
+            state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }

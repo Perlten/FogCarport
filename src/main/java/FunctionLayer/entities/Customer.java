@@ -9,9 +9,11 @@ import java.util.Objects;
 
 /**
  * Holds the contact info on the customer.
+ *
  * @author adamlass
  */
 public class Customer {
+
     private String firstname;
     private String lastname;
     private String email;
@@ -38,6 +40,22 @@ public class Customer {
 
     public int getPhonenumber() {
         return phonenumber;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhonenumber(int phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     @Override
@@ -81,7 +99,5 @@ public class Customer {
         }
         return true;
     }
-    
-    
 
 }

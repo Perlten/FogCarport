@@ -5,6 +5,8 @@
  */
 package FunctionLayer.entities;
 
+import java.util.Objects;
+
 /**
  * Holds the contact info on the customer.
  * @author adamlass
@@ -42,6 +44,44 @@ public class Customer {
     public String toString() {
         return "Customer{" + "firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenumber=" + phonenumber + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.firstname);
+        hash = 53 * hash + Objects.hashCode(this.lastname);
+        hash = 53 * hash + Objects.hashCode(this.email);
+        hash = 53 * hash + this.phonenumber;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        if (this.phonenumber != other.phonenumber) {
+            return false;
+        }
+        if (!Objects.equals(this.firstname, other.firstname)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastname, other.lastname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 
 }

@@ -79,6 +79,54 @@ public class OrderMapper {
         return orderList;
     }
 
+    /**
+     *Changes the order in the database
+     * @param order
+     */
+    public static void changeOrder(Order order) {
+        String sql = "UPDATE fog.order SET "
+                + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
+                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
+        Customization customization = order.getCustomization();
+        Customer customer = order.getCustomer();
+        int shedLength = 0;
+        int shedWidth = 0;
+        boolean shed = false;
+        if (customization.getShed() != null) {
+            shedLength = customization.getShed().getLength();
+            shedWidth = customization.getShed().getWidth();
+            shed = true;
+        }
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, order.isConfirmed());
+            ps.setString(2, customer.getFirstname());
+            ps.setString(3, customer.getLastname());
+            ps.setString(4, customer.getEmail());
+            ps.setInt(4, customer.getPhonenumber());
+            ps.setInt(5, customization.getLength());
+            ps.setInt(6, customization.getWidth());
+            ps.setInt(7, customization.getHeight());
+            ps.setDouble(9, customization.getRoofangle());
+            ps.setBoolean(10, shed);
+            ps.setInt(11, shedLength);
+            ps.setInt(12, shedWidth);
+            ps.setInt(13, 1);
+            ps.setInt(14, 2);
+            ps.setInt(15, order.getOrderid());
+            ps.execute();
+            con.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Confirms order
+     *
+     * @param id
+     */
     public static void confirmOder(int id) {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
@@ -86,77 +134,9 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
+            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             //TODO: change the way i handle exceptions
-            ex.printStackTrace();
-        }
-    }
-
-    public static void changeCarportDimensions(int length, int width, int height, int roofAngle, int id) {
-        String sql = "UPDATE fog.order SET length = ?, width = ?, height = ?, roofangle = ? WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, length);
-            ps.setInt(2, width);
-            ps.setInt(3, height);
-            ps.setInt(4, roofAngle);
-            ps.setInt(5, id);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void changeCladding(int orderId, int claddingId) {
-        String sql = "UPDATE fog.order SET cladding = ? WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, claddingId);
-            ps.setInt(2, orderId);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void changeTile(int orderId, int tileId) {
-        String sql = "UPDATE fog.order SET tile = ? WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, tileId);
-            ps.setInt(2, orderId);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void changeShed(int length, int width, int orderId) {
-        String sql = "UPDATE fog.order SET shed_length = ?, shed_width = ? WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, length);
-            ps.setInt(2, width);
-            ps.setInt(3, orderId);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void removeShed(int orderId) {
-        changeShed(0, 0, orderId);
-        String sql = "UPDATE fog.order SET shed = false WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, orderId);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
@@ -168,6 +148,7 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();
+            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -178,7 +159,6 @@ public class OrderMapper {
      *
      * @param order
      */
-
     public static void MakeOrder(Order order) {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -208,6 +188,7 @@ public class OrderMapper {
             ps.setInt(12, 1);
             ps.setInt(13, 1);
             ps.execute();
+            con.close();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }

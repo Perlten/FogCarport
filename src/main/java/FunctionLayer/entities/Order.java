@@ -6,6 +6,7 @@
 package FunctionLayer.entities;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * Order is both a customer request and an order.
@@ -29,6 +30,10 @@ public class Order {
         this.customization = customization;
     }
 
+    public Order(Customer customer, Customization customization){
+        this(-1, false, null, customer, customization);
+    }
+    
     public int getOrderid() {
         return orderid;
     }
@@ -50,9 +55,43 @@ public class Order {
     }
 
     @Override
-    public String toString() {
-        return "Order{" + "confirmed=" + confirmed + ", date=" + date.getTime() + ", customer=" + customer + ", customization=" + customization + '}';
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + this.orderid;
+        hash = 47 * hash + (this.confirmed ? 1 : 0);
+        hash = 47 * hash + Objects.hashCode(this.date);
+        hash = 47 * hash + Objects.hashCode(this.customer);
+        hash = 47 * hash + Objects.hashCode(this.customization);
+        return hash;
     }
-    
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (this.orderid != other.orderid) {
+            return false;
+        }
+        if (this.confirmed != other.confirmed) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.customer, other.customer)) {
+            return false;
+        }
+        if (!Objects.equals(this.customization, other.customization)) {
+            return false;
+        }
+        return true;
+    }
 }

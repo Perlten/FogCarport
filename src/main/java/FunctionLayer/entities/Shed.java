@@ -30,7 +30,4 @@ public class Shed {
     public String toString() {
         return "Shed{" + "length=" + length + ", width=" + width + '}';
     }
-    
-    
-    
 }

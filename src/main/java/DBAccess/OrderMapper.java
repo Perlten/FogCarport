@@ -78,6 +78,12 @@ public class OrderMapper {
         con.close();
         return orderList;
     }
+    
+    public static void changeOrder(Order order){
+        String sql = "UPDATE fog.order SET "
+                + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
+                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
+    }
 
     public static void confirmOder(int id) {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
@@ -178,7 +184,6 @@ public class OrderMapper {
      *
      * @param order
      */
-
     public static void MakeOrder(Order order) {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

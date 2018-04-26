@@ -37,13 +37,11 @@
                             <%
                                 int shedLength = 0;
                                 int shedWidth = 0;
+                                String checked = "";
 
                                 if (order.getCustomization().getShed() != null) {
                                     shedLength = order.getCustomization().getShed().getLength();
                                     shedWidth = order.getCustomization().getShed().getWidth();
-                                }
-                                String checked = "";
-                                if (order.getCustomization().getShed() != null) {
                                     checked = "checked";
                                 }
                             %>

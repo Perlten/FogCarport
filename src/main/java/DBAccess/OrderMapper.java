@@ -1,5 +1,6 @@
 package DBAccess;
 
+import FunctionLayer.LoginSampleException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -86,7 +87,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void changeOrder(Order order) {
+    public static void changeOrder(Order order) throws LoginSampleException {
         String sql = "UPDATE fog.order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
                 + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
@@ -120,7 +121,7 @@ public class OrderMapper {
             ps.setInt(15, order.getOrderid());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 
@@ -129,7 +130,7 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOder(int id) {
+    public static void confirmOder(int id) throws LoginSampleException {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -138,11 +139,11 @@ public class OrderMapper {
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
             //TODO: change the way i handle exceptions
-            ex.printStackTrace();
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 
-    public static void removeOrder(int orderId) {
+    public static void removeOrder(int orderId) throws LoginSampleException {
         String sql = "DELETE FROM fog.order WHERE idorder = ?";
         try {
             Connection con = Connector.connection();
@@ -150,7 +151,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+           throw new LoginSampleException(ex.getMessage());
         }
     }
 
@@ -159,7 +160,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) {
+    public static void MakeOrder(Order order) throws LoginSampleException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -189,22 +190,22 @@ public class OrderMapper {
             ps.setInt(13, 1);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+           throw new LoginSampleException(ex.getMessage());
         }
     }
 
-    public static void removeLast() {
+    public static void removeLast() throws LoginSampleException {
         String sql = "delete from fog.order"
                 + " order by idorder desc limit 1";
         try {
             Statement state = Connector.connection().createStatement();
             state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new LoginSampleException(ex.getMessage());
         }
     }
 
-    public static Order getLast() {
+    public static Order getLast() throws LoginSampleException {
         String sql = "select idorder from fog.order"
                 + " order by idorder desc limit 1";
         try {
@@ -214,11 +215,7 @@ public class OrderMapper {
             List<Order> list = getOrders(rs.getInt("idorder"));
             return list.get(0);
         } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+           throw new LoginSampleException(ex.getMessage());
         }
-        return null;
-    }
-    public static void main(String[] args) {
-        System.out.println(OrderMapper.getLast());
     }
 }

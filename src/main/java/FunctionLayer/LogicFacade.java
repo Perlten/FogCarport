@@ -38,7 +38,7 @@ public class LogicFacade {
      *
      * @param orderId
      */
-    public static void confirmOrder(int orderId) {
+    public static void confirmOrder(int orderId) throws LoginSampleException {
         OrderMapper.confirmOder(orderId);
     }
 
@@ -47,7 +47,7 @@ public class LogicFacade {
      *
      * @param order
      */
-    public static void changeOrder(Order order) {
+    public static void changeOrder(Order order) throws LoginSampleException  {
         OrderMapper.changeOrder(order);
     }
 
@@ -56,7 +56,7 @@ public class LogicFacade {
      *
      * @param orderId
      */
-    public static void removeOrder(int orderId) {
+    public static void removeOrder(int orderId) throws LoginSampleException  {
         OrderMapper.removeOrder(orderId);
     }
 }

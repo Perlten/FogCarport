@@ -140,8 +140,4 @@ public class OrderMapper {
             ex.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        Order o = new Order(false, null, new Customer("Nikolai p", "pp", "pppp", 32), new Customization(6, 6, 6, 1.5, null));
-        OrderMapper.MakeOrder(o);
-    }
 }

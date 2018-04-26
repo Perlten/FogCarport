@@ -10,20 +10,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome page</title>
+        <%@include file="bootstrap.jsp" %>
+
     </head>
     <body>
-        
+
         <h1>Hej Fog</h1>
         <form action="FrontController" method="post">
             <input type="hidden" name="command" value="GetOrders">
             <input type="submit" value="GetOrders">
         </form>
-        
+
         <% String error = (String) request.getAttribute("error");
-           if ( error != null) { %>
-           <H2>Error!!</h2>
-           <p><%= error %>
-        <% }
-        %>
+            if (error != null) {%>
+        <H2>Error!!</h2>
+        <p><%= error%>
+            <% }
+            %>
     </body>
 </html>

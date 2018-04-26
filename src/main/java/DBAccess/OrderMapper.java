@@ -77,7 +77,7 @@ public class OrderMapper {
             int cladding = res.getInt("cladding");
             Customer customer = new Customer(firstname, lastname, email, phonenumber);
             Customization customization = new Customization(length, width, height, roofangle, shedEntity);
-            Order order = new Order(confirmed, date, customer, customization);
+            Order order = new Order(idorder, confirmed, date, customer, customization);
             orderList.add(order);
         }
         con.close();

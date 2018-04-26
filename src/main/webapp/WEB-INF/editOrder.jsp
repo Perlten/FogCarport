@@ -42,6 +42,10 @@
                                     shedLength = order.getCustomization().getShed().getLength();
                                     shedWidth = order.getCustomization().getShed().getWidth();
                                 }
+                                String checked = "";
+                                if (order.getCustomization().getShed() != null) {
+                                    checked = "checked";
+                                }
                             %>
                             <tbody>
                                 <tr>
@@ -51,7 +55,7 @@
                                 <td> <input type="number" name="height" value="<%= order.getCustomization().getHeight()%>" > </td>
                                 <td> <input type="number" name="width" value="<%= order.getCustomization().getWidth()%>" > </td>
                                 <td> <input type="number" name="roofAngle" value="<%= order.getCustomization().getRoofangle()%>" > </td>
-                                <td> <input type="checkbox" name="shed" value="true" </td>
+                                <td> <input type="checkbox" name="shed" value="true" <%= checked %> </td>
                                 <td> <input type="number" name="shedLength" value="<%= shedLength%>" > </td>
                                 <td> <input type="number" name="shedWidth" value="<%= shedWidth%>" > </td>
                                 <input type="hidden" name="orderId" value="<%= order.getOrderid()%>" >

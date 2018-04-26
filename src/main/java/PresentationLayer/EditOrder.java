@@ -38,7 +38,9 @@ public class EditOrder extends Command {
         c.setHeight(height);
         c.setWidth(width);
         c.setRoofangle(roofAngle);
-        if (isShed.equals("true")) {
+        if(isShed == null){
+            order.getCustomization().setShed(null);
+        }else if (isShed.equals("true")) {
             order.getCustomization().setShed(new Shed(shedLength, shedWidth));
         }
         LogicFacade.changeOrder(order);

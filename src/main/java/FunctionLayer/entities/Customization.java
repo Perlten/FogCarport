@@ -5,6 +5,7 @@
  */
 package FunctionLayer.entities;
 
+import DBAccess.OrderMapper;
 import java.util.Objects;
 
 /**
@@ -94,7 +95,9 @@ public class Customization {
         return true;
     }
 
-   
+    public static void main(String[] args) {
+        OrderMapper.removeLast();
+    }
     
     
     

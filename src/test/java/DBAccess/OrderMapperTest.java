@@ -20,8 +20,8 @@ import static org.junit.Assert.*;
 
 public class OrderMapperTest {
 
-    private static Order order1 = new Order(new Customer("Sup", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
-    private static Order order2 = new Order(new Customer("Sup", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
+    private static Order order1 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
+    private static Order order2 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
     private static int size;
 
     public OrderMapperTest() {
@@ -55,25 +55,33 @@ public class OrderMapperTest {
 
     @Test
     public void testChangeOrder() throws ClassNotFoundException, SQLException {
-        String newName = "i laver test";
-        Order order = LogicFacade.getOrder(LogicFacade.getOrders().size());
+        String newName = "jeg laver test";
+        Order order = OrderMapper.getLast();
+        
         order.getCustomer().setFirstname(newName);
-        try {
-            OrderMapper.changeOrder(order);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Order newOrder = LogicFacade.getOrder(LogicFacade.getOrders().size());
-        assertEquals(order.getCustomer().getFirstname(), newOrder.getCustomer().getFirstname());
+        OrderMapper.changeOrder(order);
+        
+        Order newOrder = OrderMapper.getLast();
+        assertEquals(newName, newOrder.getCustomer().getFirstname());
     }
 
     @Test
-    public void testConfirmOder() {
+    public void testConfirmOder() throws ClassNotFoundException, SQLException {
+        Order order = OrderMapper.getLast();
+        OrderMapper.confirmOder(order.getOrderid());
+        Order newOrder = OrderMapper.getOrders(order.getOrderid()).get(0);
+        assertEquals(newOrder.isConfirmed(), true);
     }
 
     @Test
-    public void testRemoveOrder() {
-
+    public void testRemoveOrder() throws ClassNotFoundException, SQLException {
+        OrderMapper.MakeOrder(new Order(new Customer("PErt", "PErlt", "dsa", 123), new Customization(2, 2, 2, 2, null)));
+        Order order = OrderMapper.getLast();
+        OrderMapper.removeOrder(order.getOrderid());
+        Order newOrder = OrderMapper.getLast();
+        
+        assertNotEquals(newOrder, order);
+        
     }
 
     @Test

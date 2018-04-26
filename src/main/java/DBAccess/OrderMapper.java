@@ -107,10 +107,10 @@ public class OrderMapper {
             ps.setString(2, customer.getFirstname());
             ps.setString(3, customer.getLastname());
             ps.setString(4, customer.getEmail());
-            ps.setInt(4, customer.getPhonenumber());
-            ps.setInt(5, customization.getLength());
-            ps.setInt(6, customization.getWidth());
-            ps.setInt(7, customization.getHeight());
+            ps.setInt(5, customer.getPhonenumber());
+            ps.setInt(6, customization.getLength());
+            ps.setInt(7, customization.getWidth());
+            ps.setInt(8, customization.getHeight());
             ps.setDouble(9, customization.getRoofangle());
             ps.setBoolean(10, shed);
             ps.setInt(11, shedLength);
@@ -195,12 +195,30 @@ public class OrderMapper {
 
     public static void removeLast() {
         String sql = "delete from fog.order"
-                + "order by idorder desc limit 1";
+                + " order by idorder desc limit 1";
         try {
             Statement state = Connector.connection().createStatement();
             state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static Order getLast() {
+        String sql = "select idorder from fog.order"
+                + " order by idorder desc limit 1";
+        try {
+            Statement state = Connector.connection().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            rs.next();
+            List<Order> list = getOrders(rs.getInt("idorder"));
+            return list.get(0);
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        System.out.println(OrderMapper.getLast());
     }
 }

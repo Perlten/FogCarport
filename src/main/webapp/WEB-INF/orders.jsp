@@ -16,7 +16,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
         <%@include file="../bootstrap.jsp" %>
-        <% List<Order> orders = (List<Order>) session.getAttribute("orders"); %>
+        <% List<Order> orders = (List<Order>) session.getAttribute("orders");
+            Order selectedOrder = (Order) session.getAttribute("selectedOrder");
+        %>
     </head>
     <body>
         <h1>Customer Orders</h1>
@@ -41,7 +43,15 @@
                         <tr <% if (order.isConfirmed()) { %>
                             class="success"
                             <%}%>>
-                            <td><%= order.getOrderid()%></td>
+                            <td>
+                                <form action="FrontController" method="post">
+                                    <input type="hidden" name="command" value="ShowOrder">
+                                    <input type="hidden" name="orderToShow" value="<%= order.getOrderid()%>">
+
+                                    <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
+                                </form>
+
+                            </td>
                             <td><%= cust.getEmail()%></td>
                             <% SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");%>
                             <td><%= sp.format(order.getDate().getTime())%></td>
@@ -53,6 +63,28 @@
 
                 </table>
             </div>
+            <% if (selectedOrder != null){%>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Contents of Order</h3>
+                    </div>
+                    <div>
+
+                        <a><%= selectedOrder.getOrderid() %></a>
+                        <table class="table table">
+                        </table>
+                    </div>
+                    <div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <% } %>
         </div>
     </body>
 </html>

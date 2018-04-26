@@ -75,7 +75,7 @@ public class OrderMapper {
             Order order = new Order(idorder, confirmed, date, customer, customization);
             orderList.add(order);
         }
-        con.close();
+//        con.close();
         return orderList;
     }
 

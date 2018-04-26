@@ -12,6 +12,7 @@ abstract class Command {
     private static void initCommands() {
         commands = new HashMap<>();
         commands.put("GetOrders", new GetOrders());
+        commands.put("ShowOrder", new ShowOrder());
     }
 
     static Command from( HttpServletRequest request ) {

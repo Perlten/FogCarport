@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Holds the information of the customization of a carport.
- * 
+ *
  * @author adamlass
  */
 public class Customization {
@@ -19,15 +19,35 @@ public class Customization {
     private int height;
     private double roofangle;
     private Shed shed;
+    private StyleOption cladding;
+    private StyleOption tile;
 
-    public Customization(int length, int width, int height, double roofangle, Shed shed) {
+    public Customization(int length, int width, int height, double roofangle, Shed shed, StyleOption cladding, StyleOption tile) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.roofangle = roofangle;
         this.shed = shed;
+        this.cladding = cladding;
+        this.tile = tile;
     }
 
+    public StyleOption getCladding() {
+        return cladding;
+    }
+
+    public StyleOption getTile() {
+        return tile;
+    }
+
+    public void setCladding(StyleOption cladding) {
+        this.cladding = cladding;
+    }
+
+    public void setTile(StyleOption tile) {
+        this.tile = tile;
+    }
+    
     public int getLength() {
         return length;
     }
@@ -68,8 +88,6 @@ public class Customization {
         this.shed = shed;
     }
 
-    
-    
     @Override
     public String toString() {
         return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';

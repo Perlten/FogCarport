@@ -32,6 +32,8 @@ public class EditOrder extends Command {
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
         int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+        int claddingId = Integer.parseInt(request.getParameter("cladding"));
+        int tileId = Integer.parseInt(request.getParameter("tile"));
         
         //Customer
         String firstName = request.getParameter("firstName");
@@ -47,6 +49,9 @@ public class EditOrder extends Command {
         c.setHeight(height);
         c.setWidth(width);
         c.setRoofangle(roofAngle);
+        c.setCladding(LogicFacade.getCladding(claddingId));
+        c.setTile(LogicFacade.getTile(tileId));
+        
         if(isShed == null){
             order.getCustomization().setShed(null);
         }else if (isShed.equals("true")) {
@@ -58,7 +63,7 @@ public class EditOrder extends Command {
         customer.setLastname(lastName);
         customer.setEmail(email);
         customer.setPhonenumber(phoneNumber);
-                
+        
         LogicFacade.changeOrder(order);
 
         return new ShowOrder().execute(request, response);

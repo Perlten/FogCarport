@@ -1,10 +1,12 @@
 package DBAccess;
 
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
+import FunctionLayer.entities.StyleOption;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.Connection;
@@ -38,7 +40,7 @@ public class OrderMapper {
             String sql = "SELECT * FROM fog.order";
             if (orderid >= 0) {
                 sql += " where idorder=?";
-            }else{
+            } else {
                 sql += " order by idorder desc;";
             }
 
@@ -65,11 +67,13 @@ public class OrderMapper {
                 int height = res.getInt("height");
                 double roofangle = res.getDouble("roofangle");
                 boolean shed = res.getBoolean("shed");
+                
                 int tile = res.getInt("tile");
                 int cladding = res.getInt("cladding");
-
+                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
+                StyleOption tileStyle = LogicFacade.getTile(tile);
+                
                 Shed shedEntity = null;
-
                 if (shed) {
                     int shedLength = res.getInt("shed_length");
                     int shedWidth = res.getInt("shed_width");
@@ -78,13 +82,14 @@ public class OrderMapper {
                 }
 
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
-                Customization customization = new Customization(length, width, height, roofangle, shedEntity);
+                Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
                 Order order = new Order(idorder, confirmed, date, customer, customization);
                 orderList.add(order);
             }
 
         } catch (Exception e) {
-            throw new LoginSampleException(e.getMessage());
+            e.printStackTrace();
+//            throw new LoginSampleException(e.getMessage());
         }
         return orderList;
     }
@@ -123,9 +128,8 @@ public class OrderMapper {
             ps.setBoolean(10, shed);
             ps.setInt(11, shedLength);
             ps.setInt(12, shedWidth);
-            //TODO We need to change order to acamendate for customazation options
-            ps.setInt(13, 1);
-            ps.setInt(14, 2);
+            ps.setInt(13, customization.getTile().getId());
+            ps.setInt(14, customization.getCladding().getId());
             ps.setInt(15, order.getOrderid());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {

@@ -22,6 +22,7 @@ public class Order {
     private Calendar date;
     private Customer customer;
     private Customization customization;
+   
 
     public Order(int orderid, boolean confirmed, Calendar date, Customer customer, Customization customization) {
         this.orderid = orderid;

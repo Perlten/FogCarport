@@ -1,9 +1,5 @@
-<%-- 
-    Document   : editOrder
-    Created on : Apr 26, 2018, 6:16:42 PM
-    Author     : Perlt
---%>
-
+<%@page import="java.util.List"%>
+<%@page import="FunctionLayer.entities.StyleOption"%>
 <%@page import="FunctionLayer.entities.Customer"%>
 <%@page import="FunctionLayer.entities.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,15 +8,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit order</title>
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <% Order order = (Order) request.getAttribute("order");
+        <%
+            Order order = (Order) request.getAttribute("order");
+            List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");
+            List<StyleOption> tileList = (List<StyleOption>) request.getAttribute("tileList");
+
             int shedLength = 0;
             int shedWidth = 0;
             String checked = "";
@@ -78,17 +75,23 @@
                     </div>
                     <div class="col-lg-3">
                         <h1>Edit Style</h1>
-                        <div class="form-group"> 
-                            <label class="control-label">Length</label>
-                            <input type="number" class="form-control" name="length" value="<%= order.getCustomization().getLength()%>">
-                        </div>	
-
-                        <div class="form-group"> 
-                            <label class="control-label">Height</label>
-                            <input type="number" class="form-control" name="height" value="<%= order.getCustomization().getHeight()%>">
-                        </div>					
+                        <h2>Cladding</h2>
+                        <div class="form-group">
+                            <select name="cladding">
+                                <%for (StyleOption style : claddingList) {%>
+                                <option value="<%= style.getId()%>" > <%= style.getName()%> </option>
+                                <%}%>
+                            </select>
+                        </div>
+                        <h2>Tile</h2>
+                        <div class="form-group">
+                            <select name="tile">
+                                <%for (StyleOption style : tileList) {%>
+                                <option value="<%= style.getId()%>" > <%= style.getName()%> </option> 
+                                <%}%>
+                            </select>
+                        </div>
                     </div>
-
                     <div class="col-lg-3">
                         <h1>Edit User</h1>
                         <div class="form-group"> 

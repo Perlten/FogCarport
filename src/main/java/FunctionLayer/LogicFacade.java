@@ -1,10 +1,9 @@
 package FunctionLayer;
 
 import DBAccess.OrderMapper;
-import FunctionLayer.entities.Customer;
-import FunctionLayer.entities.Customization;
+import DBAccess.StyleMapper;
 import FunctionLayer.entities.Order;
-import FunctionLayer.entities.Shed;
+import FunctionLayer.entities.StyleOption;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LogicFacade {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static List<Order> getOrders() throws LoginSampleException  {
+    public static List<Order> getOrders() throws LoginSampleException {
         return OrderMapper.getOrders(-1);
     }
 
@@ -35,8 +34,8 @@ public class LogicFacade {
         }
         return OrderMapper.getOrders(orderid).get(0);
     }
-    
-    public static void makeOrder(Order order) throws LoginSampleException{
+
+    public static void makeOrder(Order order) throws LoginSampleException {
         OrderMapper.MakeOrder(order);
     }
 
@@ -54,7 +53,7 @@ public class LogicFacade {
      *
      * @param order
      */
-    public static void changeOrder(Order order) throws LoginSampleException  {
+    public static void changeOrder(Order order) throws LoginSampleException {
         OrderMapper.changeOrder(order);
     }
 
@@ -63,7 +62,23 @@ public class LogicFacade {
      *
      * @param orderId
      */
-    public static void removeOrder(int orderId) throws LoginSampleException  {
+    public static void removeOrder(int orderId) throws LoginSampleException {
         OrderMapper.removeOrder(orderId);
+    }
+
+    public static List<StyleOption> getCladdingList() throws LoginSampleException {
+        return StyleMapper.getCladding(-1);
+    }
+
+    public static List<StyleOption> getTileList() throws LoginSampleException {
+        return StyleMapper.getTile(-1);
+    }
+
+    public static StyleOption getCladding(int id) throws LoginSampleException {
+        return StyleMapper.getCladding(id).get(0);
+    }
+
+    public static StyleOption getTile(int id) throws LoginSampleException {
+        return StyleMapper.getTile(id).get(0);
     }
 }

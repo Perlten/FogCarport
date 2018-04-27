@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.orders;
 
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.entities.Order;
+import PresentationLayer.Command;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GetOrders extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         try {
             List<Order> orders = FunctionLayer.LogicFacade.getOrders();
             request.setAttribute("orders", orders);

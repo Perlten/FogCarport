@@ -1,11 +1,17 @@
 package PresentationLayer;
 
+import PresentationLayer.orders.ShowOrder;
+import PresentationLayer.orders.EditOrderPage;
+import PresentationLayer.orders.EditOrder;
+import PresentationLayer.orders.DeleteOrder;
+import PresentationLayer.orders.ConfirmOrder;
+import PresentationLayer.orders.GetOrders;
 import FunctionLayer.LoginSampleException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-abstract class Command {
+public abstract class Command {
 
     private static HashMap<String, Command> commands;
 
@@ -27,7 +33,7 @@ abstract class Command {
         return commands.getOrDefault(commandName, new UnknownCommand() );
     }
 
-    abstract String execute( HttpServletRequest request, HttpServletResponse response ) 
+    public abstract String execute( HttpServletRequest request, HttpServletResponse response ) 
             throws LoginSampleException;
 
 }

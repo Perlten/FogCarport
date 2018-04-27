@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
+import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditOrder extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
         int length = Integer.parseInt(request.getParameter("length"));
         int height = Integer.parseInt(request.getParameter("height"));

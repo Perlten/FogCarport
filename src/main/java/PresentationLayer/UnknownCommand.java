@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UnknownCommand extends Command {
 
     @Override
-    String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
+    public String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
         String msg = "TODO: Be real son -Adam";
         throw new LoginSampleException( msg );
     }

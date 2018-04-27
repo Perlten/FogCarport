@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 public class Connector {
 
-    private static final String URL = "jdbc:mysql://46.101.253.149:3306/useradmin";
+    private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog?autoReconnect=true&serverTimezone=CET&useSSL=false";
     private static final String USERNAME = "doorkeeper";
-    private static final String PASSWORD = "bank3*andyouarein";
+    private static final String PASSWORD = "Fortado#420";
 
     private static Connection singleton;
 
@@ -28,5 +28,5 @@ public class Connector {
         }
         return singleton;
     }
-
 }
+

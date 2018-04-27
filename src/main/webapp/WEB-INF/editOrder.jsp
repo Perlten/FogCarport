@@ -11,6 +11,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            select{
+                color: darkblue;
+                width: 125px;
+                border-radius: 55px;
+            }
+
+
+        </style>
     </head>
     <body>
         <%
@@ -73,21 +82,35 @@
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <h1>Edit Style</h1>
                         <h2>Cladding</h2>
                         <div class="form-group">
                             <select name="cladding">
-                                <%for (StyleOption style : claddingList) {%>
-                                <option value="<%= style.getId()%>" > <%= style.getName()%> </option>
-                                <%}%>
+                                <%
+                                    String selected = "";
+                                    for (StyleOption style : claddingList) {
+                                     if(style.getId() == order.getCustomization().getCladding().getId()){
+                                         selected = "selected";
+                                     }  
+                                %>
+                                <option value="<%= style.getId()%>" <%= selected %> > <%= style.getName()%> </option>
+                                <%  
+                                    selected = "";
+                                    }
+                                %>
                             </select>
                         </div>
                         <h2>Tile</h2>
                         <div class="form-group">
                             <select name="tile">
-                                <%for (StyleOption style : tileList) {%>
-                                <option value="<%= style.getId()%>" > <%= style.getName()%> </option> 
+                                 <%
+                                    for (StyleOption style : tileList) {
+                                     if(style.getId() == order.getCustomization().getTile().getId()){
+                                         selected = "selected";
+                                     }  
+                                %>
+                                <option value="<%= style.getId()%>" <%= selected %> > <%= style.getName()%> </option> 
                                 <%}%>
                             </select>
                         </div>

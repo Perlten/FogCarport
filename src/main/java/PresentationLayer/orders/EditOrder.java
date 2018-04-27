@@ -7,6 +7,7 @@ package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
@@ -23,6 +24,7 @@ public class EditOrder extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
+        //Dimensions
         int length = Integer.parseInt(request.getParameter("length"));
         int height = Integer.parseInt(request.getParameter("height"));
         int width = Integer.parseInt(request.getParameter("width"));
@@ -30,6 +32,12 @@ public class EditOrder extends Command {
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
         int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+        
+        //Customer
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
         
         String isShed = request.getParameter("shed");
         Order order = LogicFacade.getOrder(orderId);
@@ -44,6 +52,13 @@ public class EditOrder extends Command {
         }else if (isShed.equals("true")) {
             order.getCustomization().setShed(new Shed(shedLength, shedWidth));
         }
+        
+        Customer customer = order.getCustomer();
+        customer.setFirstname(firstName);
+        customer.setLastname(lastName);
+        customer.setEmail(email);
+        customer.setPhonenumber(phoneNumber);
+                
         LogicFacade.changeOrder(order);
 
         return new ShowOrder().execute(request, response);

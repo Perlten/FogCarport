@@ -104,27 +104,29 @@
                         </table>
                     </div>
                     <% if (!selectedOrder.isConfirmed()) {%>
-                    <form action="FrontController" method="post">
-                        <input type="hidden" name="command" value="ConfirmOrder">
-                        <input type="hidden" name="orderToConfirm" value="<%= selectedOrder.getOrderid()%>">
-                        <input type="submit" class="btn btn-success" value="Confirm">
-                    </form>
+                    <div style="float: left; padding: 5px">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="ConfirmOrder">
+                            <input type="hidden" name="orderToConfirm" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="submit" class="btn btn-success" value="Confirm">
+                        </form>
+                    </div>
                     <%}%>
-
-                    <form action="FrontController" method="post">
-                        <input type="hidden" name="command" value="DeleteOrder">
-                        <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </form>
-                    <form action="FrontController" method="post">
-                        <input type="hidden" name="command" value="EditOrderPage">
-                        <input type="hidden" name="orderToEdit" value="<%= selectedOrder.getOrderid()%>">
-                        <input type="submit" class="btn btn-primary" value="Edit">
-                    </form>
+                    <div style="float: left; padding: 5px">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="DeleteOrder">
+                            <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    </div>
+                    <div style="float: left; padding: 5px">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="EditOrderPage">
+                            <input type="hidden" name="orderToEdit" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="submit" class="btn btn-primary" value="Edit">
+                        </form>
+                    </div>
                 </div>
-
-
-
             </div>
             <% }%>
         </div>

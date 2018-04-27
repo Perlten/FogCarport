@@ -38,6 +38,8 @@ public class OrderMapper {
             String sql = "SELECT * FROM fog.order";
             if (orderid >= 0) {
                 sql += " where idorder=?";
+            }else{
+                sql += " order by idorder desc;";
             }
 
             PreparedStatement pre = con.prepareStatement(sql);

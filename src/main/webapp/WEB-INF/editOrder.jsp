@@ -60,7 +60,7 @@
                             </div>									
                             <div class="form-group"> 
                                 <label for="zip_id" class="control-label">Shed</label>
-                                <input type="checkbox" class="form-control" id="zip_id" name="shed" value="true" <%= checked%>>
+                                <input style="width: 45px" type="checkbox" class="form-control" id="zip_id" name="shed" value="true" <%= checked%>>
                             </div>		
                             <div class="form-group"> 
                                 <label for="city_id" class="control-label">Shed Length</label>

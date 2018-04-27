@@ -111,7 +111,10 @@
                                      }  
                                 %>
                                 <option value="<%= style.getId()%>" <%= selected %> > <%= style.getName()%> </option> 
-                                <%}%>
+                                <%  
+                                    selected = "";
+                                    }
+                                %>
                             </select>
                         </div>
                     </div>

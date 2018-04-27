@@ -5,6 +5,7 @@
  */
 package FunctionLayer.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -53,6 +54,11 @@ public class Order {
     public Customization getCustomization() {
         return customization;
     }
+    
+    public String simpleDate(){
+        SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        return sp.format(date.getTime());
+    }
 
     @Override
     public int hashCode() {
@@ -94,4 +100,6 @@ public class Order {
         }
         return true;
     }
+    
+    
 }

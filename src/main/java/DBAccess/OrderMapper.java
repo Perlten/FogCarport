@@ -34,11 +34,11 @@ public class OrderMapper {
     public static List<Order> getOrders(int orderid) throws LoginSampleException {
         List<Order> orderList = new ArrayList<>();
         try {
-        Connection con = Connector.connection();
-        String sql = "SELECT * FROM fog.order";
-        if (orderid >= 0) {
-            sql += " where idorder=?";
-        }
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog.order";
+            if (orderid >= 0) {
+                sql += " where idorder=?";
+            }
 
             PreparedStatement pre = con.prepareStatement(sql);
 
@@ -63,6 +63,9 @@ public class OrderMapper {
                 int height = res.getInt("height");
                 double roofangle = res.getDouble("roofangle");
                 boolean shed = res.getBoolean("shed");
+                int tile = res.getInt("tile");
+                int cladding = res.getInt("cladding");
+
                 Shed shedEntity = null;
 
                 if (shed) {
@@ -72,8 +75,6 @@ public class OrderMapper {
 
                 }
 
-                int tile = res.getInt("tile");
-                int cladding = res.getInt("cladding");
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
                 Customization customization = new Customization(length, width, height, roofangle, shedEntity);
                 Order order = new Order(idorder, confirmed, date, customer, customization);

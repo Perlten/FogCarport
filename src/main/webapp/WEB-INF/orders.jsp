@@ -54,8 +54,7 @@
 
                             </td>
                             <td><%= cust.getEmail()%></td>
-                            <% SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");%>
-                            <td><%= sp.format(order.getDate().getTime())%></td>
+                            <td><%= order.simpleDate() %></td>
                             <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
                             <td><%= cust.getPhonenumber()%></td>
                         </tr>

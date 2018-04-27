@@ -20,7 +20,7 @@ public class ShowOrder extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         try {
-            int orderid = Integer.parseInt(request.getParameter("orderToShow"));
+            int orderid = Integer.parseInt(request.getParameter("orderId"));
             Order order = LogicFacade.getOrder(orderid);
             request.setAttribute("selectedOrder", order);
         } catch (Exception e) {
@@ -28,5 +28,4 @@ public class ShowOrder extends Command {
         }
         return new GetOrders().execute(request, response);
     }
-
 }

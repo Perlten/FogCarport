@@ -48,7 +48,7 @@
                             <td>
                                 <form action="FrontController" method="post">
                                     <input type="hidden" name="command" value="ShowOrder">
-                                    <input type="hidden" name="orderToShow" value="<%= order.getOrderid()%>">
+                                    <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                                     <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
                                 </form>
 

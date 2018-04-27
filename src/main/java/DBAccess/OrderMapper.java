@@ -120,6 +120,7 @@ public class OrderMapper {
             ps.setBoolean(10, shed);
             ps.setInt(11, shedLength);
             ps.setInt(12, shedWidth);
+            //TODO We need to change order to acamendate for customazation options
             ps.setInt(13, 1);
             ps.setInt(14, 2);
             ps.setInt(15, order.getOrderid());
@@ -134,7 +135,7 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOder(int id) throws LoginSampleException {
+    public static void confirmOrder(int id) throws LoginSampleException {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -142,7 +143,6 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            //TODO: change the way i handle exceptions
             throw new LoginSampleException(ex.getMessage());
         }
     }

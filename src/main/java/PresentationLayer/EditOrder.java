@@ -45,7 +45,7 @@ public class EditOrder extends Command {
         }
         LogicFacade.changeOrder(order);
 
-        return new GetOrders().execute(request, response);
+        return new ShowOrder().execute(request, response);
     }
 
 }

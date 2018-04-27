@@ -65,7 +65,7 @@ public class OrderMapperTest {
     @Test
     public void testConfirmOder() throws LoginSampleException {
         Order order = OrderMapper.getLast();
-        OrderMapper.confirmOder(order.getOrderid());
+        OrderMapper.confirmOrder(order.getOrderid());
         Order newOrder = OrderMapper.getOrders(order.getOrderid()).get(0);
         assertEquals(newOrder.isConfirmed(), true);
     }

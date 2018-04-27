@@ -46,7 +46,7 @@ public class LogicFacade {
      * @param orderId
      */
     public static void confirmOrder(int orderId) throws LoginSampleException {
-        OrderMapper.confirmOder(orderId);
+        OrderMapper.confirmOrder(orderId);
     }
 
     /**

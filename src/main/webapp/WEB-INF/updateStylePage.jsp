@@ -38,19 +38,23 @@
 
                     <% for (StyleOption style : claddingList) {%>
                     <tbody>
-                    <td>
-                        <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="GetStyle">
-                            <input type="hidden" name="styleId" value="<%= style.getId()%>">
-                            <input type="hidden" name="type" value="cladding">
-                            <input type="submit" class="btn btn-default" value="Cladding <%= style.getId()%>">
-                        </form>
+                        <%if (selectedStyle != null && selectedStyle.equals(style)) {%>
+                        <tr class="success">
+                            <%}%>
+                            <td>
+                                <form action="FrontController" method="post">
+                                    <input type="hidden" name="command" value="GetStyle">
+                                    <input type="hidden" name="styleId" value="<%= style.getId()%>">
+                                    <input type="hidden" name="type" value="cladding">
+                                    <input type="submit" class="btn btn-default" value="Cladding <%= style.getId()%>">
+                                </form>
 
-                    </td>
-                    <td><%= style.getName()%></td>
-                    <td><%= style.getDescription()%></td>
-                    <td><%= style.getPrice()%></td>
-                    </tr>
+                            </td>
+                            <td><%= style.getName()%></td>
+                            <td><%= style.getDescription()%></td>
+                            <td><%= style.getPrice()%></td>
+                        </tr>
+                        </tr>
                     </tbody>
                     <% }%>
                 </table>
@@ -70,18 +74,22 @@
 
                     <% for (StyleOption style : tileList) {%>
                     <tbody>
-                    <td>
-                        <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="GetStyle">
-                            <input type="hidden" name="styleId" value="<%= style.getId()%>">
-                            <input type="hidden" name="type" value="tile">
-                            <input type="submit" class="btn btn-default" value="Tile <%= style.getId()%>">
-                        </form>
+                        <%if (selectedStyle != null && selectedStyle.equals(style)) {%>
+                        <tr class="success">
+                            <%}%>
+                            <td>
+                                <form action="FrontController" method="post">
+                                    <input type="hidden" name="command" value="GetStyle">
+                                    <input type="hidden" name="styleId" value="<%= style.getId()%>">
+                                    <input type="hidden" name="type" value="tile">
+                                    <input type="submit" class="btn btn-default" value="Tile <%= style.getId()%>">
+                                </form>
 
-                    </td>
-                    <td><%= style.getName()%></td>
-                    <td><%= style.getDescription()%></td>
-                    <td><%= style.getPrice()%></td>
+                            </td>
+                            <td><%= style.getName()%></td>
+                            <td><%= style.getDescription()%></td>
+                            <td><%= style.getPrice()%></td>
+                        </tr>
                     </tbody>
                     <% }%>
                 </table>
@@ -98,7 +106,7 @@
                             <input type="hidden" name="type" value="<%=type%>">
                             <label class="control-label">Name</label>
                             <input type="text" class="form-control" name="name" value="<%= selectedStyle.getName()%>">
-                            
+
                             <!--Small bug when you press edit a space is added to the start of textbox. Also need to increase text size in DB-->
                             <label class="control-label">Description</label>
                             <textarea class="form-control" rows="5" name="description"> <%=selectedStyle.getDescription()%> </textarea>

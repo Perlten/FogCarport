@@ -10,6 +10,7 @@ import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
 import PresentationLayer.Command;
+import PresentationLayer.Helper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,36 +26,40 @@ public class GiveDimentions extends Command {
             int length = Integer.parseInt(request.getParameter("length"));
             int width = Integer.parseInt(request.getParameter("width"));
             int height = Integer.parseInt(request.getParameter("height"));
-            
+
             boolean roof = Boolean.parseBoolean(request.getParameter("roof"));
-            double roofAngle = Integer.parseInt(request.getParameter("roofAngle"));
-            
+
             boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
-            int shedLenght = Integer.parseInt(request.getParameter("shedLength"));
-            int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
-            
-            if(roof){
-                if(roofAngle <= 0 || roofAngle > 89){
+
+            double roofAngle = Helper.safeDouble(request, "roofangle");
+            int shedLength = Helper.safeInt(request, "shedLength");
+            int shedWidth = Helper.safeInt(request, "shedWidth");
+
+            if (roof) {
+                if (roofAngle <= 0 || roofAngle > 89) {
                     throw new IllegalArgumentException();
                 }
             } else {
                 roofAngle = 0;
             }
-            
+
             Shed shedObj = null;
-            if(shed){
-            shedObj = new Shed(shedLenght, shedWidth);
+            if (shed) {
+                shedObj = new Shed(shedLength, shedWidth);
+            } else {
+                
             }
-            
-            
+
             Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
             Order order = new Order(null, cust);
-            
+
             request.getSession().setAttribute("order", order);
         } catch (Exception e) {
             throw new LoginSampleException("Could not submit customization!");
         }
         return "index";
     }
+
+    
 
 }

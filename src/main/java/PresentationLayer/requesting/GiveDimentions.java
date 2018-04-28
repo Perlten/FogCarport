@@ -23,15 +23,15 @@ public class GiveDimentions extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         try {
-            int length = Integer.parseInt(request.getParameter("length"));
-            int width = Integer.parseInt(request.getParameter("width"));
-            int height = Integer.parseInt(request.getParameter("height"));
+            int length = Helper.safeInt(request, "length");
+            int width = Helper.safeInt(request, "width");
+            int height = Helper.safeInt(request, "height");
 
             boolean roof = Boolean.parseBoolean(request.getParameter("roof"));
 
             boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
 
-            double roofAngle = Helper.safeDouble(request, "roofangle");
+            double roofAngle = Helper.safeDouble(request, "roofAngle");
             int shedLength = Helper.safeInt(request, "shedLength");
             int shedWidth = Helper.safeInt(request, "shedWidth");
 

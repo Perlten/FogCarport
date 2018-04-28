@@ -83,8 +83,8 @@
                             <thead>
                             <th>Id number</th>
                             <th>Length</th>
-                            <th>Height</th>
                             <th>Width</th>
+                            <th>Height</th>
                             <th>Roof angle</th>
                             <th>Shed Length</th>
                             <th>Shed width</th>
@@ -102,8 +102,8 @@
                                 <tr>
                                     <td> <%= selectedOrder.getOrderid()%> </td>
                                     <td> <%= selectedOrder.getCustomization().getLength()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
                                     <td> <%= selectedOrder.getCustomization().getWidth()%> </td>
+                                    <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
                                     <td> <%= selectedOrder.getCustomization().getRoofangle()%> </td>
                                     <td> <%= shedLength%> </td>
                                     <td> <%= shedWidth%> </td>

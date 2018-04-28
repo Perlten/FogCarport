@@ -46,42 +46,27 @@
                         <h1>Edit Dimensions</h1>
                         <div class="form-group">
                             <input type="hidden" name="command" value="EditOrder">
-                        </div>	
-                        <div class="form-group"> 
                             <label class="control-label">Length</label>
-                            <input type="number" class="form-control" name="length" value="<%= order.getCustomization().getLength()%>">
-                        </div>	
-
-                        <div class="form-group"> 
-                            <label class="control-label">Height</label>
-                            <input type="number" class="form-control" name="height" value="<%= order.getCustomization().getHeight()%>">
-                        </div>					
-
-                        <div class="form-group"> 
+                            <input type="number" class="form-control" name="length" min="0" value="<%= order.getCustomization().getLength()%>">
+                            
                             <label class="control-label">Width</label>
-                            <input type="number" class="form-control" name="width" value="<%= order.getCustomization().getWidth()%>">
-                        </div>	
+                            <input type="number" class="form-control" name="width" min="0" value="<%= order.getCustomization().getWidth()%>">
 
-                        <div class="form-group"> 
+                            <label class="control-label">Height</label>
+                            <input type="number" class="form-control" name="height" min="0" value="<%= order.getCustomization().getHeight()%>">
+
                             <label class="control-label">Roof Angle</label>
-                            <input type="number" class="form-control" name="roofAngle" value="<%= order.getCustomization().getRoofangle()%>">
-                        </div>									
-                        <div class="form-group"> 
+                            <input type="number" class="form-control" name="roofAngle" min="0" value="<%= order.getCustomization().getRoofangle()%>">
                             <label class="control-label">Shed</label>
                             <input style="width: 45px" type="checkbox" class="form-control" name="shed" value="true" <%= checked%>>
-                        </div>		
-                        <div class="form-group"> 
                             <label class="control-label">Shed Length</label>
-                            <input type="number" class="form-control" name="shedLength" value="<%= shedLength%>">
-                        </div>
-                        <div class="form-group">
+                            <input type="number" class="form-control" name="shedLength" min="0" value="<%= shedLength%>">
                             <label class="control-label">Shed Width</label>
-                            <input type="number" class="form-control" name="shedWidth" value="<%= shedWidth%>">
-                        </div>
-                        <div class="form-group">
+                            <input type="number" class="form-control" name="shedWidth" min="0" value="<%= shedWidth%>">
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>
+                        
                     <div class="col-lg-2">
                         <h1>Edit Style</h1>
                         <h2>Cladding</h2>

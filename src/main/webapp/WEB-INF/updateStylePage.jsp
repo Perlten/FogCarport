@@ -16,7 +16,8 @@
         <%
             List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");
             List<StyleOption> tileList = (List<StyleOption>) request.getAttribute("tileList");
-
+            StyleOption selectedStyle = (StyleOption) request.getAttribute("selectedStyle");
+            String type = (String) request.getAttribute("type");
         %>
     </head>
     <body>
@@ -39,8 +40,9 @@
                     <tbody>
                     <td>
                         <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="ShowOrder">
-                            <input type="hidden" name="orderId" value="<%= style.getId()%>">
+                            <input type="hidden" name="command" value="GetStyle">
+                            <input type="hidden" name="styleId" value="<%= style.getId()%>">
+                            <input type="hidden" name="type" value="cladding">
                             <input type="submit" class="btn btn-default" value="Cladding <%= style.getId()%>">
                         </form>
 
@@ -53,7 +55,7 @@
                     <% }%>
                 </table>
             </div>
-                
+
             <div class="col-lg-4">
                 <table class="table table-xstriped table-hover">
                     <h2>Tile</h2>
@@ -70,8 +72,9 @@
                     <tbody>
                     <td>
                         <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="ShowOrder">
-                            <input type="hidden" name="orderId" value="<%= style.getId()%>">
+                            <input type="hidden" name="command" value="GetStyle">
+                            <input type="hidden" name="styleId" value="<%= style.getId()%>">
+                            <input type="hidden" name="type" value="tile">
                             <input type="submit" class="btn btn-default" value="Tile <%= style.getId()%>">
                         </form>
 
@@ -79,12 +82,38 @@
                     <td><%= style.getName()%></td>
                     <td><%= style.getDescription()%></td>
                     <td><%= style.getPrice()%></td>
-                    </tr>
                     </tbody>
                     <% }%>
                 </table>
-
             </div>
+            <% if (selectedStyle != null) {%>
+            <div class="col-lg-4">
+                <div class="panel-heading">
+                    <h2><%= selectedStyle.getName()%></h2>
+                </div>
+                <form action="FrontController" method="post">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input type="hidden" name="command" value="UpdateStyle">
+                            <input type="hidden" name="type" value="<%=type%>">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" name="name" value="<%= selectedStyle.getName()%>">
+                            
+                            <!--Small bug when you press edit a space is added to the start of textbox. Also need to increase text size in DB-->
+                            <label class="control-label">Description</label>
+                            <textarea class="form-control" rows="5" name="description"> <%=selectedStyle.getDescription()%> </textarea>
+
+                            <label class="control-label">Price</label>
+                            <input type="number" class="form-control" name="price" min="0" value="<%= selectedStyle.getPrice()%>">
+
+                            <input type="hidden" name="styleId" value="<%= selectedStyle.getId()%>">
+                            <br>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <%}%>
         </div>
     </body>
 </html>

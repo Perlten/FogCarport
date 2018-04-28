@@ -42,7 +42,9 @@
                             Customer cust = order.getCustomer();
                     %>
                     <tbody>
-                        <tr <% if (order.isConfirmed()) { %>
+                        <tr <% if (order.equals(selectedOrder)){ %>
+                            class="active"
+                            <% } else if (order.isConfirmed()) { %>
                             class="success"
                             <%}%>>
                             <td>
@@ -63,9 +65,16 @@
 
                 </table>
             </div>
-            <% if (selectedOrder != null) {%>
+            <% if (selectedOrder != null) {
+                
+                String panel = "panel panel-default";
+                if(selectedOrder.isConfirmed()){
+                    panel = "panel panel-success";
+                }
+                    
+            %>
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="<%= panel %>" >
                     <div class="panel-heading">
                         <h3>Contents of Order</h3>
                     </div>

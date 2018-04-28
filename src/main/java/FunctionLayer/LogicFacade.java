@@ -110,4 +110,20 @@ public class LogicFacade {
     public static void updateTile(StyleOption tile, int id) throws DAOException {
         StyleMapper.updateTile(tile, id);
     }
+
+    public static void createCladding(StyleOption cladding) throws DAOException {
+        StyleMapper.createCladding(cladding);
+    }
+
+    public static void createTile(StyleOption tile) throws DAOException {
+        StyleMapper.createTile(tile);
+    }
+
+    public static void removeCladding(int id) throws DAOException {
+        StyleMapper.removeCladding(id);
+    }
+
+    public static void removeTile(int id) throws DAOException {
+        StyleMapper.removeTile(id);
+    }
 }

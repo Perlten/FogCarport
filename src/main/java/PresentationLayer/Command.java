@@ -7,9 +7,12 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.DAOException;
-import PresentationLayer.orders.UpdateStyle;
-import PresentationLayer.orders.getStyle;
-import PresentationLayer.orders.updateStylePage;
+import PresentationLayer.orders.style.CreateStyle;
+import PresentationLayer.orders.style.CreateStylePage;
+import PresentationLayer.orders.style.DeleteStyle;
+import PresentationLayer.orders.style.UpdateStyle;
+import PresentationLayer.orders.style.getStyle;
+import PresentationLayer.orders.style.updateStylePage;
 import PresentationLayer.requesting.GiveDimentions;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,9 @@ public abstract class Command {
         commands.put("GiveDimentions", new GiveDimentions());
         commands.put("GetStyle", new getStyle());
         commands.put("UpdateStyle", new UpdateStyle());
+        commands.put("CreateStylePage", new CreateStylePage());
+        commands.put("CreateStyle", new CreateStyle());
+        commands.put("DeleteStyle", new DeleteStyle());
     }
 
     static Command from( HttpServletRequest request ) {

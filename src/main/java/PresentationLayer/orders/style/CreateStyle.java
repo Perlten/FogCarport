@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer.orders;
+package PresentationLayer.orders.style;
 
 import FunctionLayer.DAOException;
 import FunctionLayer.LogicFacade;
@@ -16,37 +16,26 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class UpdateStyle extends Command {
+public class CreateStyle extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
 
-        int id = Integer.parseInt(request.getParameter("styleId"));
         String type = request.getParameter("type");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         double price = Double.parseDouble(request.getParameter("price"));
 
-        StyleOption selectedStyle = null;
-        if (type.equals("cladding")) {
-            selectedStyle = LogicFacade.getCladding(id);
-        }
-        if (type.equals("tile")) {
-            selectedStyle = LogicFacade.getTile(id);
-        }
-
-        selectedStyle.setName(name);
-        selectedStyle.setDescription(description);
-        selectedStyle.setPrice(price);
+        StyleOption style = new StyleOption(name, description, price);
 
         if (type.equals("cladding")) {
-            LogicFacade.updateCladding(selectedStyle, selectedStyle.getId());
+            LogicFacade.createCladding(style);
         }
         if (type.equals("tile")) {
-            LogicFacade.updateTile(selectedStyle, selectedStyle.getId());
+            LogicFacade.createTile(style);
         }
 
-        return new getStyle().execute(request, response);
+        return new updateStylePage().execute(request, response);
     }
 
 }

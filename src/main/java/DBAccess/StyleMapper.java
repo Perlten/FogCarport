@@ -118,6 +118,7 @@ public class StyleMapper {
             throw new DAOException(ex.getMessage());
         }
     }
+
     public static void updateTile(StyleOption tile, int id) throws DAOException {
         String sql = "UPDATE fog.tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
         try {
@@ -132,9 +133,28 @@ public class StyleMapper {
             throw new DAOException(ex.getMessage());
         }
     }
-    
-    public static void main(String[] args) throws DAOException {
-        StyleOption c = new StyleOption("old", "old", 1);
-        updateTile(c, 2);
+
+    public static void removeCladding(int id) throws DAOException {
+        String sql = "DELETE FROM fog.cladding WHERE idcladding = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
+
+    public static void removeTile(int id) throws DAOException {
+        String sql = "DELETE FROM fog.tile WHERE idtile = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
     }
 }

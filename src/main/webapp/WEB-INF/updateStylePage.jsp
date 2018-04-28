@@ -54,10 +54,14 @@
                             <td><%= style.getDescription()%></td>
                             <td><%= style.getPrice()%></td>
                         </tr>
-                        </tr>
                     </tbody>
                     <% }%>
                 </table>
+                <form action="FrontController" method="post">
+                    <input type="hidden" name="command" value="CreateStylePage">
+                    <input type="hidden" name="type" value="cladding">
+                    <button type="submit" class="btn btn-primary">Create new Cladding</button>
+                </form>
             </div>
 
             <div class="col-lg-4">
@@ -93,14 +97,18 @@
                     </tbody>
                     <% }%>
                 </table>
+                <form action="FrontController" method="post">
+                    <input type="hidden" name="command" value="CreateStylePage">
+                    <input type="hidden" name="type" value="tile">
+                    <button type="submit" class="btn btn-primary">Create new Tile</button>
+                </form>
             </div>
             <% if (selectedStyle != null) {%>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
                 <div class="panel-heading">
                     <h2><%= selectedStyle.getName()%></h2>
                 </div>
-                <form action="FrontController" method="post">
-                    <div class="col-lg-4">
+                    <form action="FrontController" method="post">
                         <div class="form-group">
                             <input type="hidden" name="command" value="UpdateStyle">
                             <input type="hidden" name="type" value="<%=type%>">
@@ -117,11 +125,17 @@
                             <input type="hidden" name="styleId" value="<%= selectedStyle.getId()%>">
                             <br>
                             <button type="submit" class="btn btn-primary">Update</button>
+
                         </div>
-                    </div>
-                </form>
+                    </form>
+                    <form action="FrontController" method="post">
+                        <input type="hidden" name="command" value="DeleteStyle">
+                        <input type="hidden" name="styleId" value="<%= selectedStyle.getId() %>">
+                        <input type="hidden" name="type" value="<%= type %>">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                </div>
             </div>
-            <%}%>
-        </div>
+        <%}%>
     </body>
 </html>

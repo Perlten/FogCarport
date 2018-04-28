@@ -68,38 +68,46 @@ public class LogicFacade {
     }
 
     /**
-     * 
-     * @return
-     * @throws DAOException 
+     *
+     * @return @throws DAOException
      */
     public static List<StyleOption> getCladdingList() throws DAOException {
         return StyleMapper.getCladding(-1);
     }
-    
+
     /**
-     * 
-     * @return
-     * @throws DAOException 
+     *
+     * @return @throws DAOException
      */
     public static List<StyleOption> getTileList() throws DAOException {
         return StyleMapper.getTile(-1);
     }
+
     /**
-     * 
+     *
      * @param id
      * @return
-     * @throws DAOException 
+     * @throws DAOException
      */
     public static StyleOption getCladding(int id) throws DAOException {
         return StyleMapper.getCladding(id).get(0);
     }
+
     /**
-     * 
+     *
      * @param id
      * @return
-     * @throws DAOException 
+     * @throws DAOException
      */
     public static StyleOption getTile(int id) throws DAOException {
         return StyleMapper.getTile(id).get(0);
+    }
+
+    public static void updateCladding(StyleOption cladding, int id) throws DAOException {
+        StyleMapper.updateCladding(cladding, id);
+    }
+
+    public static void updateTile(StyleOption tile, int id) throws DAOException {
+        StyleMapper.updateTile(tile, id);
     }
 }

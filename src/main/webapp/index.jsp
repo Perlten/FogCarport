@@ -72,6 +72,11 @@
             <input type="submit" value="GetOrders">
         </form>
 
+        <form action="FrontController" method="post">
+            <input type="hidden" name="command" value="UpdateStylePage">
+            <input type="submit" value="Update Style">
+        </form>
+
         <% String error = (String) request.getAttribute("error");
             if (error != null) {%>
         <H2>Error!!</h2>

@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,5 +74,67 @@ public class StyleMapper {
             throw new DAOException(ex.getMessage());
         }
         return list;
+    }
+
+    public static void createCladding(StyleOption cladding) throws DAOException {
+        String sql = "INSERT INTO fog.cladding (name, description, price) VALUES(?,?,?)";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, cladding.getName());
+            ps.setString(2, cladding.getDescription());
+            ps.setDouble(3, cladding.getPrice());
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
+
+    public static void createTile(StyleOption tile) throws DAOException {
+        String sql = "INSERT INTO fog.tile (name, description, price) VALUES(?,?,?)";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tile.getName());
+            ps.setString(2, tile.getDescription());
+            ps.setDouble(3, tile.getPrice());
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
+
+    public static void updateCladding(StyleOption cladding, int id) throws DAOException {
+        String sql = "UPDATE fog.cladding SET name = ?, description = ?, price = ? WHERE idcladding = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, cladding.getName());
+            ps.setString(2, cladding.getDescription());
+            ps.setDouble(3, cladding.getPrice());
+            ps.setInt(4, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
+    public static void updateTile(StyleOption tile, int id) throws DAOException {
+        String sql = "UPDATE fog.tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tile.getName());
+            ps.setString(2, tile.getDescription());
+            ps.setDouble(3, tile.getPrice());
+            ps.setInt(4, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
+    
+    public static void main(String[] args) throws DAOException {
+        StyleOption c = new StyleOption("old", "old", 1);
+        updateTile(c, 2);
     }
 }

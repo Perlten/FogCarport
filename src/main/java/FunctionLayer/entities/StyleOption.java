@@ -13,6 +13,10 @@ public class StyleOption {
         this.description = description;
         this.price = price;
     }
+    
+    public StyleOption(String name, String description, double price){
+        this(name, description, price, -1);
+    }
 
     @Override
     public String toString() {

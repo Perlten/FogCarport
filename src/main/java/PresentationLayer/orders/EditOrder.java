@@ -6,7 +6,7 @@
 package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.DAOException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
 
         //Dimensions
         int length = Integer.parseInt(request.getParameter("length"));
@@ -42,6 +42,7 @@ public class EditOrder extends Command {
         int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
         
         String isShed = request.getParameter("shed");
+        
         Order order = LogicFacade.getOrder(orderId);
 
         Customization c = order.getCustomization();
@@ -53,9 +54,9 @@ public class EditOrder extends Command {
         c.setTile(LogicFacade.getTile(tileId));
         
         if(isShed == null){
-            order.getCustomization().setShed(null);
+            c.setShed(null);
         }else if (isShed.equals("true")) {
-            order.getCustomization().setShed(new Shed(shedLength, shedWidth));
+            c.setShed(new Shed(shedLength, shedWidth));
         }
         
         Customer customer = order.getCustomer();

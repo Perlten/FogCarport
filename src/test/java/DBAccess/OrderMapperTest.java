@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.DAOException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;

@@ -13,10 +13,9 @@ public class LogicFacade {
      * returns all of the orders by inputing -1 in getOrders
      *
      * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws DAOException
      */
-    public static List<Order> getOrders() throws LoginSampleException {
+    public static List<Order> getOrders() throws DAOException {
         return OrderMapper.getOrders(-1);
     }
 
@@ -25,17 +24,16 @@ public class LogicFacade {
      *
      * @param orderid A valid id of an order.
      * @return if valid input, the
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws DAOException
      */
-    public static Order getOrder(int orderid) throws LoginSampleException {
+    public static Order getOrder(int orderid) throws DAOException {
         if (orderid < 0) {
             throw new IllegalArgumentException("orderid can't be negative");
         }
         return OrderMapper.getOrders(orderid).get(0);
     }
 
-    public static void makeOrder(Order order) throws LoginSampleException {
+    public static void makeOrder(Order order) throws DAOException {
         OrderMapper.MakeOrder(order);
     }
 
@@ -43,8 +41,9 @@ public class LogicFacade {
      * Confirms order
      *
      * @param orderId
+     * @throws DAOException
      */
-    public static void confirmOrder(int orderId) throws LoginSampleException {
+    public static void confirmOrder(int orderId) throws DAOException {
         OrderMapper.confirmOrder(orderId);
     }
 
@@ -52,8 +51,9 @@ public class LogicFacade {
      * Changes to order in
      *
      * @param order
+     * @throws DAOException
      */
-    public static void changeOrder(Order order) throws LoginSampleException {
+    public static void changeOrder(Order order) throws DAOException {
         OrderMapper.changeOrder(order);
     }
 
@@ -61,24 +61,45 @@ public class LogicFacade {
      * Removes shed
      *
      * @param orderId
+     * @throws DAOException
      */
-    public static void removeOrder(int orderId) throws LoginSampleException {
+    public static void removeOrder(int orderId) throws DAOException {
         OrderMapper.removeOrder(orderId);
     }
 
-    public static List<StyleOption> getCladdingList() throws LoginSampleException {
+    /**
+     * 
+     * @return
+     * @throws DAOException 
+     */
+    public static List<StyleOption> getCladdingList() throws DAOException {
         return StyleMapper.getCladding(-1);
     }
-
-    public static List<StyleOption> getTileList() throws LoginSampleException {
+    
+    /**
+     * 
+     * @return
+     * @throws DAOException 
+     */
+    public static List<StyleOption> getTileList() throws DAOException {
         return StyleMapper.getTile(-1);
     }
-
-    public static StyleOption getCladding(int id) throws LoginSampleException {
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws DAOException 
+     */
+    public static StyleOption getCladding(int id) throws DAOException {
         return StyleMapper.getCladding(id).get(0);
     }
-
-    public static StyleOption getTile(int id) throws LoginSampleException {
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws DAOException 
+     */
+    public static StyleOption getTile(int id) throws DAOException {
         return StyleMapper.getTile(id).get(0);
     }
 }

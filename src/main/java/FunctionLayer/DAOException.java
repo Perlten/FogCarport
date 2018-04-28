@@ -4,9 +4,9 @@ package FunctionLayer;
  * The purpose of LoginSampleException is to...
  * @author kasper
  */
-public class LoginSampleException extends Exception {
+public class DAOException extends Exception {
 
-    public LoginSampleException(String msg) {
+    public DAOException(String msg) {
         super(msg);
     }
     

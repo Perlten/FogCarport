@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.DAOException;
 import FunctionLayer.entities.StyleOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class StyleMapper {
 
-    public static List<StyleOption> getCladding(int id) throws LoginSampleException {
+    public static List<StyleOption> getCladding(int id) throws DAOException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from fog.cladding";
         if (id >= 0) {
@@ -44,12 +44,12 @@ public class StyleMapper {
                 list.add(new StyleOption(name, description, price, Claddingid));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
         return list;
     }
 
-    public static List<StyleOption> getTile(int id) throws LoginSampleException {
+    public static List<StyleOption> getTile(int id) throws DAOException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from fog.tile";
         if (id >= 0) {
@@ -72,12 +72,8 @@ public class StyleMapper {
                 list.add(new StyleOption(name, description, price, tileId));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

@@ -6,7 +6,7 @@ import PresentationLayer.orders.EditOrder;
 import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.DAOException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +34,6 @@ public abstract class Command {
     }
 
     public abstract String execute( HttpServletRequest request, HttpServletResponse response ) 
-            throws LoginSampleException;
+            throws DAOException;
 
 }

@@ -4,10 +4,10 @@ public class StyleOption {
     
     private String name;
     private String description;
-    private int price;
+    private double price;
     private int id;
 
-    public StyleOption(String name, String description, int price, int id) {
+    public StyleOption(String name, String description, double price, int id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,7 +39,7 @@ public class StyleOption {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

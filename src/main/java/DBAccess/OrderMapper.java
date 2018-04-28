@@ -1,7 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.DAOException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -31,9 +31,9 @@ public class OrderMapper {
      *
      * @param orderid under 0 for all orders. 0 or over for a specific order
      * @return A list of orders
-     * @throws LoginSampleException
+     * @throws DAOException
      */
-    public static List<Order> getOrders(int orderid) throws LoginSampleException {
+    public static List<Order> getOrders(int orderid) throws DAOException {
         List<Order> orderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
@@ -67,12 +67,12 @@ public class OrderMapper {
                 int height = res.getInt("height");
                 double roofangle = res.getDouble("roofangle");
                 boolean shed = res.getBoolean("shed");
-                
+
                 int tile = res.getInt("tile");
                 int cladding = res.getInt("cladding");
                 StyleOption claddingStyle = LogicFacade.getCladding(cladding);
                 StyleOption tileStyle = LogicFacade.getTile(tile);
-                
+
                 Shed shedEntity = null;
                 if (shed) {
                     int shedLength = res.getInt("shed_length");
@@ -80,7 +80,6 @@ public class OrderMapper {
                     shedEntity = new Shed(shedLength, shedWidth);
 
                 }
-
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
                 Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
                 Order order = new Order(idorder, confirmed, date, customer, customization);
@@ -88,8 +87,7 @@ public class OrderMapper {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-//            throw new LoginSampleException(e.getMessage());
+            throw new DAOException(e.getMessage());
         }
         return orderList;
     }
@@ -99,7 +97,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void changeOrder(Order order) throws LoginSampleException {
+    public static void changeOrder(Order order) throws DAOException {
         String sql = "UPDATE fog.order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
                 + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
@@ -133,7 +131,7 @@ public class OrderMapper {
             ps.setInt(15, order.getOrderid());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 
@@ -142,7 +140,7 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOrder(int id) throws LoginSampleException {
+    public static void confirmOrder(int id) throws DAOException {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -150,11 +148,11 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 
-    public static void removeOrder(int orderId) throws LoginSampleException {
+    public static void removeOrder(int orderId) throws DAOException {
         String sql = "DELETE FROM fog.order WHERE idorder = ?";
         try {
             Connection con = Connector.connection();
@@ -162,7 +160,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 
@@ -171,7 +169,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) throws LoginSampleException {
+    public static void MakeOrder(Order order) throws DAOException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -201,22 +199,22 @@ public class OrderMapper {
             ps.setInt(13, 1);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 
-    public static void removeLast() throws LoginSampleException {
+    public static void removeLast() throws DAOException {
         String sql = "delete from fog.order"
                 + " order by idorder desc limit 1";
         try {
             Statement state = Connector.connection().createStatement();
             state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 
-    public static Order getLast() throws LoginSampleException {
+    public static Order getLast() throws DAOException {
         String sql = "select idorder from fog.order"
                 + " order by idorder desc limit 1";
         try {
@@ -226,7 +224,7 @@ public class OrderMapper {
             List<Order> list = getOrders(rs.getInt("idorder"));
             return list.get(0);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new DAOException(ex.getMessage());
         }
     }
 }

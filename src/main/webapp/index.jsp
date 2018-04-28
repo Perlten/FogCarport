@@ -4,6 +4,9 @@
     Author     : kasper
 --%>
 
+<%@page import="FunctionLayer.entities.Shed"%>
+<%@page import="FunctionLayer.entities.Customization"%>
+<%@page import="FunctionLayer.entities.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +14,34 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customize Carport - Enter Dimentions</title>
         <%@include file="bootstrap.jsp" %>
+        <% Order order = (Order) session.getAttribute("order");
+
+            Customization cust = null;
+            Shed shed = null;
+
+            String length = "", width = "", height = "";
+            String roofAngle = "";
+            String shedLength = "", shedWidth = "";
+
+            if (order != null) {
+                cust = order.getCustomization();
+                if (cust != null) {
+                    length = "" + cust.getLength();
+                    width = "" + cust.getWidth();
+                    height = "" + cust.getHeight();
+                    if (cust.getRoofangle() > 0) {
+                        roofAngle = "" + cust.getRoofangle();
+
+                    }
+                    shed = cust.getShed();
+                    if (shed != null) {
+                        shedLength = "" + shed.getLength();
+                        shedWidth = "" + shed.getWidth();
+                    }
+                }
+
+            }
+        %>
 
     </head>
     <body>
@@ -28,25 +59,71 @@
                         <form name="configure" action="FrontController" method="POST" >
 
 
-                            <input type="hidden" name="command" value="configure">
-
+                            <input type="hidden" name="command" value="GiveDimentions">
                             <label>
-                                Length<br>
-                                <input type="number" class="form-control" name="length" placeholder="min. X">
+                                <h4>Carport Options</h4>
+
+                                <label>
+                                    Length<br>
+                                    <input type="number" class="form-control" name="length"  min="0" placeholder="cm" value="<%= length%>">
+                                </label>
+                                <br>
+
+                                <label>
+                                    Width
+                                    <input type="number" class="form-control" name="width" min="0" placeholder="cm" value="<%= width%>">
+                                </label>
+                                <br>
+
+                                <label>
+                                    Height
+                                    <input type="number" class="form-control" name="height" min="0" placeholder="cm" value="<%= height%>">
+                                </label>
                             </label>
                             <br>
+                            <br>
+                            <label><h4>Roof Options</h4>
+                                <label class="form-control">
+                                    <input type="checkbox" name="roof" value="true" <%
+                                        if (cust != null) {
+                                            if (cust.getRoofangle() > 0) {
+                                                out.print("checked");
+                                            }
+                                        }
+                                           %>> Angled Roof
+                                </label>
 
-                            <label>
-                                Width
-                                <input type="number" class="form-control" name="width" placeholder="min. X">
+                                <label>
+                                    Roof Angle
+                                    <input type="number" class="form-control" name="roofAngle" min="0" max="89" placeholder="°" value="<%= roofAngle %>">
+                                </label>
                             </label>
                             <br>
-
-                            <label>
-                                Height
-                                <input type="number" class="form-control" name="height" placeholder="min. X">
-                            </label>
                             <br>
+                            <label>
+                                <h4>Shed Options</h4>
+                                <label class="form-control">
+                                    <input type="checkbox" name="shed" value="true" <%
+                                        if (cust != null) {
+                                            if (cust.getShed() != null) {
+                                                out.print("checked");
+                                            }
+                                        }
+                                           %>> Shed
+                                </label>
+
+                                <label>
+                                    Shed Length
+                                    <input type="number" class="form-control" name="shedLength" min="0" placeholder="cm" value="<%= shedLength %>" >
+                                </label>
+
+                                <br>
+
+                                <label>
+                                    Shed Width
+                                    <input type="number" class="form-control" name="shedWidth" min="0" placeholder="cm" value="<%= shedWidth %>">
+                                </label>
+                            </label>
 
                             <br><br>
                             <input type="submit" class="btn btn-primary" value="Style">

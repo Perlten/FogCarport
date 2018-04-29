@@ -26,11 +26,11 @@
             <div class="cloud x5"></div>
         </div>
         <div class='c'>
-            <div style="color: red" class='_1'>Unfortunately you have an error. Our monkeys are working hard to resolve it. we apologize </div>
+            <div style="color: darkblue" class='_1'>Unfortunately we have an error. Our monkeys are working hard to resolve it. we apologize </div>
             <br>
             <br>
             <br>
-            <div style="color: red" class='_1'><%= error%></div>
+            <div style="color: darkblue" class='_1'><%= error%></div>
             <br>
             <br>
             <button class="btn btn-primary" onclick="goBack()">Go Back</button>

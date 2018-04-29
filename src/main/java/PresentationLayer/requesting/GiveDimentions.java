@@ -63,7 +63,7 @@ public class GiveDimentions extends Command {
         } catch (Exception e) {
             throw new DAOException("Could not submit customization!");
         }
-        return "index";
+        return new Styling().execute(request, response);
     }
 
     

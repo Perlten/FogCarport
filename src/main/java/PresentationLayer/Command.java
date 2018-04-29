@@ -8,6 +8,7 @@ import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.DAOException;
 import PresentationLayer.requesting.GiveDimentions;
+import PresentationLayer.requesting.Styling;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ public abstract class Command {
         commands.put("EditOrderPage", new EditOrderPage());
         commands.put("EditOrder", new EditOrder());
         commands.put("GiveDimentions", new GiveDimentions());
+        commands.put("Styling", new Styling());
     }
 
     static Command from( HttpServletRequest request ) {

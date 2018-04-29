@@ -15,7 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Used to submit the dimentions from indexpage.
+ * 
+ * If no roof is selected the angle is just set 0.
+ * 
+ * If an input is missing it will just be set to 0
+ * 
+ * 
  * @author adamlass
  */
 public class GiveDimentions extends Command {
@@ -46,10 +52,10 @@ public class GiveDimentions extends Command {
             Shed shedObj = null;
             if (shed) {
                 shedObj = new Shed(shedLength, shedWidth);
-            } else {
-                
             }
+                
 
+            //TODO Save customization Options
             Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
             Order order = new Order(null, cust);
 

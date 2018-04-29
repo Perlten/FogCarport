@@ -25,7 +25,7 @@ public class Styling extends Command {
             List<StyleOption> claddings = LogicFacade.getCladdingList();
             request.setAttribute("claddings", claddings);
             List<StyleOption> tiles = LogicFacade.getTileList() ;
-            request.setAttribute("tiles", claddings);
+            request.setAttribute("tiles", tiles);
         } catch (Exception e) {
             throw new DAOException("StyleOptions could not load!");
         }

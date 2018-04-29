@@ -46,7 +46,6 @@
     </head>
     <body>
         <h1>Customize Carport</h1>
-
         <div>
             <div class="col-lg-6">
                 <div class="panel panel-default">

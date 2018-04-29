@@ -19,6 +19,7 @@
     </head>
     <body>
         <h1>Styling</h1>
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="panel panel-default">
@@ -35,11 +36,25 @@
                             <label>
                                 <div class="panel panel-default">
                                     <label>
-                                        <img src="../content/cladding.jpeg" alt="cladding"/>
+                                        <div class="panel-body" margin="0px"><%= option.getName()%></div>
+                                        <input type="radio" name="cladding" value="<%= option.getId()%>">
+                                        <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+
+                                    </label>
+
+                                </div>
+                            </label>
+                            <%}%>
+                        </div>
+                        <div>
+                            <h4>Tiles</h4>
+                            <% for (StyleOption option : tiles) {%>
+                            <label>
+                                <div class="panel panel-default">
+                                    <label>
                                         <div class="panel-body"><%= option.getName()%></div>
-
-
-                                        <input type="radio" name="cladding" value="true">
+                                        
+                                        <input type="radio" name="tiles" value="<%= option.getId()%>">
                                         <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
                                     </label>

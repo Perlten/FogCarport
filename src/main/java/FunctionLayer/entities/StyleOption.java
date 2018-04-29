@@ -3,7 +3,7 @@ package FunctionLayer.entities;
 import java.util.Objects;
 
 public class StyleOption {
-    
+
     private String name;
     private String description;
     private double price;
@@ -15,9 +15,17 @@ public class StyleOption {
         this.description = description;
         this.price = price;
     }
-    
-    public StyleOption(String name, String description, double price){
+
+    public StyleOption(String name, String description, double price) {
         this(name, description, price, -1);
+    }
+
+    public String getShortDescription() {
+        if (description.length() >= 20) {
+            return description.substring(0, 20) + "...";
+        } else {
+            return description;
+        }
     }
 
     @Override
@@ -57,7 +65,6 @@ public class StyleOption {
         return true;
     }
 
-    
     @Override
     public String toString() {
         return "StyleOption{" + "name=" + name + ", description=" + description + ", price=" + price + '}';
@@ -66,7 +73,7 @@ public class StyleOption {
     public int getId() {
         return id;
     }
-    
+
     public String getName() {
         return name;
     }

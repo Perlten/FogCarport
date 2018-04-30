@@ -87,7 +87,10 @@ public class Customization {
     public void setShed(Shed shed) {
         this.shed = shed;
     }
+    
+    
 
+    
     @Override
     public String toString() {
         return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';

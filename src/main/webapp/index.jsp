@@ -57,7 +57,6 @@
 
                         <form name="configure" action="FrontController" method="POST" >
 
-
                             <input type="hidden" name="command" value="GiveDimentions">
                             <label>
                                 <h4>Carport Options</h4>

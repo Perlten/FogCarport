@@ -4,6 +4,8 @@
     Author     : adamlass
 --%>
 
+<%@page import="FunctionLayer.entities.Customization"%>
+<%@page import="FunctionLayer.entities.Order"%>
 <%@page import="java.util.List"%>
 <%@page import="FunctionLayer.entities.StyleOption"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,6 +17,16 @@
         <%@include file="../bootstrap.jsp" %>
         <% List<StyleOption> claddings = (List<StyleOption>) request.getAttribute("claddings");
             List<StyleOption> tiles = (List<StyleOption>) request.getAttribute("tiles");
+            Order order = (Order) session.getAttribute("order");
+            StyleOption cladding = null;
+            StyleOption tile = null;
+            if (order != null) {
+                Customization cust = order.getCustomization();
+                if (cust != null) {
+                    cladding = cust.getCladding();
+                    tile = cust.getTile();
+                }
+            }
         %>
     </head>
     <body>
@@ -26,9 +38,8 @@
                     <div class="panel-heading">
                         <h4>Choose your styling!</h4>
                     </div>
-
-                    <form action="LogicFacade" method="post">
-                        <input type="hidden" name="command" value="Style">
+                    <form action="FrontController" method="POST" >
+                        <input type="hidden" name="command" value="GiveStyling">
 
                         <div>
                             <h4>Cladding</h4>
@@ -36,7 +47,13 @@
                             <label>
                                 <div class="panel panel-default">
                                     <label>
-                                        <div class="panel-body" margin="0px"><%= option.getName()%></div>
+                                         <blockquote>
+                                            <p><%= option.getName()%></p>
+                                        </blockquote>
+                                        <div class="panel-body">
+                                            <p class="text-muted"><%= option.getDescription()%></p>
+                                        </div>
+
                                         <input type="radio" name="cladding" value="<%= option.getId()%>">
                                         <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
@@ -52,9 +69,14 @@
                             <label>
                                 <div class="panel panel-default">
                                     <label>
-                                        <div class="panel-body"><%= option.getName()%></div>
-                                        
-                                        <input type="radio" name="tiles" value="<%= option.getId()%>">
+                                        <blockquote>
+                                            <p><%= option.getName()%></p>
+                                        </blockquote>
+                                        <div class="panel-body">
+                                            <p class="text-muted"><%= option.getDescription()%></p>
+                                        </div>
+
+                                        <input type="radio" name="tile" value="<%= option.getId()%>">
                                         <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
                                     </label>
@@ -65,6 +87,9 @@
                         </div>
                         <input type="submit" value="Next">
                     </form>
+                    <%= cladding%> 
+                    <br>
+                    <%= tile%>
 
                 </div>
             </div>

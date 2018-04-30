@@ -14,6 +14,7 @@ import PresentationLayer.orders.style.UpdateStyle;
 import PresentationLayer.orders.style.getStyle;
 import PresentationLayer.orders.style.updateStylePage;
 import PresentationLayer.requesting.GiveDimentions;
+import PresentationLayer.requesting.GiveStyling;
 import PresentationLayer.requesting.Styling;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public abstract class Command {
         commands.put("CreateStylePage", new CreateStylePage());
         commands.put("CreateStyle", new CreateStyle());
         commands.put("DeleteStyle", new DeleteStyle());
+        commands.put("GiveStyling", new GiveStyling());
     }
 
     static Command from( HttpServletRequest request ) {

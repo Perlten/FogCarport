@@ -1,9 +1,3 @@
-<%-- 
-    Document   : orders
-    Created on : 26-04-2018, 08:48:00
-    Author     : adamlass
---%>
-
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="FunctionLayer.entities.Customer"%>
 <%@page import="java.util.List"%>

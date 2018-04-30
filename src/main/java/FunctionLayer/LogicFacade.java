@@ -90,7 +90,10 @@ public class LogicFacade {
      * @throws DAOException
      */
     public static StyleOption getCladding(int id) throws DAOException {
-        return StyleMapper.getCladding(id).get(0);
+        if (!StyleMapper.getCladding(id).isEmpty()) {
+            return StyleMapper.getCladding(id).get(0);
+        }
+        return null;
     }
 
     /**
@@ -100,7 +103,10 @@ public class LogicFacade {
      * @throws DAOException
      */
     public static StyleOption getTile(int id) throws DAOException {
-        return StyleMapper.getTile(id).get(0);
+        if (!StyleMapper.getTile(id).isEmpty()) {
+            return StyleMapper.getTile(id).get(0);
+        }
+        return null;
     }
 
     public static void updateCladding(StyleOption cladding, int id) throws DAOException {

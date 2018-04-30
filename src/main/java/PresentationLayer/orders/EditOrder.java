@@ -25,6 +25,8 @@ public class EditOrder extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
 
         //Dimensions
+        try {
+            
         int length = Integer.parseInt(request.getParameter("length"));
         int height = Integer.parseInt(request.getParameter("height"));
         int width = Integer.parseInt(request.getParameter("width"));
@@ -67,6 +69,9 @@ public class EditOrder extends Command {
         
         LogicFacade.changeOrder(order);
 
+        } catch (NumberFormatException e) {
+            throw new DAOException("Cannot have empty style option");
+        }
         return new ShowOrder().execute(request, response);
     }
 

@@ -48,7 +48,7 @@
                             <input type="hidden" name="command" value="EditOrder">
                             <label class="control-label">Length</label>
                             <input type="number" class="form-control" name="length" min="0" value="<%= order.getCustomization().getLength()%>">
-                            
+
                             <label class="control-label">Width</label>
                             <input type="number" class="form-control" name="width" min="0" value="<%= order.getCustomization().getWidth()%>">
 
@@ -66,22 +66,25 @@
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>
-                        
+
                     <div class="col-lg-2">
                         <h1>Edit Style</h1>
                         <h2>Cladding</h2>
                         <div class="form-group">
                             <select name="cladding">
+                                <%if (order.getCustomization().getCladding() == null) {%>
+                                <option value="" selected/>
+                                <%}%>
                                 <%
                                     String selected = "";
                                     for (StyleOption style : claddingList) {
-                                     if(style.getId() == order.getCustomization().getCladding().getId()){
-                                         selected = "selected";
-                                     }  
+                                        if (order.getCustomization().getCladding() != null && style.getId() == order.getCustomization().getCladding().getId()) {
+                                            selected = "selected";
+                                        }
                                 %>
-                                <option value="<%= style.getId()%>" <%= selected %> > <%= style.getName()%> </option>
-                                <%  
-                                    selected = "";
+                                <option value="<%= style.getId()%>" <%= selected%> > <%= style.getName()%> </option>
+                                <%
+                                        selected = "";
                                     }
                                 %>
                             </select>
@@ -89,15 +92,18 @@
                         <h2>Tile</h2>
                         <div class="form-group">
                             <select name="tile">
-                                 <%
+                                <%if (order.getCustomization().getTile() == null) {%>
+                                <option value="" selected/>
+                                <%}%>
+                                <%
                                     for (StyleOption style : tileList) {
-                                     if(style.getId() == order.getCustomization().getTile().getId()){
-                                         selected = "selected";
-                                     }  
+                                        if (order.getCustomization().getTile() != null && style.getId() == order.getCustomization().getTile().getId()) {
+                                            selected = "selected";
+                                        }
                                 %>
-                                <option value="<%= style.getId()%>" <%= selected %> > <%= style.getName()%> </option> 
-                                <%  
-                                    selected = "";
+                                <option value="<%= style.getId()%>" <%= selected%> > <%= style.getName()%> </option> 
+                                <%
+                                        selected = "";
                                     }
                                 %>
                             </select>

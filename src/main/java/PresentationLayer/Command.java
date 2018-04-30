@@ -10,6 +10,7 @@ import FunctionLayer.DAOException;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
 import PresentationLayer.orders.style.DeleteStyle;
+import PresentationLayer.orders.style.MakeSVG;
 import PresentationLayer.orders.style.UpdateStyle;
 import PresentationLayer.orders.style.getStyle;
 import PresentationLayer.orders.style.updateStylePage;
@@ -41,6 +42,7 @@ public abstract class Command {
         commands.put("CreateStyle", new CreateStyle());
         commands.put("DeleteStyle", new DeleteStyle());
         commands.put("GiveStyling", new GiveStyling());
+        commands.put("MakeSVG", new MakeSVG());
     }
 
     static Command from( HttpServletRequest request ) {

@@ -151,6 +151,10 @@
             <input type="hidden" name="command" value="UpdateStylePage">
             <input type="submit" value="Update Style">
         </form>
+        <form action="FrontController" method="post">
+            <input type="hidden" name="command" value="MakeSVG">
+            <input type="submit" value="SVG">
+        </form>
 
         <% String error = (String) request.getAttribute("error");
             if (error != null) {%>

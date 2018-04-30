@@ -15,6 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Styling</title>
         <%@include file="../bootstrap.jsp" %>
+        <link href="tooltip.css" rel="stylesheet" type="text/css"/>
+
         <% List<StyleOption> claddings = (List<StyleOption>) request.getAttribute("claddings");
             List<StyleOption> tiles = (List<StyleOption>) request.getAttribute("tiles");
             Order order = (Order) session.getAttribute("order");
@@ -47,11 +49,15 @@
                             <label>
                                 <div class="panel panel-default">
                                     <label>
-                                         <blockquote>
+                                        <blockquote>
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <p class="text-muted"><%= option.getDescription()%></p>
+                                            <div class="tooltip">
+                                                <p><%= option.getShortDescription()%></p>
+                                                <span class="tooltiptext">Tooltip text</span>
+                                                <p class="text-muted"><%= option.getShortDescription()%></p>
+                                            </div>
                                         </div>
 
                                         <input type="radio" name="cladding" value="<%= option.getId()%>">
@@ -73,7 +79,7 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <p class="text-muted"><%= option.getDescription()%></p>
+                                            <p class="text-muted"><%= option.getShortDescription()%></p>
                                         </div>
 
                                         <input type="radio" name="tile" value="<%= option.getId()%>">

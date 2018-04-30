@@ -53,11 +53,7 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <div class="tooltip">
-                                                <p><%= option.getShortDescription()%></p>
-                                                <span class="tooltiptext">Tooltip text</span>
-                                                <p class="text-muted"><%= option.getShortDescription()%></p>
-                                            </div>
+                                            <p class="text-muted"><%= option.getShortDescription()%></p>
                                         </div>
 
                                         <input type="radio" name="cladding" value="<%= option.getId()%>">
@@ -93,9 +89,7 @@
                         </div>
                         <input type="submit" value="Next">
                     </form>
-                    <%= cladding%> 
-                    <br>
-                    <%= tile%>
+                 
 
                 </div>
             </div>

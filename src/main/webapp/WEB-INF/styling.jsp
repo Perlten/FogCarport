@@ -15,7 +15,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Styling</title>
         <%@include file="../bootstrap.jsp" %>
-        <link href="tooltip.css" rel="stylesheet" type="text/css"/>
 
         <% List<StyleOption> claddings = (List<StyleOption>) request.getAttribute("claddings");
             List<StyleOption> tiles = (List<StyleOption>) request.getAttribute("tiles");
@@ -32,6 +31,18 @@
         %>
     </head>
     <body>
+        <script>
+            function soren(id) {
+                var x = document.getElementById(id);
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                    
+                }
+            }
+        </script>
+
         <h1>Styling</h1>
 
         <div class="row">
@@ -53,7 +64,9 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <p class="text-muted"><%= option.getShortDescription()%></p>
+                                            <% String divid = "div" + option.hashCode(); %>
+                                            <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
                                         </div>
 
                                         <input type="radio" name="cladding" value="<%= option.getId()%>">
@@ -75,12 +88,13 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <p class="text-muted"><%= option.getShortDescription()%></p>
+                                            <% String divid = "div" + option.hashCode(); %>
+                                            <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
                                         </div>
 
                                         <input type="radio" name="tile" value="<%= option.getId()%>">
                                         <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
-
                                     </label>
 
                                 </div>
@@ -89,7 +103,7 @@
                         </div>
                         <input type="submit" value="Next">
                     </form>
-                 
+
 
                 </div>
             </div>

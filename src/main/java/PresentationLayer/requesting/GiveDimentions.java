@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Used to submit the dimentions from indexpage.
- * 
+ *
  * If no roof is selected the angle is just set 0.
- * 
+ *
  * If an input is missing it will just be set to 0
- * 
- * 
+ *
+ *
  * @author adamlass
  */
 public class GiveDimentions extends Command {
@@ -53,7 +53,6 @@ public class GiveDimentions extends Command {
             if (shed) {
                 shedObj = new Shed(shedLength, shedWidth);
             }
-                
 
             //TODO Save customization Options
             Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
@@ -63,9 +62,8 @@ public class GiveDimentions extends Command {
         } catch (Exception e) {
             throw new DAOException("Could not submit customization!");
         }
-        return new Styling().execute(request, response);
+//        return new Styling().execute(request, response);
+        return "SVGleg";
     }
-
-    
 
 }

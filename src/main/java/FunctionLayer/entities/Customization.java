@@ -21,6 +21,10 @@ public class Customization {
     private Shed shed;
     private StyleOption cladding;
     private StyleOption tile;
+    
+    public static final int padding = 30;
+    //TODO find translation
+    public static final int rem = 5;
 
     public Customization(int length, int width, int height, double roofangle, Shed shed, StyleOption cladding, StyleOption tile) {
         this.length = length;

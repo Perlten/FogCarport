@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 package DBAccess;
-
-import FunctionLayer.DAOException;
-import FunctionLayer.entities.Customer;
-import FunctionLayer.entities.Customization;
-import FunctionLayer.entities.Order;
-import FunctionLayer.entities.Shed;
-import java.util.List;
-import org.junit.*;
-import org.junit.Test;
-import static org.junit.Assert.*;
+//
+//import FunctionLayer.DAOException;
+//import FunctionLayer.entities.Customer;
+//import FunctionLayer.entities.Customization;
+//import FunctionLayer.entities.Order;
+//import FunctionLayer.entities.Shed;
+//import java.util.List;
+//import org.junit.*;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
 
 public class OrderMapperTest {
 

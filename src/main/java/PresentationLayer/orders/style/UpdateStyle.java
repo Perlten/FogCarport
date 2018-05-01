@@ -46,7 +46,7 @@ public class UpdateStyle extends Command {
             LogicFacade.updateTile(selectedStyle, selectedStyle.getId());
         }
 
-        return new getStyle().execute(request, response);
+        return new GetStyle().execute(request, response);
     }
 
 }

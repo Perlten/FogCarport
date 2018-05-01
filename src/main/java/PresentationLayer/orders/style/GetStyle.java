@@ -7,7 +7,7 @@ import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class getStyle extends Command {
+public class GetStyle extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {

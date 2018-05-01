@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FunctionLayer.entities;
 
 import java.util.Objects;
 
-/**
- * Holds the information of the customization of a carport.
- *
- * @author adamlass
- */
 public class Customization {
 
     private int length;
@@ -91,8 +81,6 @@ public class Customization {
     public void setShed(Shed shed) {
         this.shed = shed;
     }
-    
-    
 
     
     @Override

@@ -35,7 +35,8 @@ public class GiveStyling extends Command{
         } catch (Exception e) {
             throw new DAOException("Could not submit styling");
         }
-        return new Styling().execute(request, response);
+        return "WEB-INF/credentialsPage";
+//        return new Styling().execute(request, response);
     }
     
     

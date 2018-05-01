@@ -55,8 +55,10 @@ public class Order {
     public Customization getCustomization() {
         return customization;
     }
-    
-   
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     
     public String simpleDate(){
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");

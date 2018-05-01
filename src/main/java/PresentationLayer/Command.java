@@ -13,6 +13,7 @@ import PresentationLayer.orders.style.DeleteStyle;
 import PresentationLayer.orders.style.UpdateStyle;
 import PresentationLayer.orders.style.getStyle;
 import PresentationLayer.orders.style.updateStylePage;
+import PresentationLayer.requesting.GiveCredentials;
 import PresentationLayer.requesting.GiveDimentions;
 import PresentationLayer.requesting.GiveStyling;
 import PresentationLayer.requesting.Styling;
@@ -41,6 +42,7 @@ public abstract class Command {
         commands.put("CreateStyle", new CreateStyle());
         commands.put("DeleteStyle", new DeleteStyle());
         commands.put("GiveStyling", new GiveStyling());
+        commands.put("GiveCredentials", new GiveCredentials());
     }
 
     static Command from( HttpServletRequest request ) {

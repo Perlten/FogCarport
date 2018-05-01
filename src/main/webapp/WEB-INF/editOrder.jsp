@@ -17,8 +17,6 @@
                 width: 125px;
                 border-radius: 55px;
             }
-
-
         </style>
     </head>
     <body>
@@ -60,9 +58,9 @@
                             <label class="control-label">Shed</label>
                             <input style="width: 45px" type="checkbox" class="form-control" name="shed" value="true" <%= checked%>>
                             <label class="control-label">Shed Length</label>
-                            <input type="number" class="form-control" name="shedLength" min="0" value="<%= shedLength%>">
+                            <input type="number" class="form-control" name="shedLength" min="0" max="<%= order.getCustomization().getLength()%>" value="<%= shedLength%>">
                             <label class="control-label">Shed Width</label>
-                            <input type="number" class="form-control" name="shedWidth" min="0" value="<%= shedWidth%>">
+                            <input type="number" class="form-control" name="shedWidth" min="0" max="<%= order.getCustomization().getWidth()- 60 %>" value="<%= shedWidth%>">
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>

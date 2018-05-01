@@ -11,9 +11,9 @@ public class ConfirmOrder extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
-        int orderId = Integer.parseInt(request.getParameter("orderToConfirm"));
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
         LogicFacade.confirmOrder(orderId);
-        return new GetOrders().execute(request, response);
+        return new ShowOrder().execute(request, response);
     }
     
 }

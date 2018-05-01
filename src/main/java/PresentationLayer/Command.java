@@ -7,6 +7,7 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.DAOException;
+import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
 import PresentationLayer.orders.style.DeleteStyle;
@@ -43,6 +44,7 @@ public abstract class Command {
         commands.put("DeleteStyle", new DeleteStyle());
         commands.put("GiveStyling", new GiveStyling());
         commands.put("GiveCredentials", new GiveCredentials());
+        commands.put("Unconfirm", new Unconfirm());
     }
 
     static Command from( HttpServletRequest request ) {

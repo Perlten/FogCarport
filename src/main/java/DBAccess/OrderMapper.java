@@ -151,6 +151,18 @@ public class OrderMapper {
             throw new DAOException(ex.getMessage());
         }
     }
+    
+    public static void unconfirmOrder(int id) throws DAOException{
+         String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DAOException(ex.getMessage());
+        }
+    }
 
     public static void removeOrder(int orderId) throws DAOException {
         String sql = "DELETE FROM fog.order WHERE idorder = ?";

@@ -21,7 +21,8 @@ li{
 }
 
 li a:hover {
-    background-color: darkblue;
+    background-color: activeborder;
+    text-decoration: none;
 }
 
 li .active {

@@ -134,21 +134,20 @@ public class StyleMapper {
         }
     }
 
-    public static void removeCladding(int id) throws FOGException {
-        String sql = "DELETE FROM fog.cladding WHERE idcladding = ?";
-        try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new FOGException(ex.getMessage());
-        }
-    }
+//    public static void removeCladding(int id) throws FOGException {
+//        String sql = "DELETE FROM fog.cladding WHERE idcladding = ?";
+//        try {
+//            Connection con = Connector.connection();
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ps.execute();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new FOGException(ex.getMessage());
+//        }
+//    }
 
-    public static void removeTile(int id) throws FOGException {
-        //TODO: merge with removeCladding
-        String sql = "DELETE FROM fog.tile WHERE idtile = ?";
+    public static void removeStyleOption(int id, String type) throws FOGException {
+        String sql = "DELETE FROM fog." + type + " WHERE id" + type + " = ?";
         try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);

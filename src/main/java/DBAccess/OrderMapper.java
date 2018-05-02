@@ -206,9 +206,8 @@ public class OrderMapper {
             ps.setBoolean(9, shed);
             ps.setInt(10, shedLength);
             ps.setInt(11, shedWidth);
-            //TODO: change order to incorporate tile and cladding
-            ps.setInt(12, 1);
-            ps.setInt(13, 1);
+            ps.setInt(12, order.getCustomization().getTile().getId());
+            ps.setInt(13, order.getCustomization().getCladding().getId());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
             throw new FOGException(ex.getMessage());

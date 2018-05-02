@@ -130,10 +130,10 @@ public class LogicFacade {
     }
 
     public static void removeCladding(int id) throws FOGException {
-        StyleMapper.removeCladding(id);
+        StyleMapper.removeStyleOption(id, "cladding");
     }
 
     public static void removeTile(int id) throws FOGException {
-        StyleMapper.removeTile(id);
+        StyleMapper.removeStyleOption(id, "tile");
     }
 }

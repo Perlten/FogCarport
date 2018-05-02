@@ -10,12 +10,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
         <%
-            Order order = (Order) request.getSession().getAttribute("order");
+            Order order = (Order) request.getAttribute("order");
+            
+            if(order == null){
+                order = (Order) request.getSession().getAttribute("order");
+            }
+            
             Customization cust = order.getCustomization();
             int length = cust.getLength();
             int width = cust.getWidth();
             int padding = Customization.padding;
-            int rem = Customization.rem;
+            int rem = Customization.beam;
 
         %>
 

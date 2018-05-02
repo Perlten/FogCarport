@@ -54,7 +54,6 @@ public class GiveDimentions extends Command {
                 shedObj = new Shed(shedLength, shedWidth);
             }
 
-            //TODO Save customization Options
             Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
             Order order = new Order(null, cust);
 

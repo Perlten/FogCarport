@@ -17,7 +17,6 @@
 //import static org.junit.Assert.*;
 //
 //public class OrderMapperTest {
-
 //    private static Order order1 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2), new StyleOption("test", "test2", 40), new StyleOption("test2", "test2", 55)));
 //    private static Order order2 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2), new StyleOption("test", "test2", 40), new StyleOption("test2", "test2", 55)));
 ////    private static int size;

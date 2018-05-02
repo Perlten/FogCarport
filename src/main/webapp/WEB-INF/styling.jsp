@@ -38,7 +38,7 @@
                     x.style.display = "block";
                 } else {
                     x.style.display = "none";
-                    
+
                 }
             }
         </script>
@@ -51,63 +51,76 @@
                     <div class="panel-heading">
                         <h4>Choose your styling!</h4>
                     </div>
-                    <form action="FrontController" method="POST" >
-                        <input type="hidden" name="command" value="GiveStyling">
+                    <div class="panel-body">
+                        <form action="FrontController" method="POST" >
+                            <input type="hidden" name="command" value="GiveStyling">
 
-                        <div>
-                            <h4>Cladding</h4>
-                            <% for (StyleOption option : claddings) {%>
-                            <label>
-                                <div class="panel panel-default">
-                                    <label>
-                                        <blockquote>
-                                            <p><%= option.getName()%></p>
-                                        </blockquote>
-                                        <div class="panel-body">
-                                            <% String divid = "div" + option.hashCode(); %>
-                                            <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
-                                        </div>
+                            <div>
+                                <h4>Cladding</h4>
+                                <% for (StyleOption option : claddings) {%>
+                                <label>
+                                    <div class="panel panel-default">
+                                        <label>
+                                            <blockquote>
+                                                <p><%= option.getName()%></p>
+                                            </blockquote>
+                                            <div class="panel-body">
+                                                <% String divid = "div" + option.hashCode();%>
+                                                <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                                <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
+                                            </div>
 
-                                        <input type="radio" name="cladding" value="<%= option.getId()%>">
-                                        <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+                                            <input type="radio" name="cladding" value="<%= option.getId()%>">
+                                            <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
-                                    </label>
+                                        </label>
 
-                                </div>
-                            </label>
-                            <%}%>
-                        </div>
-                        <div>
-                            <h4>Tiles</h4>
-                            <% for (StyleOption option : tiles) {%>
-                            <label>
-                                <div class="panel panel-default">
-                                    <label>
-                                        <blockquote>
-                                            <p><%= option.getName()%></p>
-                                        </blockquote>
-                                        <div class="panel-body">
-                                            <% String divid = "div" + option.hashCode(); %>
-                                            <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
-                                        </div>
+                                    </div>
+                                </label>
+                                <%}%>
+                            </div>
+                            <div>
+                                <h4>Tiles</h4>
+                                <% for (StyleOption option : tiles) {%>
+                                <label>
+                                    <div class="panel panel-default">
+                                        <label>
+                                            <blockquote>
+                                                <p><%= option.getName()%></p>
+                                            </blockquote>
+                                            <div class="panel-body">
+                                                <% String divid = "div" + option.hashCode();%>
+                                                <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                                <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
+                                            </div>
 
-                                        <input type="radio" name="tile" value="<%= option.getId()%>">
-                                        <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
-                                    </label>
+                                            <input type="radio" name="tile" value="<%= option.getId()%>">
+                                            <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+                                        </label>
 
-                                </div>
-                            </label>
-                            <%}%>
-                        </div>
-                        <input type="submit" value="Next">
-                    </form>
+                                    </div>
+                                </label>
+                                <%}%>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Next">
+                        </form>
 
 
+                    </div>
+                    <div class="panel-footer">
+                        <form action="FrontController" method="POST">
+                            <input type="hidden" name="command" value="GiveDimentionsPage">
+                            <input type="submit" class="btn btn-default" value="Back">
+                        </form>
+                    </div>
                 </div>
             </div>
+            <% if (order != null) {%>
+            <div class="col-lg-6">
+                <%@include file="overview.jsp" %>
 
+            </div>       
+            <%}%>
 
         </div>
 

@@ -16,6 +16,7 @@ import PresentationLayer.orders.style.GetStyle;
 import PresentationLayer.orders.style.updateStylePage;
 import PresentationLayer.requesting.GiveCredentials;
 import PresentationLayer.requesting.GiveDimentions;
+import PresentationLayer.requesting.GiveDimentionsPage;
 import PresentationLayer.requesting.GiveStyling;
 import PresentationLayer.requesting.Styling;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public abstract class Command {
         commands.put("GiveStyling", new GiveStyling());
         commands.put("GiveCredentials", new GiveCredentials());
         commands.put("Unconfirm", new Unconfirm());
+        commands.put("GiveDimentionsPage", new GiveDimentionsPage());
     }
 
     static Command from( HttpServletRequest request ) {

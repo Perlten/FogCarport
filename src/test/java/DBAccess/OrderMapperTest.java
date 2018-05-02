@@ -5,20 +5,21 @@
  */
 package DBAccess;
 //
-//import FunctionLayer.DAOException;
-//import FunctionLayer.entities.Customer;
-//import FunctionLayer.entities.Customization;
-//import FunctionLayer.entities.Order;
-//import FunctionLayer.entities.Shed;
-//import java.util.List;
-//import org.junit.*;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
+import FunctionLayer.FOGException;
+import FunctionLayer.entities.Customer;
+import FunctionLayer.entities.Customization;
+import FunctionLayer.entities.Order;
+import FunctionLayer.entities.Shed;
+import FunctionLayer.entities.StyleOption;
+import java.util.List;
+import org.junit.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class OrderMapperTest {
 
-//    private static Order order1 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
-//    private static Order order2 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2)));
+    private static Order order1 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2), new StyleOption("test", "test2", 40), new StyleOption("test2", "test2", 55)));
+    private static Order order2 = new Order(new Customer("done", "dsa", "perlt", 123), new Customization(1, 2, 3, 4, new Shed(1, 2), new StyleOption("test", "test2", 40), new StyleOption("test2", "test2", 55)));
 //    private static int size;
 //
 //    public OrderMapperTest() {
@@ -81,14 +82,14 @@ public class OrderMapperTest {
 //        
 //    }
 
-//    @Test
-//    public void testMakeOrder() throws LoginSampleException {
-//        List<Order> orderList = OrderMapper.getOrders(-1);
-//        Order dbOrder = orderList.get(orderList.size() - 1);
-//
-//        assertEquals(dbOrder.getCustomer(), order2.getCustomer());
-//        assertEquals(dbOrder.getCustomization(), order2.getCustomization());
-//
-//    }
+    @Test
+    public void testMakeOrder() throws FOGException {
+        List<Order> orderList = OrderMapper.getOrders(-1);
+        Order dbOrder = orderList.get(orderList.size() - 1);
+
+        assertEquals(dbOrder.getCustomer(), order2.getCustomer());
+        assertEquals(dbOrder.getCustomization(), order2.getCustomization());
+
+    }
 
 }

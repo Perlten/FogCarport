@@ -5,7 +5,7 @@
  */
 package PresentationLayer.requesting;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GiveCredentials extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         
         Order order = (Order) request.getSession().getAttribute("order");
         
@@ -32,7 +32,7 @@ public class GiveCredentials extends Command {
         Customer customer = new Customer(firstName, lastName, email, phoneNumber);
         order.setCustomer(customer);    
         
-        throw new DAOException("Adam du skal lige fixe den ty <3!");
+        throw new FOGException("Adam du skal lige fixe den ty <3!");
 //        TODO: return to correct page
 //        return "index";
     }

@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders.style;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class updateStylePage extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         
         List<StyleOption> claddingList = LogicFacade.getCladdingList();
         List<StyleOption> tileList = LogicFacade.getTileList();

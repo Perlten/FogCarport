@@ -13,9 +13,9 @@ public class LogicFacade {
      * returns all of the orders by inputing -1 in getOrders
      *
      * @return
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static List<Order> getOrders() throws DAOException {
+    public static List<Order> getOrders() throws FOGException {
         return OrderMapper.getOrders(-1);
     }
 
@@ -24,16 +24,16 @@ public class LogicFacade {
      *
      * @param orderid A valid id of an order.
      * @return if valid input, the
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static Order getOrder(int orderid) throws DAOException {
+    public static Order getOrder(int orderid) throws FOGException {
         if (orderid < 0) {
             throw new IllegalArgumentException("orderid can't be negative");
         }
         return OrderMapper.getOrders(orderid).get(0);
     }
 
-    public static void makeOrder(Order order) throws DAOException {
+    public static void makeOrder(Order order) throws FOGException {
         OrderMapper.MakeOrder(order);
     }
 
@@ -41,9 +41,9 @@ public class LogicFacade {
      * Confirms order
      *
      * @param orderId
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static void confirmOrder(int orderId) throws DAOException {
+    public static void confirmOrder(int orderId) throws FOGException {
         OrderMapper.confirmOrder(orderId);
     }
 
@@ -51,9 +51,9 @@ public class LogicFacade {
      * Changes to order in
      *
      * @param order
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static void changeOrder(Order order) throws DAOException {
+    public static void changeOrder(Order order) throws FOGException {
         OrderMapper.changeOrder(order);
     }
 
@@ -61,25 +61,25 @@ public class LogicFacade {
      * Removes shed
      *
      * @param orderId
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static void removeOrder(int orderId) throws DAOException {
+    public static void removeOrder(int orderId) throws FOGException {
         OrderMapper.removeOrder(orderId);
     }
 
     /**
      *
-     * @return @throws DAOException
+     * @return @throws FOGException
      */
-    public static List<StyleOption> getCladdingList() throws DAOException {
+    public static List<StyleOption> getCladdingList() throws FOGException {
         return StyleMapper.getCladding(-1);
     }
 
     /**
      *
-     * @return @throws DAOException
+     * @return @throws FOGException
      */
-    public static List<StyleOption> getTileList() throws DAOException {
+    public static List<StyleOption> getTileList() throws FOGException {
         return StyleMapper.getTile(-1);
     }
 
@@ -87,16 +87,16 @@ public class LogicFacade {
      *
      * @param id
      * @return
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static StyleOption getCladding(int id) throws DAOException {
+    public static StyleOption getCladding(int id) throws FOGException {
         if (!StyleMapper.getCladding(id).isEmpty()) {
             return StyleMapper.getCladding(id).get(0);
         }
         return null;
     }
     
-    public static void unconfirmOrder(int id) throws DAOException{
+    public static void unconfirmOrder(int id) throws FOGException{
         OrderMapper.unconfirmOrder(id);
     } 
 
@@ -104,36 +104,36 @@ public class LogicFacade {
      *
      * @param id
      * @return
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static StyleOption getTile(int id) throws DAOException {
+    public static StyleOption getTile(int id) throws FOGException {
         if (!StyleMapper.getTile(id).isEmpty()) {
             return StyleMapper.getTile(id).get(0);
         }
         return null;
     }
 
-    public static void updateCladding(StyleOption cladding, int id) throws DAOException {
+    public static void updateCladding(StyleOption cladding, int id) throws FOGException {
         StyleMapper.updateCladding(cladding, id);
     }
 
-    public static void updateTile(StyleOption tile, int id) throws DAOException {
+    public static void updateTile(StyleOption tile, int id) throws FOGException {
         StyleMapper.updateTile(tile, id);
     }
 
-    public static void createCladding(StyleOption cladding) throws DAOException {
+    public static void createCladding(StyleOption cladding) throws FOGException {
         StyleMapper.createCladding(cladding);
     }
 
-    public static void createTile(StyleOption tile) throws DAOException {
+    public static void createTile(StyleOption tile) throws FOGException {
         StyleMapper.createTile(tile);
     }
 
-    public static void removeCladding(int id) throws DAOException {
+    public static void removeCladding(int id) throws FOGException {
         StyleMapper.removeCladding(id);
     }
 
-    public static void removeTile(int id) throws DAOException {
+    public static void removeTile(int id) throws FOGException {
         StyleMapper.removeTile(id);
     }
 }

@@ -6,7 +6,7 @@
 package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
@@ -21,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class EditOrderPage extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int id = Integer.parseInt(request.getParameter("orderToEdit"));
         Order order = LogicFacade.getOrder(id);
         List<StyleOption> claddingList = LogicFacade.getCladdingList();
-        List<StyleOption> tileList = LogicFacade.getTileList();
+            List<StyleOption> tileList = LogicFacade.getTileList();
 
         request.setAttribute("claddingList", claddingList);
         request.setAttribute("tileList", tileList);

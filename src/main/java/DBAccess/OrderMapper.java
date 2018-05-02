@@ -1,7 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -31,9 +31,9 @@ public class OrderMapper {
      *
      * @param orderid under 0 for all orders. 0 or over for a specific order
      * @return A list of orders
-     * @throws DAOException
+     * @throws FOGException
      */
-    public static List<Order> getOrders(int orderid) throws DAOException {
+    public static List<Order> getOrders(int orderid) throws FOGException {
         List<Order> orderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
@@ -87,7 +87,7 @@ public class OrderMapper {
             }
 
         } catch (Exception e) {
-            throw new DAOException(e.getMessage());
+            throw new FOGException(e.getMessage());
         }
         return orderList;
     }
@@ -97,7 +97,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void changeOrder(Order order) throws DAOException {
+    public static void changeOrder(Order order) throws FOGException {
         String sql = "UPDATE fog.order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
                 + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
@@ -131,7 +131,7 @@ public class OrderMapper {
             ps.setInt(15, order.getOrderid());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOrder(int id) throws DAOException {
+    public static void confirmOrder(int id) throws FOGException {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -148,11 +148,11 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
     
-    public static void unconfirmOrder(int id) throws DAOException{
+    public static void unconfirmOrder(int id) throws FOGException{
          String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -160,11 +160,11 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeOrder(int orderId) throws DAOException {
+    public static void removeOrder(int orderId) throws FOGException {
         String sql = "DELETE FROM fog.order WHERE idorder = ?";
         try {
             Connection con = Connector.connection();
@@ -172,7 +172,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
@@ -181,7 +181,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) throws DAOException {
+    public static void MakeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -211,22 +211,22 @@ public class OrderMapper {
             ps.setInt(13, 1);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeLast() throws DAOException {
+    public static void removeLast() throws FOGException {
         String sql = "delete from fog.order"
                 + " order by idorder desc limit 1";
         try {
             Statement state = Connector.connection().createStatement();
             state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static Order getLast() throws DAOException {
+    public static Order getLast() throws FOGException {
         String sql = "select idorder from fog.order"
                 + " order by idorder desc limit 1";
         try {
@@ -236,7 +236,7 @@ public class OrderMapper {
             List<Order> list = getOrders(rs.getInt("idorder"));
             return list.get(0);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 }

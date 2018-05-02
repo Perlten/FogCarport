@@ -5,7 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.StyleOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class StyleMapper {
 
-    public static List<StyleOption> getCladding(int id) throws DAOException {
+    public static List<StyleOption> getCladding(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from fog.cladding";
         if (id >= 0) {
@@ -37,18 +37,18 @@ public class StyleMapper {
             while (rs.next()) {
                 String name = rs.getString("name");
                 String description = rs.getString("description");
-                int price = rs.getInt("price");
+                double price = rs.getDouble("price");
                 int Claddingid = rs.getInt("idcladding");
 
                 list.add(new StyleOption(name, description, price, Claddingid));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
         return list;
     }
 
-    public static List<StyleOption> getTile(int id) throws DAOException {
+    public static List<StyleOption> getTile(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from fog.tile";
         if (id >= 0) {
@@ -65,18 +65,18 @@ public class StyleMapper {
             while (rs.next()) {
                 String name = rs.getString("name");
                 String description = rs.getString("description");
-                int price = rs.getInt("price");
+                double price = rs.getDouble("price");
                 int tileId = rs.getInt("idtile");
 
                 list.add(new StyleOption(name, description, price, tileId));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
         return list;
     }
 
-    public static void createCladding(StyleOption cladding) throws DAOException {
+    public static void createCladding(StyleOption cladding) throws FOGException {
         String sql = "INSERT INTO fog.cladding (name, description, price) VALUES(?,?,?)";
         try {
             Connection con = Connector.connection();
@@ -86,11 +86,11 @@ public class StyleMapper {
             ps.setDouble(3, cladding.getPrice());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void createTile(StyleOption tile) throws DAOException {
+    public static void createTile(StyleOption tile) throws FOGException {
         String sql = "INSERT INTO fog.tile (name, description, price) VALUES(?,?,?)";
         try {
             Connection con = Connector.connection();
@@ -100,11 +100,11 @@ public class StyleMapper {
             ps.setDouble(3, tile.getPrice());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void updateCladding(StyleOption cladding, int id) throws DAOException {
+    public static void updateCladding(StyleOption cladding, int id) throws FOGException {
         String sql = "UPDATE fog.cladding SET name = ?, description = ?, price = ? WHERE idcladding = ?";
         try {
             Connection con = Connector.connection();
@@ -115,11 +115,11 @@ public class StyleMapper {
             ps.setInt(4, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void updateTile(StyleOption tile, int id) throws DAOException {
+    public static void updateTile(StyleOption tile, int id) throws FOGException {
         String sql = "UPDATE fog.tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
         try {
             Connection con = Connector.connection();
@@ -130,11 +130,11 @@ public class StyleMapper {
             ps.setInt(4, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeCladding(int id) throws DAOException {
+    public static void removeCladding(int id) throws FOGException {
         String sql = "DELETE FROM fog.cladding WHERE idcladding = ?";
         try {
             Connection con = Connector.connection();
@@ -142,11 +142,12 @@ public class StyleMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeTile(int id) throws DAOException {
+    public static void removeTile(int id) throws FOGException {
+        //TODO: merge with removeCladding
         String sql = "DELETE FROM fog.tile WHERE idtile = ?";
         try {
             Connection con = Connector.connection();
@@ -154,7 +155,7 @@ public class StyleMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new DAOException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 }

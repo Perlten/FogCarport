@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <%@include file="../SVGleg.jsp" %>
+                <%@include file="../SVGDraw.jsp" %>
             </div>
         </div>
     </div>

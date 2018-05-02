@@ -38,7 +38,7 @@
                     x.style.display = "block";
                 } else {
                     x.style.display = "none";
-                    
+
                 }
             }
         </script>
@@ -64,9 +64,9 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <% String divid = "div" + option.hashCode(); %>
+                                            <% String divid = "div" + option.hashCode();%>
                                             <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
+                                            <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
                                         </div>
 
                                         <input type="radio" name="cladding" value="<%= option.getId()%>">
@@ -88,9 +88,9 @@
                                             <p><%= option.getName()%></p>
                                         </blockquote>
                                         <div class="panel-body">
-                                            <% String divid = "div" + option.hashCode(); %>
+                                            <% String divid = "div" + option.hashCode();%>
                                             <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                            <div id="<%= divid %>" style="display: none"><%= option.getDescription() %></div>
+                                            <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
                                         </div>
 
                                         <input type="radio" name="tile" value="<%= option.getId()%>">
@@ -107,6 +107,7 @@
 
                 </div>
             </div>
+            <%@include file="overview.jsp" %>
 
 
         </div>

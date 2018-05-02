@@ -19,7 +19,7 @@
     <body>
         <%@include file="../employeesNavBar.jsp"%>
         <h1>Customer Orders</h1>
-        
+
         <div class="row">
             <div class="col-lg-6">
                 <table class="table table-xstriped table-hover">
@@ -58,7 +58,7 @@
                     </tbody>
                     <% }%>
                 </table>
-                
+
                 <!--TODO: remove-->
                 <form action="index.jsp" method="post">
                     <input type="submit" class="btn btn-default" value="Back">
@@ -109,6 +109,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div style="height: 300px; width: 50%; margin: auto; ">
+                            <%@include file="../SVGleg.jsp" %>
+                        </div>
                     </div>
                     <% if (!selectedOrder.isConfirmed()) {%>
                     <div style="float: left; padding: 5px">
@@ -142,9 +145,7 @@
                         </form>
                     </div>
                 </div>
-                <div style="width: 50%">
-                    <%@include file="../SVGleg.jsp" %>
-                </div>
+
             </div>
             <% }%>
         </div>

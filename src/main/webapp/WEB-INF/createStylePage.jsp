@@ -7,6 +7,7 @@
         <%@include file="../bootstrap.jsp" %>
     </head>
     <body>
+        <%@include file="../employeesNavBar.jsp"%>
         <%
             String type = request.getParameter("type");
         %>

@@ -17,8 +17,9 @@
         %>
     </head>
     <body>
+        <%@include file="../employeesNavBar.jsp"%>
         <h1>Customer Orders</h1>
-
+        
         <div class="row">
             <div class="col-lg-6">
                 <table class="table table-xstriped table-hover">

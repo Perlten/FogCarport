@@ -1,0 +1,29 @@
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    background-color: orange;
+}
+
+li a {
+    display: block;
+    width: 120px;
+    background-color: darkorange;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding: 10px;
+    text-decoration: none;
+}
+
+li{
+    float: left;
+}
+
+li a:hover {
+    background-color: darkblue;
+}
+
+li .active {
+    background-color: darkred;
+}

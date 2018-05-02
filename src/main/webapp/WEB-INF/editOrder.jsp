@@ -20,6 +20,7 @@
         </style>
     </head>
     <body>
+        <%@include file="../employeesNavBar.jsp"%>
         <%
             Order order = (Order) request.getAttribute("order");
             List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");

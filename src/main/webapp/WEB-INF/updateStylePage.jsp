@@ -21,6 +21,7 @@
         %>
     </head>
     <body>
+        <%@include file="../employeesNavBar.jsp"%>
         <h1>Update Styleing</h1>
 
         <div class="row">

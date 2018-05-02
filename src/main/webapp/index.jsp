@@ -46,7 +46,7 @@
     </head>
     <body>
         <h1>Customize Carport</h1>
-        <div>
+        <div class="row">
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -63,19 +63,19 @@
 
                                 <label>
                                     Length<br>
-                                    <input type="number" class="form-control" name="length"  min="0" placeholder="cm" value="<%= length%>">
+                                    <input type="number" class="form-control" name="length"  min="100" placeholder="cm" value="<%= length%>">
                                 </label>
                                 <br>
 
                                 <label>
                                     Width
-                                    <input type="number" class="form-control" name="width" min="0" placeholder="cm" value="<%= width%>">
+                                    <input type="number" class="form-control" name="width" min="100" placeholder="cm" value="<%= width%>">
                                 </label>
                                 <br>
 
                                 <label>
                                     Height
-                                    <input type="number" class="form-control" name="height" min="0" placeholder="cm" value="<%= height%>">
+                                    <input type="number" class="form-control" name="height" min="100" placeholder="cm" value="<%= height%>">
                                 </label>
                             </label>
                             <br>
@@ -93,7 +93,7 @@
 
                                 <label>
                                     Roof Angle
-                                    <input type="number" class="form-control" name="roofAngle" min="0" max="89" placeholder="°" value="<%= roofAngle %>">
+                                    <input type="number" class="form-control" name="roofAngle" min="0" max="89" placeholder="°" value="<%= roofAngle%>">
                                 </label>
                             </label>
                             <br>
@@ -112,14 +112,14 @@
 
                                 <label>
                                     Shed Length
-                                    <input type="number" class="form-control" name="shedLength" min="0" placeholder="cm" value="<%= shedLength %>" >
+                                    <input type="number" class="form-control" name="shedLength" min="0" placeholder="cm" value="<%= shedLength%>" >
                                 </label>
 
                                 <br>
 
                                 <label>
                                     Shed Width
-                                    <input type="number" class="form-control" name="shedWidth" min="0" placeholder="cm" value="<%= shedWidth %>">
+                                    <input type="number" class="form-control" name="shedWidth" min="0" placeholder="cm" value="<%= shedWidth%>">
                                 </label>
                             </label>
 
@@ -128,12 +128,18 @@
                         </form>
                     </div>
                     <div class="panel-footer">
-                        <a>Now go to styling</a>
+                        
                     </div>
 
 
                 </div>
             </div>
+            <% if (order != null) {%>
+            <div class="col-lg-6">
+                <%@include file="WEB-INF/overview.jsp" %>
+
+            </div>       
+            <%}%>
         </div>
 
 

@@ -10,55 +10,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
         <%
-            Order order = (Order) request.getSession().getAttribute("order");
-            Customization cust = order.getCustomization();
-            int length = cust.getLength();
-            int width = cust.getWidth();
+            Order orderDraw = (Order) request.getSession().getAttribute("order");
+            Customization drawCust = orderDraw.getCustomization();
+            int drawLength = drawCust.getLength();
+            int drawWidth = drawCust.getWidth();
             int padding = Customization.padding;
             int rem = Customization.rem;
 
         %>
 
-        <SVG width="800" height="800" viewBox="-25 0 <%=width + 25%> <%=length + 25%>">
+        <SVG width="100%" height="100%" viewBox="-25 0 <%=drawWidth + 25%> <%=drawLength + 25%>">
 
 
         <!--length and width-->
         <!--lines-->
-        <line x1="-10" y1="0" x2="-10" y2="<%= length%>" 
+        <line x1="-10" y1="0" x2="-10" y2="<%= drawLength%>" 
               style="stroke: black"/>
-        <line x1="0" y1="<%= length + 10%>" x2="<%= width%>" y2="<%= length + 10%>" 
+        <line x1="0" y1="<%= drawLength + 10%>" x2="<%= drawWidth%>" y2="<%= drawLength + 10%>" 
               style="stroke: black"/>
         <!--text-->
-        <text x="<%= length / 2 - 10%>" y="20" transform="rotate(90,0,0)" font-size="8"><%= length + " cm"%></text>
-        <text x="<%= width / 2 - 10%>" y="<%= length + 20%>" font-size="8"><%= width + " cm"%></text>
+        <text x="<%= drawLength / 2 - 10%>" y="20" transform="rotate(90,0,0)" font-size="8"><%= drawLength + " cm"%></text>
+        <text x="<%= drawWidth / 2 - 10%>" y="<%= drawLength + 20%>" font-size="8"><%= drawWidth + " cm"%></text>
 
 
 
         <!--edge-->
-        <rect x="0" y="0" width="<%= width%>" height="<%= length%>"
+        <rect x="0" y="0" width="<%= drawWidth%>" height="<%= drawLength%>"
               style="fill: none; stroke: black "/>
 
         <!--shed-->
-        <% if (cust.getShed() != null) {
-                Shed shed = cust.getShed();
+        <% if (drawCust.getShed() != null) {
+                Shed drawShed = drawCust.getShed();
         %>
-        <rect x="<%= padding%>" y="<%= padding%>" width="<%= shed.getWidth()%>" height="<%= shed.getLength()%>"
+        <rect x="<%= padding%>" y="<%= padding%>" width="<%= drawShed.getWidth()%>" height="<%= drawShed.getLength()%>"
               style="fill: none; stroke: black;stroke-width: <%= rem%>; stroke-dasharray: 7, 2"/>
         <%}%>
 
         <!--rem-->
-        <line x1="<%= padding%>" y1="0" x2="<%= padding%>" y2="<%= length%>"
+        <line x1="<%= padding%>" y1="0" x2="<%= padding%>" y2="<%= drawLength%>"
               style="stroke: black; stroke-width: <%= rem%>"/>       
-        <line x1="<%= width - padding%>" y1="0" x2="<%= width - padding%>" y2="<%= length%>"
+        <line x1="<%= drawWidth - padding%>" y1="0" x2="<%= drawWidth - padding%>" y2="<%= drawLength%>"
               style="stroke: black; stroke-width: <%= rem%>"/>   
 
         <!--rafter-->
         <%
-            int amountOfRafters = (int) (length / 50);
-            double rafterDistance = length / amountOfRafters;
+            int amountOfRafters = (int) (drawLength / 50);
+            double rafterDistance = drawLength / amountOfRafters;
             for (int i = 0; i <= amountOfRafters; i++) {
         %>
-        <line x1="0" y1="<%= i * rafterDistance%>" x2="<%= width%>" y2="<%= i * rafterDistance%>"
+        <line x1="0" y1="<%= i * rafterDistance%>" x2="<%= drawWidth%>" y2="<%= i * rafterDistance%>"
               style="stroke: black; stroke-width: <%= 2%>"/>
         <%
             }
@@ -66,20 +66,20 @@
         
         <!--poles-->
         <%
-            int amountOfPoles = (int) (length / 250) + 1;
+            int amountOfPoles = (int) (drawLength / 250) + 1;
             
             if(amountOfPoles < 2){
                 amountOfPoles = 2;
             }
             
-            double poleDistance = ((length - padding) / amountOfPoles);
+            double poleDistance = ((drawLength - padding) / amountOfPoles);
 
             for (int i = 0; i < amountOfPoles; i++) {
                     %>
                     <rect x="<%= padding - (rem/2 +3) %>" y="<%= i * poleDistance + padding%>" width="10" height="10" 
-                          style="fill: white; stroke: black; stroke-width: 2"/>
+                          style="fill: white; stroke: black; stroke-drawWidth: 2"/>
                     
-                    <rect x="<%= width - padding - (rem/2 +3) %>" y="<%= i * poleDistance + padding %>" width="10" height="10" 
+                    <rect x="<%= drawWidth - padding - (rem/2 +3) %>" y="<%= i * poleDistance + padding %>" width="10" height="10" 
                           style="fill: white; stroke: black; stroke-width: 2"/>
                     <%
                 }

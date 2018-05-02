@@ -16,7 +16,7 @@
 <body>
     <div class="row">
         <div class="panel panel-default">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div style="padding: 20px">
                      <form action="FrontController" method="post">
                         <h1>Enter Credentials</h1>
@@ -39,8 +39,8 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <%@include file="../SVGDraw.jsp" %>
+            <div class="col-lg-6">
+                <%@include file="overview.jsp" %>
             </div>
         </div>
     </div>

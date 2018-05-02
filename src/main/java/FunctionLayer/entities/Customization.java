@@ -82,11 +82,13 @@ public class Customization {
         this.shed = shed;
     }
 
-    
     @Override
     public String toString() {
-        return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';
+        return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + ", cladding=" + cladding + ", tile=" + tile + '}';
     }
+
+    
+
 
     @Override
     public int hashCode() {

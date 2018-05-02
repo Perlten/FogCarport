@@ -60,7 +60,7 @@
                             <label class="control-label">Shed Length</label>
                             <input type="number" class="form-control" name="shedLength" min="0" max="<%= order.getCustomization().getLength()%>" value="<%= shedLength%>">
                             <label class="control-label">Shed Width</label>
-                            <input type="number" class="form-control" name="shedWidth" min="0" max="<%= order.getCustomization().getWidth()- 60 %>" value="<%= shedWidth%>">
+                            <input type="number" class="form-control" name="shedWidth" min="0" max="<%= order.getCustomization().getWidth() - 60%>" value="<%= shedWidth%>">
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </div>     
                     </div>
-                </form>							
+                </form>
             </div>
         </div>
     </body>

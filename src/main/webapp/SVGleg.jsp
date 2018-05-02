@@ -24,7 +24,7 @@
 
         %>
 
-        <SVG width="800" height="800" viewBox="-25 0 <%=width + 25%> <%=length + 25%>">
+        <SVG width="100%" viewBox="-25 0 <%=width + 25%> <%=length + 25%>">
 
 
         <!--length and width-->

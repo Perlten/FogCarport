@@ -24,7 +24,7 @@ public class ShowOrder extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int orderid = Integer.parseInt(request.getParameter("orderId"));
         Order order = LogicFacade.getOrder(orderid);
-        request.setAttribute("selectedOrder", order);
+        request.setAttribute("order", order);
         return new GetOrders().execute(request, response);
     }
 }

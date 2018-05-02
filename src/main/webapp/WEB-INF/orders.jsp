@@ -13,7 +13,7 @@
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%
             List<Order> orders = (List<Order>) request.getAttribute("orders");
-            Order selectedOrder = (Order) request.getAttribute("selectedOrder");
+            Order selectedOrder = (Order) request.getAttribute("order");
         %>
     </head>
     <body>
@@ -56,8 +56,12 @@
                         </tr>
                     </tbody>
                     <% }%>
-
                 </table>
+                
+                <!--TODO: remove-->
+                <form action="index.jsp" method="post">
+                    <input type="submit" class="btn btn-default" value="Back">
+                </form>
             </div>
             <% if (selectedOrder != null) {
 
@@ -72,7 +76,7 @@
                     <div class="panel-heading">
                         <h3>Contents of Order</h3>
                     </div>
-                    <div>
+                    <div class="panel-default">
                         <table class="table table">
                             <thead>
                             <th>Id number</th>
@@ -136,6 +140,9 @@
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                     </div>
+                </div>
+                <div style="width: 50%">
+                    <%@include file="../SVGleg.jsp" %>
                 </div>
             </div>
             <% }%>

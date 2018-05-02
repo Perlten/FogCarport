@@ -1,4 +1,4 @@
-
+    
 <%@page import="FunctionLayer.entities.StyleOption"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="FunctionLayer.entities.Customer"%>
@@ -61,6 +61,11 @@
                     <input type="hidden" name="command" value="CreateStylePage">
                     <input type="hidden" name="type" value="cladding">
                     <button type="submit" class="btn btn-primary">Create new Cladding</button>
+                </form>
+                <br>
+                 <!--TODO: make better-->
+                <form action="index.jsp" method="post">
+                    <input type="submit" class="btn btn-default" value="Back">
                 </form>
             </div>
 

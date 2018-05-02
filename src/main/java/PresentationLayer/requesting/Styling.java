@@ -5,7 +5,7 @@
  */
 package PresentationLayer.requesting;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
@@ -20,14 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 public class Styling extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         try {
             List<StyleOption> claddings = LogicFacade.getCladdingList();
             request.setAttribute("claddings", claddings);
             List<StyleOption> tiles = LogicFacade.getTileList() ;
             request.setAttribute("tiles", tiles);
         } catch (Exception e) {
-            throw new DAOException("StyleOptions could not load!");
+            throw new FOGException("StyleOptions could not load!");
         }
         return "WEB-INF/styling";
 

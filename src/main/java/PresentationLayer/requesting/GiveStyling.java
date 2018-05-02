@@ -5,7 +5,7 @@
  */
 package PresentationLayer.requesting;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GiveStyling extends Command{
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         try {
             Order order = (Order) request.getSession().getAttribute("order");
             
@@ -33,7 +33,7 @@ public class GiveStyling extends Command{
             cust.setTile(LogicFacade.getTile(tile));
             
         } catch (Exception e) {
-            throw new DAOException("Could not submit styling");
+            throw new FOGException("Could not submit styling");
         }
         return "WEB-INF/credentialsPage";
 //        return new Styling().execute(request, response);

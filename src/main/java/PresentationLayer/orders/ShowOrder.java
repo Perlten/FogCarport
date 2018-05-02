@@ -7,7 +7,7 @@ package PresentationLayer.orders;
 
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int orderid = Integer.parseInt(request.getParameter("orderId"));
         Order order = LogicFacade.getOrder(orderid);
         request.setAttribute("selectedOrder", order);

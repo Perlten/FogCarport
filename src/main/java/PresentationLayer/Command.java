@@ -6,7 +6,7 @@ import PresentationLayer.orders.EditOrder;
 import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
@@ -58,6 +58,6 @@ public abstract class Command {
     }
 
     public abstract String execute( HttpServletRequest request, HttpServletResponse response ) 
-            throws DAOException;
+            throws FOGException;
 
 }

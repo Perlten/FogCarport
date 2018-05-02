@@ -141,13 +141,6 @@
             </div>       
             <%}%>
         </div>
-
-
-
-
-
-
-
         <form action="FrontController" method="post">
             <input type="hidden" name="command" value="GetOrders">
             <input type="submit" value="GetOrders">

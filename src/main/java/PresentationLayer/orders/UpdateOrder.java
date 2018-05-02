@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateOrder extends Command{
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         return null;
     }
     

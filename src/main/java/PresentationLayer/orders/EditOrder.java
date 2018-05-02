@@ -6,7 +6,7 @@
 package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
         //Dimensions
         try {
@@ -70,7 +70,7 @@ public class EditOrder extends Command {
         LogicFacade.changeOrder(order);
 
         } catch (NumberFormatException e) {
-            throw new DAOException("Cannot have empty style option");
+            throw new FOGException("Cannot have empty style option");
         }
         return new ShowOrder().execute(request, response);
     }

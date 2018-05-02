@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders.style;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteStyle extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
         int id = Integer.parseInt(request.getParameter("styleId"));
         String type = request.getParameter("type");

@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Unconfirm extends Command{
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int id = Integer.parseInt(request.getParameter("orderId"));
         
         LogicFacade.unconfirmOrder(id);

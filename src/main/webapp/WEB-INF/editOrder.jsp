@@ -45,13 +45,13 @@
                         <div class="form-group">
                             <input type="hidden" name="command" value="EditOrder">
                             <label class="control-label">Length</label>
-                            <input type="number" class="form-control" name="length" min="0" value="<%= order.getCustomization().getLength()%>">
+                            <input type="number" class="form-control" name="length" min="100" value="<%= order.getCustomization().getLength()%>">
 
                             <label class="control-label">Width</label>
-                            <input type="number" class="form-control" name="width" min="0" value="<%= order.getCustomization().getWidth()%>">
+                            <input type="number" class="form-control" name="width" min="100" value="<%= order.getCustomization().getWidth()%>">
 
                             <label class="control-label">Height</label>
-                            <input type="number" class="form-control" name="height" min="0" value="<%= order.getCustomization().getHeight()%>">
+                            <input type="number" class="form-control" name="height" min="100" value="<%= order.getCustomization().getHeight()%>">
 
                             <label class="control-label">Roof Angle</label>
                             <input type="number" class="form-control" name="roofAngle" min="0" value="<%= order.getCustomization().getRoofangle()%>">

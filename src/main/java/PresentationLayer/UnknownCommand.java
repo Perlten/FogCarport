@@ -1,6 +1,6 @@
 package PresentationLayer;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 public class UnknownCommand extends Command {
 
     @Override
-    public String execute( HttpServletRequest request, HttpServletResponse response ) throws DAOException {
+    public String execute( HttpServletRequest request, HttpServletResponse response ) throws FOGException {
         String msg = "Could not find your page";
-        throw new DAOException( msg );
+        throw new FOGException( msg );
     }
 }

@@ -5,7 +5,7 @@
  */
 package PresentationLayer;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +35,7 @@ public class FrontController extends HttpServlet {
             Command action = Command.from( request );
             String view = action.execute( request, response );
             request.getRequestDispatcher(view + ".jsp" ).forward( request, response );
-        } catch ( DAOException ex ) {
+        } catch ( FOGException ex ) {
             request.setAttribute( "error", ex.getMessage() );
             request.getRequestDispatcher( "/WEB-INF/errorPage.jsp" ).forward( request, response );
         }

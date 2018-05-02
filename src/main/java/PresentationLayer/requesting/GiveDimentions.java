@@ -5,7 +5,7 @@
  */
 package PresentationLayer.requesting;
 
-import FunctionLayer.DAOException;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GiveDimentions extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DAOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         try {
             int length = Helper.safeInt(request, "length");
             int width = Helper.safeInt(request, "width");
@@ -54,13 +54,12 @@ public class GiveDimentions extends Command {
                 shedObj = new Shed(shedLength, shedWidth);
             }
 
-            //TODO Save customization Options
             Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
             Order order = new Order(null, cust);
 
             request.getSession().setAttribute("order", order);
         } catch (Exception e) {
-            throw new DAOException("Could not submit customization!");
+            throw new FOGException("Could not submit customization!");
         }
         return new Styling().execute(request, response);
 //        return "SVGleg";

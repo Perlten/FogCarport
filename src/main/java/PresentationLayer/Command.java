@@ -1,5 +1,6 @@
 package PresentationLayer;
 
+import PresentationLayer.requesting.GiveCredentialsPage;
 import PresentationLayer.orders.ShowOrder;
 import PresentationLayer.orders.EditOrderPage;
 import PresentationLayer.orders.EditOrder;
@@ -19,6 +20,7 @@ import PresentationLayer.requesting.GiveDimentions;
 import PresentationLayer.requesting.GiveDimentionsPage;
 import PresentationLayer.requesting.GiveStyling;
 import PresentationLayer.requesting.Styling;
+import PresentationLayer.requesting.SubmitOrder;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +49,8 @@ public abstract class Command {
         commands.put("GiveCredentials", new GiveCredentials());
         commands.put("Unconfirm", new Unconfirm());
         commands.put("GiveDimentionsPage", new GiveDimentionsPage());
+        commands.put("GiveCredentialsPage", new GiveCredentialsPage());
+        commands.put("SubmitOrder", new SubmitOrder());
     }
 
     static Command from( HttpServletRequest request ) {

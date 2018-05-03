@@ -21,18 +21,22 @@ public class GiveCredentials extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
-        Order order = (Order) request.getSession().getAttribute("order");
+        try {
+            Order order = (Order) request.getSession().getAttribute("order");
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
+            int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
 
-        Customer customer = new Customer(firstName, lastName, email, phoneNumber);
-        order.setCustomer(customer);
+            Customer customer = new Customer(firstName, lastName, email, phoneNumber);
+            order.setCustomer(customer);
 
-        throw new FOGException("Adam du skal lige fixe den ty <3!");
-//        TODO: return to correct page
+        } catch (Exception e) {
+            throw new FOGException("Failed to add contact information!");
+        }
+
+        return "WEB-INF/confirm";
     }
 
 }

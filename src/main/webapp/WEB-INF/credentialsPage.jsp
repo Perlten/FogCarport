@@ -9,40 +9,75 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Credentials page</title>
+        <title>Contact Info</title>
         <%@include file="../bootstrap.jsp" %>
-    <img src="" alt=""/>
-</head>
-<body>
-    <div class="row">
-        <div class="panel panel-default">
+        <%
+
+            Order orderSelected = (Order) session.getAttribute("order");
+            Customer customerCredentials = orderSelected.getCustomer();
+
+            String firstname = "";
+            String lastname = "";
+            String email = "";
+            int phonenumber = 0;
+
+            if (customerCredentials != null) {
+                firstname = customerCredentials.getFirstname();
+                lastname = customerCredentials.getLastname();
+                email = customerCredentials.getEmail();
+                phonenumber = customerCredentials.getPhonenumber();
+            }
+
+
+        %>
+    </head>
+    <body>
+        <h1>Contact Info</h1>
+        <div class="row">
             <div class="col-lg-6">
-                <div style="padding: 20px">
-                     <form action="FrontController" method="post">
-                        <h1>Enter Credentials</h1>
-                        <div class="form-group">
-                            <input type="hidden" name="command" value="GiveCredentials">
-                            <label class="control-label">First Name</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="Enter first name"/>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Enter Your Contact Information</h2>
+                    </div>
 
-                            <label class="control-label">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="Enter last name"/>
+                    <div class="panel-body">
 
-                            <label class="control-label">Email</label>
-                            <input type="text" class="form-control" name="email" placeholder="Enter email"/>
+                        <div style="padding: 20px">
+                            <form action="FrontController" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" name="command" value="GiveCredentials">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>"/>
 
-                            <label class="control-label">Phone Number</label>
-                            <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number"/>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Next</button>
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>"/>
+
+                                    <label class="control-label">Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Enter email" value="<%= email%>"/>
+
+                                    <label class="control-label">Phone Number</label>
+                                    <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
+                                        if (phonenumber != 0) {
+                                            out.print(phonenumber);
+                                        }
+                                           %>"/>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Next</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                    <div class="panel-footer">
+                        <form action="FrontController" method="POST">
+                            <input type="hidden" name="command" value="Styling">
+                            <input type="submit" class="btn btn-default" value="Back">
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <%@include file="overview.jsp" %>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

@@ -42,7 +42,6 @@
 
             }
         %>
-
     </head>
     <body>
         <h1>Customize Carport</h1>
@@ -63,19 +62,19 @@
 
                                 <label>
                                     Length<br>
-                                    <input type="number" class="form-control" name="length"  min="100" placeholder="cm" value="<%= length%>">
+                                    <input type="number" class="form-control" name="length"  min="100" placeholder="cm" value="<%= length%>" required>
                                 </label>
                                 <br>
 
                                 <label>
                                     Width
-                                    <input type="number" class="form-control" name="width" min="100" placeholder="cm" value="<%= width%>">
+                                    <input type="number" class="form-control" name="width" min="100" placeholder="cm" value="<%= width%>" required>
                                 </label>
                                 <br>
 
                                 <label>
                                     Height
-                                    <input type="number" class="form-control" name="height" min="100" placeholder="cm" value="<%= height%>">
+                                    <input type="number" class="form-control" name="height" min="100" placeholder="cm" value="<%= height%>" required>
                                 </label>
                             </label>
                             <br>
@@ -128,7 +127,7 @@
                         </form>
                     </div>
                     <div class="panel-footer">
-                        
+
                     </div>
 
 
@@ -141,6 +140,7 @@
             </div>       
             <%}%>
         </div>
+        <div>
         <form action="FrontController" method="post">
             <input type="hidden" name="command" value="GetOrders">
             <input type="submit" value="GetOrders">
@@ -150,12 +150,7 @@
             <input type="hidden" name="command" value="UpdateStylePage">
             <input type="submit" value="Update Style">
         </form>
-
-        <% String error = (String) request.getAttribute("error");
-            if (error != null) {%>
-        <H2>Error!!</h2>
-        <p><%= error%>
-            <% }
-            %>
+        
+        </div>
     </body>
 </html>

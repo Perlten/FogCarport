@@ -10,19 +10,20 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * Order is both a customer request and an order.
- * As long as it is not confirmed it is an order.
- * A order holds the customer information and the specification of the carport.
+ * Order is both a customer request and an order. As long as it is not confirmed
+ * it is an order. A order holds the customer information and the specification
+ * of the carport.
+ *
  * @author adamlass
  */
 public class Order {
 
     private int orderid;
     private boolean confirmed;
+    private boolean ordered;
     private Calendar date;
     private Customer customer;
     private Customization customization;
-   
 
     public Order(int orderid, boolean confirmed, Calendar date, Customer customer, Customization customization) {
         this.orderid = orderid;
@@ -30,12 +31,33 @@ public class Order {
         this.date = date;
         this.customer = customer;
         this.customization = customization;
+        this.ordered = false;
     }
 
-    public Order(Customer customer, Customization customization){
+    public Order(Customer customer, Customization customization) {
         this(-1, false, null, customer, customization);
     }
-    
+
+    public int percentage() {
+        int res = 0;
+        if (ordered) {
+            res = 100;
+        } else {
+            if (customization != null) {
+                res += 30;
+            }
+            if (customization.getTile() != null || customization.getCladding()
+                    != null) {
+                res += 30;
+            }
+            if (customer != null) {
+                res += 30;
+            }
+        }
+
+        return res;
+    }
+
     public int getOrderid() {
         return orderid;
     }
@@ -56,11 +78,23 @@ public class Order {
         return customization;
     }
 
+    public boolean isOrdered() {
+        return ordered;
+    }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
-    public String simpleDate(){
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public void setOrdered(boolean ordered) {
+        this.ordered = ordered;
+    }
+
+    public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(date.getTime());
     }
@@ -105,6 +139,5 @@ public class Order {
         }
         return true;
     }
-    
-    
+
 }

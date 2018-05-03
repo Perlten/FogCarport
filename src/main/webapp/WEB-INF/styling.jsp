@@ -70,7 +70,11 @@
                                                 <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
                                             </div>
 
-                                            <input type="radio" name="cladding" value="<%= option.getId()%>">
+                                            <input type="radio" name="cladding" value="<%= option.getId()%>" <%
+                                                   if(option.equals(cladding)){
+                                                       out.print("checked");
+                                                   }
+                                                   %>>
                                             <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
                                         </label>
@@ -94,7 +98,11 @@
                                                 <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
                                             </div>
 
-                                            <input type="radio" name="tile" value="<%= option.getId()%>">
+                                            <input type="radio" name="tile" value="<%= option.getId()%>" <%
+                                                   if(option.equals(tile)){
+                                                       out.print("checked");
+                                                   }
+                                                   %>>
                                             <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
                                         </label>
 

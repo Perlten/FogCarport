@@ -11,13 +11,14 @@
 
 <%
     Order orderDraw = (Order) request.getSession().getAttribute("order");
+    if (orderDraw == null) {
+        orderDraw = (Order) request.getSession().getAttribute("confirmedOrder");
+    }
     Customization drawCust = orderDraw.getCustomization();
     int drawLength = drawCust.getLength();
     int drawWidth = drawCust.getWidth();
 
-    if (orderDraw == null) {
-        orderDraw = (Order) request.getSession().getAttribute("order");
-    }
+    
 
     int padding = Customization.padding;
     int rem = Customization.beam;

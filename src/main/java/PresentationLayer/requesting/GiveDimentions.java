@@ -6,9 +6,11 @@
 package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
+import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
 import PresentationLayer.Helper;
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +56,21 @@ public class GiveDimentions extends Command {
                 shedObj = new Shed(shedLength, shedWidth);
             }
 
-            Customization cust = new Customization(length, width, height, roofAngle, shedObj, null, null);
-            Order order = new Order(null, cust);
+            Order sessionOrder = (Order) request.getSession().getAttribute("order");
+            Customization sessionCustomization = null;
+            StyleOption cladding = null;
+            StyleOption tile = null;
+            Customer sessionCustomer = null;
+
+            if (sessionOrder != null) {
+                sessionCustomization = sessionOrder.getCustomization();
+                cladding = sessionCustomization.getCladding();
+                tile = sessionCustomization.getTile();
+                sessionCustomer = sessionOrder.getCustomer();
+            }
+
+            Customization customization = new Customization(length, width, height, roofAngle, shedObj, cladding, tile);
+            Order order = new Order(sessionCustomer, customization);
 
             request.getSession().setAttribute("order", order);
         } catch (Exception e) {

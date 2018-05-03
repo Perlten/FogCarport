@@ -16,7 +16,7 @@ import javax.mail.internet.*;
  *
  * @author Perlt
  */
-public class Mail {
+public class SendEmail {
 
     public static void sendMail(Order order) {
 
@@ -47,8 +47,6 @@ public class Mail {
                     + "here is your link http://localhost:8080/LogInSample/FrontController?command=EditOrderPage&orderToEdit=" + order.getOrderid() );
 
             Transport.send(message);
-
-            System.out.println("Done");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

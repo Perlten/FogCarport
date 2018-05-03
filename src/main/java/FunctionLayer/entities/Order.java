@@ -86,6 +86,10 @@ public class Order {
         this.customer = customer;
     }
 
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
+    }
+
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
     }

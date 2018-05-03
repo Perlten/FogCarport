@@ -151,9 +151,9 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
-    
-    public static void unconfirmOrder(int id) throws FOGException{
-         String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
+
+    public static void unconfirmOrder(int id) throws FOGException {
+        String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -194,7 +194,7 @@ public class OrderMapper {
         }
         try {
             Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, order.getCustomer().getFirstname());
             ps.setString(2, order.getCustomer().getLastname());
             ps.setString(3, order.getCustomer().getEmail());
@@ -208,7 +208,11 @@ public class OrderMapper {
             ps.setInt(11, shedWidth);
             ps.setInt(12, order.getCustomization().getTile().getId());
             ps.setInt(13, order.getCustomization().getCladding().getId());
-            ps.execute();
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            order.setOrderid(rs.getInt(1));
+
         } catch (SQLException | ClassNotFoundException ex) {
             throw new FOGException(ex.getMessage());
         }

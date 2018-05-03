@@ -5,8 +5,6 @@
  */
 package DBAccess;
 
-import com.sun.mail.smtp.SMTPTransport;
-import java.security.Security;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -20,7 +18,7 @@ public class Mail {
     public static void main(String[] args) {
 
         final String username = "karron11@gmail.com";
-        final String password = "Hej";
+        final String password = "Andersenqaz11";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -42,7 +40,7 @@ public class Mail {
             message.setFrom(new InternetAddress("karron11@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse("karron11ea@gmail.com"));
-            message.setSubject("Testing Subject");
+            message.setSubject("PERLTPERLTPERLT Subject");
             message.setText("Dear Mail Crawler,"
                     + "\n\n No spam to my email, please!");
 

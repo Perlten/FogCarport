@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DBAccess;
+package FunctionLayer.mail;
 
+import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Order;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -15,10 +18,10 @@ import javax.mail.internet.*;
  */
 public class Mail {
 
-    public static void main(String[] args) {
+    public static void sendMail(Order order) {
 
         final String username = "karron11@gmail.com";
-        final String password = "Andersenqaz11";
+        final String password = "test";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -35,14 +38,13 @@ public class Mail {
         });
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("karron11@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("karron11ea@gmail.com"));
-            message.setSubject("PERLTPERLTPERLT Subject");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n No spam to my email, please!");
+                    InternetAddress.parse(order.getCustomer().getEmail()));
+            message.setSubject("Fog carport");
+            message.setText("Dear " + order.getCustomer().getFirstname() + " We thank blaa blaa blaa"
+                    + "here is your link http://localhost:8080/LogInSample/FrontController?command=EditOrderPage?orderToEdit=" + order.getOrderid() );
 
             Transport.send(message);
 
@@ -51,5 +53,10 @@ public class Mail {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public static void main(String[] args) throws FOGException {
+        Order order = LogicFacade.getOrder(424);
+        sendMail(order);
     }
 }

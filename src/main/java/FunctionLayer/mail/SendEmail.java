@@ -52,9 +52,4 @@ public class SendEmail {
             throw new RuntimeException(e);
         }
     }
-    
-    public static void main(String[] args) throws FOGException {
-        Order order = LogicFacade.getOrder(425);
-        sendMail(order);
-    }
 }

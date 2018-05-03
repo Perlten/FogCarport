@@ -11,27 +11,22 @@ import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author adamlass
  */
-public class SubmitOrder extends Command {
+public class LoadOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         try {
-            HttpSession session = request.getSession();
-            Order order = (Order) session.getAttribute("order");
-            LogicFacade.makeOrder(order);
-            order.setOrdered(true);
-            session.setAttribute("order", null);
-            session.setAttribute("confirmedOrder", order);
-            
+            int orderid = Integer.parseInt(request.getParameter("id"));
+            Order order = LogicFacade.getOrder(orderid);
+            request.getSession().setAttribute("confirmedOrder", order);
 
         } catch (Exception e) {
-            throw new FOGException("Could not submit order!");
+            throw new FOGException("Not a valid order!");
         }
         return "confirm";
     }

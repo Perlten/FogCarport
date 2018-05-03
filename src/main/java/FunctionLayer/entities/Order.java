@@ -25,7 +25,7 @@ public class Order {
     private Customer customer;
     private Customization customization;
 
-    public Order(int orderid, boolean confirmed, Calendar date, Customer customer, Customization customization) {
+    public Order(int orderid, boolean ordered, boolean confirmed, Calendar date, Customer customer, Customization customization) {
         this.orderid = orderid;
         this.confirmed = confirmed;
         this.date = date;
@@ -35,7 +35,7 @@ public class Order {
     }
 
     public Order(Customer customer, Customization customization) {
-        this(-1, false, null, customer, customization);
+        this(-1, false, false, null, customer, customization);
     }
 
     public int percentage() {

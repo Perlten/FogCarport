@@ -82,7 +82,7 @@ public class OrderMapper {
                 }
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
                 Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
-                Order order = new Order(idorder, confirmed, date, customer, customization);
+                Order order = new Order(idorder, true, confirmed, date, customer, customization);
                 orderList.add(order);
             }
 

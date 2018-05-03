@@ -36,7 +36,7 @@ public class GiveCredentials extends Command {
             throw new FOGException("Failed to add contact information!");
         }
 
-        return "WEB-INF/confirm";
+        return "confirm";
     }
 
 }

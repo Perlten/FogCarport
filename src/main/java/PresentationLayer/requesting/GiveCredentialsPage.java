@@ -18,7 +18,7 @@ public class GiveCredentialsPage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        return "credentialspage";
+        return "WEB-INF/credentialsPage";
     }
     
 }

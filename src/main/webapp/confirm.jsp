@@ -21,17 +21,28 @@
 
     </head>
     <body>
-        <h1>Confirm Request</h1>
+        <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
         <div class="row">
             <% if (!orderConfirm.isOrdered()) { %>
             <div class="col-lg-6">
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Do you want to confirm your request?</h4>
-                        <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="SubmitOrder">
-                            <input type="submit"  class="btn btn-success" value="Confirm Request">
-                        </form>
+                        <div>
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="SubmitOrder">
+                                <input type="submit"  class="btn btn-success" value="Submit Request">
+                            </form>
+                        </div>
+                        <div>
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="GiveCredentialsPage">
+                                <input type="submit"  class="btn btn-default" value="Back">
+                            </form>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -46,10 +57,23 @@
                     </div>
 
                 </div>
+
+                <% if (orderConfirm.isConfirmed()) { %>
+                <div class="panel-heading">
+                    <h4>Order Confirmed!</h4>
+                    <p class="text text-muted">Your order has been confirmed by one
+                        of our employees, please proceed by entering more detailed 
+                        contact information.</p>
+                </div>
+
+                <%}%>
+
             </div>
+
             <%}%>
+
             <div class="col-lg-6">
-                <%@include file="overview.jsp" %>
+                <%@include file="WEB-INF/overview.jsp" %>
             </div>
 
         </div>

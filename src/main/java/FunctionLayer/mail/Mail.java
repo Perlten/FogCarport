@@ -20,8 +20,8 @@ public class Mail {
 
     public static void sendMail(Order order) {
 
-        final String username = "karron11@gmail.com";
-        final String password = "test";
+        final String username = "fogcarport@gmail.com";
+        final String password = "FoggyFrog420";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -39,12 +39,12 @@ public class Mail {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("karron11@gmail.com"));
+            message.setFrom(new InternetAddress("fogcarport@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(order.getCustomer().getEmail()));
             message.setSubject("Fog carport");
             message.setText("Dear " + order.getCustomer().getFirstname() + " We thank blaa blaa blaa"
-                    + "here is your link http://localhost:8080/LogInSample/FrontController?command=EditOrderPage?orderToEdit=" + order.getOrderid() );
+                    + "here is your link http://localhost:8080/LogInSample/FrontController?command=EditOrderPage&orderToEdit=" + order.getOrderid() );
 
             Transport.send(message);
 
@@ -56,7 +56,7 @@ public class Mail {
     }
     
     public static void main(String[] args) throws FOGException {
-        Order order = LogicFacade.getOrder(424);
+        Order order = LogicFacade.getOrder(425);
         sendMail(order);
     }
 }

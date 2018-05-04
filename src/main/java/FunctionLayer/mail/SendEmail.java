@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package FunctionLayer.mail;
-
-import FunctionLayer.FOGException;
-import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Order;
 import java.util.*;
 import javax.mail.*;
@@ -40,8 +37,10 @@ public class SendEmail {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("fogcarport@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
+            message.setRecipients(
+                    Message.RecipientType.TO,
                     InternetAddress.parse(order.getCustomer().getEmail()));
+            message.setRecipients(Message.RecipientType.CC, InternetAddress.parse("fogcarport@gmail.com"));
             message.setSubject("Fog carport");
             message.setText("Dear " + order.getCustomer().getFirstname() + ",\n\n"
                     + "We thank you for your recent carport request!"

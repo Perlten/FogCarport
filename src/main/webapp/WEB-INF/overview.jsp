@@ -38,7 +38,7 @@
 
     </div>
     <div class="panel-body">
-        <div style="height: 500px; width: 95%; margin: auto">
+        <div style="height: 350px; width: 95%; margin: auto">
             <%@include file="../SVGDraw.jsp" %>
         </div>
 

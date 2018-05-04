@@ -30,9 +30,9 @@ public class SubmitOrder extends Command {
             session.setAttribute("confirmedOrder", order);
             LogicFacade.sendEmailToCustomer(order);
         } catch (Exception e) {
-            throw new FOGException("Could not submit order");
+            throw new FOGException("Could not submit order!");
         }
-        return "confirm";
+        return "WEB-INF/confirm";
     }
 
 }

@@ -28,7 +28,7 @@ public class LoadOrder extends Command {
         } catch (Exception e) {
             throw new FOGException("Not a valid order!");
         }
-        return "confirm";
+        return "WEB-INF/confirm";
     }
 
 }

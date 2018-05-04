@@ -73,7 +73,7 @@
             <%}%>
 
             <div class="col-lg-6">
-                <%@include file="WEB-INF/overview.jsp" %>
+                <%@include file="overview.jsp" %>
             </div>
 
         </div>

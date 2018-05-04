@@ -43,12 +43,11 @@ public class SendEmail {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(order.getCustomer().getEmail()));
             message.setSubject("Fog carport");
-            message.setText("Dear " + order.getCustomer().getFirstname() + ",\n"
+            message.setText("Dear " + order.getCustomer().getFirstname() + ",\n\n"
                     + "We thank you for your recent carport request!"
                     + "\nTo follow the process of your request, please use your"
-                    + "reference link:\n\n"
+                    + " reference link:\n\n"
                     + " http://159.89.19.132/FogCarport/FrontController?command=LoadOrder&id=" + order.getOrderid() );
-
             Transport.send(message);
 
         } catch (MessagingException e) {

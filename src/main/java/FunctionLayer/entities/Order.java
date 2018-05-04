@@ -31,7 +31,7 @@ public class Order {
         this.date = date;
         this.customer = customer;
         this.customization = customization;
-        this.ordered = false;
+        this.ordered = ordered;
     }
 
     public Order(Customer customer, Customization customization) {

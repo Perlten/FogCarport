@@ -1,10 +1,12 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.LogicFacade;
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
+import FunctionLayer.entities.StyleOption;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.Connection;
@@ -29,16 +31,16 @@ public class OrderMapper {
      *
      * @param orderid under 0 for all orders. 0 or over for a specific order
      * @return A list of orders
-     * @throws LoginSampleException
+     * @throws FOGException
      */
-    public static List<Order> getOrders(int orderid) throws LoginSampleException {
+    public static List<Order> getOrders(int orderid) throws FOGException {
         List<Order> orderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
             String sql = "SELECT * FROM fog.order";
             if (orderid >= 0) {
                 sql += " where idorder=?";
-            }else{
+            } else {
                 sql += " order by idorder desc;";
             }
 
@@ -65,26 +67,27 @@ public class OrderMapper {
                 int height = res.getInt("height");
                 double roofangle = res.getDouble("roofangle");
                 boolean shed = res.getBoolean("shed");
+
                 int tile = res.getInt("tile");
                 int cladding = res.getInt("cladding");
+                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
+                StyleOption tileStyle = LogicFacade.getTile(tile);
 
                 Shed shedEntity = null;
-
                 if (shed) {
                     int shedLength = res.getInt("shed_length");
                     int shedWidth = res.getInt("shed_width");
                     shedEntity = new Shed(shedLength, shedWidth);
 
                 }
-
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
-                Customization customization = new Customization(length, width, height, roofangle, shedEntity);
-                Order order = new Order(idorder, confirmed, date, customer, customization);
+                Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
+                Order order = new Order(idorder, true, confirmed, date, customer, customization);
                 orderList.add(order);
             }
 
         } catch (Exception e) {
-            throw new LoginSampleException(e.getMessage());
+            throw new FOGException(e.getMessage());
         }
         return orderList;
     }
@@ -94,7 +97,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void changeOrder(Order order) throws LoginSampleException {
+    public static void changeOrder(Order order) throws FOGException {
         String sql = "UPDATE fog.order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
                 + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
@@ -123,13 +126,12 @@ public class OrderMapper {
             ps.setBoolean(10, shed);
             ps.setInt(11, shedLength);
             ps.setInt(12, shedWidth);
-            //TODO We need to change order to acamendate for customazation options
-            ps.setInt(13, 1);
-            ps.setInt(14, 2);
+            ps.setInt(13, customization.getTile().getId());
+            ps.setInt(14, customization.getCladding().getId());
             ps.setInt(15, order.getOrderid());
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
@@ -138,7 +140,7 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOrder(int id) throws LoginSampleException {
+    public static void confirmOrder(int id) throws FOGException {
         String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
         try {
             Connection con = Connector.connection();
@@ -146,11 +148,23 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeOrder(int orderId) throws LoginSampleException {
+    public static void unconfirmOrder(int id) throws FOGException {
+        String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new FOGException(ex.getMessage());
+        }
+    }
+
+    public static void removeOrder(int orderId) throws FOGException {
         String sql = "DELETE FROM fog.order WHERE idorder = ?";
         try {
             Connection con = Connector.connection();
@@ -158,7 +172,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
@@ -167,7 +181,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) throws LoginSampleException {
+    public static void MakeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -180,7 +194,7 @@ public class OrderMapper {
         }
         try {
             Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, order.getCustomer().getFirstname());
             ps.setString(2, order.getCustomer().getLastname());
             ps.setString(3, order.getCustomer().getEmail());
@@ -192,27 +206,30 @@ public class OrderMapper {
             ps.setBoolean(9, shed);
             ps.setInt(10, shedLength);
             ps.setInt(11, shedWidth);
-            //TODO: change order to incorporate tile and cladding
-            ps.setInt(12, 1);
-            ps.setInt(13, 1);
-            ps.execute();
+            ps.setInt(12, order.getCustomization().getTile().getId());
+            ps.setInt(13, order.getCustomization().getCladding().getId());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            order.setOrderid(rs.getInt(1));
+
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void removeLast() throws LoginSampleException {
+    public static void removeLast() throws FOGException {
         String sql = "delete from fog.order"
                 + " order by idorder desc limit 1";
         try {
             Statement state = Connector.connection().createStatement();
             state.execute(sql);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 
-    public static Order getLast() throws LoginSampleException {
+    public static Order getLast() throws FOGException {
         String sql = "select idorder from fog.order"
                 + " order by idorder desc limit 1";
         try {
@@ -222,7 +239,7 @@ public class OrderMapper {
             List<Order> list = getOrders(rs.getInt("idorder"));
             return list.get(0);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FOGException(ex.getMessage());
         }
     }
 }

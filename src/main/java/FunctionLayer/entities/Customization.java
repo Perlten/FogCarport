@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FunctionLayer.entities;
 
 import java.util.Objects;
 
-/**
- * Holds the information of the customization of a carport.
- * 
- * @author adamlass
- */
 public class Customization {
 
     private int length;
@@ -19,15 +9,38 @@ public class Customization {
     private int height;
     private double roofangle;
     private Shed shed;
+    private StyleOption cladding;
+    private StyleOption tile;
+    
+    public static final int padding = 30;
+    public static final int beam = 5;
 
-    public Customization(int length, int width, int height, double roofangle, Shed shed) {
+    public Customization(int length, int width, int height, double roofangle, Shed shed, StyleOption cladding, StyleOption tile) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.roofangle = roofangle;
         this.shed = shed;
+        this.cladding = cladding;
+        this.tile = tile;
     }
 
+    public StyleOption getCladding() {
+        return cladding;
+    }
+
+    public StyleOption getTile() {
+        return tile;
+    }
+
+    public void setCladding(StyleOption cladding) {
+        this.cladding = cladding;
+    }
+
+    public void setTile(StyleOption tile) {
+        this.tile = tile;
+    }
+    
     public int getLength() {
         return length;
     }
@@ -68,12 +81,13 @@ public class Customization {
         this.shed = shed;
     }
 
-    
-    
     @Override
     public String toString() {
-        return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + '}';
+        return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + ", cladding=" + cladding + ", tile=" + tile + '}';
     }
+
+    
+
 
     @Override
     public int hashCode() {

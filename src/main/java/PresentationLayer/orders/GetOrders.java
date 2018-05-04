@@ -5,7 +5,8 @@
  */
 package PresentationLayer.orders;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
 import java.util.List;
@@ -14,18 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Using the LogicFacade to load all the orders from the database.
+ *
  * @author adamlass
  */
 public class GetOrders extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        try {
-            List<Order> orders = FunctionLayer.LogicFacade.getOrders();
-            request.setAttribute("orders", orders);
-        } catch (Exception e) {
-            throw new LoginSampleException("Could not show all orders!");
-        }
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
+        List<Order> orders = LogicFacade.getOrders();
+        request.setAttribute("orders", orders);
         return "WEB-INF/orders";
     }
 

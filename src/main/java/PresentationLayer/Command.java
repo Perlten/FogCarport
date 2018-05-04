@@ -19,6 +19,7 @@ import PresentationLayer.requesting.GiveCredentials;
 import PresentationLayer.requesting.GiveDimentions;
 import PresentationLayer.requesting.GiveDimentionsPage;
 import PresentationLayer.requesting.GiveStyling;
+import PresentationLayer.requesting.LoadOrder;
 import PresentationLayer.requesting.Styling;
 import PresentationLayer.requesting.SubmitOrder;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public abstract class Command {
         commands.put("GiveDimentionsPage", new GiveDimentionsPage());
         commands.put("GiveCredentialsPage", new GiveCredentialsPage());
         commands.put("SubmitOrder", new SubmitOrder());
+        commands.put("LoadOrder", new LoadOrder());
     }
 
     static Command from( HttpServletRequest request ) {

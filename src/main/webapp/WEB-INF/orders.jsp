@@ -110,7 +110,7 @@
                             </tbody>
                         </table>
                         <div style="height: 300px; width: 50%; margin: auto; ">
-                            <%@include file="../SVGleg.jsp" %>
+                            <%@include file="../SVGDraw.jsp" %>
                         </div>
                     </div>
                     <% if (!selectedOrder.isConfirmed()) {%>

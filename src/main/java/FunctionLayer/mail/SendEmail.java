@@ -16,7 +16,7 @@ import javax.mail.internet.*;
  *
  * @author Perlt
  */
-public class Mail {
+public class SendEmail {
 
     public static void sendMail(Order order) {
 
@@ -51,15 +51,8 @@ public class Mail {
 
             Transport.send(message);
 
-            System.out.println("Done");
-
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
-    
-    public static void main(String[] args) throws FOGException {
-        Order order = LogicFacade.getOrder(425);
-        sendMail(order);
     }
 }

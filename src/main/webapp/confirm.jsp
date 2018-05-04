@@ -52,7 +52,7 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <h4>Request sent!</h4>
-                        <p class="text text-muted">We will contact you once we have processed 
+                        <p class="text text-muted">You have received an email with the details of your order. We will contact you once we have processed 
                             your request.</p>
                     </div>
 

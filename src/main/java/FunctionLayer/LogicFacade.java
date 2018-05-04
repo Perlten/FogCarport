@@ -4,6 +4,7 @@ import DBAccess.OrderMapper;
 import DBAccess.StyleMapper;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
+import FunctionLayer.mail.SendEmail;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -135,5 +136,9 @@ public class LogicFacade {
 
     public static void removeTile(int id) throws FOGException {
         StyleMapper.removeStyleOption(id, "tile");
+    }
+    
+    public static void sendEmailToCustomer(Order order){
+        SendEmail.sendMail(order);
     }
 }

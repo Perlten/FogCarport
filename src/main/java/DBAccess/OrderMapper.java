@@ -95,7 +95,7 @@ public class OrderMapper {
     public static List<Order> getCustomerList(int limit) throws FOGException {
 
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT idorder, firstname, lastname, email, phonenumber FROM fog.order LIMIT ?";
+        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order LIMIT ?";
 
         try {
             Connection con = Connector.connection();
@@ -107,12 +107,16 @@ public class OrderMapper {
 
             while (rs.next()) {
                 int idorder = rs.getInt("idorder");
+                boolean confirmed = rs.getBoolean("confirmed");
+                Calendar date = Calendar.getInstance();
+                Timestamp ts = rs.getTimestamp("date");
+                date.setTime((Date) ts);
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String email = rs.getString("email");
                 int phoneNumber = rs.getInt("phonenumber");
 
-                list.add(new Order(idorder, false, false, null, new Customer(firstName, lastName, email, phoneNumber), null));
+                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new FOGException(ex.getMessage());

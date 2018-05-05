@@ -13,6 +13,7 @@
         <tr>
             <th>Order Number</th>
             <th>Email</th>
+            <th>Date</th>
             <th>Name</th>
             <th>Phonenumber</th>
         </tr>
@@ -22,6 +23,9 @@
             Customer cust = orderList.get(i).getCustomer();
     %>
     <tbody>
+        <tr <%if (orderList.get(i).isConfirmed()) { %>
+            class="success"
+            <%}%>>
             <td>
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="ShowOrder">
@@ -31,6 +35,7 @@
 
             </td>
             <td><%= cust.getEmail()%></td>
+            <td><%= orderList.get(i).simpleDate()%></td>
             <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
             <td><%= cust.getPhonenumber()%></td>
         </tr>

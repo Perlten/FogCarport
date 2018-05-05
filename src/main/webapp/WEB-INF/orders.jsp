@@ -17,18 +17,14 @@
             Order selectedOrder = (Order) request.getAttribute("order");
         %>
         <script>
-        window.onload = function() {
-            showCustomer();
-        };
-        </script>
-        <script>
+            window.onload = function () {
+                showCustomer();
+            };
+
             var num = 0;
             function showCustomer() {
-                var xhttp;
                 num += 10;
-                if (num == 0) {
-                    document.getElementById("orders").innerHTML = "";
-                }
+                var xhttp;
                 xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
@@ -39,14 +35,14 @@
                 xhttp.send();
             }
         </script>
-        
-        
+
+
         <%@include file="../employeesNavBar.jsp"%>
         <h1>Customer Orders</h1>
         <div class="row">
             <div class="col-lg-6">
                 <div id="orders"></div>
-                <input type="submit" onclick="showCustomer()" class="btn btn-default" value="Load">
+                <input type="submit" onclick="showCustomer()" class="btn btn-primary" value="Load">
             </div>
             <% if (selectedOrder != null) {
 

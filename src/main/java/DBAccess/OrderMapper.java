@@ -92,6 +92,34 @@ public class OrderMapper {
         return orderList;
     }
 
+    public static List<Order> getCustomerList(int limit) throws FOGException {
+
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT idorder, firstname, lastname, email, phonenumber FROM fog.order LIMIT ?";
+
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, limit);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idorder = rs.getInt("idorder");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastname");
+                String email = rs.getString("email");
+                int phoneNumber = rs.getInt("phonenumber");
+
+                list.add(new Order(idorder, false, false, null, new Customer(firstName, lastName, email, phoneNumber), null));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FOGException(ex.getMessage());
+        }
+        return list;
+    }
+
     /**
      * Changes the order in the database
      *
@@ -242,4 +270,5 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
+    
 }

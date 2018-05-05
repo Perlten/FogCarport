@@ -11,58 +11,42 @@
         <title>Customer Orders</title>
         <%@include file="../bootstrap.jsp" %>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            List<Order> orders = (List<Order>) request.getAttribute("orders");
-            Order selectedOrder = (Order) request.getAttribute("order");
-        %>
     </head>
     <body>
+        <%
+            Order selectedOrder = (Order) request.getAttribute("order");
+        %>
+        <script>
+        window.onload = function() {
+            showCustomer();
+        };
+        </script>
+        <script>
+            var num = 0;
+            function showCustomer() {
+                var xhttp;
+                num += 10;
+                if (num == 0) {
+                    document.getElementById("orders").innerHTML = "";
+                }
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("orders").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("get", "test.jsp?num=" + num, true);
+                xhttp.send();
+            }
+        </script>
+        
+        
         <%@include file="../employeesNavBar.jsp"%>
         <h1>Customer Orders</h1>
-
         <div class="row">
             <div class="col-lg-6">
-                <table class="table table-xstriped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Order Number</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Name</th>
-                            <th>Phonenumber</th>
-                        </tr>
-                    </thead>
-
-                    <% for (Order order : orders) {
-                            Customer cust = order.getCustomer();
-                    %>
-                    <tbody>
-                        <tr <% if (order.equals(selectedOrder)) { %>
-                            class="active"
-                            <% } else if (order.isConfirmed()) { %>
-                            class="success"
-                            <%}%>>
-                            <td>
-                                <form action="FrontController" method="post">
-                                    <input type="hidden" name="command" value="ShowOrder">
-                                    <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
-                                    <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
-                                </form>
-
-                            </td>
-                            <td><%= cust.getEmail()%></td>
-                            <td><%= order.simpleDate()%></td>
-                            <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
-                            <td><%= cust.getPhonenumber()%></td>
-                        </tr>
-                    </tbody>
-                    <% }%>
-                </table>
-
-                <!--TODO: remove-->
-                <form action="index.jsp" method="post">
-                    <input type="submit" class="btn btn-default" value="Back">
-                </form>
+                <div id="orders"></div>
+                <input type="submit" onclick="showCustomer()" class="btn btn-default" value="Load">
             </div>
             <% if (selectedOrder != null) {
 
@@ -70,7 +54,6 @@
                     if (selectedOrder.isConfirmed()) {
                         panel = "panel panel-success";
                     }
-
             %>
             <div class="col-lg-6">
                 <div class="<%= panel%>" >

@@ -20,6 +20,10 @@ public class LogicFacade {
         return OrderMapper.getOrders(-1);
     }
 
+    public static List<Order> getCustomerList(int limit) throws FOGException {
+        return OrderMapper.getCustomerList(limit);
+    }
+
     /**
      * Returns a specific order.
      *
@@ -96,10 +100,10 @@ public class LogicFacade {
         }
         return null;
     }
-    
-    public static void unconfirmOrder(int id) throws FOGException{
+
+    public static void unconfirmOrder(int id) throws FOGException {
         OrderMapper.unconfirmOrder(id);
-    } 
+    }
 
     /**
      *
@@ -137,8 +141,8 @@ public class LogicFacade {
     public static void removeTile(int id) throws FOGException {
         StyleMapper.removeStyleOption(id, "tile");
     }
-    
-    public static void sendEmailToCustomer(Order order){
+
+    public static void sendEmailToCustomer(Order order) {
         SendEmail.sendMail(order);
     }
 }

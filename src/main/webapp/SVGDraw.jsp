@@ -14,6 +14,10 @@
     if (orderDraw == null) {
         orderDraw = (Order) request.getSession().getAttribute("confirmedOrder");
     }
+    if(orderDraw == null){
+        orderDraw = (Order) request.getAttribute("order");
+    }
+    
     Customization drawCust = orderDraw.getCustomization();
     int drawLength = drawCust.getLength();
     int drawWidth = drawCust.getWidth();

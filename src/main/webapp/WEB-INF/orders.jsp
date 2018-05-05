@@ -35,7 +35,7 @@
                         document.getElementById("orders").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("get", "test.jsp?num=" + num, true);
+                xhttp.open("get", "showorders.jsp?num=" + num, true);
                 xhttp.send();
             }
         </script>

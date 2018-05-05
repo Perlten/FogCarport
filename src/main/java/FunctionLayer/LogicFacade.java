@@ -143,6 +143,15 @@ public class LogicFacade {
     }
 
     public static void sendEmailToCustomer(Order order) {
-        SendEmail.sendMail(order);
+        String title = "Fog carport offer";
+        
+        String textMessage = "Dear " + order.getCustomer().getFirstname() + ",\n\n"
+                + "We thank you for your recent carport request!"
+                + "\nTo follow the process of your request, please use your"
+                + " reference link:\n\n"
+                + " http://159.89.19.132/FogCarport/FrontController?command=LoadOrder&id=" + order.getOrderid()
+                + "\n\nRegards,\nFog";
+        
+        SendEmail.sendMail(order.getCustomer().getEmail(), title, textMessage);
     }
 }

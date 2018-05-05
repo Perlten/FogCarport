@@ -19,23 +19,24 @@
         </tr>
     </thead>
 
-    <% for (int i = 0; i < orderList.size(); i++) {
-            Customer cust = orderList.get(i).getCustomer();
+    <% for (Order order : orderList) {
+            Customer cust = order.getCustomer();
     %>
     <tbody>
-        <tr <%if (orderList.get(i).isConfirmed()) { %>
+        <tr <%if (order.isConfirmed()) { %>
             class="success"
             <%}%>>
             <td>
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="ShowOrder">
-                    <input type="hidden" name="orderId" value="<%= orderList.get(i).getOrderid()%>">
-                    <input type="submit" class="btn btn-default" value="Order <%= orderList.get(i).getOrderid()%>">
+                    <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
+                    <input type="hidden" name="loads" value="<%= orderList.size() %>">
+                    <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
                 </form>
 
             </td>
             <td><%= cust.getEmail()%></td>
-            <td><%= orderList.get(i).simpleDate()%></td>
+            <td><%= order.simpleDate()%></td>
             <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
             <td><%= cust.getPhonenumber()%></td>
         </tr>

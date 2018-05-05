@@ -15,15 +15,22 @@
     <body>
         <%
             Order selectedOrder = (Order) request.getAttribute("order");
+            int loads = 0;
+            if (request.getParameter("loads") != null) {
+                loads = Integer.parseInt(request.getParameter("loads"));
+            }
+
         %>
         <script>
             window.onload = function () {
-                showCustomer();
+                showCustomer(false);
             };
 
-            var num = 0;
-            function showCustomer() {
-                num += 10;
+            var num = <%= loads%>;
+            function showCustomer(add) {
+                if (add || num == 0) {
+                    num += 10;
+                }
                 var xhttp;
                 xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
@@ -31,7 +38,7 @@
                         document.getElementById("orders").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("get", "showorders.jsp?num=" + num, true);
+                xhttp.open("get", "showordersJS.jsp?num=" + num, true);
                 xhttp.send();
             }
         </script>
@@ -42,7 +49,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div id="orders"></div>
-                <input type="submit" onclick="showCustomer()" class="btn btn-primary" value="Load">
+                <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
             </div>
             <% if (selectedOrder != null) {
 
@@ -97,6 +104,7 @@
                         <form action="FrontController" method="post">
                             <input type="hidden" name="command" value="ConfirmOrder">
                             <input type="hidden" name="orderId" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="hidden" name="loads" value="<%= loads%>">
                             <input type="submit" class="btn btn-success" value="Confirm">
                         </form>
                     </div>
@@ -112,6 +120,7 @@
                         <form action="FrontController" method="post">
                             <input type="hidden" name="command" value="Unconfirm">
                             <input type="hidden" name="orderId" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="hidden" name="loads" value="<%= loads%>">
                             <input type="submit" class="btn btn-primary" value="Unconfirm">
                         </form>
                     </div>
@@ -120,6 +129,7 @@
                         <form action="FrontController" method="post">
                             <input type="hidden" name="command" value="DeleteOrder">
                             <input type="hidden" name="orderToDelete" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="hidden" name="loads" value="<%= loads%>">
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                     </div>

@@ -58,6 +58,12 @@ public class Product {
     public double totalPrice(){
         return price * amount;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "title=" + title + ", description=" + description + ", unit=" + unit + ", amount=" + amount + ", length=" + length + ", price=" + price + '}';
+    }
+    
    
    
     

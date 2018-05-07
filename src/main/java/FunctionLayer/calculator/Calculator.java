@@ -25,7 +25,7 @@ public class Calculator {
     }
 
     public void calculate() {
-
+        calculateRafter();
     }
 
     public List<Product> getProducts() {
@@ -61,7 +61,9 @@ public class Calculator {
 
         double amountOfBeams = placingLength / rafterWoodLength;
 
-        
+        if (amountOfBeams < 1) {
+            amountOfBeams = 1;
+        }
 
         if (amountOfBeams % 1 != 0) {
             int lastBeam = placingLength % rafterWoodLength;
@@ -69,10 +71,28 @@ public class Calculator {
             products.add(new Product("Beam", "Used together with the poles to support the rafters. This is the end piece!", "pcs", lanes, lastBeam, 0)); //TODO make db
         }
 
-        products.add(new Product("Beam", "Used together with the poles to support the rafters.", "pcs", ((int) amountOfBeams) * lanes, rafterWoodLength, 0)); //TODO make db
+        int beamsOnLane = (int) amountOfBeams;
+
+        products.add(new Product("Beam", "Used together with the poles to support the rafters.", "pcs", beamsOnLane * lanes, rafterWoodLength, 0)); //TODO make db
 
         //TODO poles
-        
+        int poles = 1;
+
+        poles += placingLength / rafterWoodLength;
+
+        if ((placingLength / rafterWoodLength) % 1 != 0) {
+            poles++;
+        }
+
+        products.add(new Product("Pole", "Used to support the beams", "pcs", poles * lanes, cust.getHeight(), 0)); //TODO make db
+    }
+    
+    public static void main(String[] args) {
+        Customization cust = new Customization(700, 700, 200, 0, null, null, null);
+        Calculator cal = new Calculator(cust);
+        cal.calculate();
+        System.out.println(cal.getProducts());
+        System.out.println("" + 800/600);
     }
 
 }

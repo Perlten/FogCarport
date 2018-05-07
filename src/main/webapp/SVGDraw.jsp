@@ -76,6 +76,7 @@
 
 <!--poles-->
 <%
+    //TODO does not match the calculations of the piecelist
     int placingLength = drawLength - padding;
     int amountOfPoles = (int) (placingLength / 300) + 1;
 

@@ -11,10 +11,10 @@ package FunctionLayer.calculator;
  */
 public class Product {
    private String title, description, unit;
-   private int amount, length;
-   private double price;
+   private int amount;
+   private double price, length;
 
-    public Product(String title, String description, String unit, int amount, int length, double price) {
+    public Product(String title, String description, String unit, int amount, double length, double price) {
         this.title = title;
         this.description = description;
         this.unit = unit;
@@ -39,7 +39,7 @@ public class Product {
         return amount;
     }
 
-    public int getLength() {
+    public double getLength() {
         return length;
     }
 

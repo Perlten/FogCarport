@@ -35,20 +35,18 @@ public class Calculator {
     private void calculateRafter() {
         int amountOfRafters = (int) (cust.getLength() / 50);
         int width = cust.getWidth();
-        double remainder = width / rafterWoodLength; //TODO make db
+        double remainder = ((double) width) / rafterWoodLength; //TODO make db
         if (remainder % 1 != 0) {
             remainder++;
         }
 
         int pitstops = (int) (remainder - 1);
 
-        if (pitstops > 0) {
             polesAndBeams(pitstops);
-        }
 
         amountOfRafters *= remainder;
 
-        int lengthOfRafters = (int) (width / remainder);
+        double lengthOfRafters = (width / remainder);
 
         if (amountOfRafters > 0) {
             products.add(new Product("Rafter", "Used on beam", "pcs", amountOfRafters, lengthOfRafters, 0)); //TODO make db
@@ -59,7 +57,7 @@ public class Calculator {
         int lanes = 2 + pitstops;
         int placingLength = cust.getLength() - Customization.padding;
 
-        double amountOfBeams = placingLength / rafterWoodLength;
+        double amountOfBeams = ((double) placingLength)/ rafterWoodLength;
 
         if (amountOfBeams < 1) {
             amountOfBeams = 1;
@@ -75,12 +73,11 @@ public class Calculator {
 
         products.add(new Product("Beam", "Used together with the poles to support the rafters.", "pcs", beamsOnLane * lanes, rafterWoodLength, 0)); //TODO make db
 
-        //TODO poles
         int poles = 1;
 
-        poles += placingLength / rafterWoodLength;
+        poles += placingLength / (rafterWoodLength / 2);
 
-        if ((placingLength / rafterWoodLength) % 1 != 0) {
+        if ((placingLength / ((double)(rafterWoodLength)) / 2) % 1 != 0) {
             poles++;
         }
 
@@ -92,7 +89,6 @@ public class Calculator {
         Calculator cal = new Calculator(cust);
         cal.calculate();
         System.out.println(cal.getProducts());
-        System.out.println("" + 800/600);
     }
 
 }

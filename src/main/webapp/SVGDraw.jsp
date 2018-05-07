@@ -25,7 +25,7 @@
     
 
     int padding = Customization.padding;
-    int rem = Customization.beam;
+    int beam = Customization.beam;
 
 %>
 
@@ -53,14 +53,14 @@
         Shed drawShed = drawCust.getShed();
 %>
 <rect x="<%= padding%>" y="<%= padding%>" width="<%= drawShed.getWidth()%>" height="<%= drawShed.getLength()%>"
-      style="fill: none; stroke: black;stroke-width: <%= rem%>; stroke-dasharray: 7, 2"/>
+      style="fill: none; stroke: black;stroke-width: <%= beam%>; stroke-dasharray: 7, 2"/>
 <%}%>
 
-<!--rem-->
+<!--beam-->
 <line x1="<%= padding%>" y1="0" x2="<%= padding%>" y2="<%= drawLength%>"
-      style="stroke: black; stroke-width: <%= rem%>"/>       
+      style="stroke: black; stroke-width: <%= beam%>"/>       
 <line x1="<%= drawWidth - padding%>" y1="0" x2="<%= drawWidth - padding%>" y2="<%= drawLength%>"
-      style="stroke: black; stroke-width: <%= rem%>"/>   
+      style="stroke: black; stroke-width: <%= beam%>"/>   
 
 <!--rafter-->
 <%
@@ -76,20 +76,21 @@
 
 <!--poles-->
 <%
-    int amountOfPoles = (int) (drawLength / 250) + 1;
+    int placingLength = drawLength - padding;
+    int amountOfPoles = (int) (placingLength / 300) + 1;
 
     if (amountOfPoles < 2) {
         amountOfPoles = 2;
     }
 
-    double poleDistance = ((drawLength - padding) / amountOfPoles);
+    double poleDistance = (placingLength / (amountOfPoles - 1));
 
     for (int i = 0; i < amountOfPoles; i++) {
 %>
-<rect x="<%= padding - (rem / 2 + 3)%>" y="<%= i * poleDistance + padding%>" width="10" height="10" 
+<rect x="<%= padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5 %>" width="10" height="10" 
       style="fill: white; stroke: black; stroke-drawWidth: 2"/>
 
-<rect x="<%= drawWidth - padding - (rem / 2 + 3)%>" y="<%= i * poleDistance + padding%>" width="10" height="10" 
+<rect x="<%= drawWidth - padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5 %>" width="10" height="10" 
       style="fill: white; stroke: black; stroke-width: 2"/>
 <%
     }

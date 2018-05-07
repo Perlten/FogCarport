@@ -95,7 +95,7 @@ public class OrderMapper {
     public static List<Order> getCustomerList(int limit) throws FOGException {
 
         List<Order> list = new ArrayList<>();
-        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order LIMIT ?";
+        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order order by idorder desc LIMIT ?";
 
         try {
             Connection con = Connector.connection();

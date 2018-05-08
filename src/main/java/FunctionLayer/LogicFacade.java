@@ -1,7 +1,9 @@
 package FunctionLayer;
 
+import DBAccess.EmployeeMapper;
 import DBAccess.OrderMapper;
 import DBAccess.StyleMapper;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
@@ -153,5 +155,9 @@ public class LogicFacade {
                 + "\n\nRegards,\nFog";
         
         SendEmail.sendMail(order.getCustomer().getEmail(), title, textMessage);
+    }
+    
+    public static Employee verfyLogin(String username, String password) throws FOGException{
+        return EmployeeMapper.verfyLogin(username, password);
     }
 }

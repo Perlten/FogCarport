@@ -74,7 +74,8 @@
 
                                 <label>
                                     Height
-                                    <input type="number" class="form-control" name="height" min="100" placeholder="cm" value="<%= height%>" required>
+                                    <!--max: 480 (max length of cladding) + 20 (air from floor)-->
+                                    <input type="number" class="form-control" name="height" min="100" max="500" placeholder="cm" value="<%= height%>" required> 
                                 </label>
                             </label>
                             <br>
@@ -141,16 +142,16 @@
             <%}%>
         </div>
         <div>
-        <form action="FrontController" method="post">
-            <input type="hidden" name="command" value="GetOrders">
-            <input type="submit" value="GetOrders">
-        </form>
+            <form action="FrontController" method="post">
+                <input type="hidden" name="command" value="GetOrders">
+                <input type="submit" value="GetOrders">
+            </form>
 
-        <form action="FrontController" method="post">
-            <input type="hidden" name="command" value="UpdateStylePage">
-            <input type="submit" value="Update Style">
-        </form>
-        
+            <form action="FrontController" method="post">
+                <input type="hidden" name="command" value="UpdateStylePage">
+                <input type="submit" value="Update Style">
+            </form>
+
         </div>
     </body>
 </html>

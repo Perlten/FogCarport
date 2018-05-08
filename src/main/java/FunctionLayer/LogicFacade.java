@@ -1,9 +1,11 @@
 package FunctionLayer;
 
 import DBAccess.EmployeeMapper;
+import DBAccess.EventMapper;
 import DBAccess.OrderMapper;
 import DBAccess.StyleMapper;
 import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
@@ -186,5 +188,22 @@ public class LogicFacade {
     
     public static Employee getEmployeeByEmail(String email) throws FOGException{
         return EmployeeMapper.getEmployeeByEmail(email);
+    }
+    
+    /**
+     * Write a event with dummy-object
+     * 
+     * @param event dummy-object. Does only need to contain the right eventType and
+     * orderid.
+     * 
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static void writeEvent(Event event) throws SQLException, ClassNotFoundException{
+        EventMapper.writeEvent(event);
+    }
+    
+    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, ClassNotFoundException, SQLException{
+        return EventMapper.getEvents(orderid);
     }
 }

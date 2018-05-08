@@ -22,15 +22,19 @@ import java.util.Date;
  */
 public class EventMapper {
 
-    public void writeEvent(Event event) throws SQLException, ClassNotFoundException {
+    /**
+     * Write an order with a dummy-object of event.
+     * @param event
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
+    public static void writeEvent(Event event) throws SQLException, ClassNotFoundException {
         Connection con = Connector.connection();
 
-        String sql = "INSERT INTO fog.event(idevent_type, title, description, idorder) values (?,?,?,?)";
+        String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
         PreparedStatement pre = con.prepareStatement(sql);
         pre.setInt(1, event.getEventType());
-        pre.setString(2, event.getTitle());
-        pre.setString(3, event.getDescription());
-        pre.setInt(4, event.getOrderid());
+        pre.setInt(2, event.getOrderid());
         pre.executeUpdate();
     }
 
@@ -42,7 +46,7 @@ public class EventMapper {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public List<Event> getEvents(int orderid) throws ClassNotFoundException, SQLException {
+    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, SQLException {
         Connection con = Connector.connection();
 
         String sql = "SELECT * FROM fog.event "
@@ -64,7 +68,7 @@ public class EventMapper {
      * @return A list of Event objects from db
      * @throws SQLException
      */
-    private List<Event> convert(ResultSet res) throws SQLException {
+    private static List<Event> convert(ResultSet res) throws SQLException {
         List<Event> events = new ArrayList<>();
         while (res.next()) {
             int eventId = res.getInt("idevent");

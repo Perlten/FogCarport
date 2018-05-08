@@ -9,6 +9,7 @@ import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 public class LogicFacade {
 
@@ -146,18 +147,44 @@ public class LogicFacade {
 
     public static void sendEmailToCustomer(Order order) {
         String title = "Fog carport offer";
-        
+
         String textMessage = "Dear " + order.getCustomer().getFirstname() + ",\n\n"
                 + "We thank you for your recent carport request!"
                 + "\nTo follow the process of your request, please use your"
                 + " reference link:\n\n"
                 + " http://159.89.19.132/FogCarport/FrontController?command=LoadOrder&id=" + order.getOrderid()
                 + "\n\nRegards,\nFog";
-        
+
         SendEmail.sendMail(order.getCustomer().getEmail(), title, textMessage);
     }
-    
-    public static Employee verfyLogin(String username, String password) throws FOGException{
+
+    public static Employee verfyLogin(String username, String password) throws FOGException {
         return EmployeeMapper.verfyLogin(username, password);
+    }
+
+    public static void SendNewPasswordToEmployee(String email) throws FOGException {
+        Employee emp = EmployeeMapper.getEmployeeByEmail(email);
+        
+        //TODO: Might use our encryption class when we make it ;)
+        Random ra = new Random();
+        String password = "";
+        String toChange = emp.getUsername() + emp.getEmail();
+        for (int i = 0; i < toChange.length(); i++) {
+            char x = toChange.charAt(i);
+            x += ra.nextInt(5);
+            password += x;
+        }
+
+        EmployeeMapper.changePasswordForEmployee(emp.getEmployeeId(), password);
+        
+        String title = "New password";
+        String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
+                + "Password: " + password;
+        
+        SendEmail.sendMail(emp.getEmail(), title, text);
+    }
+    
+    public static Employee getEmployeeByEmail(String email) throws FOGException{
+        return EmployeeMapper.getEmployeeByEmail(email);
     }
 }

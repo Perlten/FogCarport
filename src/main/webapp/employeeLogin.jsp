@@ -28,6 +28,11 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
             </form>
+            <form action="recoverPassword.jsp" method="post">
+                <label class="control-label">Forgot password</label>
+                <br>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </form>
         </div>
     </body>
 </html>

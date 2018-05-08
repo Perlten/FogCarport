@@ -92,7 +92,6 @@ public class Calculator {
         Calculator cal = new Calculator(cust);
         cal.calculate();
         System.out.println(cal.getProducts());
-        System.out.println("" + 800/600);
     }
 
 }

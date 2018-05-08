@@ -63,6 +63,13 @@ public class Event {
     public Calendar getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", assignedEmployee=" + assignedEmployee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", date=" + date.getTimeInMillis() + '}';
+    }
+    
+    
     
     
 }

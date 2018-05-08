@@ -42,7 +42,7 @@ public class LogicFacade {
     }
 
     public static void makeOrder(Order order) throws FOGException {
-        OrderMapper.MakeOrder(order);
+        OrderMapper.makeOrder(order);
     }
 
     /**

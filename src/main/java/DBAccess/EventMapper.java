@@ -52,7 +52,7 @@ public class EventMapper {
         String sql = "SELECT * FROM fog.event "
                 + "INNER JOIN fog.event_type "
                 + "ON event.idevent_type = event_type.idevent_type "
-                + "WHERE idorder = ?";
+                + "WHERE idorder = ? order by idevent desc";
 
         PreparedStatement pre = con.prepareStatement(sql);
         pre.setInt(1, orderid);

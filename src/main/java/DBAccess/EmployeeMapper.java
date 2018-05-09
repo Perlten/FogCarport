@@ -129,7 +129,19 @@ public class EmployeeMapper {
             ps.setInt(6, employee.getEmployeeId());
             ps.execute();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new FOGException(e.getMessage());
+            throw new FOGException("Could not update employee");
+        }
+    }
+    
+    public static void fireEmployee(int employeeId) throws FOGException{
+        String sql = "UPDATE fog.employee SET employed = false WHERE idemployee = ?";
+         try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, employeeId);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not fire Employee");
         }
     }
 

@@ -228,4 +228,8 @@ public class LogicFacade {
     public static void UpdateEmployee(Employee employee) throws FOGException{
         EmployeeMapper.updateEmployee(employee);
     }
+    
+    public static void fireEmployee(int employeeId) throws FOGException{
+        EmployeeMapper.fireEmployee(employeeId);
+    }
 }

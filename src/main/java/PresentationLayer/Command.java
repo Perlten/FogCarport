@@ -9,6 +9,7 @@ import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.FOGException;
 import PresentationLayer.login.EditEmployee;
+import PresentationLayer.login.FireEmployee;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.Overview;
 import PresentationLayer.login.SendNewPassword;
@@ -65,6 +66,7 @@ public abstract class Command {
         commands.put("UpdateStaff", new UpdateStaff());
         commands.put("EditEmployee", new EditEmployee());
         commands.put("UpdateEmployee", new UpdateEmployee());
+        commands.put("FireEmployee", new FireEmployee());
     }
 
     static Command from( HttpServletRequest request ) {

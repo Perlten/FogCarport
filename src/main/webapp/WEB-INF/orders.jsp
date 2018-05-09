@@ -9,8 +9,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%--<%@include file="../bootstrap.jsp" %>--%>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
+        <%@include file="../bootstrap.jsp" %>
+        
+        <style>
+            .ogGreen{
+                background-color: green;
+            }
+            
+        </style>
     </head>
     <body>
         <%
@@ -55,7 +63,7 @@
 
                         String card = "card bg-default";
                         if (selectedOrder.isConfirmed()) {
-                            card = "card bg-success";
+                            card = "ogGreen";
                         }
                 %>
                 <div class="col-lg-6">

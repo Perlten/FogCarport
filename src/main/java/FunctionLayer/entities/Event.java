@@ -15,10 +15,10 @@ import java.util.Calendar;
 public class Event {
 
     private int eventId, orderid, assignedEmployee, accessLevel, eventType;
-    private String title, description, eventName;
+    private String title, description, eventName, statusColor;
     private Calendar date;
 
-    public Event(int eventId, int orderid, int assignedEmployee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date) {
+    public Event(int eventId, int orderid, int assignedEmployee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date, String statusColor) {
         this.eventId = eventId;
         this.orderid = orderid;
         this.assignedEmployee = assignedEmployee;
@@ -28,6 +28,7 @@ public class Event {
         this.description = description;
         this.eventName = eventName;
         this.date = date;
+        this.statusColor = statusColor;
     }
 
     public int getEventId() {

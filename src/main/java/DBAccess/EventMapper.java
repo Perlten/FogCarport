@@ -116,7 +116,8 @@ public class EventMapper {
             String title = res.getString("title");
             String description = res.getString("description");
             String eventName = res.getString("name");
-            events.add(new Event(eventId, orderId, asignee, accessLevel, eventType, title, description, eventName, date));
+            String statusColor = res.getString("statuscolor");
+            events.add(new Event(eventId, orderId, asignee, accessLevel, eventType, title, description, eventName, date, statusColor));
         }
         return events;
     }

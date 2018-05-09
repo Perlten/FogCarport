@@ -29,7 +29,7 @@ public class SubmitOrder extends Command {
             order.setOrdered(true);
 
             //adding event on eventlist
-            Event event = new Event(-1, order.getOrderid(), -1, -1, 1, null, null, null, null);
+            Event event = new Event(-1, order.getOrderid(), -1, -1, 1, null, null, null, null, null);
             LogicFacade.writeEvent(event);
             
             

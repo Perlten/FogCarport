@@ -25,7 +25,7 @@ public class EmployeeMapper {
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
 //        TODO: change roleid name;
-        String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created FROM fog.employee WHERE username = ? and password = ?";
+        String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created FROM fog.employee WHERE BINARY username = ? and BINARY password = ?";
         try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);

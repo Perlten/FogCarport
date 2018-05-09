@@ -21,7 +21,7 @@ public class ConfirmOrder extends Command {
             LogicFacade.confirmOrder(orderId);
             
             
-            Event event = new Event(-1, orderId, -1, -1, 2, null, null, null, null);
+            Event event = new Event(-1, orderId, -1, -1, 2, null, null, null, null, null);
             LogicFacade.writeEvent(event);
         } catch (Exception ex) {
             throw new FOGException("Could not confirm order!");

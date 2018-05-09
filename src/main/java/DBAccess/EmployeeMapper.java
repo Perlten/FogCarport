@@ -11,9 +11,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,22 +35,11 @@ public class EmployeeMapper {
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int employeeId = rs.getInt("idemployee");
-                int authenticationLevel = rs.getInt("roleid");
-                String firstName = rs.getString("firstname");
-                String lastName = rs.getString("lastname");
-                String email = rs.getString("email");
-                boolean employed = rs.getBoolean("employed");
-                Calendar date = Calendar.getInstance();
-                Timestamp ts = rs.getTimestamp("date_created");
-                date.setTime((Date) ts);
-                return new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date);
-            }
+            List<Employee> list = getEmployees(rs);
+            return list.get(0);
         } catch (ClassNotFoundException | SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
-        throw new FOGException("Could not login");
     }
 
     public static Employee getEmployeeByEmail(String email) throws FOGException {
@@ -57,35 +49,54 @@ public class EmployeeMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int employeeId = rs.getInt("idemployee");
-                int authenticationLevel = rs.getInt("roleid");
-                String username = rs.getString("username");
-                String firstName = rs.getString("firstname");
-                String lastName = rs.getString("lastname");
-                boolean employed = rs.getBoolean("employed");
-                Calendar date = Calendar.getInstance();
-                Timestamp ts = rs.getTimestamp("date_created");
-                date.setTime((Date) ts);
-                return new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date);
-            }
+            List<Employee> list = getEmployees(rs);
+            return list.get(0);
         } catch (ClassNotFoundException | SQLException e) {
             throw new FOGException("Could not find employee");
         }
-        throw new FOGException("Could not find employee");
     }
-    
-    public static void changePasswordForEmployee(int id, String password) throws FOGException{
+
+    public static void changePasswordForEmployee(int id, String password) throws FOGException {
         String sql = "UPDATE fog.employee SET password = ? WHERE idemployee = ?";
-         try {
+        try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, password);
             ps.setInt(2, id);
             ps.execute();
-         }catch(ClassNotFoundException | SQLException e){
-             throw new FOGException("Could not change password");
-         }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not change password");
+        }
     }
-   
+
+    public static List<Employee> getAllEmployees() throws FOGException {
+        String sql = "SELECT * FROM fog.employee";
+        try{
+            Connection con = Connector.connection();
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            return getEmployees(rs);
+        }catch(ClassNotFoundException | SQLException e){
+            throw new FOGException("Could not find employees");
+        }
+    }
+
+    private static List<Employee> getEmployees(ResultSet rs) throws SQLException {
+        List<Employee> list = new ArrayList<>();
+        while (rs.next()) {
+            int employeeId = rs.getInt("idemployee");
+            int authenticationLevel = rs.getInt("roleid");
+            String username = rs.getString("username");
+            String firstName = rs.getString("firstname");
+            String email = rs.getString("email");
+            String lastName = rs.getString("lastname");
+            boolean employed = rs.getBoolean("employed");
+            Calendar date = Calendar.getInstance();
+            Timestamp ts = rs.getTimestamp("date_created");
+            date.setTime((Date) ts);
+            list.add(new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date));
+        }
+        return list;
+    }
+
 }

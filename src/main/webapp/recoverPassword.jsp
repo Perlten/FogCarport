@@ -1,9 +1,3 @@
-<%-- 
-    Document   : recoverPassword
-    Created on : May 8, 2018, 8:51:21 PM
-    Author     : Perlt
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -11,6 +11,7 @@ import FunctionLayer.FOGException;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.Overview;
 import PresentationLayer.login.SendNewPassword;
+import PresentationLayer.login.UpdateStaff;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
@@ -59,6 +60,7 @@ public abstract class Command {
         commands.put("LoginVerification", new LoginVerification());
         commands.put("SendNewPassword", new SendNewPassword());
         commands.put("Overview", new Overview());
+        commands.put("UpdateStaff", new UpdateStaff());
     }
 
     static Command from( HttpServletRequest request ) {

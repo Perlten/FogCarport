@@ -5,6 +5,7 @@
  */
 package FunctionLayer.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Calendar;
  * @author adamlass
  */
 public class Employee {
+
     private int employeeId, authenticationLevel;
     private String username, firstname, lastname, email;
     private boolean employed;
@@ -59,5 +61,10 @@ public class Employee {
     public Calendar getDateCreated() {
         return dateCreated;
     }
-    
+
+    public String simpleDate() {
+        SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        return sp.format(dateCreated.getTime());
+    }
+
 }

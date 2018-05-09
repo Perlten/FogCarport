@@ -21,62 +21,64 @@
 
         %>  
         <%@include file="../employeesNavBar.jsp" %>
-        <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
+        <div class="container-fluid">
+            <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
 
-        <div class="row">
+            <div class="row">
 
-            <div class="col-lg-5">
+                <div class="col-lg-5">
 
-                <h2>Latest unconfirmed orders</h2>
-                <table class="table table-xstriped table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Order</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Name</th>
-                            <th>Phonenumber</th>
-                        </tr>
-                    </thead>
+                    <h2>Latest unconfirmed orders</h2>
+                    <table class="table table-xstriped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Order</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Phonenumber</th>
+                            </tr>
+                        </thead>
 
-                    <% for (Order order : unConfirmedOrders) {
-                            Customer cust = order.getCustomer();
-                    %>
-                    <tbody>
-                    <td><%= order.getOrderid()%></td>
-                    <td><%= cust.getEmail()%></td>
-                    <td><%= order.simpleDate()%></td>
-                    <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
-                    <td><%= cust.getPhonenumber()%></td>
-                    </tbody>
-                    <% }%>
-                </table>
-                <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
-            </div>
+                        <% for (Order order : unConfirmedOrders) {
+                                Customer cust = order.getCustomer();
+                        %>
+                        <tbody>
+                        <td><%= order.getOrderid()%></td>
+                        <td><%= cust.getEmail()%></td>
+                        <td><%= order.simpleDate()%></td>
+                        <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
+                        <td><%= cust.getPhonenumber()%></td>
+                        </tbody>
+                        <% }%>
+                    </table>
+                    <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
+                </div>
 
 
-            <div class="col-lg-4">
-                <h2>Your Latest Event</h2>
-                <table class="table table-xstriped table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>name</th>
-                            <th>title</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
+                <div class="col-lg-4">
+                    <h2>Your Latest Event</h2>
+                    <table class="table table-xstriped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>name</th>
+                                <th>title</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
 
-                    <% for (Event event : eventList) {
-                    %>
-                    <tbody>
-                    <td><%= event.getEventName()%></td>
-                    <td><%= event.getTitle()%></td>
-                    <td><%= event.getDescription()%></td>
-                    <td><%= event.simpleDate()%></td>
-                    </tbody>
-                    <% }%>
-                </table>
+                        <% for (Event event : eventList) {
+                        %>
+                        <tbody>
+                        <td><%= event.getEventName()%></td>
+                        <td><%= event.getTitle()%></td>
+                        <td><%= event.getDescription()%></td>
+                        <td><%= event.simpleDate()%></td>
+                        </tbody>
+                        <% }%>
+                    </table>
+                </div>
             </div>
         </div>
     </body>

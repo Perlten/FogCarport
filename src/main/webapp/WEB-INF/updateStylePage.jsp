@@ -22,6 +22,7 @@
     </head>
     <body>
         <%@include file="../employeesNavBar.jsp"%>
+        <div class="container-fluid">
         <h1>Update Styleing</h1>
 
         <div class="row">
@@ -40,7 +41,7 @@
                     <% for (StyleOption style : claddingList) {%>
                     <tbody>
                         <%if (selectedStyle != null && selectedStyle.equals(style)) {%>
-                        <tr class="success">
+                        <tr class="btn-success">
                             <%}%>
                             <td>
                                 <form action="FrontController" method="post">
@@ -85,7 +86,7 @@
                     <% for (StyleOption style : tileList) {%>
                     <tbody>
                         <%if (selectedStyle != null && selectedStyle.equals(style)) {%>
-                        <tr class="success">
+                        <tr class="btn-success">
                             <%}%>
                             <td>
                                 <form action="FrontController" method="post">
@@ -140,5 +141,6 @@
                 </div>
             </div>
         <%}%>
+        </div>>
     </body>
 </html>

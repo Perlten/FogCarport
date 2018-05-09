@@ -42,96 +42,93 @@
                 }
             }
         </script>
+        <div class="container-fluid">
+            <h1>Styling</h1>
 
-        <h1>Styling</h1>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-head">
+                            <h4>Choose your styling!</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="FrontController" method="POST" >
+                                <input type="hidden" name="command" value="GiveStyling">
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-head">
-                        <h4>Choose your styling!</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="FrontController" method="POST" >
-                            <input type="hidden" name="command" value="GiveStyling">
+                                <div>
+                                    <h4>Cladding</h4>
+                                    <% for (StyleOption option : claddings) {%>
+                                    <label>
+                                        <div class="card">
+                                            <label>
+                                                <blockquote>
+                                                    <p><%= option.getName()%></p>
+                                                </blockquote>
+                                                <div class="card-body">
+                                                    <% String divid = "div" + option.hashCode();%>
+                                                    <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                                    <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
+                                                </div>
 
-                            <div>
-                                <h4>Cladding</h4>
-                                <% for (StyleOption option : claddings) {%>
-                                <label>
-                                    <div class="card">
-                                        <label>
-                                            <blockquote>
-                                                <p><%= option.getName()%></p>
-                                            </blockquote>
-                                            <div class="card-body">
-                                                <% String divid = "div" + option.hashCode();%>
-                                                <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                                <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
-                                            </div>
+                                                <input type="radio" name="cladding" value="<%= option.getId()%>" <%
+                                                    if (option.equals(cladding)) {
+                                                        out.print("checked");
+                                                    }
+                                                       %>>
+                                                <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
 
-                                            <input type="radio" name="cladding" value="<%= option.getId()%>" <%
-                                                   if(option.equals(cladding)){
-                                                       out.print("checked");
-                                                   }
-                                                   %>>
-                                            <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+                                            </label>
 
-                                        </label>
+                                        </div>
+                                    </label>
+                                    <%}%>
+                                </div>
+                                <div>
+                                    <h4>Tiles</h4>
+                                    <% for (StyleOption option : tiles) {%>
+                                    <label>
+                                        <div class="card">
+                                            <label>
+                                                <blockquote>
+                                                    <p><%= option.getName()%></p>
+                                                </blockquote>
+                                                <div class="card-body">
+                                                    <% String divid = "div" + option.hashCode();%>
+                                                    <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
+                                                    <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
+                                                </div>
 
-                                    </div>
-                                </label>
-                                <%}%>
-                            </div>
-                            <div>
-                                <h4>Tiles</h4>
-                                <% for (StyleOption option : tiles) {%>
-                                <label>
-                                    <div class="card">
-                                        <label>
-                                            <blockquote>
-                                                <p><%= option.getName()%></p>
-                                            </blockquote>
-                                            <div class="card-body">
-                                                <% String divid = "div" + option.hashCode();%>
-                                                <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                                <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
-                                            </div>
+                                                <input type="radio" name="tile" value="<%= option.getId()%>" <%
+                                                    if (option.equals(tile)) {
+                                                        out.print("checked");
+                                                    }
+                                                       %>>
+                                                <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+                                            </label>
 
-                                            <input type="radio" name="tile" value="<%= option.getId()%>" <%
-                                                   if(option.equals(tile)){
-                                                       out.print("checked");
-                                                   }
-                                                   %>>
-                                            <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
-                                        </label>
-
-                                    </div>
-                                </label>
-                                <%}%>
-                            </div>
-                            <input type="submit" class="btn btn-primary" value="Next">
-                        </form>
+                                        </div>
+                                    </label>
+                                    <%}%>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Next">
+                            </form>
 
 
-                    </div>
-                    <div class="card-footer">
-                        <form action="FrontController" method="POST">
-                            <input type="hidden" name="command" value="GiveDimentionsPage">
-                            <input type="submit" class="btn btn-default" value="Back">
-                        </form>
+                        </div>
+                        <div class="card-footer">
+                            <form action="FrontController" method="POST">
+                                <input type="hidden" name="command" value="GiveDimentionsPage">
+                                <input type="submit" class="btn btn-default" value="Back">
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <% if (order != null) {%>
+                <div class="col-lg-6">
+                    <%@include file="overview.jsp" %>
+                </div>       
+                <%}%>
             </div>
-            <% if (order != null) {%>
-            <div class="col-lg-6">
-                <%@include file="overview.jsp" %>
-
-            </div>       
-            <%}%>
-
         </div>
-
-
     </body>
 </html>

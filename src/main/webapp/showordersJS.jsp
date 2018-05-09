@@ -24,7 +24,7 @@
     %>
     <tbody>
         <tr <%if (order.isConfirmed()) { %>
-            class="success"
+            class="btn-success"
             <%}%>>
             <td>
                 <form action="FrontController" method="post">

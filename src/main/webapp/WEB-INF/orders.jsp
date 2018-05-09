@@ -43,24 +43,23 @@
             }
         </script>
 
-
         <%@include file="../employeesNavBar.jsp"%>
-        <h1>Customer Orders</h1>
-        <div class="row">
-            <div class="col-lg-6">
-                <div id="orders"></div>
-                <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
-            </div>
-            <% if (selectedOrder != null) {
+        <div class="container-fluid">
+            <h1>Customer Orders</h1>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="orders"></div>
+                    <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
+                </div>
+                <% if (selectedOrder != null) {
 
-                    String card = "card bg-default";
-                    if (selectedOrder.isConfirmed()) {
-                        card = "card bg-success";
-                    }
-            %>
-            <div class="col-lg-6">
-                <div class="<%= card%>" >
-                    <div class="card-header">
+                        String card = "card bg-default";
+                        if (selectedOrder.isConfirmed()) {
+                            card = "card bg-success";
+                        }
+                %>
+                <div class="col-lg-6">
+                    <div class="card-header <%= card%>">
                         <h3>Contents of Order</h3>
                     </div>
                     <div class="card">
@@ -133,10 +132,10 @@
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                     </div>
-                </div>
 
+                </div>
+                <% }%>
             </div>
-            <% }%>
         </div>
     </body>
 </html>

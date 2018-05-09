@@ -14,6 +14,7 @@
         <link href="css/EmployeeLogin.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <div class="container-fluid">
         <div class="loginStyle">
             <form action="FrontController" method="post">
                 <h1>Login</h1>
@@ -33,6 +34,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Next</button>
             </form>
+        </div>
         </div>
     </body>
 </html>

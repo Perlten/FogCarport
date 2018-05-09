@@ -32,6 +32,7 @@
         %>
     </head>
     <body>
+        <div class="container-fluid">
         <h1>Contact Info</h1>
         <div class="row">
             <div class="col-lg-6">
@@ -78,6 +79,7 @@
             <div class="col-lg-6">
                 <%@include file="overview.jsp" %>
             </div>
+        </div>
         </div>
     </body>
 </html>

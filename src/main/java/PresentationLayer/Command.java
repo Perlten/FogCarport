@@ -8,6 +8,9 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.FOGException;
+import PresentationLayer.login.LoginVerification;
+import PresentationLayer.login.Overview;
+import PresentationLayer.login.SendNewPassword;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
@@ -53,6 +56,9 @@ public abstract class Command {
         commands.put("GiveCredentialsPage", new GiveCredentialsPage());
         commands.put("SubmitOrder", new SubmitOrder());
         commands.put("LoadOrder", new LoadOrder());
+        commands.put("LoginVerification", new LoginVerification());
+        commands.put("SendNewPassword", new SendNewPassword());
+        commands.put("Overview", new Overview());
     }
 
     static Command from( HttpServletRequest request ) {

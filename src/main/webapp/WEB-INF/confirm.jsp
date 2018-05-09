@@ -4,6 +4,8 @@
     Author     : adamlass
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="FunctionLayer.entities.Event"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,8 @@
             if (orderConfirm == null) {
                 orderConfirm = (Order) session.getAttribute("confirmedOrder");
             }
+
+            List<Event> orderEvents = (List<Event>) request.getAttribute("orderEvents");
 
 
         %>
@@ -46,30 +50,25 @@
                     </div>
 
                 </div>
+
             </div>
             <%} else {%>
             <div class="col-lg-6">
+                <% if (orderEvents != null) { %>
+                <% for (Event event : orderEvents) {%>
+
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h4>Request sent!</h4>
-                        <p class="text text-muted">You have received an email with the details of your order. We will contact you once we have processed 
-                            your request.</p>
+                        <h4><%= event.getTitle()%></h4>
+                        <p class="text text-muted"><%= event.getDescription()%></p>
                     </div>
-
-                </div>
-
-                <% if (orderConfirm.isConfirmed()) { %>
-                <div class="panel-heading">
-                    <h4>Order Confirmed!</h4>
-                    <p class="text text-muted">Your order has been confirmed by one
-                        of our employees, please proceed by entering more detailed 
-                        contact information.</p>
                 </div>
 
                 <%}%>
 
             </div>
 
+            <%}%>
             <%}%>
 
             <div class="col-lg-6">

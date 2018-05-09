@@ -34,7 +34,6 @@ public class OrderMapper {
      * @throws FOGException
      */
     public static List<Order> getOrders(int orderid) throws FOGException {
-        List<Order> orderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
             String sql = "SELECT * FROM fog.order";
@@ -51,50 +50,15 @@ public class OrderMapper {
             }
 
             ResultSet res = pre.executeQuery();
-
-            while (res.next()) {
-                int idorder = res.getInt("idorder");
-                boolean confirmed = res.getBoolean("confirmed");
-                Calendar date = Calendar.getInstance();
-                Timestamp ts = res.getTimestamp("date");
-                date.setTime((Date) ts);
-                String firstname = res.getString("firstname");
-                String lastname = res.getString("lastname");
-                String email = res.getString("email");
-                int phonenumber = res.getInt("phonenumber");
-                int length = res.getInt("length");
-                int width = res.getInt("width");
-                int height = res.getInt("height");
-                double roofangle = res.getDouble("roofangle");
-                boolean shed = res.getBoolean("shed");
-
-                int tile = res.getInt("tile");
-                int cladding = res.getInt("cladding");
-                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
-                StyleOption tileStyle = LogicFacade.getTile(tile);
-
-                Shed shedEntity = null;
-                if (shed) {
-                    int shedLength = res.getInt("shed_length");
-                    int shedWidth = res.getInt("shed_width");
-                    shedEntity = new Shed(shedLength, shedWidth);
-
-                }
-                Customer customer = new Customer(firstname, lastname, email, phonenumber);
-                Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
-                Order order = new Order(idorder, true, confirmed, date, customer, customization);
-                orderList.add(order);
-            }
+            return getOrderFromDB(res);
 
         } catch (Exception e) {
             throw new FOGException(e.getMessage());
         }
-        return orderList;
     }
 
     public static List<Order> getCustomerList(int limit) throws FOGException {
 
-        List<Order> list = new ArrayList<>();
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order order by idorder desc LIMIT ?";
 
         try {
@@ -103,25 +67,11 @@ public class OrderMapper {
 
             ps.setInt(1, limit);
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                int idorder = rs.getInt("idorder");
-                boolean confirmed = rs.getBoolean("confirmed");
-                Calendar date = Calendar.getInstance();
-                Timestamp ts = rs.getTimestamp("date");
-                date.setTime((Date) ts);
-                String firstName = rs.getString("firstname");
-                String lastName = rs.getString("lastname");
-                String email = rs.getString("email");
-                int phoneNumber = rs.getInt("phonenumber");
-
-                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null));
-            }
+            ResultSet res = ps.executeQuery();
+            return getCustomerFromDB(res);
         } catch (ClassNotFoundException | SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
-        return list;
     }
 
     /**
@@ -213,7 +163,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) throws FOGException {
+    public static void makeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -250,29 +200,108 @@ public class OrderMapper {
         }
     }
 
-    public static void removeLast() throws FOGException {
-        String sql = "delete from fog.order"
-                + " order by idorder desc limit 1";
+    public static int NumberOfUnconfirmedOrders() throws FOGException {
+        String sql = "SELECT COUNT(idorder) FROM fog.order WHERE confirmed = false";
         try {
-            Statement state = Connector.connection().createStatement();
-            state.execute(sql);
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new FOGException(ex.getMessage());
+            Connection con = Connector.connection();
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not find number of unconfirmed orders");
+        }
+        return 0;
+    }
+
+    /**
+     * Returns a list with unconfirmed orders
+     *
+     * @param limit Limits the number of orders. give 0 for all unconfirmed
+     * orders
+     * @return List with orders
+     */
+    public static List<Order> getUnconfirmedOrders(int limit) throws FOGException {
+        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order WHERE confirmed = false order by idorder desc";
+        if (limit > 0) {
+            sql += " LIMIT ?";
+        }
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            if (limit > 0) {
+                ps.setInt(1, limit);
+            }
+            ResultSet rs = ps.executeQuery();
+            return getCustomerFromDB(rs);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not get orders");
         }
     }
 
-    public static Order getLast() throws FOGException {
-        String sql = "select idorder from fog.order"
-                + " order by idorder desc limit 1";
+    private static List<Order> getOrderFromDB(ResultSet res) throws FOGException {
         try {
-            Statement state = Connector.connection().createStatement();
-            ResultSet rs = state.executeQuery(sql);
-            rs.next();
-            List<Order> list = getOrders(rs.getInt("idorder"));
-            return list.get(0);
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new FOGException(ex.getMessage());
+            List<Order> orderList = new ArrayList<>();
+            while (res.next()) {
+                int idorder = res.getInt("idorder");
+                boolean confirmed = res.getBoolean("confirmed");
+                Calendar date = Calendar.getInstance();
+                Timestamp ts = res.getTimestamp("date");
+                date.setTime((Date) ts);
+                String firstname = res.getString("firstname");
+                String lastname = res.getString("lastname");
+                String email = res.getString("email");
+                int phonenumber = res.getInt("phonenumber");
+                int length = res.getInt("length");
+                int width = res.getInt("width");
+                int height = res.getInt("height");
+                double roofangle = res.getDouble("roofangle");
+                boolean shed = res.getBoolean("shed");
+
+                int tile = res.getInt("tile");
+                int cladding = res.getInt("cladding");
+                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
+                StyleOption tileStyle = LogicFacade.getTile(tile);
+
+                Shed shedEntity = null;
+                if (shed) {
+                    int shedLength = res.getInt("shed_length");
+                    int shedWidth = res.getInt("shed_width");
+                    shedEntity = new Shed(shedLength, shedWidth);
+
+                }
+                Customer customer = new Customer(firstname, lastname, email, phonenumber);
+                Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
+                Order order = new Order(idorder, true, confirmed, date, customer, customization);
+                orderList.add(order);
+            }
+            return orderList;
+        } catch (SQLException e) {
+            throw new FOGException("Could not find order");
         }
     }
-    
+
+    private static List<Order> getCustomerFromDB(ResultSet res) throws FOGException {
+        try {
+            List<Order> list = new ArrayList<>();
+            while (res.next()) {
+                int idorder = res.getInt("idorder");
+                boolean confirmed = res.getBoolean("confirmed");
+                Calendar date = Calendar.getInstance();
+                Timestamp ts = res.getTimestamp("date");
+                date.setTime((Date) ts);
+                String firstName = res.getString("firstname");
+                String lastName = res.getString("lastname");
+                String email = res.getString("email");
+                int phoneNumber = res.getInt("phonenumber");
+
+                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null));
+            }
+            return list;
+
+        } catch (SQLException ex) {
+            throw new FOGException("Could not fin customer");
+        }
+    }
 }

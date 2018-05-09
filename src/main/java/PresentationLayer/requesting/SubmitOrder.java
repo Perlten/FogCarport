@@ -7,6 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,19 @@ public class SubmitOrder extends Command {
             Order order = (Order) session.getAttribute("order");
             LogicFacade.makeOrder(order);
             order.setOrdered(true);
+
+            //adding event on eventlist
+            Event event = new Event(-1, order.getOrderid(), -1, -1, 1, null, null, null, null);
+            LogicFacade.writeEvent(event);
+            
+            
             session.setAttribute("order", null);
             session.setAttribute("confirmedOrder", order);
             LogicFacade.sendEmailToCustomer(order);
         } catch (Exception e) {
             throw new FOGException("Could not submit order!");
         }
-        return "WEB-INF/confirm";
+        return new LoadOrder().execute(request, response);
     }
 
 }

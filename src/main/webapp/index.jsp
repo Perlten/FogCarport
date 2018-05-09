@@ -137,21 +137,8 @@
             <% if (order != null) {%>
             <div class="col-lg-6">
                 <%@include file="WEB-INF/overview.jsp" %>
-
             </div>       
             <%}%>
-        </div>
-        <div>
-            <form action="FrontController" method="post">
-                <input type="hidden" name="command" value="GetOrders">
-                <input type="submit" value="GetOrders">
-            </form>
-
-            <form action="FrontController" method="post">
-                <input type="hidden" name="command" value="UpdateStylePage">
-                <input type="submit" value="Update Style">
-            </form>
-
         </div>
     </body>
 </html>

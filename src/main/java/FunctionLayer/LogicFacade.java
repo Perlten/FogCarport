@@ -1,9 +1,11 @@
 package FunctionLayer;
 
 import DBAccess.EmployeeMapper;
+import DBAccess.EventMapper;
 import DBAccess.OrderMapper;
 import DBAccess.StyleMapper;
 import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
@@ -42,7 +44,7 @@ public class LogicFacade {
     }
 
     public static void makeOrder(Order order) throws FOGException {
-        OrderMapper.MakeOrder(order);
+        OrderMapper.makeOrder(order);
     }
 
     /**
@@ -164,7 +166,7 @@ public class LogicFacade {
 
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
         Employee emp = EmployeeMapper.getEmployeeByEmail(email);
-        
+
         //TODO: Might use our encryption class when we make it ;)
         Random ra = new Random();
         String password = "";
@@ -176,23 +178,40 @@ public class LogicFacade {
         }
 
         EmployeeMapper.changePasswordForEmployee(emp.getEmployeeId(), password);
-        
+
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
                 + "Password: " + password;
-        
+
         SendEmail.sendMail(emp.getEmail(), title, text);
     }
-    
-    public static Employee getEmployeeByEmail(String email) throws FOGException{
+
+    public static Employee getEmployeeByEmail(String email) throws FOGException {
         return EmployeeMapper.getEmployeeByEmail(email);
     }
-    
-    public static int numberOfConfirmedOrder() throws FOGException{
+
+    public static int numberOfConfirmedOrder() throws FOGException {
         return OrderMapper.NumberOfUnconfirmedOrders();
     }
-    
-    public static List<Order> getLatest10UnconfirmedOrders() throws FOGException{
+
+    public static List<Order> getLatest10UnconfirmedOrders() throws FOGException {
         return OrderMapper.getUnconfirmedOrders(10);
+    }
+
+    /**
+     * Write a event with dummy-object
+     *
+     * @param event dummy-object. Does only need to contain the right eventType
+     * and orderid.
+     *
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static void writeEvent(Event event) throws SQLException, ClassNotFoundException {
+        EventMapper.writeEvent(event);
+    }
+
+    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, ClassNotFoundException, SQLException {
+        return EventMapper.getEvents(orderid);
     }
 }

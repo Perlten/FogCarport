@@ -74,7 +74,8 @@
 
                                 <label>
                                     Height
-                                    <input type="number" class="form-control" name="height" min="100" placeholder="cm" value="<%= height%>" required>
+                                    <!--max: 480 (max length of cladding) + 20 (air from floor)-->
+                                    <input type="number" class="form-control" name="height" min="100" max="500" placeholder="cm" value="<%= height%>" required> 
                                 </label>
                             </label>
                             <br>
@@ -140,5 +141,5 @@
             </div>       
             <%}%>
         </div>
-     </body>
+    </body>
 </html>

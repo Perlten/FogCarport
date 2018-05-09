@@ -163,7 +163,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void MakeOrder(Order order) throws FOGException {
+    public static void makeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

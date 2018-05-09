@@ -22,17 +22,22 @@ public class Calculator {
     private List<Product> products;
     private final int rafterWoodLength = 600; //TODO make db
     private final int maxHeight = 480;
+    private double maxShedWidth;
+    private double poleDistanceWidth;
 
     public Calculator(Customization cust) {
         this.products = new ArrayList<>();
         this.cust = cust;
+        this.maxShedWidth = cust.getWidth() - (2*Customization.padding);
         this.shed = cust.getShed();
     }
 
     public void calculate() {
         calculateRafter();
         if(shed != null){
+          shedPoles();
           calculateCladding();
+          
         }
     }
 
@@ -42,13 +47,15 @@ public class Calculator {
 
     private void calculateRafter() {
         int amountOfRafters = (int) (cust.getLength() / 50);
-        int width = cust.getWidth();
-        double remainder = ((double) width) / rafterWoodLength; //TODO make db
+        double width = (double) cust.getWidth();
+        double remainder =  width / rafterWoodLength; //TODO make db
         if (remainder % 1 != 0) {
             remainder++;
         }
 
         int pitstops = (int) (remainder - 1);
+        
+        poleDistanceWidth = maxShedWidth / (pitstops + 1);
 
         polesAndBeams(pitstops);
 
@@ -89,7 +96,7 @@ public class Calculator {
             poles++;
         }
 
-        products.add(new Product("Pole", "Used to support the beams", "pcs", poles * lanes, cust.getHeight(), 0)); //TODO make db
+        products.add(new Product("Pole", "Used to support the beams", "pcs", poles * lanes, cust.getHeight() + 90, 0)); //TODO make db
     }
 
     private void calculateCladding() {
@@ -99,6 +106,17 @@ public class Calculator {
         products.add(new Product("Cladding", "Cladding used og the shed", "pcs", claddingNeeded, claddingHeight, 0)); //TODO makedb
         
     }
+    
+    private void shedPoles(){
+        double lanesPasses = shed.getWidth() / poleDistanceWidth;
+        int numPoles = (int) (lanesPasses + 1);
+        if(lanesPasses % 1 != 0){
+            numPoles += 2;
+        }
+        products.add(new Product("Pole", "Purposed for shed.", "pcs", numPoles, cust.getHeight() + 90, 0)); //make db
+    }
+    
+    
 
     public static void main(String[] args) {
         Shed shed = new Shed(200, 640);

@@ -203,15 +203,17 @@ public class LogicFacade {
      *
      * @param event dummy-object. Does only need to contain the right eventType
      * and orderid.
-     *
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * @throws FunctionLayer.FOGException
      */
-    public static void writeEvent(Event event) throws SQLException, ClassNotFoundException {
+    public static void writeEvent(Event event) throws FOGException {
         EventMapper.writeEvent(event);
     }
 
-    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, ClassNotFoundException, SQLException {
-        return EventMapper.getEvents(orderid);
+    public static List<Event> getOrderEvent(int orderid) throws FOGException {
+        return EventMapper.getOrderEvent(orderid);
+    }
+    
+    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException{
+        return EventMapper.getEmployeeEvent(employeeId);
     }
 }

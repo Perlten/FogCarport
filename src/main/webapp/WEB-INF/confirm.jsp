@@ -19,8 +19,6 @@
             }
 
             List<Event> orderEvents = (List<Event>) request.getAttribute("orderEvents");
-
-
         %>
 
     </head>

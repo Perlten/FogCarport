@@ -1,4 +1,5 @@
 
+<%@page import="FunctionLayer.entities.Event"%>
 <%@page import="FunctionLayer.entities.Customer"%>
 <%@page import="java.util.List"%>
 <%@page import="FunctionLayer.entities.Order"%>
@@ -16,12 +17,16 @@
             Employee emp = (Employee) request.getSession().getAttribute("employee");
             int numberOfConfirmedOrder = (int) request.getAttribute("numberOfConfirmedOrder");
             List<Order> unConfirmedOrders = (List<Order>) request.getAttribute("10UnconfirmedOrders");
+            List<Event> eventList = (List<Event>) request.getAttribute("eventList");
+
         %>
         <%@include file="../employeesNavBar.jsp" %>
+        <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
+
         <div class="row">
-            <div class="col-lg-3">
-                <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
-                <br>
+
+            <div class="col-lg-4">
+
                 <h2>Latest unconfirmed orders</h2>
                 <table class="table table-xstriped table-hover">
                     <thead>
@@ -48,8 +53,30 @@
                 </table>
                 <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
             </div>
-            <div class="col-lg-3">
-                
+
+
+            <div class="col-lg-4">
+                <h2>Your Latest Event</h2>
+                <table class="table table-xstriped table-hover">
+                    <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>title</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <% for (Event event : eventList) {
+                    %>
+                    <tbody>
+                    <td><%= event.getEventName()%></td>
+                    <td><%= event.getTitle()%></td>
+                    <td><%= event.getDescription()%></td>
+                    <td><%= event.simpleDate()%></td>
+                    </tbody>
+                    <% }%>
+                </table>
             </div>
         </div>
     </body>

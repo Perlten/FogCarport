@@ -74,7 +74,7 @@ public class EventMapper {
             int eventId = res.getInt("idevent");
             int eventType = res.getInt("idevent_type");
             int orderId = res.getInt("idorder");
-            int asignee = res.getInt("asignee");
+            int asignee = res.getInt("employee");
             int accessLevel = res.getInt("access_level");
 
             Calendar date = Calendar.getInstance();

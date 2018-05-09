@@ -38,15 +38,18 @@
                             Customer cust = order.getCustomer();
                     %>
                     <tbody>
-                            <td><%= order.getOrderid()%></td>
-                            <td><%= cust.getEmail()%></td>
-                            <td><%= order.simpleDate()%></td>
-                            <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
-                            <td><%= cust.getPhonenumber()%></td>
+                    <td><%= order.getOrderid()%></td>
+                    <td><%= cust.getEmail()%></td>
+                    <td><%= order.simpleDate()%></td>
+                    <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
+                    <td><%= cust.getPhonenumber()%></td>
                     </tbody>
                     <% }%>
                 </table>
                 <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
+            </div>
+            <div class="col-lg-3">
+                
             </div>
         </div>
     </body>

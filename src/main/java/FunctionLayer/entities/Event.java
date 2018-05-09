@@ -5,6 +5,7 @@
  */
 package FunctionLayer.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Calendar;
  * @author adamlass
  */
 public class Event {
+
     private int eventId, orderid, assignedEmployee, accessLevel, eventType;
     private String title, description, eventName;
     private Calendar date;
@@ -64,12 +66,14 @@ public class Event {
         return date;
     }
 
+    public String simpleDate() {
+        SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        return sp.format(date.getTime());
+    }
+
     @Override
     public String toString() {
         return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", assignedEmployee=" + assignedEmployee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", date=" + date.getTimeInMillis() + '}';
     }
-    
-    
-    
-    
+
 }

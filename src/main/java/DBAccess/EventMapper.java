@@ -26,8 +26,7 @@ public class EventMapper {
     /**
      * Write an order with a dummy-object of event.
      * @param event
-     * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws FunctionLayer.FOGException
      */
     public static void writeEvent(Event event) throws FOGException  {
         try{
@@ -48,8 +47,7 @@ public class EventMapper {
      *
      * @param orderid the id of the order that we want the events on
      * @return a list of events concerning this order
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws FunctionLayer.FOGException
      */
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
         try{
@@ -69,6 +67,13 @@ public class EventMapper {
         }
     }
     
+    /**
+     * Get event list with an employee as reference.
+     *
+     * @param employeeId the id of the order that we want the events on
+     * @return a list of events concerning this order
+     * @throws FunctionLayer.FOGException
+     */
      public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
         try{
         Connection con = Connector.connection();
@@ -84,12 +89,6 @@ public class EventMapper {
         return convert(pre.executeQuery());
         }catch(SQLException | ClassNotFoundException e){
             throw new FOGException(e.getMessage());
-        }
-    }
-     public static void main(String[] args) throws FOGException {
-        List<Event> list = getEmployeeEvent(1);
-        for(Event x : list){
-            System.out.println(x.getEventName());
         }
     }
 

@@ -33,7 +33,7 @@ public class LoadOrder extends Command {
                 session.setAttribute("confirmedOrder", order);
             }
             List<Event> events = LogicFacade.getEvents(order.getOrderid());
-            session.setAttribute("orderEvents", events);
+            request.setAttribute("orderEvents", events);
 
         } catch (Exception e) {
             throw new FOGException("Not a valid order!");

@@ -18,7 +18,7 @@
                 orderConfirm = (Order) session.getAttribute("confirmedOrder");
             }
 
-            List<Event> orderEvents = (List<Event>) session.getAttribute("orderEvents");
+            List<Event> orderEvents = (List<Event>) request.getAttribute("orderEvents");
 
 
         %>

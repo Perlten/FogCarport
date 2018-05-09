@@ -13,7 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customize Carport - Enter Dimentions</title>
-        <%@include file="bootstrap.jsp" %>
         <% Order order = (Order) session.getAttribute("order");
 
             Customization cust = null;
@@ -47,13 +46,11 @@
         <h1>Customize Carport</h1>
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-
+                <div class="card">
+                    <div class="card-header">
                         <h4>Enter Dimentions</h4>
                     </div>
-                    <div class="panel-body">
-
+                    <div class="card-body">
                         <form name="configure" action="FrontController" method="POST" >
 
                             <input type="hidden" name="command" value="GiveDimentions">
@@ -127,11 +124,6 @@
                             <input type="submit" class="btn btn-primary" value="Style">
                         </form>
                     </div>
-                    <div class="panel-footer">
-
-                    </div>
-
-
                 </div>
             </div>
             <% if (order != null) {%>
@@ -140,5 +132,6 @@
             </div>       
             <%}%>
         </div>
+        <%@include file="bootstrap.jsp" %>
     </body>
 </html>

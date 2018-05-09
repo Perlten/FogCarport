@@ -53,17 +53,17 @@
             </div>
             <% if (selectedOrder != null) {
 
-                    String panel = "panel panel-default";
+                    String card = "card bg-default";
                     if (selectedOrder.isConfirmed()) {
-                        panel = "panel panel-success";
+                        card = "card bg-success";
                     }
             %>
             <div class="col-lg-6">
-                <div class="<%= panel%>" >
-                    <div class="panel-heading">
+                <div class="<%= card%>" >
+                    <div class="card-header">
                         <h3>Contents of Order</h3>
                     </div>
-                    <div class="panel-default">
+                    <div class="card">
                         <table class="table table">
                             <thead>
                             <th>Id number</th>

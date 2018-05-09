@@ -8,7 +8,7 @@
     List<Order> orderList = LogicFacade.getCustomerList(num);
 %>
 
-<table class="table table-striped">
+<table class="table table-xstriped table-hover">
     <thead>
         <tr>
             <th>Order Number</th>
@@ -31,7 +31,7 @@
                     <input type="hidden" name="command" value="ShowOrder">
                     <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                     <input type="hidden" name="loads" value="<%= orderList.size() %>">
-                    <input type="submit" class="btn btn-default" value="Order <%= order.getOrderid()%>">
+                    <input type="submit" class="btn btn-primary" value="Order <%= order.getOrderid()%>">
                 </form>
 
             </td>

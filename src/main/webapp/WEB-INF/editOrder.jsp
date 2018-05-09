@@ -39,7 +39,7 @@
             }
         %>
         <div class="row">
-            <div class="panel panel-default">
+            <div class="card">
                 <form action="FrontController" method="post">
                     <div class="col-lg-3">
                         <h1>Edit Dimensions</h1>

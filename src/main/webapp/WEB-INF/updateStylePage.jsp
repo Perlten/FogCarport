@@ -47,7 +47,7 @@
                                     <input type="hidden" name="command" value="GetStyle">
                                     <input type="hidden" name="styleId" value="<%= style.getId()%>">
                                     <input type="hidden" name="type" value="cladding">
-                                    <input type="submit" class="btn btn-default" value="Cladding <%= style.getId()%>">
+                                    <input type="submit" class="btn btn-primary" value="Cladding <%= style.getId()%>">
                                 </form>
 
                             </td>
@@ -61,12 +61,12 @@
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="CreateStylePage">
                     <input type="hidden" name="type" value="cladding">
-                    <button type="submit" class="btn btn-primary">Create new Cladding</button>
+                    <button type="submit" class="btn btn-success">Create new Cladding</button>
                 </form>
                 <br>
                  <!--TODO: make better-->
                 <form action="index.jsp" method="post">
-                    <input type="submit" class="btn btn-default" value="Back">
+                    <input type="submit" class="btn btn-primary" value="Back">
                 </form>
             </div>
 
@@ -92,7 +92,7 @@
                                     <input type="hidden" name="command" value="GetStyle">
                                     <input type="hidden" name="styleId" value="<%= style.getId()%>">
                                     <input type="hidden" name="type" value="tile">
-                                    <input type="submit" class="btn btn-default" value="Tile <%= style.getId()%>">
+                                    <input type="submit" class="btn btn-primary" value="Tile <%= style.getId()%>">
                                 </form>
                             </td>
                             <td><%= style.getName()%></td>
@@ -105,12 +105,12 @@
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="CreateStylePage">
                     <input type="hidden" name="type" value="tile">
-                    <button type="submit" class="btn btn-primary">Create new Tile</button>
+                    <button type="submit" class="btn btn-success">Create new Tile</button>
                 </form>
             </div>
             <% if (selectedStyle != null) {%>
             <div class="col-lg-2">
-                <div class="panel-heading">
+                <div class="card-header">
                     <h2><%= selectedStyle.getName()%></h2>
                 </div>
                     <form action="FrontController" method="post">

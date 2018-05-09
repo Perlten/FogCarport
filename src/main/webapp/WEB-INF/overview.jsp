@@ -19,8 +19,8 @@
 
 %>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card">
+    <div class="card-header">
         <h2>Overview</h2>
 
         <div class="container-fluid">
@@ -37,7 +37,7 @@
         </div>
 
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div style="height: 350px; width: 95%; margin: auto">
             <%@include file="../SVGDraw.jsp" %>
         </div>

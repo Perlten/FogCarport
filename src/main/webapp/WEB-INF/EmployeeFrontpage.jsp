@@ -19,19 +19,19 @@
             List<Order> unConfirmedOrders = (List<Order>) request.getAttribute("10UnconfirmedOrders");
             List<Event> eventList = (List<Event>) request.getAttribute("eventList");
 
-        %>
+        %>  
         <%@include file="../employeesNavBar.jsp" %>
         <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
 
         <div class="row">
 
-            <div class="col-lg-4">
+            <div class="col-lg-5">
 
                 <h2>Latest unconfirmed orders</h2>
                 <table class="table table-xstriped table-hover">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Order Number</th>
+                            <th>Order</th>
                             <th>Email</th>
                             <th>Date</th>
                             <th>Name</th>
@@ -58,7 +58,7 @@
             <div class="col-lg-4">
                 <h2>Your Latest Event</h2>
                 <table class="table table-xstriped table-hover">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th>name</th>
                             <th>title</th>

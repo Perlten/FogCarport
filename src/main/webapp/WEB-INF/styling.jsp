@@ -47,11 +47,11 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card">
+                    <div class="card-head">
                         <h4>Choose your styling!</h4>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <form action="FrontController" method="POST" >
                             <input type="hidden" name="command" value="GiveStyling">
 
@@ -59,12 +59,12 @@
                                 <h4>Cladding</h4>
                                 <% for (StyleOption option : claddings) {%>
                                 <label>
-                                    <div class="panel panel-default">
+                                    <div class="card">
                                         <label>
                                             <blockquote>
                                                 <p><%= option.getName()%></p>
                                             </blockquote>
-                                            <div class="panel-body">
+                                            <div class="card-body">
                                                 <% String divid = "div" + option.hashCode();%>
                                                 <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
                                                 <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
@@ -87,12 +87,12 @@
                                 <h4>Tiles</h4>
                                 <% for (StyleOption option : tiles) {%>
                                 <label>
-                                    <div class="panel panel-default">
+                                    <div class="card">
                                         <label>
                                             <blockquote>
                                                 <p><%= option.getName()%></p>
                                             </blockquote>
-                                            <div class="panel-body">
+                                            <div class="card-body">
                                                 <% String divid = "div" + option.hashCode();%>
                                                 <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
                                                 <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
@@ -115,7 +115,7 @@
 
 
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         <form action="FrontController" method="POST">
                             <input type="hidden" name="command" value="GiveDimentionsPage">
                             <input type="submit" class="btn btn-default" value="Back">

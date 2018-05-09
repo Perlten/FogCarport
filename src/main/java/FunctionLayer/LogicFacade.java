@@ -187,4 +187,12 @@ public class LogicFacade {
     public static Employee getEmployeeByEmail(String email) throws FOGException{
         return EmployeeMapper.getEmployeeByEmail(email);
     }
+    
+    public static int numberOfConfirmedOrder() throws FOGException{
+        return OrderMapper.NumberOfUnconfirmedOrders();
+    }
+    
+    public static List<Order> getLatest10UnconfirmedOrders() throws FOGException{
+        return OrderMapper.getUnconfirmedOrders(10);
+    }
 }

@@ -140,17 +140,5 @@
             </div>       
             <%}%>
         </div>
-        <div>
-        <form action="FrontController" method="post">
-            <input type="hidden" name="command" value="GetOrders">
-            <input type="submit" value="GetOrders">
-        </form>
-
-        <form action="FrontController" method="post">
-            <input type="hidden" name="command" value="UpdateStylePage">
-            <input type="submit" value="Update Style">
-        </form>
-        
-        </div>
-    </body>
+     </body>
 </html>

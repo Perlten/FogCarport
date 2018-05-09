@@ -7,9 +7,7 @@ package PresentationLayer.login;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.entities.Employee;
 import PresentationLayer.Command;
-import PresentationLayer.orders.GetOrders;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,17 +15,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class LoginVerification extends Command {
+public class Overview extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        Employee emp = LogicFacade.verfyLogin(username, password);
-        request.getSession().setAttribute("employee", emp);
-        return new Overview().execute(request, response);
+        
+        int confirmedOrder = LogicFacade.numberOfConfirmedOrder();
+        request.setAttribute("numberOfConfirmedOrder", confirmedOrder);
+        request.setAttribute("10UnconfirmedOrders", LogicFacade.getLatest10UnconfirmedOrders());
+        
+        return "WEB-INF/EmployeeFrontpage";
     }
-    
-    
-    
+
 }

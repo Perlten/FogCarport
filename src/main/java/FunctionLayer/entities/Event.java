@@ -72,6 +72,12 @@ public class Event {
         return sp.format(date.getTime());
     }
 
+    public String getStatusColor() {
+        return statusColor;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", assignedEmployee=" + assignedEmployee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", date=" + date.getTimeInMillis() + '}';

@@ -24,7 +24,7 @@
     </head>
     <body>
         <div class="container-fluid">
-        <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
+            <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
             <div class="row">
                 <% if (!orderConfirm.isOrdered()) { %>
                 <div class="col-lg-6">
@@ -55,13 +55,13 @@
                     <% if (orderEvents != null) { %>
                     <% for (Event event : orderEvents) {%>
 
-                    <div class="card text-white bg-success">
+                    <div class="card <%= event.getStatusColor()%>">
                         <div class="card-heading">
                             <h4><%= event.getTitle()%></h4>
-                            <p class="text text-muted"><%= event.getDescription()%></p>
+                            <p><%= event.getDescription()%></p>
                         </div>
                     </div>
-
+                    <br>
                     <%}%>
 
                 </div>

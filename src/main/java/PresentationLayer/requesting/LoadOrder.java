@@ -32,7 +32,7 @@ public class LoadOrder extends Command {
                 order = LogicFacade.getOrder(orderid);
                 session.setAttribute("confirmedOrder", order);
             }
-            List<Event> events = LogicFacade.getEvents(order.getOrderid());
+            List<Event> events = LogicFacade.getOrderEvent(order.getOrderid());
             request.setAttribute("orderEvents", events);
 
         } catch (Exception e) {

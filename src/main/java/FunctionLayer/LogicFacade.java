@@ -211,7 +211,7 @@ public class LogicFacade {
         EventMapper.writeEvent(event);
     }
 
-    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, ClassNotFoundException, SQLException {
-        return EventMapper.getEvents(orderid);
+    public static List<Event> getOrderEvent(int orderid) throws ClassNotFoundException, ClassNotFoundException, SQLException {
+        return EventMapper.getOrderEvent(orderid);
     }
 }

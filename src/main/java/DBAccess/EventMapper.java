@@ -5,6 +5,7 @@
  */
 package DBAccess;
 
+import FunctionLayer.FOGException;
 import FunctionLayer.entities.Event;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ public class EventMapper {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public static void writeEvent(Event event) throws SQLException, ClassNotFoundException {
+    public static void writeEvent(Event event) throws FOGException  {
+        try{
         Connection con = Connector.connection();
 
         String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
@@ -36,6 +38,9 @@ public class EventMapper {
         pre.setInt(1, event.getEventType());
         pre.setInt(2, event.getOrderid());
         pre.executeUpdate();
+        }catch(SQLException | ClassNotFoundException e){
+            throw new FOGException("Could not write event");
+        }
     }
 
     /**
@@ -46,7 +51,8 @@ public class EventMapper {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static List<Event> getEvents(int orderid) throws ClassNotFoundException, SQLException {
+    public static List<Event> getOrderEvent(int orderid) throws FOGException {
+        try{
         Connection con = Connector.connection();
 
         String sql = "SELECT * FROM fog.event "
@@ -58,6 +64,33 @@ public class EventMapper {
         pre.setInt(1, orderid);
 
         return convert(pre.executeQuery());
+        }catch(SQLException | ClassNotFoundException e){
+            throw new FOGException("Could not find events");
+        }
+    }
+    
+     public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
+        try{
+        Connection con = Connector.connection();
+
+        String sql = "SELECT * FROM fog.event "
+                + "INNER JOIN fog.event_type "
+                + "ON event.idevent_type = event_type.idevent_type "
+                + "WHERE employee = ? order by idevent desc";
+
+        PreparedStatement pre = con.prepareStatement(sql);
+        pre.setInt(1, employeeId);
+
+        return convert(pre.executeQuery());
+        }catch(SQLException | ClassNotFoundException e){
+            throw new FOGException(e.getMessage());
+        }
+    }
+     public static void main(String[] args) throws FOGException {
+        List<Event> list = getEmployeeEvent(1);
+        for(Event x : list){
+            System.out.println(x.getEventName());
+        }
     }
 
     /**

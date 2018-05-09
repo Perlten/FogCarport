@@ -14,8 +14,8 @@
         <%@include file="../bootstrap.jsp" %>
         
         <style>
-            .ogGreen{
-                background-color: green;
+            .bg-success{
+                background-color: red;
             }
             
         </style>
@@ -63,7 +63,7 @@
 
                         String card = "card bg-default";
                         if (selectedOrder.isConfirmed()) {
-                            card = "ogGreen";
+                            card = "bg-success";
                         }
                 %>
                 <div class="col-lg-6">

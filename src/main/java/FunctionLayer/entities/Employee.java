@@ -62,6 +62,32 @@ public class Employee {
         return dateCreated;
     }
 
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setAuthenticationLevel(int authenticationLevel) {
+        this.authenticationLevel = authenticationLevel;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
+
     public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(dateCreated.getTime());

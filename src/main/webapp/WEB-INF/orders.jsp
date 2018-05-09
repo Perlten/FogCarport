@@ -12,13 +12,6 @@
         <%--<%@include file="../bootstrap.jsp" %>--%>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%@include file="../bootstrap.jsp" %>
-        
-        <style>
-            .bg-success{
-                background-color: red;
-            }
-            
-        </style>
     </head>
     <body>
         <%

@@ -220,4 +220,12 @@ public class LogicFacade {
     public static List<Employee> getAllEmployees() throws FOGException{
         return EmployeeMapper.getAllEmployees();
     }
+    
+    public static Employee getEmployeeById(int id) throws FOGException{
+        return EmployeeMapper.getEmployeeById(id);
+    }
+    
+    public static void UpdateEmployee(Employee employee) throws FOGException{
+        EmployeeMapper.updateEmployee(employee);
+    }
 }

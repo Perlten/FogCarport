@@ -8,9 +8,11 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.FOGException;
+import PresentationLayer.login.EditEmployee;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.Overview;
 import PresentationLayer.login.SendNewPassword;
+import PresentationLayer.login.UpdateEmployee;
 import PresentationLayer.login.UpdateStaff;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
@@ -61,6 +63,8 @@ public abstract class Command {
         commands.put("SendNewPassword", new SendNewPassword());
         commands.put("Overview", new Overview());
         commands.put("UpdateStaff", new UpdateStaff());
+        commands.put("EditEmployee", new EditEmployee());
+        commands.put("UpdateEmployee", new UpdateEmployee());
     }
 
     static Command from( HttpServletRequest request ) {

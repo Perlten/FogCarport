@@ -137,7 +137,6 @@
             <% if (order != null) {%>
             <div class="col-lg-6">
                 <%@include file="WEB-INF/overview.jsp" %>
-
             </div>       
             <%}%>
         </div>

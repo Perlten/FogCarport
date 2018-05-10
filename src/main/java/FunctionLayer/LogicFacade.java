@@ -246,7 +246,7 @@ public class LogicFacade {
         Random ra = new Random();
         String password = "";
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             char x = 'a';
             x += ra.nextInt(25);
             password += x;

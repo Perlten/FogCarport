@@ -27,15 +27,12 @@ public class SubmitOrder extends Command {
             Order order = (Order) session.getAttribute("order");
             LogicFacade.makeOrder(order);
             order.setOrdered(true);
-
-            //adding event on eventlist
-            Event event = new Event(-1, order.getOrderid(), -1, -1, 1, null, null, null, null, null);
-            LogicFacade.writeEvent(event);
-            
-            
             session.setAttribute("order", null);
             session.setAttribute("confirmedOrder", order);
             LogicFacade.sendEmailToCustomer(order);
+            
+            //adding event on eventlist
+            LogicFacade.writeEvent(new Event(order.getOrderid(), 1));
         } catch (Exception e) {
             throw new FOGException("Could not submit order!");
         }

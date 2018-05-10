@@ -216,4 +216,5 @@ public class LogicFacade {
     public static List<Event> getEmployeeEvent(int employeeId) throws FOGException{
         return EventMapper.getEmployeeEvent(employeeId);
     }
+
 }

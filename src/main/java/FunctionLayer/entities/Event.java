@@ -14,14 +14,28 @@ import java.util.Calendar;
  */
 public class Event {
 
-    private int eventId, orderid, assignedEmployee, accessLevel, eventType;
+    private int eventId, orderid, employee, accessLevel, eventType;
     private String title, description, eventName, statusColor;
     private Calendar date;
 
-    public Event(int eventId, int orderid, int assignedEmployee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date, String statusColor) {
+    
+    public Event(int orderid, int eventType) {
+        this.eventId = -1;
+        this.orderid = orderid;
+        this.employee = -1;
+        this.accessLevel = -1;
+        this.eventType = eventType;
+        this.title = null;
+        this.description = null;
+        this.eventName = null;
+        this.date = null;
+        this.statusColor = null;
+    }
+
+    public Event(int eventId, int orderid, int employee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date, String statusColor) {
         this.eventId = eventId;
         this.orderid = orderid;
-        this.assignedEmployee = assignedEmployee;
+        this.employee = employee;
         this.accessLevel = accessLevel;
         this.eventType = eventType;
         this.title = title;
@@ -39,8 +53,8 @@ public class Event {
         return orderid;
     }
 
-    public int getAssignedEmployee() {
-        return assignedEmployee;
+    public int getEmployee() {
+        return employee;
     }
 
     public int getAccessLevel() {
@@ -75,12 +89,10 @@ public class Event {
     public String getStatusColor() {
         return statusColor;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", assignedEmployee=" + assignedEmployee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", date=" + date.getTimeInMillis() + '}';
+        return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", employee=" + employee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", statusColor=" + statusColor + ", date=" + date + '}';
     }
 
 }

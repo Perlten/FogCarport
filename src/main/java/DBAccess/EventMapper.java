@@ -25,20 +25,35 @@ public class EventMapper {
 
     /**
      * Write an order with a dummy-object of event.
+     *
      * @param event
      * @throws FunctionLayer.FOGException
      */
-    public static void writeEvent(Event event) throws FOGException  {
-        try{
-        Connection con = Connector.connection();
+    public static void writeOrderEvent(Event event) throws FOGException {
+        try {
+            Connection con = Connector.connection();
 
-        String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, event.getEventType());
-        pre.setInt(2, event.getOrderid());
-        pre.executeUpdate();
-        }catch(SQLException | ClassNotFoundException e){
-            throw new FOGException("Could not write event");
+            String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, event.getEventType());
+            pre.setInt(2, event.getOrderid());
+            pre.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not write order event");
+        }
+    }
+
+    public static void writeEmployeeEvent(Event event) throws FOGException {
+        try {
+            Connection con = Connector.connection();
+
+            String sql = "INSERT INTO fog.event(idevent_type, employee) values (?,?)";
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, event.getEventType());
+            pre.setInt(2, event.getEmployee());
+            pre.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not write employee event");
         }
     }
 
@@ -50,23 +65,23 @@ public class EventMapper {
      * @throws FunctionLayer.FOGException
      */
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
-        try{
-        Connection con = Connector.connection();
+        try {
+            Connection con = Connector.connection();
 
-        String sql = "SELECT * FROM fog.event "
-                + "INNER JOIN fog.event_type "
-                + "ON event.idevent_type = event_type.idevent_type "
-                + "WHERE idorder = ? order by idevent desc";
+            String sql = "SELECT * FROM fog.event "
+                    + "INNER JOIN fog.event_type "
+                    + "ON event.idevent_type = event_type.idevent_type "
+                    + "WHERE idorder = ? order by idevent desc";
 
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, orderid);
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, orderid);
 
-        return convert(pre.executeQuery());
-        }catch(SQLException | ClassNotFoundException e){
+            return convert(pre.executeQuery());
+        } catch (SQLException | ClassNotFoundException e) {
             throw new FOGException("Could not find events");
         }
     }
-    
+
     /**
      * Get event list with an employee as reference.
      *
@@ -74,20 +89,20 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-     public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
-        try{
-        Connection con = Connector.connection();
+    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
+        try {
+            Connection con = Connector.connection();
 
-        String sql = "SELECT * FROM fog.event "
-                + "INNER JOIN fog.event_type "
-                + "ON event.idevent_type = event_type.idevent_type "
-                + "WHERE employee = ? order by idevent desc";
+            String sql = "SELECT * FROM fog.event "
+                    + "INNER JOIN fog.event_type "
+                    + "ON event.idevent_type = event_type.idevent_type "
+                    + "WHERE employee = ? order by idevent desc";
 
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, employeeId);
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, employeeId);
 
-        return convert(pre.executeQuery());
-        }catch(SQLException | ClassNotFoundException e){
+            return convert(pre.executeQuery());
+        } catch (SQLException | ClassNotFoundException e) {
             throw new FOGException(e.getMessage());
         }
     }

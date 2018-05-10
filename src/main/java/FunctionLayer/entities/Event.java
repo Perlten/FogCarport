@@ -19,17 +19,12 @@ public class Event {
     private Calendar date;
 
     
+    public Event(Employee employee, int eventType) {
+        this(-1, -1, employee.getEmployeeId(), -1, eventType, null, null, null, null, null);
+    }
+    
     public Event(int orderid, int eventType) {
-        this.eventId = -1;
-        this.orderid = orderid;
-        this.employee = -1;
-        this.accessLevel = -1;
-        this.eventType = eventType;
-        this.title = null;
-        this.description = null;
-        this.eventName = null;
-        this.date = null;
-        this.statusColor = null;
+        this(-1, orderid, -1, -1, eventType, null, null, null, null, null);
     }
 
     public Event(int eventId, int orderid, int employee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date, String statusColor) {

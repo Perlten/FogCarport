@@ -206,7 +206,7 @@ public class LogicFacade {
      * @throws FunctionLayer.FOGException
      */
     public static void writeEvent(Event event) throws FOGException {
-        EventMapper.writeEvent(event);
+        EventMapper.writeOrderEvent(event);
     }
 
     public static List<Event> getOrderEvent(int orderid) throws FOGException {

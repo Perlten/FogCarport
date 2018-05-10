@@ -11,7 +11,9 @@ import FunctionLayer.FOGException;
 import PresentationLayer.login.EditEmployee;
 import PresentationLayer.login.FireEmployee;
 import PresentationLayer.login.LoginVerification;
+import PresentationLayer.login.NewPassword;
 import PresentationLayer.login.Overview;
+import PresentationLayer.login.ResetPassword;
 import PresentationLayer.login.SendNewPassword;
 import PresentationLayer.login.UpdateEmployee;
 import PresentationLayer.login.UpdateStaff;
@@ -67,6 +69,8 @@ public abstract class Command {
         commands.put("EditEmployee", new EditEmployee());
         commands.put("UpdateEmployee", new UpdateEmployee());
         commands.put("FireEmployee", new FireEmployee());
+        commands.put("ResetPassword", new ResetPassword());
+        commands.put("NewPassword", new NewPassword());
     }
 
     static Command from( HttpServletRequest request ) {

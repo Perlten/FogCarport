@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PresentationLayer.login;
 
 import FunctionLayer.FOGException;
@@ -12,10 +7,6 @@ import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Perlt
- */
 public class UpdateEmployee extends Command {
 
     @Override
@@ -38,7 +29,7 @@ public class UpdateEmployee extends Command {
         selectedEmp.setEmail(email);
         
         LogicFacade.UpdateEmployee(selectedEmp);
-        return new UpdateStaff().execute(request, response);
+        return new EditEmployee().execute(request, response);
     }
     
 }

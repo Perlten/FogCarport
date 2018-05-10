@@ -83,7 +83,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <%if (selectedEmployee.isEmployed()){%>        
+                            <%if (selectedEmployee.isEmployed()) {%>        
                             <input type="hidden" name="command" value="UpdateEmployee"/>
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
                             <input type="submit" class="btn btn-primary" value="Edit"/>
@@ -93,7 +93,14 @@
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
                             <input type="submit" class="btn btn-danger" value="FIRE!"/>
                         </form>
-                        <%}%>
+                        <%if (!selectedEmployee.isResetPassword()) {%>
+                        <form>
+                            <input type="hidden" name="command" value="ResetPassword"/>
+                            <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
+                            <input type="submit" class="btn btn-primary" value="Reset Password"/>
+                        </form>
+                        <%}
+                            }%>
                     </div>
                 </div>
                 <%}%>

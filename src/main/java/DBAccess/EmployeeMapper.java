@@ -28,7 +28,7 @@ public class EmployeeMapper {
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
 //        TODO: change roleid name;
-        String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created FROM fog.employee WHERE BINARY username = ? and BINARY password = ? AND employed = true";
+        String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM fog.employee WHERE BINARY username = ? and BINARY password = ? AND employed = true";
         try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class EmployeeMapper {
     }
 
     public static Employee getEmployeeByEmail(String email) throws FOGException {
-        String sql = "SELECT idemployee, username, roleid, firstname, lastname, employed, date_created FROM fog.employee WHERE email = ?";
+        String sql = "SELECT idemployee, username, roleid, firstname, lastname, employed, date_created, reset_password FROM fog.employee WHERE email = ?";
         try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -108,7 +108,8 @@ public class EmployeeMapper {
             Calendar date = Calendar.getInstance();
             Timestamp ts = rs.getTimestamp("date_created");
             date.setTime((Date) ts);
-            list.add(new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date));
+            boolean resetPassword = rs.getBoolean("reset_password");
+            list.add(new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date, resetPassword));
         }
         if (list.isEmpty()) {
             throw new FOGException("Could not find employee(s)");
@@ -132,16 +133,41 @@ public class EmployeeMapper {
             throw new FOGException("Could not update employee");
         }
     }
-    
-    public static void fireEmployee(int employeeId) throws FOGException{
+
+    public static void fireEmployee(int employeeId) throws FOGException {
         String sql = "UPDATE fog.employee SET employed = false WHERE idemployee = ?";
-         try {
+        try {
             Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, employeeId);
             ps.execute();
         } catch (SQLException | ClassNotFoundException e) {
             throw new FOGException("Could not fire Employee");
+        }
+    }
+
+    public static void resetPassword(int employeeId) throws FOGException {
+        String sql = "UPDATE fog.employee SET reset_password = true WHERE idemployee = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, employeeId);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not reset password");
+        }
+    }
+
+    public static void changePassword(int employeeId, String newPassword) throws FOGException {
+        String sql = "UPDATE fog.employee SET reset_password = false, password = ? WHERE idemployee = ?";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setInt(2, employeeId);
+            ps.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not change password");
         }
     }
 

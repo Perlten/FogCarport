@@ -232,4 +232,11 @@ public class LogicFacade {
     public static void fireEmployee(int employeeId) throws FOGException{
         EmployeeMapper.fireEmployee(employeeId);
     }
+    
+    public static void resetEmployeePassword(int employeeId) throws FOGException{
+        EmployeeMapper.resetPassword(employeeId);
+    }
+    public static void changePassword(int employeeId, String password) throws FOGException{
+        EmployeeMapper.changePassword(employeeId, password);
+    }
 }

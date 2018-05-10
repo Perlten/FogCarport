@@ -16,10 +16,10 @@ public class Employee {
 
     private int employeeId, authenticationLevel;
     private String username, firstname, lastname, email;
-    private boolean employed;
+    private boolean employed, resetPassword;
     private Calendar dateCreated;
 
-    public Employee(int employeeId, int authenticationLevel, String username, String firstname, String lastname, String email, boolean employed, Calendar dateCreated) {
+    public Employee(int employeeId, int authenticationLevel, String username, String firstname, String lastname, String email, boolean employed, Calendar dateCreated, boolean resetPassword) {
         this.employeeId = employeeId;
         this.authenticationLevel = authenticationLevel;
         this.username = username;
@@ -28,6 +28,7 @@ public class Employee {
         this.email = email;
         this.employed = employed;
         this.dateCreated = dateCreated;
+        this.resetPassword = resetPassword;
     }
 
     public int getEmployeeId() {
@@ -85,8 +86,10 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
+    public boolean isResetPassword() {
+        return resetPassword;
+    }
 
     public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");

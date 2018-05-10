@@ -38,6 +38,24 @@ public class EmployeeMapper {
             List<Employee> list = getEmployees(rs);
             return list.get(0);
         } catch (ClassNotFoundException | SQLException ex) {
+            throw new FOGException("could not verify login");
+        }
+    }
+
+    public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel, String password) throws FOGException {
+        String sql = "INSERT INTO fog.employee(username, roleid, firstname, lastname, password, email )"
+                + " VALUES(?, ?, ?, ?, ?, ?)";
+        try {
+            Connection con = Connector.connection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setInt(2, accessLevel);
+            ps.setString(3, firstname);
+            ps.setString(4, lastname);
+            ps.setString(5, password);
+            ps.setString(6, email);
+            ps.execute();
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }

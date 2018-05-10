@@ -212,31 +212,56 @@ public class LogicFacade {
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
         return EventMapper.getOrderEvent(orderid);
     }
-    
-    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException{
+
+    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
         return EventMapper.getEmployeeEvent(employeeId);
     }
-    
-    public static List<Employee> getAllEmployees() throws FOGException{
+
+    public static List<Employee> getAllEmployees() throws FOGException {
         return EmployeeMapper.getAllEmployees();
     }
-    
-    public static Employee getEmployeeById(int id) throws FOGException{
+
+    public static Employee getEmployeeById(int id) throws FOGException {
         return EmployeeMapper.getEmployeeById(id);
     }
-    
-    public static void UpdateEmployee(Employee employee) throws FOGException{
+
+    public static void UpdateEmployee(Employee employee) throws FOGException {
         EmployeeMapper.updateEmployee(employee);
     }
-    
-    public static void fireEmployee(int employeeId) throws FOGException{
+
+    public static void fireEmployee(int employeeId) throws FOGException {
         EmployeeMapper.fireEmployee(employeeId);
     }
-    
-    public static void resetEmployeePassword(int employeeId) throws FOGException{
+
+    public static void resetEmployeePassword(int employeeId) throws FOGException {
         EmployeeMapper.resetPassword(employeeId);
     }
-    public static void changePassword(int employeeId, String password) throws FOGException{
+
+    public static void changePassword(int employeeId, String password) throws FOGException {
         EmployeeMapper.changePassword(employeeId, password);
+    }
+
+    public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {
+
+        Random ra = new Random();
+        String password = "";
+        
+        for (int i = 0; i < 10; i++) {
+            char x = 'a';
+            x += ra.nextInt(25);
+            password += x;
+        }
+        
+        EmployeeMapper.createEmployee(firstname, lastname, username, email, accessLevel, password);
+        
+        String title = "Welcome to Fog";
+        String message = "Welcome to fog we are very excited to work with you.\n"
+                + "Below you will find your new password, the first time toy log in you wil be asked to create a new.\n"
+                + "Password: " + password
+                + "\n Kindest regards FOG A/S";
+
+
+        SendEmail.sendMail(email, title, message);
+
     }
 }

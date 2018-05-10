@@ -25,6 +25,6 @@ public class NewPassword extends Command {
             LogicFacade.changePassword(emp.getEmployeeId(), password);
             return new Overview().execute(request, response);
         }
-            throw new FOGException("The password you entered is not new");
+            throw new FOGException("The password you entered is the same as your old password");
     }
 }

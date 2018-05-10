@@ -8,15 +8,16 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.FOGException;
-import PresentationLayer.login.EditEmployee;
-import PresentationLayer.login.FireEmployee;
+import PresentationLayer.editEmployee.CreateNewEmployee;
+import PresentationLayer.editEmployee.EditEmployee;
+import PresentationLayer.editEmployee.FireEmployee;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.NewPassword;
 import PresentationLayer.login.Overview;
-import PresentationLayer.login.ResetPassword;
+import PresentationLayer.editEmployee.ResetPassword;
 import PresentationLayer.login.SendNewPassword;
-import PresentationLayer.login.UpdateEmployee;
-import PresentationLayer.login.UpdateStaff;
+import PresentationLayer.editEmployee.UpdateEmployee;
+import PresentationLayer.editEmployee.UpdateStaff;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
@@ -71,6 +72,7 @@ public abstract class Command {
         commands.put("FireEmployee", new FireEmployee());
         commands.put("ResetPassword", new ResetPassword());
         commands.put("NewPassword", new NewPassword());
+        commands.put("CreateNewEmployee", new CreateNewEmployee());
     }
 
     static Command from( HttpServletRequest request ) {

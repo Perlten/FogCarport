@@ -30,7 +30,7 @@ public class OrderMapper {
 
     public OrderMapper() throws FOGException {
         try {
-            con =  new LiveConnection().connection();
+            con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
             throw new FOGException("Could not find connection");
         }
@@ -50,7 +50,7 @@ public class OrderMapper {
     public List<Order> getOrders(int orderid) throws FOGException {
         try {
             String sql = "SELECT * FROM .order";
-            if (orderid >= 0) {
+            if (orderid > 0) {
                 sql += " where idorder=?";
             } else {
                 sql += " order by idorder desc;";
@@ -58,14 +58,21 @@ public class OrderMapper {
 
             PreparedStatement pre = con.prepareStatement(sql);
 
-            if (orderid >= 0) {
+            if (orderid > 0) {
                 pre.setInt(1, orderid);
             }
 
             ResultSet res = pre.executeQuery();
-            return getOrderFromDB(res);
 
-        } catch (Exception e) {
+            List<Order> list = getOrderFromDB(res);
+
+            if (orderid > 0 && list.size() < 1) {
+                throw new FOGException("Could not find order");
+            }
+            
+            return list;
+
+        } catch (FOGException | SQLException e) {
             throw new FOGException("Cant get orders");
         }
     }
@@ -171,7 +178,7 @@ public class OrderMapper {
      *
      * @param order
      */
-    public  void makeOrder(Order order) throws FOGException {
+    public void makeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO .order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -207,7 +214,7 @@ public class OrderMapper {
         }
     }
 
-    public  int NumberOfUnconfirmedOrders() throws FOGException {
+    public int numberOfUnconfirmedOrders() throws FOGException {
         String sql = "SELECT COUNT(idorder) FROM .order WHERE confirmed = false";
         try {
             Statement statement = con.createStatement();

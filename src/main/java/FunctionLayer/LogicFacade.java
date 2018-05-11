@@ -190,7 +190,7 @@ public class LogicFacade {
     }
 
     public static int numberOfConfirmedOrder() throws FOGException {
-        return new OrderMapper().NumberOfUnconfirmedOrders();
+        return new OrderMapper().numberOfUnconfirmedOrders();
     }
 
     public static List<Order> getLatest10UnconfirmedOrders() throws FOGException {

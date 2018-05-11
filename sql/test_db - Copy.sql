@@ -1,5 +1,4 @@
-DROP DATABASE IF EXISTS `fog_test`;
-CREATE DATABASE `fog_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `fog_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `fog_test`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
@@ -40,9 +39,7 @@ CREATE TABLE `cladding` (
 
 LOCK TABLES `cladding` WRITE;
 /*!40000 ALTER TABLE `cladding` DISABLE KEYS */;
-INSERT INTO `cladding` VALUES 
-(1,'whitewoodk','This is a desciption of the woodtype!',4),
-(2,'Oak','Test ',123);
+INSERT INTO `cladding` VALUES (8,'whitewoodk','This is a desciption of the woodtype!',4),(19,'Oak','Test ',123);
 /*!40000 ALTER TABLE `cladding` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,10 +73,10 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee`(idemployee, username, roleid, firstname, lastname, password, email ) VALUES 
-(1, 'Nikolai123', 2, 'Nikolai', 'Perlt', '1234', 'Nikolai@gmail.com'),
-(2, 'Larsen', 1, 'Adam', 'Lass', 'LassLass', 'Adam@gmail.com'),
-(3, 'Per', 2, 'Per', 'Andersen', 'Hej', 'Per@gmail.com');
+INSERT INTO `employee`(username, roleid, firstname, lastname, password, email ) VALUES 
+('Nikolai123', 2, 'Nikolai', 'Perlt', '1234', 'Nikolai@gmail.com'),
+('Larsen', 1, 'Adam', 'Lass', 'LassLass', 'Adam@gmail.com'),
+('Per', 2, 'Per', 'Andersen', 'Hej', 'Per@gmail.com');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,11 +179,11 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order`(idorder, firstname, lastname, email, phonenumber, `length`, width, height, roofangle, shed, shed_length, shed_width, tile, cladding) values
-		(1, 'Nikolai', 'Perlt', 'Nikolai@gmail.com', 12545678, 700, 600, 200, 0, 1, 200, 200, 1, 1),
-		(2, 'Adam', 'LAss', 'Lass@gmail.com', 12346678, 500, 600, 200, 0, 1, 200, 200, 1, 1),
-		(3, 'Per', 'Andern', 'Per@gmail.com', 12345778, 780, 600, 200, 0, 1, 200, 200, 1, 1),
-		(4, 'Pernille', 'Jensen', 'Pernille@gmail.com', 12348678, 1200, 600, 200, 0, 1, 200, 200, 1, 1);
+INSERT INTO `order`(firstname, lastname, email, phonenumber, `length`, width, height, roofangle, shed, shed_length, shed_width, tile, cladding) values
+		('Nikolai', 'Perlt', 'Nikolai@gmail.com', 12545678, 700, 600, 200, 0, 1, 200, 200, 1, 1),
+		('Adam', 'LAss', 'Lass@gmail.com', 12346678, 500, 600, 200, 0, 1, 200, 200, 1, 1),
+		('Per', 'Andern', 'Per@gmail.com', 12345778, 780, 600, 200, 0, 1, 200, 200, 1, 1),
+		('Pernille', 'Jensen', 'Pernille@gmail.com', 12348678, 1200, 600, 200, 0, 1, 200, 200, 1, 1);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,8 +234,7 @@ CREATE TABLE `tile` (
 
 LOCK TABLES `tile` WRITE;
 /*!40000 ALTER TABLE `tile` DISABLE KEYS */;
-INSERT INTO `tile` VALUES (1,'Adams','Adam har lanceret hans helt egen tile. han er meget stolt og glaeder sig super meget til at vise jeg hvad han har arbejdet paa',75),
-(2,'Nikolai Tile','Bedre end Adams ',100);
+INSERT INTO `tile` VALUES (14,'Adams','Adam har lanceret hans helt egen tile. han er meget stolt og glaeder sig super meget til at vise jeg hvad han har arbejdet paa',75),(17,'Nikolai Tile','Bedre end Adams ',100);
 /*!40000 ALTER TABLE `tile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -8,7 +8,7 @@ import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.FOGException;
-import PresentationLayer.Test.TestPickingList;
+import PresentationLayer.orders.PickingList;
 import PresentationLayer.editEmployee.CreateNewEmployee;
 import PresentationLayer.editEmployee.EditEmployee;
 import PresentationLayer.editEmployee.FireEmployee;
@@ -74,7 +74,7 @@ public abstract class Command {
         commands.put("ResetPassword", new ResetPassword());
         commands.put("NewPassword", new NewPassword());
         commands.put("CreateNewEmployee", new CreateNewEmployee());
-        commands.put("TestPickingList", new TestPickingList());
+        commands.put("PickingList", new PickingList());
     }
 
     static Command from( HttpServletRequest request ) {

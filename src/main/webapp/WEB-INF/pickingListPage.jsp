@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <a href="../bootstrap.jsp"></a>
+        <%@include file="../bootstrap.jsp" %>
     <title>Picking List</title>
 </head>
 <body>
-
+    <%@include file="../PickingList.jsp" %>
 </body>
 </html>

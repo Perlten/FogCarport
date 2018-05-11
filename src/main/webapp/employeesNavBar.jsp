@@ -7,6 +7,6 @@
     <li><a href="FrontController?command=UpdateStylePage">Style page</a></li>
     <% if(empNavBar.getAuthenticationLevel() >= 2){ %>
     <li><a href="FrontController?command=UpdateStaff">Update staff</a></li>
-    <li><a href="FrontController?command=TestPickingList">TEST TODO: REMOVE ALL</a></li>
+    <li><a href="FrontController?command=PickingList">PickingList TEST</a></li>
     <%}%>
 </ul>

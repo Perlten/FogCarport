@@ -2,14 +2,13 @@ package FunctionLayer;
 
 import DBAccess.EmployeeMapper;
 import DBAccess.EventMapper;
-import DBAccess.OrderMapper;
 import DBAccess.StyleMapper;
+import DBAccess.OrderMapper;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
@@ -22,11 +21,11 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static List<Order> getOrders() throws FOGException {
-        return OrderMapper.getOrders(-1);
+        return new OrderMapper().getOrders(-1);
     }
 
     public static List<Order> getCustomerList(int limit) throws FOGException {
-        return OrderMapper.getCustomerList(limit);
+        return new OrderMapper().getCustomerList(limit);
     }
 
     /**
@@ -40,11 +39,11 @@ public class LogicFacade {
         if (orderid < 0) {
             throw new IllegalArgumentException("orderid can't be negative");
         }
-        return OrderMapper.getOrders(orderid).get(0);
+        return new OrderMapper().getOrders(orderid).get(0);
     }
 
     public static void makeOrder(Order order) throws FOGException {
-        OrderMapper.makeOrder(order);
+        new OrderMapper().makeOrder(order);
     }
 
     /**
@@ -54,7 +53,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void confirmOrder(int orderId) throws FOGException {
-        OrderMapper.confirmOrder(orderId);
+        new OrderMapper().confirmOrder(orderId);
     }
 
     /**
@@ -64,7 +63,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void changeOrder(Order order) throws FOGException {
-        OrderMapper.changeOrder(order);
+        new OrderMapper().changeOrder(order);
     }
 
     /**
@@ -74,7 +73,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void removeOrder(int orderId) throws FOGException {
-        OrderMapper.removeOrder(orderId);
+        new OrderMapper().removeOrder(orderId);
     }
 
     /**
@@ -82,7 +81,7 @@ public class LogicFacade {
      * @return @throws FOGException
      */
     public static List<StyleOption> getCladdingList() throws FOGException {
-        return StyleMapper.getCladding(-1);
+        return new StyleMapper().getCladding(-1);
     }
 
     /**
@@ -90,7 +89,7 @@ public class LogicFacade {
      * @return @throws FOGException
      */
     public static List<StyleOption> getTileList() throws FOGException {
-        return StyleMapper.getTile(-1);
+        return new StyleMapper().getTile(-1);
     }
 
     /**
@@ -100,14 +99,14 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static StyleOption getCladding(int id) throws FOGException {
-        if (!StyleMapper.getCladding(id).isEmpty()) {
-            return StyleMapper.getCladding(id).get(0);
+        if (!new StyleMapper().getCladding(id).isEmpty()) {
+            return new StyleMapper().getCladding(id).get(0);
         }
         return null;
     }
 
     public static void unconfirmOrder(int id) throws FOGException {
-        OrderMapper.unconfirmOrder(id);
+        new OrderMapper().unconfirmOrder(id);
     }
 
     /**
@@ -117,37 +116,37 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static StyleOption getTile(int id) throws FOGException {
-        if (!StyleMapper.getTile(id).isEmpty()) {
-            return StyleMapper.getTile(id).get(0);
+        if (!new StyleMapper().getTile(id).isEmpty()) {
+            return new StyleMapper().getTile(id).get(0);
         }
         return null;
     }
 
     public static void updateCladding(StyleOption cladding, int id) throws FOGException {
-        StyleMapper.updateCladding(cladding, id);
+        new StyleMapper().updateCladding(cladding, id);
     }
 
     public static void updateTile(StyleOption tile, int id) throws FOGException {
-        StyleMapper.updateTile(tile, id);
+        new StyleMapper().updateTile(tile, id);
     }
 
     public static void createCladding(StyleOption cladding) throws FOGException {
-        StyleMapper.createCladding(cladding);
+        new StyleMapper().createCladding(cladding);
     }
 
     public static void createTile(StyleOption tile) throws FOGException {
-        StyleMapper.createTile(tile);
+        new StyleMapper().createTile(tile);
     }
 
     public static void removeCladding(int id) throws FOGException {
-        StyleMapper.removeStyleOption(id, "cladding");
+        new StyleMapper().removeStyleOption(id, "cladding");
     }
 
     public static void removeTile(int id) throws FOGException {
-        StyleMapper.removeStyleOption(id, "tile");
+        new StyleMapper().removeStyleOption(id, "tile");
     }
 
-    public static void sendEmailToCustomer(Order order) {
+    public static void sendEmailToCustomer(Order order) throws FOGException {
         String title = "Fog carport offer";
 
         String textMessage = "Dear " + order.getCustomer().getFirstname() + ",\n\n"
@@ -161,11 +160,11 @@ public class LogicFacade {
     }
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
-        return EmployeeMapper.verfyLogin(username, password);
+        return new EmployeeMapper().verfyLogin(username, password);
     }
 
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
-        Employee emp = EmployeeMapper.getEmployeeByEmail(email);
+        Employee emp = new EmployeeMapper().getEmployeeByEmail(email);
 
         //TODO: Might use our encryption class when we make it ;)
         Random ra = new Random();
@@ -177,7 +176,7 @@ public class LogicFacade {
             password += x;
         }
 
-        EmployeeMapper.changePasswordForEmployee(emp.getEmployeeId(), password);
+        new EmployeeMapper().changePasswordForEmployee(emp.getEmployeeId(), password);
 
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
@@ -187,15 +186,15 @@ public class LogicFacade {
     }
 
     public static Employee getEmployeeByEmail(String email) throws FOGException {
-        return EmployeeMapper.getEmployeeByEmail(email);
+        return new EmployeeMapper().getEmployeeByEmail(email);
     }
 
     public static int numberOfConfirmedOrder() throws FOGException {
-        return OrderMapper.NumberOfUnconfirmedOrders();
+        return new OrderMapper().numberOfUnconfirmedOrders();
     }
 
     public static List<Order> getLatest10UnconfirmedOrders() throws FOGException {
-        return OrderMapper.getUnconfirmedOrders(10);
+        return new OrderMapper().getUnconfirmedOrders(10);
     }
 
     /**
@@ -206,62 +205,77 @@ public class LogicFacade {
      * @throws FunctionLayer.FOGException
      */
     public static void writeEvent(Event event) throws FOGException {
-        EventMapper.writeEvent(event);
+        new EventMapper().writeEvent(event);
     }
 
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
-        return EventMapper.getOrderEvent(orderid);
+        return new EventMapper().getOrderEvent(orderid);
     }
 
     public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
-        return EventMapper.getEmployeeEvent(employeeId);
+        return new EventMapper().getEmployeeEvent(employeeId);
     }
 
     public static List<Employee> getAllEmployees() throws FOGException {
-        return EmployeeMapper.getAllEmployees();
+        return new EmployeeMapper().getAllEmployees();
     }
 
     public static Employee getEmployeeById(int id) throws FOGException {
-        return EmployeeMapper.getEmployeeById(id);
+        return new EmployeeMapper().getEmployeeById(id);
     }
 
     public static void UpdateEmployee(Employee employee) throws FOGException {
-        EmployeeMapper.updateEmployee(employee);
+        new EmployeeMapper().updateEmployee(employee);
     }
 
     public static void fireEmployee(int employeeId) throws FOGException {
-        EmployeeMapper.fireEmployee(employeeId);
+        new EmployeeMapper().fireEmployee(employeeId);
     }
 
     public static void resetEmployeePassword(int employeeId) throws FOGException {
-        EmployeeMapper.resetPassword(employeeId);
+        new EmployeeMapper().resetPassword(employeeId);
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
-        EmployeeMapper.changePassword(employeeId, password);
+        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, password);
     }
 
     public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {
 
         Random ra = new Random();
         String password = "";
-        
+
         for (int i = 0; i < 20; i++) {
             char x = 'a';
             x += ra.nextInt(25);
             password += x;
         }
-        
-        EmployeeMapper.createEmployee(firstname, lastname, username, email, accessLevel, password);
-        
+
+        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, password);
+
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
                 + "Below you will find your new password, the first time toy log in you wil be asked to create a new.\n"
                 + "Password: " + password
                 + "\n Kindest regards FOG A/S";
 
-
         SendEmail.sendMail(email, title, message);
+
+    }
+
+    public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
+        List<Employee> empList = new EmployeeMapper().getAllEmployees();
+        Order order = getOrder(orderId);
+        String Tile = "New Order";
+        String message = "At " + order.simpleDate() + " We recived a new order from " + order.getCustomer().getFirstname()
+                + " " + order.getCustomer().getLastname() + ". We should do our best to fit his/hers needs.\n\n"
+                + "And remember teamwork makes the dream work...";
+
+        for (Employee emp : empList) {
+            if (emp.isEmployed()) {
+                SendEmail.sendMail(emp.getEmail(), Tile, message);
+            }
+        }
 
     }
 }

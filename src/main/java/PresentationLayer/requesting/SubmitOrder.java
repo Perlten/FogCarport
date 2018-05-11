@@ -22,7 +22,6 @@ public class SubmitOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
             HttpSession session = request.getSession();
             Order order = (Order) session.getAttribute("order");
             LogicFacade.makeOrder(order);
@@ -33,9 +32,7 @@ public class SubmitOrder extends Command {
             
             //adding event on eventlist
             LogicFacade.writeEvent(new Event(order.getOrderid(), 1));
-        } catch (Exception e) {
-            throw new FOGException("Could not submit order!");
-        }
+
         return new LoadOrder().execute(request, response);
     }
 

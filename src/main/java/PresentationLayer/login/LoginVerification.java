@@ -23,18 +23,18 @@ public class LoginVerification extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
-        try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            Employee emp = LogicFacade.verfyLogin(username, password);
-            request.getSession().setAttribute("employee", emp);
-            
-            //event
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Employee emp = LogicFacade.verfyLogin(username, password);
+        request.getSession().setAttribute("employee", emp);
+
+        //event
             LogicFacade.writeEvent(new Event(emp, 6));
-
-        } catch (Exception e) {
+            
+        if (emp.isResetPassword()) {
+            return "WEB-INF/newPasswordPage";
         }
-
+        
         return new Overview().execute(request, response);
     }
 

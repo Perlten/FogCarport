@@ -131,7 +131,7 @@ public class StyleMapperTest {
         int tileExpected = 3;
         int claddingActual = mapper.getCladding(-1).size();
         int tileActual = mapper.getTile(-1).size();
-        
+
         assertEquals(tileExpected, tileActual);
         assertEquals(claddingExpected, claddingActual);
     }

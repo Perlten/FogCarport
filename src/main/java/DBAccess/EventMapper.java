@@ -23,52 +23,64 @@ import java.util.Date;
  */
 public class EventMapper {
 
+    private Connection con;
+
+    public EventMapper() throws FOGException {
+        try {
+            con = new LiveConnection().connection();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not find connection");
+        }
+    }
+
+    public EventMapper(Connection con) {
+        this.con = con;
+    }
+
     /**
      * Write an order with a dummy-object of event.
      *
      * @param event
      * @throws FunctionLayer.FOGException
      */
-    public static void writeOrderEvent(Event event) throws FOGException {
+
+    public void writeOrderEvent(Event event) throws FOGException {
         try {
-            Connection con = Connector.connection();
 
             String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getOrderid());
             pre.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new FOGException("Could not write order event");
         }
     }
-    
-    public static void writeOrderEmployeeEvent(Event event) throws FOGException {
-        try {
-            Connection con = Connector.connection();
 
+    public void writeOrderEmployeeEvent(Event event) throws FOGException {
+        try {
             String sql = "INSERT INTO fog.event(idevent_type, idorder, employee) values (?,?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getOrderid());
             pre.setInt(3, event.getEmployee());
             pre.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new FOGException("Could not write order event");
         }
     }
 
-    public static void writeEmployeeEvent(Event event) throws FOGException {
+    public void writeEmployeeEvent(Event event) throws FOGException {
         try {
-            Connection con = Connector.connection();
 
             String sql = "INSERT INTO fog.event(idevent_type, employee) values (?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getEmployee());
             pre.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new FOGException("Could not write employee event");
+
         }
     }
 
@@ -79,12 +91,11 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-    public static List<Event> getOrderEvent(int orderid) throws FOGException {
+    public List<Event> getOrderEvent(int orderid) throws FOGException {
         try {
-            Connection con = Connector.connection();
 
-            String sql = "SELECT * FROM fog.event "
-                    + "INNER JOIN fog.event_type "
+            String sql = "SELECT * FROM event "
+                    + "INNER JOIN event_type "
                     + "ON event.idevent_type = event_type.idevent_type "
                     + "WHERE idorder = ? order by idevent desc";
 
@@ -92,7 +103,8 @@ public class EventMapper {
             pre.setInt(1, orderid);
 
             return convert(pre.executeQuery());
-        } catch (SQLException | ClassNotFoundException e) {
+
+        } catch (SQLException e) {
             throw new FOGException("Could not find events");
         }
     }
@@ -104,12 +116,11 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
+    public List<Event> getEmployeeEvent(int employeeId) throws FOGException {
         try {
-            Connection con = Connector.connection();
 
-            String sql = "SELECT * FROM fog.event "
-                    + "INNER JOIN fog.event_type "
+            String sql = "SELECT * FROM event "
+                    + "INNER JOIN event_type "
                     + "ON event.idevent_type = event_type.idevent_type "
                     + "WHERE employee = ? order by idevent desc";
 
@@ -117,7 +128,7 @@ public class EventMapper {
             pre.setInt(1, employeeId);
 
             return convert(pre.executeQuery());
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new FOGException(e.getMessage());
         }
     }
@@ -130,7 +141,7 @@ public class EventMapper {
      * @return A list of Event objects from db
      * @throws SQLException
      */
-    private static List<Event> convert(ResultSet res) throws SQLException {
+    private List<Event> convert(ResultSet res) throws SQLException {
         List<Event> events = new ArrayList<>();
         while (res.next()) {
             int eventId = res.getInt("idevent");

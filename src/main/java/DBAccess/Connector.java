@@ -1,32 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DBAccess;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- The purpose of Connector is to...
-
- @author kasper
+ *
+ * @author Perlt
  */
-public class Connector {
+public interface Connector {
 
-    private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog?autoReconnect=true&serverTimezone=CET&useSSL=false";
-    private static final String USERNAME = "doorkeeper";
-    private static final String PASSWORD = "Fortado#420";
+    public void setConnection(Connection con);
 
-    private static Connection singleton;
-
-    public static void setConnection( Connection con ) {
-        singleton = con;
-    }
-
-    public static Connection connection() throws ClassNotFoundException, SQLException {
-        if ( singleton == null ) {
-            Class.forName( "com.mysql.cj.jdbc.Driver" );
-            singleton = DriverManager.getConnection( URL, USERNAME, PASSWORD );
-        }
-        return singleton;
-    }
+    public Connection connection() throws ClassNotFoundException, SQLException;
 }
-

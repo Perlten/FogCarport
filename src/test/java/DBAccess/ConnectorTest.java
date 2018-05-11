@@ -28,7 +28,7 @@ public class ConnectorTest {
      */
     @Test
     public void testConnection() throws Exception {
-        Connector.connection();
+        new LiveConnection().connection();
         assert true;
     }
 

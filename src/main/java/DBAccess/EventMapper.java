@@ -23,21 +23,35 @@ import java.util.Date;
  */
 public class EventMapper {
 
+    private Connection con;
+
+    public EventMapper() throws FOGException {
+        try {
+            con = new LiveConnection().connection();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not find connection");
+        }
+    }
+
+    public EventMapper(Connection con) {
+        this.con = con;
+    }
+
     /**
      * Write an order with a dummy-object of event.
+     *
      * @param event
      * @throws FunctionLayer.FOGException
      */
-    public static void writeEvent(Event event) throws FOGException  {
-        try{
-        Connection con = Connector.connection();
+    public void writeEvent(Event event) throws FOGException {
+        try {
 
-        String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, event.getEventType());
-        pre.setInt(2, event.getOrderid());
-        pre.executeUpdate();
-        }catch(SQLException | ClassNotFoundException e){
+            String sql = "INSERT INTO event(idevent_type, idorder) values (?,?)";
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, event.getEventType());
+            pre.setInt(2, event.getOrderid());
+            pre.executeUpdate();
+        } catch (SQLException e) {
             throw new FOGException("Could not write event");
         }
     }
@@ -49,24 +63,23 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-    public static List<Event> getOrderEvent(int orderid) throws FOGException {
-        try{
-        Connection con = Connector.connection();
+    public List<Event> getOrderEvent(int orderid) throws FOGException {
+        try {
 
-        String sql = "SELECT * FROM fog.event "
-                + "INNER JOIN fog.event_type "
-                + "ON event.idevent_type = event_type.idevent_type "
-                + "WHERE idorder = ? order by idevent desc";
+            String sql = "SELECT * FROM event "
+                    + "INNER JOIN event_type "
+                    + "ON event.idevent_type = event_type.idevent_type "
+                    + "WHERE idorder = ? order by idevent desc";
 
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, orderid);
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, orderid);
 
-        return convert(pre.executeQuery());
-        }catch(SQLException | ClassNotFoundException e){
+            return convert(pre.executeQuery());
+        } catch (SQLException e) {
             throw new FOGException("Could not find events");
         }
     }
-    
+
     /**
      * Get event list with an employee as reference.
      *
@@ -74,20 +87,19 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-     public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
-        try{
-        Connection con = Connector.connection();
+    public List<Event> getEmployeeEvent(int employeeId) throws FOGException {
+        try {
 
-        String sql = "SELECT * FROM fog.event "
-                + "INNER JOIN fog.event_type "
-                + "ON event.idevent_type = event_type.idevent_type "
-                + "WHERE employee = ? order by idevent desc";
+            String sql = "SELECT * FROM event "
+                    + "INNER JOIN event_type "
+                    + "ON event.idevent_type = event_type.idevent_type "
+                    + "WHERE employee = ? order by idevent desc";
 
-        PreparedStatement pre = con.prepareStatement(sql);
-        pre.setInt(1, employeeId);
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, employeeId);
 
-        return convert(pre.executeQuery());
-        }catch(SQLException | ClassNotFoundException e){
+            return convert(pre.executeQuery());
+        } catch (SQLException e) {
             throw new FOGException(e.getMessage());
         }
     }
@@ -100,7 +112,7 @@ public class EventMapper {
      * @return A list of Event objects from db
      * @throws SQLException
      */
-    private static List<Event> convert(ResultSet res) throws SQLException {
+    private List<Event> convert(ResultSet res) throws SQLException {
         List<Event> events = new ArrayList<>();
         while (res.next()) {
             int eventId = res.getInt("idevent");

@@ -26,6 +26,20 @@ import java.util.logging.Logger;
  */
 public class OrderMapper {
 
+    private Connection con;
+
+    public OrderMapper() throws FOGException {
+        try {
+            con =  new LiveConnection().connection();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not find connection");
+        }
+    }
+
+    public OrderMapper(Connection con) {
+        this.con = con;
+    }
+
     /**
      * Get a list of all the orders or a specific order if orderid is 0 or over.
      *
@@ -33,10 +47,9 @@ public class OrderMapper {
      * @return A list of orders
      * @throws FOGException
      */
-    public static List<Order> getOrders(int orderid) throws FOGException {
+    public List<Order> getOrders(int orderid) throws FOGException {
         try {
-            Connection con = Connector.connection();
-            String sql = "SELECT * FROM fog.order";
+            String sql = "SELECT * FROM .order";
             if (orderid >= 0) {
                 sql += " where idorder=?";
             } else {
@@ -53,23 +66,22 @@ public class OrderMapper {
             return getOrderFromDB(res);
 
         } catch (Exception e) {
-            throw new FOGException(e.getMessage());
+            throw new FOGException("Cant get orders");
         }
     }
 
-    public static List<Order> getCustomerList(int limit) throws FOGException {
+    public List<Order> getCustomerList(int limit) throws FOGException {
 
-        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order order by idorder desc LIMIT ?";
+        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order order by idorder desc LIMIT ?";
 
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, limit);
 
             ResultSet res = ps.executeQuery();
             return getCustomerFromDB(res);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
@@ -79,8 +91,8 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void changeOrder(Order order) throws FOGException {
-        String sql = "UPDATE fog.order SET "
+    public void changeOrder(Order order) throws FOGException {
+        String sql = "UPDATE .order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
                 + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
         Customization customization = order.getCustomization();
@@ -94,7 +106,6 @@ public class OrderMapper {
             shed = true;
         }
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1, order.isConfirmed());
             ps.setString(2, customer.getFirstname());
@@ -112,7 +123,7 @@ public class OrderMapper {
             ps.setInt(14, customization.getCladding().getId());
             ps.setInt(15, order.getOrderid());
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
@@ -122,38 +133,35 @@ public class OrderMapper {
      *
      * @param id
      */
-    public static void confirmOrder(int id) throws FOGException {
-        String sql = "UPDATE fog.order SET confirmed = true WHERE idorder = ?;";
+    public void confirmOrder(int id) throws FOGException {
+        String sql = "UPDATE .order SET confirmed = true WHERE idorder = ?;";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
+            throw new FOGException("Cound not confirm order");
+        }
+    }
+
+    public void unconfirmOrder(int id) throws FOGException {
+        String sql = "UPDATE .order SET confirmed = false WHERE idorder = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void unconfirmOrder(int id) throws FOGException {
-        String sql = "UPDATE fog.order SET confirmed = false WHERE idorder = ?;";
+    public void removeOrder(int orderId) throws FOGException {
+        String sql = "DELETE FROM .order WHERE idorder = ?";
         try {
-            Connection con = Connector.connection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new FOGException(ex.getMessage());
-        }
-    }
-
-    public static void removeOrder(int orderId) throws FOGException {
-        String sql = "DELETE FROM fog.order WHERE idorder = ?";
-        try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
@@ -163,8 +171,8 @@ public class OrderMapper {
      *
      * @param order
      */
-    public static void makeOrder(Order order) throws FOGException {
-        String sql = "INSERT INTO fog.order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
+    public  void makeOrder(Order order) throws FOGException {
+        String sql = "INSERT INTO .order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         boolean shed = order.getCustomization().getShed() != null;
@@ -175,7 +183,6 @@ public class OrderMapper {
             shedWidth = order.getCustomization().getShed().getWidth();
         }
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, order.getCustomer().getFirstname());
             ps.setString(2, order.getCustomer().getLastname());
@@ -195,21 +202,20 @@ public class OrderMapper {
             rs.next();
             order.setOrderid(rs.getInt(1));
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-    public static int NumberOfUnconfirmedOrders() throws FOGException {
-        String sql = "SELECT COUNT(idorder) FROM fog.order WHERE confirmed = false";
+    public  int NumberOfUnconfirmedOrders() throws FOGException {
+        String sql = "SELECT COUNT(idorder) FROM .order WHERE confirmed = false";
         try {
-            Connection con = Connector.connection();
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 return rs.getInt(1);
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new FOGException("Could not find number of unconfirmed orders");
         }
         return 0;
@@ -222,25 +228,24 @@ public class OrderMapper {
      * orders
      * @return List with orders
      */
-    public static List<Order> getUnconfirmedOrders(int limit) throws FOGException {
-        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM fog.order WHERE confirmed = false order by idorder desc";
+    public List<Order> getUnconfirmedOrders(int limit) throws FOGException {
+        String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order WHERE confirmed = false order by idorder desc";
         if (limit > 0) {
             sql += " LIMIT ?";
         }
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             if (limit > 0) {
                 ps.setInt(1, limit);
             }
             ResultSet rs = ps.executeQuery();
             return getCustomerFromDB(rs);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new FOGException("Could not get orders");
         }
     }
 
-    private static List<Order> getOrderFromDB(ResultSet res) throws FOGException {
+    private List<Order> getOrderFromDB(ResultSet res) throws FOGException {
         try {
             List<Order> orderList = new ArrayList<>();
             while (res.next()) {
@@ -282,7 +287,7 @@ public class OrderMapper {
         }
     }
 
-    private static List<Order> getCustomerFromDB(ResultSet res) throws FOGException {
+    private List<Order> getCustomerFromDB(ResultSet res) throws FOGException {
         try {
             List<Order> list = new ArrayList<>();
             while (res.next()) {

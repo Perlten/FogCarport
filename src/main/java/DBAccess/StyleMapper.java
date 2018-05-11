@@ -20,14 +20,27 @@ import java.util.List;
  */
 public class StyleMapper {
 
-    public static List<StyleOption> getCladding(int id) throws FOGException {
+    private Connection con;
+
+    public StyleMapper() throws FOGException {
+        try {
+            con = new LiveConnection().connection();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new FOGException("Could not find connection");
+        }
+    }
+
+    public StyleMapper(Connection con) {
+        this.con = con;
+    }
+
+    public List<StyleOption> getCladding(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
-        String sql = "select * from fog.cladding";
+        String sql = "select * from cladding";
         if (id >= 0) {
             sql += " where idcladding = ?";
         }
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             if (id >= 0) {
                 ps.setInt(1, id);
@@ -42,20 +55,19 @@ public class StyleMapper {
 
                 list.add(new StyleOption(name, description, price, Claddingid));
             }
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
         return list;
     }
 
-    public static List<StyleOption> getTile(int id) throws FOGException {
+    public List<StyleOption> getTile(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
-        String sql = "select * from fog.tile";
+        String sql = "select * from tile";
         if (id >= 0) {
             sql += " where idtile = ?";
         }
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             if (id >= 0) {
                 ps.setInt(1, id);
@@ -70,90 +82,83 @@ public class StyleMapper {
 
                 list.add(new StyleOption(name, description, price, tileId));
             }
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
         return list;
     }
 
-    public static void createCladding(StyleOption cladding) throws FOGException {
-        String sql = "INSERT INTO fog.cladding (name, description, price) VALUES(?,?,?)";
+    public void createCladding(StyleOption cladding) throws FOGException {
+        String sql = "INSERT INTO cladding (name, description, price) VALUES(?,?,?)";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cladding.getName());
             ps.setString(2, cladding.getDescription());
             ps.setDouble(3, cladding.getPrice());
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void createTile(StyleOption tile) throws FOGException {
-        String sql = "INSERT INTO fog.tile (name, description, price) VALUES(?,?,?)";
+    public void createTile(StyleOption tile) throws FOGException {
+        String sql = "INSERT INTO tile (name, description, price) VALUES(?,?,?)";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tile.getName());
             ps.setString(2, tile.getDescription());
             ps.setDouble(3, tile.getPrice());
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void updateCladding(StyleOption cladding, int id) throws FOGException {
-        String sql = "UPDATE fog.cladding SET name = ?, description = ?, price = ? WHERE idcladding = ?";
+    public void updateCladding(StyleOption cladding, int id) throws FOGException {
+        String sql = "UPDATE cladding SET name = ?, description = ?, price = ? WHERE idcladding = ?";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cladding.getName());
             ps.setString(2, cladding.getDescription());
             ps.setDouble(3, cladding.getPrice());
             ps.setInt(4, id);
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-    public static void updateTile(StyleOption tile, int id) throws FOGException {
-        String sql = "UPDATE fog.tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
+    public void updateTile(StyleOption tile, int id) throws FOGException {
+        String sql = "UPDATE tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tile.getName());
             ps.setString(2, tile.getDescription());
             ps.setDouble(3, tile.getPrice());
             ps.setInt(4, id);
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }
 
-//    public static void removeCladding(int id) throws FOGException {
-//        String sql = "DELETE FROM fog.cladding WHERE idcladding = ?";
-//        try {
-//            Connection con = Connector.connection();
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ps.execute();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            throw new FOGException(ex.getMessage());
-//        }
-//    }
-
-    public static void removeStyleOption(int id, String type) throws FOGException {
-        String sql = "DELETE FROM fog." + type + " WHERE id" + type + " = ?";
+    public void removeCladding(int id) throws FOGException {
+        String sql = "DELETE FROM cladding WHERE idcladding = ?";
         try {
-            Connection con = Connector.connection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
+            throw new FOGException(ex.getMessage());
+        }
+    }
+    public void removeStyleOption(int id, String type) throws FOGException {
+        String sql = "DELETE FROM " + type + " WHERE id" + type + " = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
     }

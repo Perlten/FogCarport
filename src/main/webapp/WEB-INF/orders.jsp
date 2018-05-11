@@ -61,7 +61,9 @@
                 %>
                 <div class="col-lg-6">
                     <div class="card-header <%= card%>">
-                        <h3>Contents of Order</h3>
+                        <div>
+                            <h3>Contents of Order </h3>
+                        </div>
                     </div>
                     <div class="card">
                         <table class="table table">
@@ -133,11 +135,18 @@
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                     </div>
+                    <div style="float: left; padding: 5px">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="PickingList">
+                            <input type="hidden" name="orderPicking" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="submit" class="btn btn-light" value="Picking List">
+                        </form>
+                    </div>
 
                 </div>
                 <% }%>
             </div>
-                
+
         </div>
 
     </body>

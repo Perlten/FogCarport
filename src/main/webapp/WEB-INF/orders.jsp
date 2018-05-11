@@ -137,6 +137,9 @@
                 </div>
                 <% }%>
             </div>
+            
+                <%@include file="../PickingList.jsp" %>
+                
         </div>
     </body>
 </html>

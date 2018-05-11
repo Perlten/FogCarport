@@ -146,7 +146,7 @@ public class LogicFacade {
         new StyleMapper().removeStyleOption(id, "tile");
     }
 
-    public static void sendEmailToCustomer(Order order) {
+    public static void sendEmailToCustomer(Order order) throws FOGException {
         String title = "Fog carport offer";
 
         String textMessage = "Dear " + order.getCustomer().getFirstname() + ",\n\n"
@@ -244,23 +244,38 @@ public class LogicFacade {
 
         Random ra = new Random();
         String password = "";
-        
+
         for (int i = 0; i < 20; i++) {
             char x = 'a';
             x += ra.nextInt(25);
             password += x;
         }
-        
+
         new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, password);
-        
+
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
                 + "Below you will find your new password, the first time toy log in you wil be asked to create a new.\n"
                 + "Password: " + password
                 + "\n Kindest regards FOG A/S";
 
-
         SendEmail.sendMail(email, title, message);
+
+    }
+
+    public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
+        List<Employee> empList = new EmployeeMapper().getAllEmployees();
+        Order order = getOrder(orderId);
+        String Tile = "New Order";
+        String message = "At " + order.simpleDate() + " We recived a new order from " + order.getCustomer().getFirstname()
+                + " " + order.getCustomer().getLastname() + ". We should do our best to fit his/hers needs.\n\n"
+                + "And remember teamwork makes the dream work...";
+
+        for (Employee emp : empList) {
+            if (emp.isEmployed()) {
+                SendEmail.sendMail(emp.getEmail(), Tile, message);
+            }
+        }
 
     }
 }

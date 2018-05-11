@@ -5,6 +5,7 @@
  */
 package FunctionLayer.mail;
 
+import FunctionLayer.FOGException;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -15,7 +16,7 @@ import javax.mail.internet.*;
  */
 public class SendEmail {
 
-    public static void sendMail(String mailTo, String title, String textMessage) {
+    public static void sendMail(String mailTo, String title, String textMessage) throws FOGException {
 
         final String username = "fogcarport@gmail.com";
         final String password = "FoggyFrog420";
@@ -32,8 +33,8 @@ public class SendEmail {
                 return new PasswordAuthentication(username, password);
             }
         });
-
         try {
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
@@ -43,7 +44,7 @@ public class SendEmail {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new FOGException("Could not send email");
         }
     }
 }

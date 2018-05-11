@@ -22,7 +22,7 @@
         <%@include file="../employeesNavBar.jsp" %>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <table class="table table-xstriped table-hover">
                         <thead>
                             <tr>
@@ -66,7 +66,7 @@
                     </form>
                 </div>
                 <%if (newEmployee != null) {%>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <form action="FrontController" method="post">
                         <h1>New Employee</h1>
                         <input type="hidden" name="command" value="CreateNewEmployee">
@@ -83,7 +83,7 @@
                         <label class="control-label">Email</label>
                         <input type="text" class="form-control" name="email">
 
-                        <label class="control-label">Accees level</label>
+                        <label class="control-label">Access level</label>
                         <input type="number" class="form-control" name="accessLevel" min="1">
                         <br>
                         <input type="submit" class="btn btn-primary" value="Create New Employee">
@@ -91,7 +91,7 @@
                 </div>
                 <%}%>
                 <%if (selectedEmployee != null) {%>
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     <div class="card">
                         <form action="FrontController" method="post">
                             <table class="table table-xstriped">

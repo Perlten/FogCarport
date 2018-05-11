@@ -5,8 +5,12 @@
  */
 package FunctionLayer.calculator;
 
+import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customization;
+import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,28 +20,29 @@ import java.util.List;
  */
 public class Calculator {
 
+    private Order order;
     private Customization cust;
     private Shed shed;
 
     private List<Product> products;
     private final int rafterWoodLength = 600; //TODO make db
-    private final int maxHeight = 480;
     private double maxShedWidth;
     private double poleDistanceWidth;
 
-    public Calculator(Customization cust) {
+    public Calculator(Order order) {
+        this.order = order;
+        this.cust = order.getCustomization();
         this.products = new ArrayList<>();
-        this.cust = cust;
-        this.maxShedWidth = cust.getWidth() - (2*Customization.padding);
+        this.maxShedWidth = cust.getWidth() - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
 
-    public void calculate() {
+    public void calculate() throws FOGException {
         calculateRafter();
-        if(shed != null){
-          shedPoles();
-          calculateCladding();
-          
+        if (shed != null) {
+            shedPoles();
+            calculateCladding();
+
         }
     }
 
@@ -45,16 +50,16 @@ public class Calculator {
         return products;
     }
 
-    private void calculateRafter() {
+    private void calculateRafter() throws FOGException {
         int amountOfRafters = (int) (cust.getLength() / 50);
         double width = (double) cust.getWidth();
-        double remainder =  width / rafterWoodLength; //TODO make db
+        double remainder = width / rafterWoodLength; //TODO make db
         if (remainder % 1 != 0) {
             remainder++;
         }
 
         int pitstops = (int) (remainder - 1);
-        
+
         poleDistanceWidth = maxShedWidth / (pitstops + 1);
 
         polesAndBeams(pitstops);
@@ -64,11 +69,11 @@ public class Calculator {
         double lengthOfRafters = (width / remainder);
 
         if (amountOfRafters > 0) {
-            products.add(new Product("Rafter", "Used on beam", "pcs", amountOfRafters, lengthOfRafters, 0)); //TODO make db
+            LogicFacade.writeLine(new Product(1, amountOfRafters, lengthOfRafters), order.getOrderid());
         }
     }
 
-    private void polesAndBeams(int pitstops) {
+    private void polesAndBeams(int pitstops) throws FOGException {
         int lanes = 2 + pitstops;
         int placingLength = cust.getLength() - Customization.padding;
 
@@ -81,13 +86,12 @@ public class Calculator {
         if (amountOfBeams % 1 != 0) {
             int lastBeam = placingLength % rafterWoodLength;
 
-            products.add(new Product("Beam", "Used together with the poles to support the rafters. This is the end piece!", "pcs", lanes, lastBeam, 0)); //TODO make db
+            LogicFacade.writeLine(new Product(2, lanes, lastBeam), order.getOrderid());
         }
 
         int beamsOnLane = (int) amountOfBeams;
 
-        products.add(new Product("Beam", "Used together with the poles to support the rafters.", "pcs", beamsOnLane * lanes, rafterWoodLength, 0)); //TODO make db
-
+        LogicFacade.writeLine(new Product(3, beamsOnLane * lanes, rafterWoodLength), order.getOrderid());
         int poles = 1;
 
         poles += placingLength / (rafterWoodLength / 2);
@@ -96,35 +100,24 @@ public class Calculator {
             poles++;
         }
 
-        products.add(new Product("Pole", "Used to support the beams", "pcs", poles * lanes, cust.getHeight() + 90, 0)); //TODO make db
+        LogicFacade.writeLine(new Product(4, poles * lanes, cust.getHeight() + 90), order.getOrderid());
     }
 
-    private void calculateCladding() {
+    private void calculateCladding() throws FOGException {
         int circumsference = shed.getLength() + shed.getWidth() * 2;
         int claddingNeeded = (int) Math.ceil(circumsference * 0.125);
         int claddingHeight = cust.getHeight() - 20; //20 cm air from floor
-        products.add(new Product("Cladding", "Cladding used og the shed", "pcs", claddingNeeded, claddingHeight, 0)); //TODO makedb
-        
+        LogicFacade.writeLine(new Product(5, claddingNeeded, claddingHeight), order.getOrderid());
+
     }
-    
-    private void shedPoles(){
+
+    private void shedPoles() throws FOGException {
         double lanesPasses = shed.getWidth() / poleDistanceWidth;
         int numPoles = (int) (lanesPasses + 1);
-        if(lanesPasses % 1 != 0){
+        if (lanesPasses % 1 != 0) {
             numPoles += 2;
         }
-        products.add(new Product("Pole", "Purposed for shed.", "pcs", numPoles, cust.getHeight() + 90, 0)); //make db
-    }
-    
-    
-
-    public static void main(String[] args) {
-        Shed shed = new Shed(200, 640);
-        shed = null;
-        Customization cust = new Customization(700, 700, 200, 0, shed, null, null);
-        Calculator cal = new Calculator(cust);
-        cal.calculate();
-        System.out.println(cal.getProducts());
+        LogicFacade.writeLine(new Product(6, numPoles, cust.getHeight() + 90), order.getOrderid());
     }
 
 }

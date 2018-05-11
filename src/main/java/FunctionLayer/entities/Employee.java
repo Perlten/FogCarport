@@ -5,6 +5,7 @@
  */
 package FunctionLayer.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -12,12 +13,13 @@ import java.util.Calendar;
  * @author adamlass
  */
 public class Employee {
+
     private int employeeId, authenticationLevel;
     private String username, firstname, lastname, email;
-    private boolean employed;
+    private boolean employed, resetPassword;
     private Calendar dateCreated;
 
-    public Employee(int employeeId, int authenticationLevel, String username, String firstname, String lastname, String email, boolean employed, Calendar dateCreated) {
+    public Employee(int employeeId, int authenticationLevel, String username, String firstname, String lastname, String email, boolean employed, Calendar dateCreated, boolean resetPassword) {
         this.employeeId = employeeId;
         this.authenticationLevel = authenticationLevel;
         this.username = username;
@@ -26,6 +28,7 @@ public class Employee {
         this.email = email;
         this.employed = employed;
         this.dateCreated = dateCreated;
+        this.resetPassword = resetPassword;
     }
 
     public int getEmployeeId() {
@@ -59,5 +62,38 @@ public class Employee {
     public Calendar getDateCreated() {
         return dateCreated;
     }
-    
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setAuthenticationLevel(int authenticationLevel) {
+        this.authenticationLevel = authenticationLevel;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isResetPassword() {
+        return resetPassword;
+    }
+
+    public String simpleDate() {
+        SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        return sp.format(dateCreated.getTime());
+    }
+
 }

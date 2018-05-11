@@ -7,6 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -22,23 +23,17 @@ public class SubmitOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
-            HttpSession session = request.getSession();
-            Order order = (Order) session.getAttribute("order");
-            LogicFacade.makeOrder(order);
-            order.setOrdered(true);
+        HttpSession session = request.getSession();
+        Order order = (Order) session.getAttribute("order");
+        LogicFacade.makeOrder(order);
+        order.setOrdered(true);
+        session.setAttribute("order", null);
+        session.setAttribute("confirmedOrder", order);
+        LogicFacade.sendEmailToCustomer(order);
 
-            //adding event on eventlist
-            Event event = new Event(-1, order.getOrderid(), -1, -1, 1, null, null, null, null);
-            LogicFacade.writeEvent(event);
-            
-            
-            session.setAttribute("order", null);
-            session.setAttribute("confirmedOrder", order);
-            LogicFacade.sendEmailToCustomer(order);
-        } catch (Exception e) {
-            throw new FOGException("Could not submit order!");
-        }
+        //event
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeOrderEvent(new Event(1, order.getOrderid()));
         return new LoadOrder().execute(request, response);
     }
 

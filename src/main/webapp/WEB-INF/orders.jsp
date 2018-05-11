@@ -9,8 +9,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%--<%@include file="../bootstrap.jsp" %>--%>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
+        <%@include file="../bootstrap.jsp" %>
     </head>
     <body>
         <%
@@ -43,27 +44,28 @@
             }
         </script>
 
-
         <%@include file="../employeesNavBar.jsp"%>
-        <h1>Customer Orders</h1>
-        <div class="row">
-            <div class="col-lg-6">
-                <div id="orders"></div>
-                <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
-            </div>
-            <% if (selectedOrder != null) {
+        <div class="container-fluid">
+            <h1>Customer Orders</h1>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="orders"></div>
+                    <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
+                </div>
+                <% if (selectedOrder != null) {
 
-                    String panel = "panel panel-default";
-                    if (selectedOrder.isConfirmed()) {
-                        panel = "panel panel-success";
-                    }
-            %>
-            <div class="col-lg-6">
-                <div class="<%= panel%>" >
-                    <div class="panel-heading">
-                        <h3>Contents of Order</h3>
+                        String card = "card bg-default";
+                        if (selectedOrder.isConfirmed()) {
+                            card = "bg-success";
+                        }
+                %>
+                <div class="col-lg-6">
+                    <div class="card-header <%= card%>">
+                        <div>
+                            <h3>Contents of Order </h3>
+                        </div>
                     </div>
-                    <div class="panel-default">
+                    <div class="card">
                         <table class="table table">
                             <thead>
                             <th>Id number</th>
@@ -133,10 +135,19 @@
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
                     </div>
-                </div>
+                    <div style="float: left; padding: 5px">
+                        <form action="FrontController" method="post">
+                            <input type="hidden" name="command" value="PickingList">
+                            <input type="hidden" name="orderPicking" value="<%= selectedOrder.getOrderid()%>">
+                            <input type="submit" class="btn btn-light" value="Picking List">
+                        </form>
+                    </div>
 
+                </div>
+                <% }%>
             </div>
-            <% }%>
+
         </div>
+
     </body>
 </html>

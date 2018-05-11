@@ -3,6 +3,7 @@ package PresentationLayer.orders;
 import PresentationLayer.orders.GetOrders;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import java.sql.SQLException;
@@ -19,10 +20,10 @@ public class ConfirmOrder extends Command {
         try {
             int orderId = Integer.parseInt(request.getParameter("orderId"));
             LogicFacade.confirmOrder(orderId);
-            
-            
-            Event event = new Event(-1, orderId, -1, -1, 2, null, null, null, null);
-            LogicFacade.writeEvent(event);
+
+            //event
+            Employee emp = (Employee) request.getSession().getAttribute("employee");
+            LogicFacade.writeOrderEmployeeEvent(new Event(emp, 2, orderId));
         } catch (Exception ex) {
             throw new FOGException("Could not confirm order!");
         }

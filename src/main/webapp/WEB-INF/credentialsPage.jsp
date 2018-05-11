@@ -32,15 +32,16 @@
         %>
     </head>
     <body>
+        <div class="container-fluid">
         <h1>Contact Info</h1>
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card">
+                    <div class="card-head">
                         <h2>Enter Your Contact Information</h2>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
 
                         <div style="padding: 20px">
                             <form action="FrontController" method="post">
@@ -67,7 +68,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         <form action="FrontController" method="POST">
                             <input type="hidden" name="command" value="Styling">
                             <input type="submit" class="btn btn-default" value="Back">
@@ -78,6 +79,7 @@
             <div class="col-lg-6">
                 <%@include file="overview.jsp" %>
             </div>
+        </div>
         </div>
     </body>
 </html>

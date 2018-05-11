@@ -14,20 +14,33 @@ import java.util.Calendar;
  */
 public class Event {
 
-    private int eventId, orderid, assignedEmployee, accessLevel, eventType;
-    private String title, description, eventName;
+    private int eventId, orderid, employee, accessLevel, eventType;
+    private String title, description, eventName, statusColor;
     private Calendar date;
 
-    public Event(int eventId, int orderid, int assignedEmployee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date) {
+    public Event(Employee employee, int eventType) {
+        this(-1, -1, employee.getEmployeeId(), -1, eventType, null, null, null, null, null);
+    }
+
+    public Event(Employee employee, int eventType, int orderid) {
+        this(-1, orderid, employee.getEmployeeId(), -1, eventType, null, null, null, null, null);
+    }
+
+    public Event(int eventType, int orderid) {
+        this(-1, orderid, -1, -1, eventType, null, null, null, null, null);
+    }
+
+    public Event(int eventId, int orderid, int employee, int accessLevel, int eventType, String title, String description, String eventName, Calendar date, String statusColor) {
         this.eventId = eventId;
         this.orderid = orderid;
-        this.assignedEmployee = assignedEmployee;
+        this.employee = employee;
         this.accessLevel = accessLevel;
         this.eventType = eventType;
         this.title = title;
         this.description = description;
         this.eventName = eventName;
         this.date = date;
+        this.statusColor = statusColor;
     }
 
     public int getEventId() {
@@ -38,8 +51,8 @@ public class Event {
         return orderid;
     }
 
-    public int getAssignedEmployee() {
-        return assignedEmployee;
+    public int getEmployee() {
+        return employee;
     }
 
     public int getAccessLevel() {
@@ -71,9 +84,13 @@ public class Event {
         return sp.format(date.getTime());
     }
 
+    public String getStatusColor() {
+        return statusColor;
+    }
+
     @Override
     public String toString() {
-        return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", assignedEmployee=" + assignedEmployee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", date=" + date.getTimeInMillis() + '}';
+        return "Event{" + "eventId=" + eventId + ", orderid=" + orderid + ", employee=" + employee + ", accessLevel=" + accessLevel + ", eventType=" + eventType + ", title=" + title + ", description=" + description + ", eventName=" + eventName + ", statusColor=" + statusColor + ", date=" + date + '}';
     }
 
 }

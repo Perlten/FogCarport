@@ -5,9 +5,7 @@
  */
 package DBAccess;
 
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -15,20 +13,14 @@ import static org.junit.Assert.*;
  */
 public class ConnectorTest {
 
-    public ConnectorTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
     /**
      * Test of the connection to the mysql server.
      * @throws Exception 
      */
     @Test
     public void testConnection() throws Exception {
-        Connector.connection();
+        new LiveConnection().connection();
+        new TestConnection().connection();
         assert true;
     }
 

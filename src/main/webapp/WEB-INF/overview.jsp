@@ -19,25 +19,24 @@
 
 %>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card">
+    <div class="card-header">
         <h2>Overview</h2>
 
         <div class="container-fluid">
             <div class="progress">
-                <%
-                String status = "progress-bar";
-                if(orderOverview.isOrdered()){
-                    status += " progress-bar-success";
-                }
+                <%                    String status = "progress-bar";
+                    if (orderOverview.isOrdered()) {
+                        status += " progress-bar-success";
+                    }
                 %>
-                <div class="<%= status %>" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<%= orderOverview.percentage() %>%"> Requesting <%= orderOverview.percentage() %>%
+                <div class="<%= status%>" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<%= orderOverview.percentage()%>%"> Requesting <%= orderOverview.percentage()%>%
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div style="height: 350px; width: 95%; margin: auto">
             <%@include file="../SVGDraw.jsp" %>
         </div>

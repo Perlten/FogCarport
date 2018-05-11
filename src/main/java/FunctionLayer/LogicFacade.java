@@ -4,11 +4,14 @@ import DBAccess.EmployeeMapper;
 import DBAccess.EventMapper;
 import DBAccess.StyleMapper;
 import DBAccess.OrderMapper;
+import DBAccess.ProductMapper;
+import FunctionLayer.calculator.Product;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
@@ -277,4 +280,18 @@ public class LogicFacade {
         }
 
     }
+    
+    public static void writeLine(Product prod, int orderId) throws FOGException{
+        new ProductMapper().writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
+    }
+    
+    public static void removeLines(int orderId) throws FOGException{
+        new ProductMapper().removeLines(orderId);
+    }
+    
+    public static List<Product> orderProducts(int orderId) throws FOGException{
+        return new ProductMapper().orderProducts(orderId);
+    }
+    
+    
 }

@@ -6,6 +6,7 @@
 package PresentationLayer.orders;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.calculator.Calculator;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Shed;
@@ -21,7 +22,8 @@ public class PickingList extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        Calculator calc = new Calculator( new Customization(100, 100, 100, 100, new Shed(100, 100), null, null));
+        int orderId = Integer.parseInt(request.getParameter("orderPicking"));
+        Calculator calc = new Calculator(LogicFacade.getOrder(orderId));
         calc.calculate();
         request.setAttribute("pickingList", calc.getProducts());
         return "WEB-INF/pickingListPage";

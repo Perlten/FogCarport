@@ -313,7 +313,7 @@ public class OrderMapper {
             return list;
 
         } catch (SQLException ex) {
-            throw new FOGException("Could not fin customer");
+            throw new FOGException("Could not find customer");
         }
     }
 }

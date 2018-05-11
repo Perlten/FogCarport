@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer.login;
+package PresentationLayer.editEmployee;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import PresentationLayer.Command;
-import PresentationLayer.orders.GetOrders;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,19 +17,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class LoginVerification extends Command {
+public class UpdateStaff extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        Employee emp = LogicFacade.verfyLogin(username, password);
-        request.getSession().setAttribute("employee", emp);
-
-        if (emp.isResetPassword()) {
-            return "WEB-INF/newPasswordPage";
-        }
-        return new Overview().execute(request, response);
+        
+        request.setAttribute("empList", LogicFacade.getAllEmployees());
+        
+        return "WEB-INF/updateStaffPage";
     }
-
+    
 }

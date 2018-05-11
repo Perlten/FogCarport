@@ -9,6 +9,7 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
@@ -71,8 +72,8 @@ public class EditOrder extends Command {
         LogicFacade.changeOrder(order);
         
         //event
-        LogicFacade.writeEvent(new Event(order.getOrderid(), 4));
-
+            Employee emp = (Employee) request.getSession().getAttribute("employee");
+            LogicFacade.writeOrderEmployeeEvent(new Event(emp, 4, orderId));
         } catch (NumberFormatException e) {
             throw new FOGException("Cannot have empty style option");
         }

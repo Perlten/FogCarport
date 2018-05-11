@@ -18,12 +18,15 @@ public class Event {
     private String title, description, eventName, statusColor;
     private Calendar date;
 
-    
     public Event(Employee employee, int eventType) {
         this(-1, -1, employee.getEmployeeId(), -1, eventType, null, null, null, null, null);
     }
-    
-    public Event(int orderid, int eventType) {
+
+    public Event(Employee employee, int eventType, int orderid) {
+        this(-1, orderid, employee.getEmployeeId(), -1, eventType, null, null, null, null, null);
+    }
+
+    public Event(int eventType, int orderid) {
         this(-1, orderid, -1, -1, eventType, null, null, null, null, null);
     }
 

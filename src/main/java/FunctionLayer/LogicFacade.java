@@ -198,14 +198,12 @@ public class LogicFacade {
         return OrderMapper.getUnconfirmedOrders(10);
     }
 
-    /**
-     * Write a event with dummy-object
-     *
-     * @param event dummy-object. Does only need to contain the right eventType
-     * and orderid.
-     * @throws FunctionLayer.FOGException
-     */
-    public static void writeEvent(Event event) throws FOGException {
+
+    public static void writeOrderEmployeeEvent(Event event) throws FOGException {
+        EventMapper.writeOrderEmployeeEvent(event);
+    }
+    
+    public static void writeOrderEvent(Event event) throws FOGException {
         EventMapper.writeOrderEvent(event);
     }
 

@@ -7,6 +7,7 @@ package PresentationLayer.orders;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -20,16 +21,14 @@ public class Unconfirm extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
-            int orderid = Integer.parseInt(request.getParameter("orderId"));
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-            LogicFacade.unconfirmOrder(orderid);
+            LogicFacade.unconfirmOrder(orderId);
 
-            //Event
-            LogicFacade.writeEvent(new Event(orderid, 5));
-        } catch (Exception e) {
-            throw new FOGException("Could not unconfirm the order!");
-        }
+            //event
+            Employee emp = (Employee) request.getSession().getAttribute("employee");
+            LogicFacade.writeOrderEmployeeEvent(new Event(emp, 5, orderId));
+            
 
         return new ShowOrder().execute(request, response);
     }

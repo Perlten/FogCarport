@@ -66,7 +66,7 @@
                     </form>
                 </div>
                 <%if (newEmployee != null) {%>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <form action="FrontController" method="post">
                         <h1>New Employee</h1>
                         <input type="hidden" name="command" value="CreateNewEmployee">

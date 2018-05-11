@@ -42,6 +42,21 @@ public class EventMapper {
             throw new FOGException("Could not write order event");
         }
     }
+    
+    public static void writeOrderEmployeeEvent(Event event) throws FOGException {
+        try {
+            Connection con = Connector.connection();
+
+            String sql = "INSERT INTO fog.event(idevent_type, idorder, employee) values (?,?,?)";
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, event.getEventType());
+            pre.setInt(2, event.getOrderid());
+            pre.setInt(3, event.getEmployee());
+            pre.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not write order event");
+        }
+    }
 
     public static void writeEmployeeEvent(Event event) throws FOGException {
         try {

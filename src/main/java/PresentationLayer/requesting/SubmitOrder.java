@@ -7,6 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -31,8 +32,9 @@ public class SubmitOrder extends Command {
             session.setAttribute("confirmedOrder", order);
             LogicFacade.sendEmailToCustomer(order);
             
-            //adding event on eventlist
-            LogicFacade.writeEvent(new Event(order.getOrderid(), 1));
+           //event
+            Employee emp = (Employee) request.getSession().getAttribute("employee");
+            LogicFacade.writeOrderEvent(new Event(1, order.getOrderid()));
         } catch (Exception e) {
             throw new FOGException("Could not submit order!");
         }

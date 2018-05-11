@@ -237,7 +237,7 @@ public class LogicFacade {
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
-        new EmployeeMapper().changePassword(employeeId, password);
+        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, password);
     }
 
     public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {

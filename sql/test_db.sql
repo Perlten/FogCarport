@@ -76,10 +76,10 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee`(idemployee, username, roleid, firstname, lastname, password, email ) VALUES 
-(1, 'Nikolai123', 2, 'Nikolai', 'Perlt', '1234', 'Nikolai@gmail.com'),
-(2, 'Larsen', 1, 'Adam', 'Lass', 'LassLass', 'Adam@gmail.com'),
-(3, 'Per', 2, 'Per', 'Andersen', 'Hej', 'Per@gmail.com');
+INSERT INTO `employee`(idemployee, username, roleid, firstname, lastname, password, email, reset_password ) VALUES 
+(1, 'Nikolai123', 2, 'Nikolai', 'Perlt', '1234', 'Nikolai@gmail.com', 1),
+(2, 'Larsen', 1, 'Adam', 'Lass', 'LassLass', 'Adam@gmail.com', 1),
+(3, 'Per', 2, 'Per', 'Andersen', 'Hej', 'Per@gmail.com', 0);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 

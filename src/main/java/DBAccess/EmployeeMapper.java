@@ -73,7 +73,7 @@ public class EmployeeMapper {
     }
 
     public Employee getEmployeeByEmail(String email) throws FOGException {
-        String sql = "SELECT idemployee, username, roleid, firstname, lastname, employed, date_created, reset_password FROM employee WHERE email = ?";
+        String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM employee WHERE email = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
@@ -181,7 +181,7 @@ public class EmployeeMapper {
         }
     }
 
-    public void changePassword(int employeeId, String newPassword) throws FOGException {
+    public void changePasswordAndRemoveResetPassword(int employeeId, String newPassword) throws FOGException {
         String sql = "UPDATE employee SET reset_password = false, password = ? WHERE idemployee = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

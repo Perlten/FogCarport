@@ -19,16 +19,13 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Assert;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -37,10 +34,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class OrderMapperTest {
 
-    private String sql;
-    private OrderMapper mapper;
-    private Connection con;
-
+    private final String sql;
+    private final OrderMapper mapper;
+    private final Connection con;
+    
     public OrderMapperTest() throws IOException, ClassNotFoundException, SQLException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("sql/test_db.sql"), "UTF-8"));
         StringBuilder sb = new StringBuilder();
@@ -54,7 +51,7 @@ public class OrderMapperTest {
         this.con = new TestConnection().connection();
         this.mapper = new OrderMapper(con);
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
 
@@ -66,7 +63,6 @@ public class OrderMapperTest {
 
     @Before
     public void setUp() throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
-
         Statement statement = con.createStatement();
         statement.executeUpdate(sql);
     }
@@ -127,6 +123,7 @@ public class OrderMapperTest {
 
     @Test
     public void testConfirmOrder() throws FOGException {
+        assertFalse(mapper.getOrders(2).get(0).isConfirmed());
         mapper.confirmOrder(2);
         Order order = mapper.getOrders(2).get(0);
         assertTrue(order.isConfirmed());
@@ -141,44 +138,44 @@ public class OrderMapperTest {
         order = mapper.getOrders(2).get(0);
         assertFalse(order.isConfirmed());
     }
-    
+
     @Test(expected = FOGException.class)
     public void testRemoveOrder() throws FOGException {
         mapper.removeOrder(2);
         mapper.getOrders(2).get(0);
-        
+
         assert false;
     }
-    
+
     @Test
-    public void testMakeOrder() throws FOGException{
+    public void testMakeOrder() throws FOGException {
         Customer customer = new Customer("Lars", "Larsen", "Larsen@gmail.com", 2334);
         Customization customization = new Customization(900, 900, 250, 0, new Shed(200, 200), new StyleOption("test", "test", 22, 1), new StyleOption("test", "test", 22, 1));
         Order order = new Order(customer, customization);
         mapper.makeOrder(order);
-        
+
         int expected = 5;
         int actual = mapper.getOrders(-1).size();
-        
+
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testNumberOfUnconfirmedOrders() throws FOGException{
+    public void testNumberOfUnconfirmedOrders() throws FOGException {
         mapper.confirmOrder(2);
         int expected = 3;
         int actual = mapper.numberOfUnconfirmedOrders();
-        
+
         assertEquals(expected, actual);
     }
-    
+
     @Test
-    public void testGetUnconfirmedOrders() throws FOGException{
+    public void testGetUnconfirmedOrders() throws FOGException {
         mapper.confirmOrder(1);
-        
+
         int expected = 3;
         int actual = mapper.getUnconfirmedOrders(0).size();
-        
+
         assertEquals(expected, actual);
     }
 }

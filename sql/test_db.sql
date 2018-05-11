@@ -42,7 +42,9 @@ LOCK TABLES `cladding` WRITE;
 /*!40000 ALTER TABLE `cladding` DISABLE KEYS */;
 INSERT INTO `cladding` VALUES 
 (1,'whitewoodk','This is a desciption of the woodtype!',4),
-(2,'Oak','Test ',123);
+(2,'Oak','oak2',123),
+(3,'wood','wood2 ',12),
+(4,'birk','birk2 ',13);
 /*!40000 ALTER TABLE `cladding` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +142,12 @@ CREATE TABLE `event_type` (
 
 LOCK TABLES `event_type` WRITE;
 /*!40000 ALTER TABLE `event_type` DISABLE KEYS */;
-INSERT INTO `event_type` VALUES (1,'Order Created',0,'Request Submitted!','You have received an email with the details of your order. We will contact you once we have processed your request.',''),(2,'Order Confirmed',0,'Order Confirmed','Your order has been comfirmed by one of our employees. You will be contacted regarding the payment soon.','bg-success text-white'),(3,'Order Deleted',0,'Order has been deleted!','Order was deleted.','bg-danger text-white'),(4,'Order Updated',0,'Order updated!','Your order has been updated with new specifications.','bg-warning text-white'),(5,'Order Unconfirmed',0,'Order has been unconfirmed','Your order was unconfirmed by one of our employees. Please contact our support team for more information!','bg-danger text-white'),(6,'Employee Login',2,'Employee logged in','Employee logged in','bg-light text-dark');
+INSERT INTO `event_type` VALUES 
+(1,'Order Created',0,'Request Submitted!','You have received an email with the details of your order. We will contact you once we have processed your request.',''),
+(2,'Order Confirmed',0,'Order Confirmed','Your order has been comfirmed by one of our employees. You will be contacted regarding the payment soon.','bg-success text-white'),
+(3,'Order Deleted',0,'Order has been deleted!','Order was deleted.','bg-danger text-white'),(4,'Order Updated',0,'Order updated!','Your order has been updated with new specifications.','bg-warning text-white'),
+(5,'Order Unconfirmed',0,'Order has been unconfirmed','Your order was unconfirmed by one of our employees. Please contact our support team for more information!','bg-danger text-white'),
+(6,'Employee Login',2,'Employee logged in','Employee logged in','bg-light text-dark');
 /*!40000 ALTER TABLE `event_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,8 +244,12 @@ CREATE TABLE `tile` (
 
 LOCK TABLES `tile` WRITE;
 /*!40000 ALTER TABLE `tile` DISABLE KEYS */;
-INSERT INTO `tile` VALUES (1,'Adams','Adam har lanceret hans helt egen tile. han er meget stolt og glaeder sig super meget til at vise jeg hvad han har arbejdet paa',75),
-(2,'Nikolai Tile','Bedre end Adams ',100);
+INSERT INTO `tile` VALUES 
+(1,'Adams','Adam har lanceret hans helt egen tile. han er meget stolt og glaeder sig super meget til at vise jeg hvad han har arbejdet paa',75),
+(2,'Nikolai Tile','Bedre end Adams',100),
+(3,'Per Tile','Bedre end Nikolais',111),
+(4,'Pernille Tile','Bedre end Pers',222);
+
 /*!40000 ALTER TABLE `tile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

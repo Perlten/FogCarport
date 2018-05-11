@@ -142,16 +142,6 @@ public class StyleMapper {
         }
     }
 
-    public void removeCladding(int id) throws FOGException {
-        String sql = "DELETE FROM cladding WHERE idcladding = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
-        }
-    }
     public void removeStyleOption(int id, String type) throws FOGException {
         String sql = "DELETE FROM " + type + " WHERE id" + type + " = ?";
         try {

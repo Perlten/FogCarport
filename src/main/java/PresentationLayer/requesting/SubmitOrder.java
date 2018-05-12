@@ -7,6 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.calculator.Calculator;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
@@ -26,6 +27,10 @@ public class SubmitOrder extends Command {
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
         LogicFacade.makeOrder(order);
+        
+        
+        Calculator calc = new Calculator(order);
+        calc.calculate();
         order.setOrdered(true);
         session.setAttribute("order", null);
         session.setAttribute("confirmedOrder", order);

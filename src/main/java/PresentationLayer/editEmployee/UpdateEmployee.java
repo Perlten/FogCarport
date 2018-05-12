@@ -3,6 +3,7 @@ package PresentationLayer.editEmployee;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,9 @@ public class UpdateEmployee extends Command {
         selectedEmp.setEmail(email);
         
         LogicFacade.UpdateEmployee(selectedEmp);
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 8));
         return new EditEmployee().execute(request, response);
     }
     

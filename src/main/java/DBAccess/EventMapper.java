@@ -66,7 +66,7 @@ public class EventMapper {
             pre.setInt(3, event.getEmployee());
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not write order event");
+            throw new FOGException("Could not write order employee event");
         }
     }
 

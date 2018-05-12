@@ -7,6 +7,8 @@ package PresentationLayer.orders.style;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,10 @@ public class DeleteStyle extends Command {
         if(type.equals("tile")){
             LogicFacade.removeTile(id);
         }
+        
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 12));
         
         return new updateStylePage().execute(request, response);
     }

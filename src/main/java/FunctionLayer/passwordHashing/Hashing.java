@@ -28,7 +28,4 @@ public class Hashing {
             throw new FOGException("Could not hash password");
         }
     }
-
-    public static void main(String[] args) throws FOGException {
-    }
 }

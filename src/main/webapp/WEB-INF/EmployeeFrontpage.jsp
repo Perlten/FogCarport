@@ -62,7 +62,6 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>name</th>
-                                <th>title</th>
                                 <th>Description</th>
                                 <th>Date</th>
                             </tr>
@@ -72,8 +71,7 @@
                         %>
                         <tbody>
                         <td><%= event.getEventName()%></td>
-                        <td><%= event.getTitle()%></td>
-                        <td><%= event.getDescription()%></td>
+                        <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription() %>"><%= event.getShortDescription()%></td>
                         <td><%= event.simpleDate()%></td>
                         </tbody>
                         <% }%>

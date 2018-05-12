@@ -53,7 +53,7 @@
 
                             </td>
                             <td><%= style.getName()%></td>
-                            <td><%= style.getShortDescription() %></td>
+                            <td data-toggle="tooltip" data-placement="bottom" title="<%= style.getDescription() %>"><%= style.getShortDescription() %></td>
                             <td><%= style.getPrice()%></td>
                         </tr>
                     </tbody>
@@ -97,7 +97,7 @@
                                 </form>
                             </td>
                             <td><%= style.getName()%></td>
-                            <td><%= style.getShortDescription()%></td>
+                            <td data-toggle="tooltip" data-placement="bottom" title="<%= style.getDescription() %>"><%= style.getShortDescription()%></td>
                             <td><%= style.getPrice()%></td>
                         </tr>
                     </tbody>

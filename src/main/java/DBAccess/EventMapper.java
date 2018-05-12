@@ -116,16 +116,24 @@ public class EventMapper {
      * @return a list of events concerning this order
      * @throws FunctionLayer.FOGException
      */
-    public List<Event> getEmployeeEvent(int employeeId) throws FOGException {
+    public List<Event> getEmployeeEvent(int employeeId, int limit) throws FOGException {
         try {
 
             String sql = "SELECT * FROM event "
                     + "INNER JOIN event_type "
                     + "ON event.idevent_type = event_type.idevent_type "
                     + "WHERE employee = ? order by idevent desc";
+            
+            if(limit > 0){
+                sql += " LIMIT ?";
+            }
 
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, employeeId);
+            
+             if(limit > 0){
+                pre.setInt(2, limit);
+            }
 
             return convert(pre.executeQuery());
         } catch (SQLException e) {

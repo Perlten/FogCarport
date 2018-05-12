@@ -223,8 +223,8 @@ public class LogicFacade {
         return new EventMapper().getOrderEvent(orderid);
     }
 
-    public static List<Event> getEmployeeEvent(int employeeId) throws FOGException {
-        return new EventMapper().getEmployeeEvent(employeeId);
+    public static List<Event> getEmployeeEvent(int employeeId, int limit) throws FOGException {
+        return new EventMapper().getEmployeeEvent(employeeId, limit);
     }
 
     public static List<Employee> getAllEmployees() throws FOGException {

@@ -9,6 +9,7 @@ import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
+import static FunctionLayer.passwordHashing.Hashing.HashPassword;
 import java.util.List;
 import java.util.Random;
 
@@ -160,7 +161,8 @@ public class LogicFacade {
     }
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
-        return new EmployeeMapper().verfyLogin(username, password);
+        String hash = HashPassword(password);
+        return new EmployeeMapper().verfyLogin(username, hash);
     }
 
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
@@ -176,7 +178,9 @@ public class LogicFacade {
             password += x;
         }
 
-        new EmployeeMapper().changePasswordForEmployee(emp.getEmployeeId(), password);
+        String hash = HashPassword(password);
+        
+        new EmployeeMapper().changePasswordForEmployee(emp.getEmployeeId(), hash);
 
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
@@ -236,7 +240,9 @@ public class LogicFacade {
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
-        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, password);
+        String hash = HashPassword(password);
+        
+        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, hash);
     }
 
     public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {
@@ -249,8 +255,9 @@ public class LogicFacade {
             x += ra.nextInt(25);
             password += x;
         }
+         String hash = HashPassword(password);
 
-        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, password);
+        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, hash);
 
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
@@ -275,6 +282,5 @@ public class LogicFacade {
                 SendEmail.sendMail(emp.getEmail(), Tile, message);
             }
         }
-
     }
 }

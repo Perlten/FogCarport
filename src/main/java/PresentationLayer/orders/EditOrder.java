@@ -62,6 +62,7 @@ public class EditOrder extends Command {
         Calculator calc = new Calculator(order);
         LogicFacade.removeLines(orderId);
         calc.calculate();
+        LogicFacade.writeLines(calc.getProducts(), orderId);
         
         if(isShed == null){
             c.setShed(null);

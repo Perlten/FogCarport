@@ -6,12 +6,9 @@
 package FunctionLayer.calculator;
 
 import FunctionLayer.FOGException;
-import FunctionLayer.LogicFacade;
-import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,6 @@ public class Calculator {
             calculateCladding();
 
         }
-
     }
 
     public List<Product> getProducts() {
@@ -77,7 +73,7 @@ public class Calculator {
         double lengthOfRafters = (width / remainder);
 
         if (amountOfRafters > 0) {
-            LogicFacade.writeLine(new Product(1, amountOfRafters, lengthOfRafters), order.getOrderid());
+            products.add(new Product(1, amountOfRafters, lengthOfRafters));
         }
     }
 
@@ -94,12 +90,12 @@ public class Calculator {
         if (amountOfBeams % 1 != 0) {
             int lastBeam = placingLength % rafterWoodLength;
 
-            LogicFacade.writeLine(new Product(2, lanes, lastBeam), order.getOrderid());
+            products.add(new Product(2, lanes, lastBeam));
         }
 
         int beamsOnLane = (int) amountOfBeams;
 
-        LogicFacade.writeLine(new Product(3, beamsOnLane * lanes, rafterWoodLength), order.getOrderid());
+        products.add(new Product(3, beamsOnLane * lanes, rafterWoodLength));
         int poles = 1;
 
         poles += placingLength / (rafterWoodLength / 2);
@@ -108,14 +104,14 @@ public class Calculator {
             poles++;
         }
 
-        LogicFacade.writeLine(new Product(4, poles * lanes, cust.getHeight() + 90), order.getOrderid());
+        products.add(new Product(4, poles * lanes, cust.getHeight() + 90));
     }
 
     private void calculateCladding() throws FOGException {
         int circumsference = shed.getLength() + shed.getWidth() * 2;
         int claddingNeeded = (int) Math.ceil(circumsference * 0.125);
         int claddingHeight = cust.getHeight() - 20; //20 cm air from floor
-        LogicFacade.writeLine(new Product(5, claddingNeeded, claddingHeight), order.getOrderid());
+        products.add(new Product(5, claddingNeeded, claddingHeight));
 
     }
 
@@ -125,7 +121,7 @@ public class Calculator {
         if (lanesPasses % 1 != 0) {
             numPoles += 2;
         }
-        LogicFacade.writeLine(new Product(6, numPoles, cust.getHeight() + 90), order.getOrderid());
+        products.add(new Product(6, numPoles, cust.getHeight() + 90));
     }
 
     private void laths() throws FOGException {
@@ -137,11 +133,11 @@ public class Calculator {
         double remainder = cust.getLength() % lathLength;
 
         if (lathsOnLane != 0) {
-            LogicFacade.writeLine(new Product(7, lanes * lathsOnLane, lathLength), order.getOrderid());
+            products.add(new Product(7, lanes * lathsOnLane, lathLength));
         }
 
         if (remainder != 0) {
-            LogicFacade.writeLine(new Product(7, lanes, remainder), order.getOrderid());
+            products.add(new Product(7, lanes, remainder));
         }
     }
     

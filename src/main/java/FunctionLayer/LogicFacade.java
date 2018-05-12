@@ -301,6 +301,13 @@ public class LogicFacade {
         new ProductMapper().writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
     }
     
+    public static void writeLines(List<Product> prods, int orderId) throws FOGException{
+        ProductMapper productMapper = new ProductMapper();
+        for(Product prod : prods){
+            productMapper.writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
+        }
+    }
+    
     public static void removeLines(int orderId) throws FOGException{
         new ProductMapper().removeLines(orderId);
     }

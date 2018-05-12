@@ -31,6 +31,8 @@ public class SubmitOrder extends Command {
         
         Calculator calc = new Calculator(order);
         calc.calculate();
+        LogicFacade.writeLines(calc.getProducts(), order.getOrderid());
+        
         order.setOrdered(true);
         session.setAttribute("order", null);
         session.setAttribute("confirmedOrder", order);

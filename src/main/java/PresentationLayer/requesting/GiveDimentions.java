@@ -6,6 +6,9 @@
 package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
+import FunctionLayer.calculator.Calculator;
+import FunctionLayer.calculator.Product;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -30,7 +33,6 @@ public class GiveDimentions extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
             int length = Helper.safeInt(request, "length");
             int width = Helper.safeInt(request, "width");
             int height = Helper.safeInt(request, "height");
@@ -72,10 +74,21 @@ public class GiveDimentions extends Command {
             Customization customization = new Customization(length, width, height, roofAngle, shedObj, cladding, tile);
             Order order = new Order(sessionCustomer, customization);
 
+            //Estimating price
+            Calculator calc = new Calculator(order);
+            calc.calculate();
+            double estPrice = 0;
+            for(Product prod : calc.getProducts()){
+                Product product = LogicFacade.getProduct(prod.getId());
+                product.setAmount(prod.getAmount());
+                estPrice += product.totalPrice();
+            }
+            
+            //setting session objects
+            request.getSession().setAttribute("estPrice", estPrice);
             request.getSession().setAttribute("order", order);
-        } catch (Exception e) {
-            throw new FOGException("Could not submit customization!");
-        }
+            
+            
         return new Styling().execute(request, response);
 //        return "SVGleg";
     }

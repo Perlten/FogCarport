@@ -8,6 +8,8 @@
     if (orderOverview == null) {
         orderOverview = (Order) request.getSession().getAttribute("confirmedOrder");
     }
+    
+    double estPrice = (double) request.getSession().getAttribute("estPrice");
 
     Customization custSelected = orderOverview.getCustomization();
     Customer customerSelected = orderOverview.getCustomer();
@@ -138,7 +140,9 @@
         </div>
 
         <%}%>
-
+        <div>
+            Price: <span class="badge badge-success"><%= estPrice %> DKK</span>
+        </div>
     </div>
 </div>
 

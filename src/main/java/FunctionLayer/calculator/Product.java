@@ -64,6 +64,11 @@ public class Product {
         return length;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+    
+
     /**
      * Use this to get the price of a single product of this type
      *

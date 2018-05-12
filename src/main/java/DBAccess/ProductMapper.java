@@ -33,8 +33,7 @@ public class ProductMapper {
     public ProductMapper(Connection con) {
         this.con = con;
     }
-    
-    
+
     public void writeLine(int idProduct, int orderId, int amount, double lengthUsed) throws FOGException {
         try {
             String sql = "INSERT INTO product_line(idproduct,idorder,amount,length_used) values (?,?,?,?)";
@@ -48,8 +47,8 @@ public class ProductMapper {
             throw new FOGException(e.getMessage());
         }
     }
-    
-    public void removeLines(int orderid) throws FOGException{
+
+    public void removeLines(int orderid) throws FOGException {
         try {
             String sql = "DELETE FROM fog.product_line WHERE idorder = ?";
             PreparedStatement pre = con.prepareStatement(sql);
@@ -77,6 +76,21 @@ public class ProductMapper {
         return res;
     }
 
+    public Product getProduct(int id) throws FOGException {
+        Product res = null;
+        try {
+            String sql = "SELECT * FROM fog.product WHERE idproduct = ?";
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, id);
+            res = convertProducts(pre.executeQuery()).get(0);
+        } catch (Exception e) {
+            throw new FOGException(e.getMessage());
+        }
+        return res;
+    }
+    
+    
+
     public List<Product> convert(ResultSet res) throws FOGException {
         List<Product> products = new ArrayList<>();
         try {
@@ -92,6 +106,26 @@ public class ProductMapper {
                 double price = res.getDouble("price");
 
                 products.add(new Product(title, description, unit, amount, id, price, length, lengthUsed));
+            }
+        } catch (SQLException e) {
+            throw new FOGException(e.getMessage());
+        }
+        return products;
+    }
+    
+    public List<Product> convertProducts(ResultSet res) throws FOGException {
+        List<Product> products = new ArrayList<>();
+        try {
+            while (res.next()) {
+
+                int id = res.getInt("idproduct");
+                String title = res.getString("title");
+                String description = res.getString("description");
+                String unit = res.getString("unit");
+                double length = res.getDouble("length");
+                double price = res.getDouble("price");
+
+                products.add(new Product(title, description, unit, 0, id, price, length, 0));
             }
         } catch (SQLException e) {
             throw new FOGException(e.getMessage());

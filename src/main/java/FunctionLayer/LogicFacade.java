@@ -316,5 +316,9 @@ public class LogicFacade {
         return new ProductMapper().orderProducts(orderId);
     }
     
+    public static Product getProduct(int id) throws FOGException{
+        return new ProductMapper().getProduct(id);
+    }
+    
     
 }

@@ -4,6 +4,7 @@ import PresentationLayer.editEmployee.UpdateStaff;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ public class EditEmployee extends Command {
         int empId = Integer.parseInt(request.getParameter("employeeId"));
         Employee selectedEmployee = LogicFacade.getEmployeeById(empId);
         request.setAttribute("selectedEmployee", selectedEmployee);
+        
         
        return new UpdateStaff().execute(request, response);
     }

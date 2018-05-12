@@ -59,6 +59,7 @@
                         <div class="card-heading">
                             <h4><%= event.getTitle()%></h4>
                             <p><%= event.getDescription()%></p>
+                            <h6><%= event.simpleDate() %></h6>
                         </div>
                     </div>
                     <br>

@@ -7,6 +7,8 @@ package PresentationLayer.orders.style;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,9 @@ public class CreateStyle extends Command {
         if (type.equals("tile")) {
             LogicFacade.createTile(style);
         }
+
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 11));
 
         return new updateStylePage().execute(request, response);
     }

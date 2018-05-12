@@ -7,6 +7,8 @@ package PresentationLayer.editEmployee;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,9 @@ public class CreateNewEmployee extends Command {
         int accessLevel = Integer.parseInt(request.getParameter("accessLevel"));
 
         LogicFacade.createEmployee(firstName, lastName, userName, email, accessLevel);
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 7));
         return new UpdateStaff().execute(request, response);
     }
 

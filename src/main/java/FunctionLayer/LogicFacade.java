@@ -214,6 +214,10 @@ public class LogicFacade {
     public static void writeOrderEvent(Event event) throws FOGException {
         new EventMapper().writeOrderEvent(event);
     }
+    
+    public static void writeEmployeeEvent(Event event) throws FOGException{
+        new EventMapper().writeEmployeeEvent(event);
+    }
 
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
         return new EventMapper().getOrderEvent(orderid);

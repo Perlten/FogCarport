@@ -7,6 +7,8 @@ package PresentationLayer.editEmployee;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,8 @@ public class ResetPassword extends Command {
         
         LogicFacade.resetEmployeePassword(selectedEmployee);
         
+        Employee emp = LogicFacade.getEmployeeById(selectedEmployee);
+        LogicFacade.writeEmployeeEvent(new Event(emp, 10));
         return new EditEmployee().execute(request, response);
     }
     

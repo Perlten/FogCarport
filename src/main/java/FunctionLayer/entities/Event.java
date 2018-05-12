@@ -44,7 +44,7 @@ public class Event {
     }
     
     public String getShortDescription() {
-        if (description.length() >= 20) {
+        if (description.length() >= 40) {
             return description.substring(0, 40) + "...";
         } else {
             return description;

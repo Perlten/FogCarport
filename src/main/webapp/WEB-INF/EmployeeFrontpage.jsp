@@ -26,7 +26,7 @@
 
             <div class="row">
 
-                <div class="col-lg-5">
+                <div class="col-lg-6">
 
                     <h2>Latest unconfirmed orders</h2>
                     <table class="table table-xstriped table-hover">
@@ -56,7 +56,7 @@
                 </div>
 
 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <h2>Your Latest Event</h2>
                     <table class="table table-xstriped table-hover">
                         <thead class="thead-dark">

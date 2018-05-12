@@ -7,6 +7,7 @@ package DBAccess;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Employee;
+import FunctionLayer.passwordHashing.Hashing;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,11 +25,11 @@ import java.util.logging.Logger;
  */
 public class EmployeeMapper {
 
-     private Connection con;
+    private Connection con;
 
     public EmployeeMapper() throws FOGException {
         try {
-            con =  new LiveConnection().connection();
+            con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
             throw new FOGException("Could not find connection");
         }
@@ -39,9 +38,8 @@ public class EmployeeMapper {
     public EmployeeMapper(Connection con) {
         this.con = con;
     }
-    
+
     public Employee verfyLogin(String username, String password) throws FOGException {
-//        TODO: change roleid name;
         String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM employee WHERE BINARY username = ? and BINARY password = ? AND employed = true";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -55,9 +53,10 @@ public class EmployeeMapper {
         }
     }
 
-    public void createEmployee(String firstname, String lastname, String username, String email, int accessLevel, String password) throws FOGException {
-        String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email )"
-                + " VALUES(?, ?, ?, ?, ?, ?)";
+    public void createEmployee(String firstname, String lastname, String username, String email, int accessLevel, String password, String salt) throws FOGException {
+        String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email, salt)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
@@ -66,6 +65,7 @@ public class EmployeeMapper {
             ps.setString(4, lastname);
             ps.setString(5, password);
             ps.setString(6, email);
+            ps.setString(7, salt);
             ps.execute();
         } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
@@ -85,12 +85,13 @@ public class EmployeeMapper {
         }
     }
 
-    public void changePasswordForEmployee(int id, String password) throws FOGException {
-        String sql = "UPDATE employee SET password = ? WHERE idemployee = ?";
+    public void changePasswordAndResetPassword(int id, String password, String salt) throws FOGException {
+        String sql = "UPDATE employee SET reset_password = true, password = ?, salt = ?  WHERE idemployee = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, password);
-            ps.setInt(2, id);
+            ps.setString(2, salt);
+            ps.setInt(3, id);
             ps.execute();
         } catch (SQLException e) {
             throw new FOGException("Could not change password");
@@ -181,16 +182,30 @@ public class EmployeeMapper {
         }
     }
 
-    public void changePasswordAndRemoveResetPassword(int employeeId, String newPassword) throws FOGException {
-        String sql = "UPDATE employee SET reset_password = false, password = ? WHERE idemployee = ?";
+    public void changePasswordAndRemoveResetPassword(int employeeId, String newPassword, String salt) throws FOGException {
+        String sql = "UPDATE employee SET reset_password = false, password = ?, salt = ? WHERE idemployee = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, newPassword);
-            ps.setInt(2, employeeId);
+            ps.setString(2, salt);
+            ps.setInt(3, employeeId);
             ps.execute();
         } catch (SQLException e) {
             throw new FOGException("Could not change password");
         }
     }
 
+    public String getSalt(String username) throws FOGException {
+        String sql = "SELECT salt FROM employee where username = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String salt = rs.getString(1);
+            return rs.getString("salt");
+        } catch (SQLException e) {
+            throw new FOGException(e.getMessage());
+        }
+    }
 }

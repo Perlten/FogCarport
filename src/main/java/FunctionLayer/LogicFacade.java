@@ -11,7 +11,8 @@ import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import FunctionLayer.mail.SendEmail;
-import java.sql.SQLException;
+import FunctionLayer.passwordHashing.Hashing;
+import static FunctionLayer.passwordHashing.Hashing.HashPassword;
 import java.util.List;
 import java.util.Random;
 
@@ -163,7 +164,10 @@ public class LogicFacade {
     }
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
-        return new EmployeeMapper().verfyLogin(username, password);
+        String salt = new EmployeeMapper().getSalt(username);
+        password = password.concat(salt);
+        String hash = HashPassword(password);
+        return new EmployeeMapper().verfyLogin(username, hash);
     }
 
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
@@ -178,8 +182,11 @@ public class LogicFacade {
             x += ra.nextInt(5);
             password += x;
         }
+        String salt = Hashing.makeSalt();
+        String newPassword = password.concat(salt);
+        String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().changePasswordForEmployee(emp.getEmployeeId(), password);
+        new EmployeeMapper().changePasswordAndResetPassword(emp.getEmployeeId(), hash, salt);
 
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
@@ -200,12 +207,10 @@ public class LogicFacade {
         return new OrderMapper().getUnconfirmedOrders(10);
     }
 
-
-
     public static void writeOrderEmployeeEvent(Event event) throws FOGException {
         new EventMapper().writeOrderEmployeeEvent(event);
     }
-    
+
     public static void writeOrderEvent(Event event) throws FOGException {
         new EventMapper().writeOrderEvent(event);
     }
@@ -239,7 +244,11 @@ public class LogicFacade {
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
-        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, password);
+        String salt = Hashing.makeSalt();
+        password = password.concat(salt);
+        String hash = HashPassword(password);
+
+        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, hash, salt);
     }
 
     public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {
@@ -252,8 +261,12 @@ public class LogicFacade {
             x += ra.nextInt(25);
             password += x;
         }
+        
+        String salt = Hashing.makeSalt();
+        String newPassword = password.concat(salt);
+        String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, password);
+        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, hash, salt);
 
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
@@ -278,7 +291,6 @@ public class LogicFacade {
                 SendEmail.sendMail(emp.getEmail(), Tile, message);
             }
         }
-
     }
     
     public static void writeLine(Product prod, int orderId) throws FOGException{

@@ -8,6 +8,8 @@ package FunctionLayer.passwordHashing;
 import FunctionLayer.FOGException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -27,5 +29,16 @@ public class Hashing {
         } catch (NoSuchAlgorithmException e) {
             throw new FOGException("Could not hash password");
         }
+    }
+
+    public static String makeSalt() {
+        Random ra = new SecureRandom();
+        String salt = "";
+        for (int i = 0; i < 10; i++) {
+            char ch = 'a';
+            ch += ra.nextInt(25);
+            salt += ch;
+        }
+        return salt;
     }
 }

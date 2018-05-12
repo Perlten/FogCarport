@@ -74,7 +74,7 @@ public class EmployeeMapperTest {
      */
     @Test
     public void testCreateEmployee() throws Exception {
-        mapper.createEmployee("Pernille", "Jensen", "Persille", "Persille@gmail.com", 1, "1234");
+        mapper.createEmployee("Pernille", "Jensen", "Persille", "Persille@gmail.com", 1, "1234", "salt");
 
         int sizeExpected = 4;
         int sizeActual = mapper.getAllEmployees().size();
@@ -103,7 +103,7 @@ public class EmployeeMapperTest {
      */
     @Test
     public void testChangePasswordForEmployee() throws Exception {
-        mapper.changePasswordAndRemoveResetPassword(1, "test");
+        mapper.changePasswordAndRemoveResetPassword(1, "test", "salt");
         Employee emp = mapper.verfyLogin("Nikolai123", "test");
         assertNotNull(emp);
     }
@@ -170,7 +170,7 @@ public class EmployeeMapperTest {
     @Test
     public void testChangePasswordAndRemoveResetPassword() throws Exception {
         mapper.resetPassword(1);
-        mapper.changePasswordAndRemoveResetPassword(1, "test");
+        mapper.changePasswordAndRemoveResetPassword(1, "test", "salt");
         Employee emp = mapper.verfyLogin("Nikolai123", "test");
         assertNotNull(emp);
         assertFalse(emp.isResetPassword());

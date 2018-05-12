@@ -66,6 +66,7 @@ CREATE TABLE `employee` (
   `employed` tinyint(4) NOT NULL DEFAULT '1',
   `date_created` datetime DEFAULT CURRENT_TIMESTAMP,
   `reset_password` tinyint(4) NOT NULL DEFAULT '1',
+  `salt` varchar(45) DEFAULT '',
   PRIMARY KEY (`idemployee`,`username`),
   KEY `fk_employee_role_idx` (`roleid`),
   CONSTRAINT `fk_employee_role` FOREIGN KEY (`roleid`) REFERENCES `role` (`idrole`) ON DELETE SET NULL ON UPDATE CASCADE

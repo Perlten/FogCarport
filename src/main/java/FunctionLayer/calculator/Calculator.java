@@ -26,6 +26,8 @@ public class Calculator {
 
     private List<Product> products;
     private final int rafterWoodLength = 600; //TODO make db
+    private final int lathLength = 540; //TODO make db
+    private final double width;
     private double maxShedWidth;
     private double poleDistanceWidth;
 
@@ -33,17 +35,20 @@ public class Calculator {
         this.order = order;
         this.cust = order.getCustomization();
         this.products = new ArrayList<>();
-        this.maxShedWidth = cust.getWidth() - (2 * Customization.padding);
+        this.width = cust.getWidth();
+        this.maxShedWidth = width - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
 
     public void calculate() throws FOGException {
         calculateRafter();
+        laths();
         if (shed != null) {
             shedPoles();
             calculateCladding();
 
         }
+
     }
 
     public List<Product> getProducts() {
@@ -52,7 +57,6 @@ public class Calculator {
 
     private void calculateRafter() throws FOGException {
         int amountOfRafters = (int) (cust.getLength() / 50);
-        double width = (double) cust.getWidth();
         double remainder = width / rafterWoodLength; //TODO make db
         if (remainder % 1 != 0) {
             remainder++;
@@ -118,6 +122,23 @@ public class Calculator {
             numPoles += 2;
         }
         LogicFacade.writeLine(new Product(6, numPoles, cust.getHeight() + 90), order.getOrderid());
+    }
+
+    private void laths() throws FOGException {
+        int lathDistance = 30;
+        int lanes = (int) (width / lathDistance) + 1;
+
+        int lathsOnLane = (int) (cust.getLength() / lathLength);
+
+        double remainder = cust.getLength() % lathLength;
+
+        if (lathsOnLane != 0) {
+            LogicFacade.writeLine(new Product(7, lanes * lathsOnLane, lathLength), order.getOrderid());
+        }
+
+        if (remainder != 0) {
+            LogicFacade.writeLine(new Product(7, lanes, remainder), order.getOrderid());
+        }
     }
 
 }

@@ -7,6 +7,7 @@ package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.calculator.Calculator;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Employee;
@@ -56,6 +57,11 @@ public class EditOrder extends Command {
         c.setRoofangle(roofAngle);
         c.setCladding(LogicFacade.getCladding(claddingId));
         c.setTile(LogicFacade.getTile(tileId));
+        
+        //recalculate
+        Calculator calc = new Calculator(order);
+        LogicFacade.removeLines(orderId);
+        calc.calculate();
         
         if(isShed == null){
             c.setShed(null);

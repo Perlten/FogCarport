@@ -26,7 +26,7 @@ public class Overview extends Command {
         int confirmedOrder = LogicFacade.numberOfConfirmedOrder();
         request.setAttribute("numberOfConfirmedOrder", confirmedOrder);
         request.setAttribute("10UnconfirmedOrders", LogicFacade.getLatest10UnconfirmedOrders());
-        request.setAttribute("eventList", LogicFacade.getEmployeeEvent(emp.getEmployeeId()));
+        request.setAttribute("eventList", LogicFacade.getEmployeeEvent(emp.getEmployeeId(), 10));
         
         return "WEB-INF/EmployeeFrontpage";
     }

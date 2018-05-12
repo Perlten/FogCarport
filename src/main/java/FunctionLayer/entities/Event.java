@@ -42,6 +42,14 @@ public class Event {
         this.date = date;
         this.statusColor = statusColor;
     }
+    
+    public String getShortDescription() {
+        if (description.length() >= 20) {
+            return description.substring(0, 40) + "...";
+        } else {
+            return description;
+        }
+    }
 
     public int getEventId() {
         return eventId;

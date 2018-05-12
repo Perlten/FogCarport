@@ -175,5 +175,11 @@ public class EmployeeMapperTest {
         assertNotNull(emp);
         assertFalse(emp.isResetPassword());
     }
-
+    
+    @Test
+    public void testGetSalt() throws Exception{
+        String expected = "mille";
+        String actual = mapper.getSalt("Larsen");
+        assertEquals(expected, actual);
+    }
 }

@@ -202,8 +202,7 @@ public class EmployeeMapper {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            String salt = rs.getString(1);
-            return rs.getString("salt");
+            return rs.getString(1);
         } catch (SQLException e) {
             throw new FOGException(e.getMessage());
         }

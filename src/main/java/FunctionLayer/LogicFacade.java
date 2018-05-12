@@ -261,8 +261,8 @@ public class LogicFacade {
         }
         
         String salt = Hashing.makeSalt();
-        password = password.concat(salt);
-        String hash = HashPassword(password);
+        String newPassword = password.concat(salt);
+        String hash = HashPassword(newPassword);
 
         new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, hash, salt);
 

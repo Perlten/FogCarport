@@ -7,7 +7,6 @@ package DBAccess;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Employee;
-import FunctionLayer.passwordHashing.Hashing;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

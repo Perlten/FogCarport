@@ -179,8 +179,8 @@ public class OrderMapper {
      * @param order
      */
     public void makeOrder(Order order) throws FOGException {
-        String sql = "INSERT INTO .order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding)"
-                + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO .order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding, price)"
+                + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         boolean shed = order.getCustomization().getShed() != null;
         int shedLength = 0;
@@ -204,6 +204,7 @@ public class OrderMapper {
             ps.setInt(11, shedWidth);
             ps.setInt(12, order.getCustomization().getTile().getId());
             ps.setInt(13, order.getCustomization().getCladding().getId());
+            ps.setDouble(14, order.getPrice());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
@@ -269,6 +270,7 @@ public class OrderMapper {
                 int width = res.getInt("width");
                 int height = res.getInt("height");
                 double roofangle = res.getDouble("roofangle");
+                double price = res.getDouble("price");
                 boolean shed = res.getBoolean("shed");
 
                 int tile = res.getInt("tile");
@@ -285,7 +287,7 @@ public class OrderMapper {
                 }
                 Customer customer = new Customer(firstname, lastname, email, phonenumber);
                 Customization customization = new Customization(length, width, height, roofangle, shedEntity, claddingStyle, tileStyle);
-                Order order = new Order(idorder, true, confirmed, date, customer, customization);
+                Order order = new Order(idorder, true, confirmed, date, customer, customization, price);
                 orderList.add(order);
             }
             return orderList;
@@ -307,8 +309,9 @@ public class OrderMapper {
                 String lastName = res.getString("lastname");
                 String email = res.getString("email");
                 int phoneNumber = res.getInt("phonenumber");
+                double price = res.getDouble("price");
 
-                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null));
+                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null,price));
             }
             return list;
 

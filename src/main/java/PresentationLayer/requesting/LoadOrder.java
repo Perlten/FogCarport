@@ -38,7 +38,7 @@ public class LoadOrder extends Command {
 
             order = LogicFacade.getOrder(orderid);
             session.setAttribute("confirmedOrder", order);
-            List<Event> events = LogicFacade.getOrderEvent(order.getOrderid());
+            List<Event> events = LogicFacade.getOrderEvent(orderid);
             request.setAttribute("orderEvents", events);
 
         } catch (Exception e) {

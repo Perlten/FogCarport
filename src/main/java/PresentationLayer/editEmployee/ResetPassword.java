@@ -26,8 +26,10 @@ public class ResetPassword extends Command {
         
         LogicFacade.resetEmployeePassword(selectedEmployee);
         
-        Employee emp = LogicFacade.getEmployeeById(selectedEmployee);
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 10));
+        
         return new EditEmployee().execute(request, response);
     }
     

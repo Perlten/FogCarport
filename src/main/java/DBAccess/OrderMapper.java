@@ -69,7 +69,7 @@ public class OrderMapper {
             if (orderid > 0 && list.size() < 1) {
                 throw new FOGException("Could not find order");
             }
-            
+
             return list;
 
         } catch (FOGException | SQLException e) {
@@ -309,9 +309,8 @@ public class OrderMapper {
                 String lastName = res.getString("lastname");
                 String email = res.getString("email");
                 int phoneNumber = res.getInt("phonenumber");
-                double price = res.getDouble("price");
 
-                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null,price));
+                list.add(new Order(idorder, false, confirmed, date, new Customer(firstName, lastName, email, phoneNumber), null, 0));
             }
             return list;
 

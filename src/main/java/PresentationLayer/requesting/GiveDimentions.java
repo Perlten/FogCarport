@@ -83,9 +83,9 @@ public class GiveDimentions extends Command {
                 product.setAmount(prod.getAmount());
                 estPrice += product.totalPrice();
             }
+            order.setPrice(estPrice);
             
             //setting session objects
-            request.getSession().setAttribute("estPrice", estPrice);
             request.getSession().setAttribute("order", order);
             
             

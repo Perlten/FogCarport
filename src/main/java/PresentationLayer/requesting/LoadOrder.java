@@ -26,12 +26,18 @@ public class LoadOrder extends Command {
         try {
             HttpSession session = request.getSession();
 
-            Order order = (Order) session.getAttribute("confirmedOrder");
-            if (order == null) {
-                int orderid = Integer.parseInt(request.getParameter("id"));
-                order = LogicFacade.getOrder(orderid);
-                session.setAttribute("confirmedOrder", order);
+            Order order = null;
+
+            int orderid = 0;
+
+            if (request.getAttribute("confirmedId") != null) {
+                orderid = (int) request.getAttribute("confirmedId");
+            } else {
+                orderid = Integer.parseInt(request.getParameter("id"));
             }
+
+            order = LogicFacade.getOrder(orderid);
+            session.setAttribute("confirmedOrder", order);
             List<Event> events = LogicFacade.getOrderEvent(order.getOrderid());
             request.setAttribute("orderEvents", events);
 

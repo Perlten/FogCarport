@@ -180,6 +180,7 @@ CREATE TABLE `order` (
   `shed_width` int(11) DEFAULT NULL,
   `tile` int(11) DEFAULT NULL,
   `cladding` int(11) DEFAULT NULL,
+  `price` DOUBLE NOT NULL DEFAULT '0',
   PRIMARY KEY (`idorder`),
   KEY `fk_order_tile1_idx` (`tile`),
   KEY `fk_order_cladding_idx` (`cladding`),
@@ -194,11 +195,11 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order`(idorder, firstname, lastname, email, phonenumber, `length`, width, height, roofangle, shed, shed_length, shed_width, tile, cladding) values
-		(1, 'Nikolai', 'Perlt', 'Nikolai@gmail.com', 12545678, 700, 600, 200, 0, 1, 200, 200, 1, 1),
-		(2, 'Adam', 'LAss', 'Lass@gmail.com', 12346678, 500, 600, 200, 0, 1, 200, 200, 1, 1),
-		(3, 'Per', 'Andern', 'Per@gmail.com', 12345778, 780, 600, 200, 0, 1, 200, 200, 1, 1),
-		(4, 'Pernille', 'Jensen', 'Pernille@gmail.com', 12348678, 1200, 600, 200, 0, 1, 200, 200, 1, 1);
+INSERT INTO `order`(idorder, firstname, lastname, email, phonenumber, `length`, width, height, roofangle, shed, shed_length, shed_width, tile, cladding, price) values
+		(1, 'Nikolai', 'Perlt', 'Nikolai@gmail.com', 12545678, 700, 600, 200, 0, 1, 200, 200, 1, 1,0),
+		(2, 'Adam', 'LAss', 'Lass@gmail.com', 12346678, 500, 600, 200, 0, 1, 200, 200, 1, 1,0),
+		(3, 'Per', 'Andern', 'Per@gmail.com', 12345778, 780, 600, 200, 0, 1, 200, 200, 1, 1,0),
+		(4, 'Pernille', 'Jensen', 'Pernille@gmail.com', 12348678, 1200, 600, 200, 0, 1, 200, 200, 1, 1,0);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 

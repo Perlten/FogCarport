@@ -56,7 +56,7 @@
 
                         String card = "card bg-default";
                         if (selectedOrder.isConfirmed()) {
-                            card = "bg-success";
+                            card = "bg-success text-light";
                         }
                 %>
                 <div class="col-lg-6">

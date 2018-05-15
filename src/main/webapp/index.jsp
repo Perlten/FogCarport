@@ -44,16 +44,18 @@
         %>
     </head>
     <body>
+        <%@include file="customerNavBar.jsp" %>
         <div class="container-fluid">
-            <h1>Customize Carport</h1>
             <div class="row">
                 <div class="col-lg-6">
+
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Enter Dimentions</h4>
-                        </div>
-                        <div class="card-body">
-                            <form name="configure" action="FrontController" method="POST" >
+                        <form name="configure" action="FrontController" method="POST" >
+
+                            <div class="card-header">
+                                <h4>Enter Dimentions</h4>
+                            </div>
+                            <div class="card-body">
 
                                 <input type="hidden" name="command" value="GiveDimentions">
                                 <label>
@@ -123,9 +125,12 @@
                                 </label>
 
                                 <br><br>
-                                <input type="submit" class="btn btn-primary" value="Style">
-                            </form>
-                        </div>
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin: 10px; margin-top: 0px">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <% if (order != null) {%>
@@ -135,5 +140,6 @@
                 <%}%>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

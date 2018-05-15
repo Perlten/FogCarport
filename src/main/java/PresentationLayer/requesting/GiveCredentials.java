@@ -20,8 +20,13 @@ public class GiveCredentials extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
+        String submit = "";
 
         try {
+            submit = request.getParameter("submit");
+            if (submit.equals("Back")) {
+                return new Styling().execute(request, response);
+            }
             Order order = (Order) request.getSession().getAttribute("order");
 
             String firstName = request.getParameter("firstName");
@@ -34,6 +39,10 @@ public class GiveCredentials extends Command {
 
         } catch (Exception e) {
             throw new FOGException("Failed to add contact information!");
+        }
+        if (submit.equals("Update")) {
+            return new GiveCredentialsPage().execute(request, response);
+
         }
 
         return "WEB-INF/confirm";

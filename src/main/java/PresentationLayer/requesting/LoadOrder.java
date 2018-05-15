@@ -32,14 +32,18 @@ public class LoadOrder extends Command {
 
             if (request.getAttribute("confirmedId") != null) {
                 orderid = (int) request.getAttribute("confirmedId");
-            } else {
+            } else if (request.getParameter("id") != null) {
                 orderid = Integer.parseInt(request.getParameter("id"));
+            } else {
+                return "WEB-INF/confirm";
             }
 
             order = LogicFacade.getOrder(orderid);
             session.setAttribute("confirmedOrder", order);
+            
+            //setting events
             List<Event> events = LogicFacade.getOrderEvent(orderid);
-            request.setAttribute("orderEvents", events);
+            request.getSession().setAttribute("orderEvents", events);
 
         } catch (Exception e) {
             throw new FOGException("Not a valid order!");

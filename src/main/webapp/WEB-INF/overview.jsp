@@ -28,7 +28,7 @@
             <div class="progress">
                 <%                    String status = "progress-bar";
                     if (orderOverview.isOrdered()) {
-                        status += " progress-bar-success";
+                        status += " bg-success";
                     }
                 %>
                 <div class="<%= status%>" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<%= orderOverview.percentage()%>%"> Requesting <%= orderOverview.percentage()%>%

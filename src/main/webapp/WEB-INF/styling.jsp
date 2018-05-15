@@ -31,6 +31,7 @@
         %>
     </head>
     <body>
+        <%@include file="../customerNavBar.jsp" %>
         <script>
             function soren(id) {
                 var x = document.getElementById(id);
@@ -43,16 +44,16 @@
             }
         </script>
         <div class="container-fluid">
-            <h1>Styling</h1>
 
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="card-head">
-                            <h4>Choose your styling!</h4>
-                        </div>
-                        <div class="card-body">
-                            <form action="FrontController" method="POST" >
+                        <form action="FrontController" method="POST" >
+
+                            <div class="card-header">
+                                <h4>Choose your styling!</h4>
+                            </div>
+                            <div class="card-body">
                                 <input type="hidden" name="command" value="GiveStyling">
 
                                 <div>
@@ -103,24 +104,23 @@
                                                         out.print("checked");
                                                     }
                                                        %>>
-                                                <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
+                                                <a class="text-success"><%= option.getPrice() + " DKK/tile"%> </a>
                                             </label>
 
                                         </div>
                                     </label>
                                     <%}%>
                                 </div>
-                                <input type="submit" class="btn btn-primary" value="Next">
-                            </form>
 
 
-                        </div>
-                        <div class="card-footer">
-                            <form action="FrontController" method="POST">
-                                <input type="hidden" name="command" value="GiveDimentionsPage">
-                                <input type="submit" class="btn btn-default" value="Back">
-                            </form>
-                        </div>
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                                <input type="submit" name="submit" class="btn btn-white" value="Back">
+                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
+                            </div>
+                        </form>
+
                     </div>
                 </div>
                 <% if (order != null) {%>

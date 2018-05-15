@@ -32,54 +32,52 @@
         %>
     </head>
     <body>
+        <%@include file="../customerNavBar.jsp" %>
         <div class="container-fluid">
-        <h1>Contact Info</h1>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-head">
-                        <h2>Enter Your Contact Information</h2>
-                    </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <form action="FrontController" method="post">
 
-                    <div class="card-body">
+                            <div class="card-header">
+                                <h2>Enter Your Contact Information</h2>
+                            </div>
 
-                        <div style="padding: 20px">
-                            <form action="FrontController" method="post">
-                                <div class="form-group">
-                                    <input type="hidden" name="command" value="GiveCredentials">
-                                    <label class="control-label">First Name</label>
-                                    <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>"/>
+                            <div class="card-body">
 
-                                    <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>"/>
+                                    <div class="form-group">
+                                        <input type="hidden" name="command" value="GiveCredentials">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>"/>
 
-                                    <label class="control-label">Email</label>
-                                    <input type="text" class="form-control" name="email" placeholder="Enter email" value="<%= email%>"/>
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>"/>
 
-                                    <label class="control-label">Phone Number</label>
-                                    <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
-                                        if (phonenumber != 0) {
-                                            out.print(phonenumber);
-                                        }
-                                           %>"/>
-                                    <br>
-                                    <button type="submit" class="btn btn-primary">Next</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <form action="FrontController" method="POST">
-                            <input type="hidden" name="command" value="Styling">
-                            <input type="submit" class="btn btn-default" value="Back">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" class="form-control" name="email" placeholder="Enter email" value="<%= email%>"/>
+
+                                        <label class="control-label">Phone Number</label>
+                                        <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
+                                            if (phonenumber != 0) {
+                                                out.print(phonenumber);
+                                            }
+                                               %>"/>
+                                        <br>
+                                    </div>
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                                <input type="submit" name="submit" class="btn btn-white" value="Back">
+                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
+                            </div>
                         </form>
+
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <%@include file="overview.jsp" %>
+                </div>
             </div>
-            <div class="col-lg-6">
-                <%@include file="overview.jsp" %>
-            </div>
-        </div>
         </div>
     </body>
 </html>

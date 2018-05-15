@@ -18,11 +18,12 @@
                 orderConfirm = (Order) session.getAttribute("confirmedOrder");
             }
 
-            List<Event> orderEvents = (List<Event>) request.getAttribute("orderEvents");
+            List<Event> orderEvents = (List<Event>) session.getAttribute("orderEvents");
         %>
 
     </head>
     <body>
+        <%@include file="../customerNavBar.jsp" %>
         <div class="container-fluid">
             <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
             <div class="row">
@@ -31,9 +32,9 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4>Do you want to confirm your request?</h4>
+                            <center><h4>Do you want to submit your request?</h4></center>
                             <div>
-                                <form action="FrontController" method="post">
+                                <form action="FrontController" method="post" style="float: right">
                                     <input type="hidden" name="command" value="SubmitOrder">
                                     <input type="submit"  class="btn btn-success" value="Submit Request">
                                 </form>
@@ -50,16 +51,15 @@
                     </div>
 
                 </div>
-                <%} else {%>
+                <%} else if(orderEvents != null) {%>
                 <div class="col-lg-6">
-                    <% if (orderEvents != null) { %>
                     <% for (Event event : orderEvents) {%>
 
                     <div class="card <%= event.getStatusColor()%>">
-                        <div class="card-heading">
+                        <div class="card-body" style="padding-bottom: 7px">
+                            <p style="float: right; font-size: 13px"><%= event.simpleDate()%></p>
                             <h4><%= event.getTitle()%></h4>
                             <p><%= event.getDescription()%></p>
-                            <h6><%= event.simpleDate() %></h6>
                         </div>
                     </div>
                     <br>
@@ -67,7 +67,8 @@
 
                 </div>
 
-                <%}%>
+                <%} else {%>
+                <div class="col-lg-6"></div>
                 <%}%>
 
                 <div class="col-lg-6">

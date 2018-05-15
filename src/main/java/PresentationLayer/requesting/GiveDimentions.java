@@ -33,58 +33,61 @@ public class GiveDimentions extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-            int length = Helper.safeInt(request, "length");
-            int width = Helper.safeInt(request, "width");
-            int height = Helper.safeInt(request, "height");
+        int length = Helper.safeInt(request, "length");
+        int width = Helper.safeInt(request, "width");
+        int height = Helper.safeInt(request, "height");
 
-            boolean roof = Boolean.parseBoolean(request.getParameter("roof"));
+        boolean roof = Boolean.parseBoolean(request.getParameter("roof"));
 
-            boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
+        boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
 
-            double roofAngle = Helper.safeDouble(request, "roofAngle");
-            int shedLength = Helper.safeInt(request, "shedLength");
-            int shedWidth = Helper.safeInt(request, "shedWidth");
+        double roofAngle = Helper.safeDouble(request, "roofAngle");
+        int shedLength = Helper.safeInt(request, "shedLength");
+        int shedWidth = Helper.safeInt(request, "shedWidth");
 
-            if (roof) {
-                if (roofAngle <= 0 || roofAngle > 89) {
-                    throw new IllegalArgumentException();
-                }
-            } else {
-                roofAngle = 0;
+        String submit = request.getParameter("submit");
+
+        if (roof) {
+            if (roofAngle <= 0 || roofAngle > 89) {
+                throw new IllegalArgumentException();
             }
+        } else {
+            roofAngle = 0;
+        }
 
-            Shed shedObj = null;
-            if (shed) {
-                shedObj = new Shed(shedLength, shedWidth);
-            }
+        Shed shedObj = null;
+        if (shed) {
+            shedObj = new Shed(shedLength, shedWidth);
+        }
 
-            Order sessionOrder = (Order) request.getSession().getAttribute("order");
-            Customization sessionCustomization = null;
-            StyleOption cladding = null;
-            StyleOption tile = null;
-            Customer sessionCustomer = null;
+        Order sessionOrder = (Order) request.getSession().getAttribute("order");
+        Customization sessionCustomization = null;
+        StyleOption cladding = null;
+        StyleOption tile = null;
+        Customer sessionCustomer = null;
 
-            if (sessionOrder != null) {
-                sessionCustomization = sessionOrder.getCustomization();
-                cladding = sessionCustomization.getCladding();
-                tile = sessionCustomization.getTile();
-                sessionCustomer = sessionOrder.getCustomer();
-            }
+        if (sessionOrder != null) {
+            sessionCustomization = sessionOrder.getCustomization();
+            cladding = sessionCustomization.getCladding();
+            tile = sessionCustomization.getTile();
+            sessionCustomer = sessionOrder.getCustomer();
+        }
 
-            Customization customization = new Customization(length, width, height, roofAngle, shedObj, cladding, tile);
-            Order order = new Order(sessionCustomer, customization);
+        Customization customization = new Customization(length, width, height, roofAngle, shedObj, cladding, tile);
+        Order order = new Order(sessionCustomer, customization);
 
-            //Estimating price
-            Calculator calc = LogicFacade.getCalculator(order);
-            calc.calculate();
-            order.setPrice(calc.totalPrice());
-            
-            //setting session objects
-            request.getSession().setAttribute("order", order);
-            
-            
+        //Estimating price
+        Calculator calc = LogicFacade.getCalculator(order);
+        calc.calculate();
+        order.setPrice(calc.totalPrice());
+
+        //setting session objects
+        request.getSession().setAttribute("order", order);
+
+        if (submit.equals("Update")) {
+            return "index";
+        }
         return new Styling().execute(request, response);
-//        return "SVGleg";
     }
 
 }

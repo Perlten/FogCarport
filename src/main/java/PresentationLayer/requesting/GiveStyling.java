@@ -7,6 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.calculator.Calculator;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -21,7 +22,11 @@ public class GiveStyling extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
+        String submit = "";
         try {
+            submit = request.getParameter("submit");
+            if(submit.equals("Back")) return "index";
+            
             Order order = (Order) request.getSession().getAttribute("order");
             
             int cladding = Integer.parseInt(request.getParameter("cladding"));
@@ -32,9 +37,18 @@ public class GiveStyling extends Command{
             cust.setCladding(LogicFacade.getCladding(cladding));
             cust.setTile(LogicFacade.getTile(tile));
             
+            Calculator calc = LogicFacade.getCalculator(order);
+            calc.calculate();
+            order.setPrice(calc.totalPrice());
+            
         } catch (Exception e) {
             throw new FOGException("Could not submit styling");
         }
+        
+        if(submit.equals("Update")){
+            return new Styling().execute(request, response);
+        }
+        
         return "WEB-INF/credentialsPage";
 //        return new Styling().execute(request, response);
     }

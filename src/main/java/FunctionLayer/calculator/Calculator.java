@@ -42,6 +42,8 @@ public class Calculator {
     }
 
     public void calculate() throws FOGException {
+        products.add(new Product(8, 1, 0));
+
         calculateRafter();
         laths();
         roof();
@@ -58,7 +60,32 @@ public class Calculator {
             Product product = LogicFacade.getProduct(prod.getId());
             product.setAmount(prod.getAmount());
             estPrice += product.totalPrice();
+
+            //customization options
+//            if (product.getTitle().equals("Cladding")) {
+//                if (cust.getCladding() != null) {
+//                    double cmPrice = cust.getCladding().getPrice() / 100;
+//                    estPrice += (product.getLength() * prod.getAmount()) * cmPrice;
+//                }
+//
+//            } else if (product.getTitle().equals("Tile")) {
+//
+//            }
+            switch (product.getTitle()) {
+                case "Cladding":
+                    if (cust.getCladding() != null) {
+                        double cmPrice = cust.getCladding().getPrice() / 100;
+                        estPrice += (product.getLength() * prod.getAmount()) * cmPrice;
+                    }
+                    break;
+                case "Tile":
+                    if (cust.getTile() != null) {
+                        estPrice += prod.getAmount() * cust.getTile().getPrice();
+                    }
+                    break;
+            }
         }
+
         return estPrice;
     }
 

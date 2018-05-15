@@ -95,5 +95,12 @@ public class Employee {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(dateCreated.getTime());
     }
+    
+    public String getShortEmail(){
+        if(email.length() >= 10){
+            return email.substring(0,10) + "...";
+        }
+        return email;
+    }
 
 }

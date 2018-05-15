@@ -23,16 +23,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <table class="table table-xstriped table-hover">
+                    <table class="table table-xstriped table-hover" style="table-layout: fixed">
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Full Name</th>
                                 <th>Username</th>
-                                <th>Access Level</th>
+                                <th style="width: 10%">Access</th>
                                 <th>Email</th>
                                 <th>Hire Date</th>
-                                <th></th>
+                                <th style="width: 13%"></th>
                             </tr>
                         </thead>
 
@@ -42,11 +41,11 @@
                             <tr <%if (!emp.isEmployed()) { %>
                                 class="btn-danger"
                                 <%}%>>
-                                <td><%= emp.getFirstname()%></td>
-                                <td><%= emp.getLastname()%></td>
+                                <td><%= emp.getLastname() + ", " + emp.getFirstname()%></td>
                                 <td><%= emp.getUsername()%></td>
                                 <td><%= emp.getAuthenticationLevel()%></td>
-                                <td><%= emp.getEmail()%></td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="<%= emp.getEmail()%>"><%= emp.getShortEmail()%></td>
+
                                 <td><%= emp.simpleDate()%></td>
                                 <td>
                                     <form action="FrontController" method="post">
@@ -66,7 +65,7 @@
                     </form>
                 </div>
                 <%if (newEmployee != null) {%>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <form action="FrontController" method="post">
                         <h1>New Employee</h1>
                         <input type="hidden" name="command" value="CreateNewEmployee">
@@ -131,12 +130,11 @@
                             <input type="submit" class="btn btn-primary" value="Reset Password"/>
                         </form>
                         <%}
-                        }%>
+                            }%>
                     </div>
                 </div>
                 <%}%>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

@@ -45,8 +45,9 @@
         <%}%>
     </tbody>
 </table>
-<button class='btn btn-default' onclick="window.print()"><img src="content/print.png" alt="" width="20px"/></button>
 <button class="btn btn-light" onclick="window.history.back()">Back</button>
+<button class='btn btn-default' onclick="window.print()"><img src="content/print.png" alt="" width="20px"/></button>
+
 
 
 

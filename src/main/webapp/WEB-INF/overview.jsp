@@ -140,7 +140,7 @@
 
         <%}%>
         <div>
-            Price: <span class="badge badge-success"><%= orderOverview.getPrice() %> DKK</span>
+            <a class="text-muted">Est. Price:</a> <span class="badge badge-success"><%= orderOverview.getPrice() %> DKK</span>
         </div>
     </div>
 </div>

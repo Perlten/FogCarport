@@ -30,7 +30,7 @@ public class LogicFacade {
     }
 
     public static List<Order> getCustomerList(int limit) throws FOGException {
-        return new OrderMapper().getCustomerList(limit);
+        return new OrderMapper().getOrderCustomerList(limit);
     }
 
     /**
@@ -215,8 +215,8 @@ public class LogicFacade {
     public static void writeOrderEvent(Event event) throws FOGException {
         new EventMapper().writeOrderEvent(event);
     }
-    
-    public static void writeEmployeeEvent(Event event) throws FOGException{
+
+    public static void writeEmployeeEvent(Event event) throws FOGException {
         new EventMapper().writeEmployeeEvent(event);
     }
 
@@ -229,7 +229,7 @@ public class LogicFacade {
     }
 
     public static List<Employee> getAllEmployees() throws FOGException {
-        return new EmployeeMapper().getAllEmployees();
+        return new EmployeeMapper().getAllEmployees(false);
     }
 
     public static Employee getEmployeeById(int id) throws FOGException {
@@ -266,7 +266,7 @@ public class LogicFacade {
             x += ra.nextInt(25);
             password += x;
         }
-        
+
         String salt = Hashing.makeSalt();
         String newPassword = password.concat(salt);
         String hash = HashPassword(newPassword);
@@ -284,7 +284,7 @@ public class LogicFacade {
     }
 
     public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
-        List<Employee> empList = new EmployeeMapper().getAllEmployees();
+        List<Employee> empList = new EmployeeMapper().getAllEmployees(true);
         Order order = getOrder(orderId);
         String Tile = "New Order";
         String message = "At " + order.simpleDate() + " We recived a new order from " + order.getCustomer().getFirstname()
@@ -292,37 +292,35 @@ public class LogicFacade {
                 + "And remember teamwork makes the dream work...";
 
         for (Employee emp : empList) {
-            if (emp.isEmployed()) {
-                SendEmail.sendMail(emp.getEmail(), Tile, message);
-            }
+            SendEmail.sendMail(emp.getEmail(), Tile, message);
         }
     }
-    
-    public static void writeLine(Product prod, int orderId) throws FOGException{
+
+    public static void writeLine(Product prod, int orderId) throws FOGException {
         new ProductMapper().writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
     }
-    
-    public static void writeLines(List<Product> prods, int orderId) throws FOGException{
+
+    public static void writeLines(List<Product> prods, int orderId) throws FOGException {
         ProductMapper productMapper = new ProductMapper();
-        for(Product prod : prods){
+        for (Product prod : prods) {
             productMapper.writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
         }
     }
-    
-    public static void removeLines(int orderId) throws FOGException{
+
+    public static void removeLines(int orderId) throws FOGException {
         new ProductMapper().removeLines(orderId);
     }
-    
-    public static List<Product> orderProducts(int orderId) throws FOGException{
+
+    public static List<Product> orderProducts(int orderId) throws FOGException {
         return new ProductMapper().orderProducts(orderId);
     }
-    
-    public static Product getProduct(int id) throws FOGException{
+
+    public static Product getProduct(int id) throws FOGException {
         return new ProductMapper().getProduct(id);
     }
-    
-    public static Calculator getCalculator(Order order){
+
+    public static Calculator getCalculator(Order order) {
         return new Calculator(order);
     }
-    
+
 }

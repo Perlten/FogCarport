@@ -64,7 +64,7 @@ public class OrderMapper {
 
             ResultSet res = pre.executeQuery();
 
-            List<Order> list = getOrderFromDB(res);
+            List<Order> list = orderConverter(res);
 
             if (orderid > 0 && list.size() < 1) {
                 throw new FOGException("Could not find order");
@@ -77,7 +77,7 @@ public class OrderMapper {
         }
     }
 
-    public List<Order> getCustomerList(int limit) throws FOGException {
+    public List<Order> getOrderCustomerList(int limit) throws FOGException {
 
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order order by idorder desc LIMIT ?";
 
@@ -87,7 +87,7 @@ public class OrderMapper {
             ps.setInt(1, limit);
 
             ResultSet res = ps.executeQuery();
-            return getCustomerFromDB(res);
+            return customerConverter(res);
         } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
         }
@@ -249,13 +249,13 @@ public class OrderMapper {
                 ps.setInt(1, limit);
             }
             ResultSet rs = ps.executeQuery();
-            return getCustomerFromDB(rs);
+            return customerConverter(rs);
         } catch (SQLException e) {
             throw new FOGException("Could not get orders");
         }
     }
 
-    private List<Order> getOrderFromDB(ResultSet res) throws FOGException {
+    private List<Order> orderConverter(ResultSet res) throws FOGException {
         try {
             List<Order> orderList = new ArrayList<>();
             while (res.next()) {
@@ -298,7 +298,7 @@ public class OrderMapper {
         }
     }
 
-    private List<Order> getCustomerFromDB(ResultSet res) throws FOGException {
+    private List<Order> customerConverter(ResultSet res) throws FOGException {
         try {
             List<Order> list = new ArrayList<>();
             while (res.next()) {

@@ -33,14 +33,13 @@
                 if (add || num == 0) {
                     num += 10;
                 }
-                var xhttp;
-                xhttp = new XMLHttpRequest();
+                var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("orders").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("get", "showordersJS.jsp?num=" + num, true);
+                xhttp.open("post", "showordersJS.jsp?num=" + num, true);
                 xhttp.send();
             }
         </script>
@@ -119,18 +118,18 @@
                                         <td><p style="float: right"><%= productPrice%> DKK</p></td>
                                     </tr>
                                     <tr class="text-secondary">
-                                                <td><p>
-                                            <% if(diff < 0) {
-                                                out.print("-");
-                                            } else{
-                                                out.print("+");
-                                            }%>
+                                        <td><p>
+                                                <% if (diff < 0) {
+                                                        out.print("-");
+                                                    } else {
+                                                        out.print("+");
+                                                    }%>
                                             </p></td>
-                                                <td><p style="float: right"><%= Math.abs(diff)%> DKK</p></td>
+                                        <td><p style="float: right"><%= Math.abs(diff)%> DKK</p></td>
                                     </tr>
                                     <tr>
                                         <th><p>Total price</p></th>
-                                        <th><p style="float:right"><%= price %> DKK</p></th>
+                                        <th><p style="float:right"><%= price%> DKK</p></th>
                                     </tr>
                                 </tbody>
                             </table>
@@ -181,6 +180,7 @@
 
                 </div>
                 <% }%>
+
             </div>
 
         </div>

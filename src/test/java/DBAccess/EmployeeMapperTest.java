@@ -77,7 +77,7 @@ public class EmployeeMapperTest {
         mapper.createEmployee("Pernille", "Jensen", "Persille", "Persille@gmail.com", 1, "1234", "salt");
 
         int sizeExpected = 4;
-        int sizeActual = mapper.getAllEmployees().size();
+        int sizeActual = mapper.getAllEmployees(false).size();
         assertEquals(sizeExpected, sizeActual);
 
         String nameExpected = "Pernille";
@@ -114,7 +114,7 @@ public class EmployeeMapperTest {
     @Test
     public void testGetAllEmployees() throws Exception {
         int expected = 3;
-        int actual = mapper.getAllEmployees().size();
+        int actual = mapper.getAllEmployees(false).size();
 
         assertEquals(expected, actual);
     }

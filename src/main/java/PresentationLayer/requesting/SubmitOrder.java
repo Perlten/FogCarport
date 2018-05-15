@@ -37,6 +37,7 @@ public class SubmitOrder extends Command {
         session.setAttribute("order", null);
         request.setAttribute("confirmedId", order.getOrderid());
         LogicFacade.sendEmailToCustomer(order);
+        LogicFacade.emailToAllEmployeeWithNewOrder(order.getOrderid());
 
         //event
         LogicFacade.writeOrderEvent(new Event(1, order.getOrderid()));

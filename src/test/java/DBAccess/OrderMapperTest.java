@@ -91,7 +91,7 @@ public class OrderMapperTest {
     @Test
     public void getCustomerListLimit2() throws FOGException {
         int expected = 2;
-        int actual = mapper.getCustomerList(2).size();
+        int actual = mapper.getOrderCustomerList(2).size();
 
         assertEquals(expected, actual);
     }

@@ -33,15 +33,9 @@
     <body>
         <%@include file="../customerNavBar.jsp" %>
         <script>
-            function soren(id) {
-                var x = document.getElementById(id);
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-
-                }
-            }
+            $(document).ready(function () {
+                $('[data-toggle="popover"]').popover();
+            });
         </script>
         <div class="container-fluid">
 
@@ -56,72 +50,58 @@
                             <div class="card-body">
                                 <input type="hidden" name="command" value="GiveStyling">
 
-                                <div>
-                                    <h4>Cladding</h4>
-                                    <% for (StyleOption option : claddings) {%>
-                                    <label>
-                                        <div class="card">
-                                            <label>
-                                                <blockquote>
-                                                    <p><%= option.getName()%></p>
-                                                </blockquote>
-                                                <div class="card-body">
-                                                    <% String divid = "div" + option.hashCode();%>
-                                                    <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                                    <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
-                                                </div>
-
-                                                <input type="radio" name="cladding" value="<%= option.getId()%>" <%
-                                                    if (option.equals(cladding)) {
-                                                        out.print("checked");
-                                                    }
-                                                       %>>
-                                                <a class="text-success"><%= option.getPrice() + " DKK/m"%> </a>
-
-                                            </label>
-
+                                <h4>Cladding</h4>
+                                <% for (StyleOption option : claddings) {%>
+                                <label>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div>
+                                                <a class="text-body" href="#" data-toggle="popover" title="<%= option.getName()%>" data-content="<%= option.getDescription()%>" style="text-decoration: none"><%= option.getName() + " &#9432"%> </a>
+                                            </div>
                                         </div>
-                                    </label>
-                                    <%}%>
-                                </div>
-                                <div>
-                                    <h4>Tiles</h4>
-                                    <% for (StyleOption option : tiles) {%>
-                                    <label>
-                                        <div class="card">
-                                            <label>
-                                                <blockquote>
-                                                    <p><%= option.getName()%></p>
-                                                </blockquote>
-                                                <div class="card-body">
-                                                    <% String divid = "div" + option.hashCode();%>
-                                                    <a class="text-muted" onclick="soren('<%=divid%>')">Get Description</a>
-                                                    <div id="<%= divid%>" style="display: none"><%= option.getDescription()%></div>
-                                                </div>
-
-                                                <input type="radio" name="tile" value="<%= option.getId()%>" <%
-                                                    if (option.equals(tile)) {
-                                                        out.print("checked");
-                                                    }
-                                                       %>>
-                                                <a class="text-success"><%= option.getPrice() + " DKK/tile"%> </a>
-                                            </label>
-
+                                        <div class="card-footer">
+                                            <input type="radio" name="cladding" value="<%= option.getId()%>" <%
+                                                if (option.equals(cladding)) {
+                                                    out.print("checked");
+                                                }
+                                                   %>>
+                                            <a class="text-body"><%= option.getPrice() + " DKK/m"%> </a>
                                         </div>
-                                    </label>
-                                    <%}%>
-                                </div>
+                                    </div>
+                                </label>
+                                <%}%>
+                                <br>
 
+                                <h4>Tiles</h4>
+                                <% for (StyleOption option : tiles) {%>
+                                <label>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div>
+                                                <a class="text-body" href="#" data-toggle="popover" title="<%= option.getName()%>" data-content="<%= option.getDescription()%>" style="text-decoration: none"><%= option.getName() + " &#9432"%> </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <input type="radio" name="tile" value="<%= option.getId()%>" <%
+                                                if (option.equals(tile)) {
+                                                    out.print("checked");
+                                                }
+                                                   %>>
+                                            <a class="text-body"><%= option.getPrice() + " DKK/tile"%> </a>
+                                        </div>
+                                    </div>
+                                </label>
+                                <%}%>
+                            </div>
 
-                            </div>
-                            <div class="card-footer">
-                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
-                                <input type="submit" name="submit" class="btn btn-white" value="Back">
-                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
-                            </div>
-                        </form>
 
                     </div>
+                    <div class="card-footer">
+                        <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                        <input type="submit" name="submit" class="btn btn-white" value="Back">
+                        <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
+                    </div>
+                    </form>
                 </div>
                 <% if (order != null) {%>
                 <div class="col-lg-6">

@@ -1,3 +1,5 @@
+<%@page import="FunctionLayer.LogicFacade"%>
+<%@page import="FunctionLayer.calculator.Calculator"%>
 <%@page import="java.util.List"%>
 <%@page import="FunctionLayer.entities.StyleOption"%>
 <%@page import="FunctionLayer.entities.Customer"%>
@@ -135,6 +137,11 @@
                         </div>
                         <div class="col-lg-3">
                             <h3>Price</h3>
+                            <p class="text-warning">Price Of Products: <%
+                                Calculator calc = LogicFacade.getCalculator(order);
+                                calc.calculate();
+                                out.print(calc.totalPrice());
+                                %> DKK</p>
                             <label class="control-label">Total Price</label>
                             <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK">
                         </div>

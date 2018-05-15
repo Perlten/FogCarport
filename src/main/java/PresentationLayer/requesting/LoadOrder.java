@@ -10,6 +10,7 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,11 @@ public class LoadOrder extends Command {
             //setting events
             List<Event> events = LogicFacade.getOrderEvent(orderid);
             request.getSession().setAttribute("orderEvents", events);
+            
+            //setting allowed
+            HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+            allowed.put("Confirm", true);
+            allowed.put("Dimentions", false);
 
         } catch (Exception e) {
             throw new FOGException("Not a valid order!");

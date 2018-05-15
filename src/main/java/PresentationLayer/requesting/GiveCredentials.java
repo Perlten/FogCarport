@@ -9,6 +9,7 @@ import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,6 +37,10 @@ public class GiveCredentials extends Command {
 
             Customer customer = new Customer(firstName, lastName, email, phoneNumber);
             order.setCustomer(customer);
+            
+            //setting allowed
+            HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+            allowed.put("Confirm", true);
 
         } catch (Exception e) {
             throw new FOGException("Failed to add contact information!");

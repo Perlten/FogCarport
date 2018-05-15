@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%
     HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) session.getAttribute("allowed");
+    String active = request.getServletPath();
 
     if (allowed == null) {
         allowed = new HashMap<>();
@@ -17,35 +18,43 @@
 <ul class="nav nav-tabs">
 
     <li class="nav-item">
-        <% if (allowed.getOrDefault("Dimentions",true)) { %>
-        <a class="nav-link active" href="FrontController?command=GiveDimentionsPage">Dimentions</a>
+        <% if (allowed.getOrDefault("Dimentions", true)) {%>
+        <a class="nav-link <% if (active.equals("/index.jsp")) {
+                out.print("active");
+            } %>" href="FrontController?command=GiveDimentionsPage">Dimentions</a>
         <%} else {%>
-        <a class="nav-link disabled" href="">Dimentions</a>
+        <a class="nav-link disabled" href="#">Dimentions</a>
         <%}%>
     </li>
 
 
     <li class="nav-item">
-        <% if (allowed.getOrDefault("Styling",false)) { %>
-        <a class="nav-link" href="FrontController?command=Styling">Styling</a>
+        <% if (allowed.getOrDefault("Styling", false)) {%>
+        <a class="nav-link <% if (active.equals("/WEB-INF/styling.jsp")) {
+                out.print("active");
+            } %>" href="FrontController?command=Styling">Styling</a>
         <%} else {%>
-        <a class="nav-link disabled" href="">Styling</a>
+        <a class="nav-link disabled" href="#">Styling</a>
         <%}%>
     </li>
 
     <li class="nav-item">
-        <% if (allowed.getOrDefault("Credentials",false)) { %>
-        <a class="nav-link" href="FrontController?command=GiveCredentialsPage">Credentials</a>
+        <% if (allowed.getOrDefault("Credentials", false)) {%>
+        <a class="nav-link <% if (active.equals("/WEB-INF/credentialsPage.jsp")) {
+                out.print("active");
+            } %>" href="FrontController?command=GiveCredentialsPage">Credentials</a>
         <%} else {%>
-        <a class="nav-link disabled" href="">Credentials</a>
+        <a class="nav-link disabled" href="#">Credentials</a>
         <%}%>
     </li>
 
     <li class="nav-item">
-        <% if (allowed.getOrDefault("Confirm",false)) { %>
-        <a class="nav-link disabled" href="FrontController?command=LoadOrder">Confirm</a>
+        <% if (allowed.getOrDefault("Confirm", false)) {%>
+        <a class="nav-link <% if (active.equals("/WEB-INF/confirm.jsp")) {
+                out.print("active");
+            } %>" href="FrontController?command=LoadOrder">Confirm</a>
         <%} else {%>
-        <a class="nav-link disabled" href="">Confirm</a>
+        <a class="nav-link disabled" href="#">Confirm</a>
         <%}%>
     </li>
 

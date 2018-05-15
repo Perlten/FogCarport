@@ -16,8 +16,10 @@ import FunctionLayer.entities.Shed;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
 import PresentationLayer.Helper;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Used to submit the dimentions from indexpage.
@@ -82,9 +84,19 @@ public class GiveDimentions extends Command {
         order.setPrice(calc.totalPrice());
 
         //setting session objects
-        request.getSession().setAttribute("order", order);
+        HttpSession session = request.getSession();
+
+        session.setAttribute("order", order);
+
+        //setting allowed
+        HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+        allowed.put("Dimentions", true);
+        allowed.put("Styling", true);
+        allowed.put("Confirm", false);
+
 
         if (submit.equals("Update")) {
+            session.setAttribute("active", "Styling");
             return "index";
         }
         return new Styling().execute(request, response);

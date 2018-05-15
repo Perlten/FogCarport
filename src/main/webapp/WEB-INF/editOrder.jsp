@@ -41,10 +41,10 @@
         %>
         <div class="container-fluid">
             <div class="row">
-                <div class="card">
-                    <form action="FrontController" method="post">
+                <form action="FrontController" method="post">
+                    <div>
                         <div class="col-lg-3">
-                            <h1>Edit Dimensions</h1>
+                            <h3>Edit Dimensions</h3>
                             <div class="form-group">
                                 <input type="hidden" name="command" value="EditOrder">
                                 <label class="control-label">Length</label>
@@ -68,11 +68,11 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2">
-                            <h1>Edit Style</h1>
-                            <h2>Cladding</h2>
+                        <div class="col-lg-3">
+                            <h3>Edit Style</h3>
+                            <h4>Cladding</h4>
                             <div class="form-group">
-                                <select name="cladding">
+                                <select name="cladding" class="form-control">
                                     <%if (order.getCustomization().getCladding() == null) {%>
                                     <option value="" selected/>
                                     <%}%>
@@ -90,9 +90,9 @@
                                     %>
                                 </select>
                             </div>
-                            <h2>Tile</h2>
+                            <h4>Tile</h4>
                             <div class="form-group">
-                                <select name="tile">
+                                <select name="tile" class="form-control">
                                     <%if (order.getCustomization().getTile() == null) {%>
                                     <option value="" selected/>
                                     <%}%>
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <h1>Edit User</h1>
+                            <h3>Edit User</h3>
                             <div class="form-group"> 
                                 <label class="control-label">First Name</label>
                                 <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstname()%>">
@@ -131,12 +131,21 @@
                                 <label class="control-label">Phone Number</label>
                                 <input type="number" class="form-control" name="phoneNumber" value="<%= customer.getPhonenumber()%>">
                             </div>	
-                            <div class="form-group"> 
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </div>     
+
                         </div>
-                    </form>
-                </div>
+                        <div class="col-lg-3">
+                            <h3>Price</h3>
+                            <label class="control-label">Total Price</label>
+                            <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK">
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"> 
+                            <button type="submit" class="btn btn-primary">Edit Order</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </body>

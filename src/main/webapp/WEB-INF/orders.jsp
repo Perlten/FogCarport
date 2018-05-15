@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.calculator.Calculator"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="FunctionLayer.entities.Customer"%>
 <%@page import="java.util.List"%>
@@ -60,45 +61,80 @@
                         }
                 %>
                 <div class="col-lg-6">
-                    <div class="card-header <%= card%>">
-                        <div>
-                            <h3>Contents of Order </h3>
-                        </div>
-                    </div>
                     <div class="card">
-                        <table class="table table">
-                            <thead>
-                            <th>Id number</th>
-                            <th>Length</th>
-                            <th>Width</th>
-                            <th>Height</th>
-                            <th>Roof angle</th>
-                            <th>Shed Length</th>
-                            <th>Shed width</th>
-                            </thead>
-                            <%
-                                int shedLength = 0;
-                                int shedWidth = 0;
+                        <div class="card-header <%= card%>">
+                            <div>
+                                <h3>Contents of Order </h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table">
+                                <thead>
+                                <th>Id number</th>
+                                <th>Length</th>
+                                <th>Width</th>
+                                <th>Height</th>
+                                <th>Roof angle</th>
+                                <th>Shed Length</th>
+                                <th>Shed width</th>
+                                </thead>
+                                <%
+                                    int shedLength = 0;
+                                    int shedWidth = 0;
 
-                                if (selectedOrder.getCustomization().getShed() != null) {
-                                    shedLength = selectedOrder.getCustomization().getShed().getLength();
-                                    shedWidth = selectedOrder.getCustomization().getShed().getWidth();
-                                }
+                                    if (selectedOrder.getCustomization().getShed() != null) {
+                                        shedLength = selectedOrder.getCustomization().getShed().getLength();
+                                        shedWidth = selectedOrder.getCustomization().getShed().getWidth();
+                                    }
+                                %>
+                                <tbody>
+                                    <tr>
+                                        <td> <%= selectedOrder.getOrderid()%> </td>
+                                        <td> <%= selectedOrder.getCustomization().getLength()%> </td>
+                                        <td> <%= selectedOrder.getCustomization().getWidth()%> </td>
+                                        <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
+                                        <td> <%= selectedOrder.getCustomization().getRoofangle()%> </td>
+                                        <td> <%= shedLength%> </td>
+                                        <td> <%= shedWidth%> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="height: 300px; width: 50%; margin: auto; ">
+                                <%@include file="../SVGDraw.jsp" %>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <h4>Price</h4>
+                            <% Calculator calc = LogicFacade.getCalculator(selectedOrder);
+                                calc.calculate();
+
+                                double productPrice = calc.totalPrice();
+                                double price = selectedOrder.getPrice();
+                                double diff = price - productPrice;
                             %>
-                            <tbody>
-                                <tr>
-                                    <td> <%= selectedOrder.getOrderid()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getLength()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getWidth()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getHeight()%> </td>
-                                    <td> <%= selectedOrder.getCustomization().getRoofangle()%> </td>
-                                    <td> <%= shedLength%> </td>
-                                    <td> <%= shedWidth%> </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div style="height: 300px; width: 50%; margin: auto; ">
-                            <%@include file="../SVGDraw.jsp" %>
+                            <table class="table" style="width: 100%">
+                                <tbody>
+                                    <tr class="text-primary">
+                                        <td><p >Total Product Price</p></td>
+                                        <td><p style="float: right"><%= productPrice%> DKK</p></td>
+                                    </tr>
+                                    <tr class="text-secondary">
+                                                <td><p>
+                                            <% if(diff < 0) {
+                                                out.print("-");
+                                            } else{
+                                                out.print("+");
+                                            }%>
+                                            </p></td>
+                                                <td><p style="float: right"><%= Math.abs(diff)%> DKK</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th><p>Total price</p></th>
+                                        <th><p style="float:right"><%= price %> DKK</p></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="color: green"> </p>
                         </div>
                     </div>
                     <% if (!selectedOrder.isConfirmed()) {%>

@@ -75,15 +75,9 @@ public class GiveDimentions extends Command {
             Order order = new Order(sessionCustomer, customization);
 
             //Estimating price
-            Calculator calc = new Calculator(order);
+            Calculator calc = LogicFacade.getCalculator(order);
             calc.calculate();
-            double estPrice = 0;
-            for(Product prod : calc.getProducts()){
-                Product product = LogicFacade.getProduct(prod.getId());
-                product.setAmount(prod.getAmount());
-                estPrice += product.totalPrice();
-            }
-            order.setPrice(estPrice);
+            order.setPrice(calc.totalPrice());
             
             //setting session objects
             request.getSession().setAttribute("order", order);

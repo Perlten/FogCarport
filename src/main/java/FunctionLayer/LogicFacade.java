@@ -5,6 +5,7 @@ import DBAccess.EventMapper;
 import DBAccess.StyleMapper;
 import DBAccess.OrderMapper;
 import DBAccess.ProductMapper;
+import FunctionLayer.calculator.Calculator;
 import FunctionLayer.calculator.Product;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
@@ -320,5 +321,8 @@ public class LogicFacade {
         return new ProductMapper().getProduct(id);
     }
     
+    public static Calculator getCalculator(Order order){
+        return new Calculator(order);
+    }
     
 }

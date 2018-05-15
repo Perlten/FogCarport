@@ -6,6 +6,7 @@
 package FunctionLayer.calculator;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
@@ -26,7 +27,7 @@ public class Calculator {
     private final int rafterWoodLength = 600; //TODO make db
     private final int lathLength = 540; //TODO make db
     private final int tileWidth = 600;
-    
+
     private final double width;
     private double maxShedWidth;
     private double poleDistanceWidth;
@@ -49,6 +50,16 @@ public class Calculator {
             calculateCladding();
 
         }
+    }
+
+    public double totalPrice() throws FOGException {
+        double estPrice = 0.0;
+        for (Product prod : products) {
+            Product product = LogicFacade.getProduct(prod.getId());
+            product.setAmount(prod.getAmount());
+            estPrice += product.totalPrice();
+        }
+        return estPrice;
     }
 
     public List<Product> getProducts() {
@@ -140,28 +151,26 @@ public class Calculator {
             products.add(new Product(7, lanes, remainder));
         }
     }
-    
-    private void roof(){
+
+    private void roof() {
         double currentWidth = 0.0;
         int amount = 0;
-        
-        while(currentWidth != width){
-            
-            if((currentWidth + tileWidth) < width){
+
+        while (currentWidth != width) {
+
+            if ((currentWidth + tileWidth) < width) {
                 amount++;
                 currentWidth += tileWidth;
-            }else{
+            } else {
                 double remainder = width - currentWidth;
                 currentWidth += remainder;
             }
         }
 
     }
-    
+
     public static void main(String[] args) throws FOGException {
-        
-        
+
     }
-    
 
 }

@@ -101,7 +101,7 @@ public class OrderMapper {
     public void changeOrder(Order order) throws FOGException {
         String sql = "UPDATE .order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
-                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
+                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ?, price = ? where idorder = ?";
         Customization customization = order.getCustomization();
         Customer customer = order.getCustomer();
         int shedLength = 0;
@@ -128,7 +128,9 @@ public class OrderMapper {
             ps.setInt(12, shedWidth);
             ps.setInt(13, customization.getTile().getId());
             ps.setInt(14, customization.getCladding().getId());
-            ps.setInt(15, order.getOrderid());
+            ps.setDouble(15, order.getPrice());
+            ps.setInt(16, order.getOrderid());
+
             ps.execute();
         } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());

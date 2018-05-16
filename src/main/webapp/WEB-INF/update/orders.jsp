@@ -12,7 +12,7 @@
         <title>Customer Orders</title>
         <%--<%@include file="../bootstrap.jsp" %>--%>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
         <%
@@ -39,12 +39,11 @@
                         document.getElementById("orders").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("post", "showordersJS.jsp?num=" + num, true);
+                xhttp.open("post", "includeOrdersAjax.jsp?num=" + num, true);
                 xhttp.send();
             }
         </script>
-
-        <%@include file="../employeesNavBar.jsp"%>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
             <h1>Customer Orders</h1>
             <div class="row">
@@ -69,7 +68,7 @@
                         <div class="card-body">
                             <table class="table table">
                                 <thead>
-                                <th>Id number</th>
+                                <th>ID</th>
                                 <th>Length</th>
                                 <th>Width</th>
                                 <th>Height</th>
@@ -99,7 +98,7 @@
                                 </tbody>
                             </table>
                             <div style="height: 300px; width: 50%; margin: auto; ">
-                                <%@include file="../SVGDraw.jsp" %>
+                                <%@include file="../include/includeSVG.jsp" %>
                             </div>
                         </div>
                         <div class="card-footer">

@@ -6,7 +6,7 @@ import PresentationLayer.orders.EditOrderPage;
 import PresentationLayer.orders.EditOrder;
 import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.ConfirmOrder;
-import PresentationLayer.orders.GetOrders;
+import PresentationLayer.orders.GetOrdersPage;
 import FunctionLayer.FOGException;
 import PresentationLayer.orders.PickingList;
 import PresentationLayer.editEmployee.CreateNewEmployee;
@@ -19,19 +19,20 @@ import PresentationLayer.editEmployee.ResetPassword;
 import PresentationLayer.login.SendNewPassword;
 import PresentationLayer.editEmployee.UpdateEmployee;
 import PresentationLayer.editEmployee.UpdateStaff;
+import PresentationLayer.login.ForgotPasswordPage;
 import PresentationLayer.orders.Unconfirm;
 import PresentationLayer.orders.style.CreateStyle;
 import PresentationLayer.orders.style.CreateStylePage;
 import PresentationLayer.orders.style.DeleteStyle;
 import PresentationLayer.orders.style.UpdateStyle;
 import PresentationLayer.orders.style.GetStyle;
-import PresentationLayer.orders.style.updateStylePage;
+import PresentationLayer.orders.style.UpdateStylePage;
 import PresentationLayer.requesting.GiveCredentials;
 import PresentationLayer.requesting.GiveDimentions;
 import PresentationLayer.requesting.GiveDimentionsPage;
 import PresentationLayer.requesting.GiveStyling;
 import PresentationLayer.requesting.LoadOrder;
-import PresentationLayer.requesting.Styling;
+import PresentationLayer.requesting.StylingPage;
 import PresentationLayer.requesting.SubmitOrder;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -43,15 +44,15 @@ public abstract class Command {
 
     private static void initCommands() {
         commands = new HashMap<>();
-        commands.put("GetOrders", new GetOrders());
+        commands.put("GetOrders", new GetOrdersPage());
         commands.put("ShowOrder", new ShowOrder());
         commands.put("ConfirmOrder", new ConfirmOrder());
         commands.put("DeleteOrder", new DeleteOrder());
         commands.put("EditOrderPage", new EditOrderPage());
         commands.put("EditOrder", new EditOrder());
-        commands.put("UpdateStylePage", new updateStylePage());
+        commands.put("UpdateStylePage", new UpdateStylePage());
         commands.put("GiveDimentions", new GiveDimentions());
-        commands.put("Styling", new Styling());
+        commands.put("Styling", new StylingPage());
         commands.put("GetStyle", new GetStyle());
         commands.put("UpdateStyle", new UpdateStyle());
         commands.put("CreateStylePage", new CreateStylePage());
@@ -75,6 +76,7 @@ public abstract class Command {
         commands.put("NewPassword", new NewPassword());
         commands.put("CreateNewEmployee", new CreateNewEmployee());
         commands.put("PickingList", new PickingList());
+        commands.put("ForgotPassword", new ForgotPasswordPage());
     }
 
     static Command from( HttpServletRequest request ) {

@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
     <title>Picking List</title>
 </head>
 <body>

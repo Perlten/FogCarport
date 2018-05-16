@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Confirm Request</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <% Order orderConfirm = (Order) session.getAttribute("order");
             if (orderConfirm == null) {
                 orderConfirm = (Order) session.getAttribute("confirmedOrder");
@@ -23,7 +23,7 @@
 
     </head>
     <body>
-        <%@include file="../customerNavBar.jsp" %>
+        <%@include file="../include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
             <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
             <div class="row">
@@ -72,7 +72,7 @@
                 <%}%>
 
                 <div class="col-lg-6">
-                    <%@include file="overview.jsp" %>
+                    <%@include file="../include/includeOverview.jsp" %>
                 </div>
 
             </div>

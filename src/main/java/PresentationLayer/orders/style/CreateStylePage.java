@@ -19,7 +19,7 @@ public class CreateStylePage extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         
-        return "WEB-INF/createStylePage";
+        return "WEB-INF/update/createStyle";
     }
     
 }

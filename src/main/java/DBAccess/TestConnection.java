@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author Perlt
  */
 public class TestConnection implements Connector{
-     private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog_test?autoReconnect=true&serverTimezone=CET&useSSL=false&allowMultiQueries=true";
+     private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog_test?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowMultiQueries=true";
     private static final String USERNAME = "perltadmin";
     private static final String PASSWORD = "#15PepsiMax";
 

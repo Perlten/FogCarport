@@ -40,7 +40,7 @@ public class CreateStyle extends Command {
         Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 11));
 
-        return new updateStylePage().execute(request, response);
+        return new UpdateStylePage().execute(request, response);
     }
 
 }

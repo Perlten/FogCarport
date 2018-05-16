@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="../include/includeBootstrap.jsp" %>
         <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%
             List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");
@@ -21,7 +21,7 @@
         %>
     </head>
     <body>
-        <%@include file="../employeesNavBar.jsp"%>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
         <h1>Update Styleing</h1>
 

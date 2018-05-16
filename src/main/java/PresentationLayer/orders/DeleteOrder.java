@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrders;
+import PresentationLayer.orders.GetOrdersPage;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Employee;
@@ -29,7 +29,7 @@ public class DeleteOrder extends Command {
         LogicFacade.writeOrderEmployeeEvent(new Event(emp, 3, orderId));
         
         LogicFacade.removeOrder(orderId);
-        return new GetOrders().execute(request, response);
+        return new GetOrdersPage().execute(request, response);
     }
 
 }

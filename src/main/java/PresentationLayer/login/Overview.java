@@ -28,7 +28,7 @@ public class Overview extends Command {
         request.setAttribute("10UnconfirmedOrders", LogicFacade.getLatest10UnconfirmedOrders());
         request.setAttribute("eventList", LogicFacade.getEmployeeEvent(emp.getEmployeeId(), 10));
         
-        return "WEB-INF/EmployeeFrontpage";
+        return "WEB-INF/employeeFrontpage";
     }
 
 }

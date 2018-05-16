@@ -10,10 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit order</title>
-        <!--TODO: Convert to bootstrap 4.-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <%@include file="../include/includeBootstrap.jsp" %>
         <style>
             select{
                 color: darkblue;
@@ -23,7 +20,7 @@
         </style>
     </head>
     <body>
-        <%@include file="../employeesNavBar.jsp"%>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <%
             Order order = (Order) request.getAttribute("order");
             List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");
@@ -44,7 +41,6 @@
         <div class="container-fluid">
             <div class="row">
                 <form action="FrontController" method="post">
-                    <div>
                         <div class="col-lg-3">
                             <h3>Edit Dimensions</h3>
                             <div class="form-group">
@@ -146,7 +142,6 @@
                             <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK">
                         </div>
 
-                    </div>
                     <div class="col-lg-12">
                         <div class="form-group"> 
                             <button type="submit" class="btn btn-primary">Edit Order</button>

@@ -37,7 +37,7 @@ public class FrontController extends HttpServlet {
             request.getRequestDispatcher(view + ".jsp" ).forward( request, response );
         } catch ( FOGException ex ) {
             request.setAttribute( "error", ex.getMessage() );
-            request.getRequestDispatcher( "/WEB-INF/errorPage.jsp" ).forward( request, response );
+            request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
         }
     }
 

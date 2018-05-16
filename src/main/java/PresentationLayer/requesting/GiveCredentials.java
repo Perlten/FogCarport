@@ -26,7 +26,7 @@ public class GiveCredentials extends Command {
         try {
             submit = request.getParameter("submit");
             if (submit.equals("Back")) {
-                return new Styling().execute(request, response);
+                return new StylingPage().execute(request, response);
             }
             Order order = (Order) request.getSession().getAttribute("order");
 
@@ -50,7 +50,7 @@ public class GiveCredentials extends Command {
 
         }
 
-        return "WEB-INF/confirm";
+        return "WEB-INF/requesting/confirm";
     }
 
 }

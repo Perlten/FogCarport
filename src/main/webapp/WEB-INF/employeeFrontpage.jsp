@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overview</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
     </head>
     <body>
         <%
@@ -20,7 +20,7 @@
             List<Event> eventList = (List<Event>) request.getAttribute("eventList");
 
         %>  
-        <%@include file="../employeesNavBar.jsp" %>
+        <%@include file="include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
             <h1>Welcome <%= emp.getFirstname() + " " + emp.getLastname()%></h1>
 

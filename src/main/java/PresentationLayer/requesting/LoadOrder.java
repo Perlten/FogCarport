@@ -36,7 +36,7 @@ public class LoadOrder extends Command {
             } else if (request.getParameter("id") != null) {
                 orderid = Integer.parseInt(request.getParameter("id"));
             } else {
-                return "WEB-INF/confirm";
+                return "WEB-INF/requesting/confirm";
             }
 
             order = LogicFacade.getOrder(orderid);
@@ -54,7 +54,7 @@ public class LoadOrder extends Command {
         } catch (Exception e) {
             throw new FOGException("Not a valid order!");
         }
-        return "WEB-INF/confirm";
+        return "WEB-INF/requesting/confirm";
     }
 
 }

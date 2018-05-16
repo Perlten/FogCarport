@@ -5,7 +5,7 @@
  */
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrders;
+import PresentationLayer.orders.GetOrdersPage;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Order;
@@ -25,6 +25,6 @@ public class ShowOrder extends Command {
         int orderid = Integer.parseInt(request.getParameter("orderId"));
         Order order = LogicFacade.getOrder(orderid);
         request.setAttribute("order", order);
-        return new GetOrders().execute(request, response);
+        return new GetOrdersPage().execute(request, response);
     }
 }

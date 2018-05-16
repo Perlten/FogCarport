@@ -3,28 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer.editEmployee;
+package PresentationLayer.login;
 
 import FunctionLayer.FOGException;
-import FunctionLayer.LogicFacade;
-import FunctionLayer.entities.Employee;
 import PresentationLayer.Command;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Perlt
+ * @author adamlass
  */
-public class UpdateStaff extends Command {
+public class ForgotPasswordPage extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        
-        request.setAttribute("empList", LogicFacade.getAllEmployees());
-        
-        return "WEB-INF/update/updateStaff";
+        return "WEB-INF/employeeLogin/forgotPassword";
     }
     
 }

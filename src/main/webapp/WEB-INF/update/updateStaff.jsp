@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Staff</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
         <%
@@ -19,7 +19,7 @@
             Employee selectedEmployee = (Employee) request.getAttribute("selectedEmployee");
             String newEmployee = request.getParameter("newEmployee");
         %>
-        <%@include file="../employeesNavBar.jsp" %>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">

@@ -24,7 +24,7 @@ public class PickingList extends Command {
         int orderId = Integer.parseInt(request.getParameter("orderPicking"));
         List<Product> products = LogicFacade.orderProducts(orderId);
         request.setAttribute("pickingList", products);
-        return "WEB-INF/pickingListPage";
+        return "WEB-INF/pickingList";
     }
 
 }

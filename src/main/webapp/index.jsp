@@ -13,7 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customize Carport - Enter Dimentions</title>
-        <%@include file="bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
+
         <% Order order = (Order) session.getAttribute("order");
 
             Customization cust = null;
@@ -44,7 +45,7 @@
         %>
     </head>
     <body>
-        <%@include file="customerNavBar.jsp" %>
+        <%@include file="WEB-INF/include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
@@ -135,7 +136,7 @@
                 </div>
                 <% if (order != null) {%>
                 <div class="col-lg-6">
-                    <%@include file="WEB-INF/overview.jsp" %>
+                    <%@include file="WEB-INF/include/includeOverview.jsp" %>
                 </div>       
                 <%}%>
             </div>

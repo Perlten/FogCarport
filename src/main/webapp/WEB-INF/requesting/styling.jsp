@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Styling</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
 
         <% List<StyleOption> claddings = (List<StyleOption>) request.getAttribute("claddings");
             List<StyleOption> tiles = (List<StyleOption>) request.getAttribute("tiles");
@@ -31,7 +31,7 @@
         %>
     </head>
     <body>
-        <%@include file="../customerNavBar.jsp" %>
+        <%@include file="../include/includeCustomerNav.jsp" %>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="popover"]').popover();
@@ -105,7 +105,7 @@
                 </div>
                 <% if (order != null) {%>
                 <div class="col-lg-6">
-                    <%@include file="overview.jsp" %>
+                    <%@include file="../include/includeOverview.jsp" %>
                 </div>       
                 <%}%>
             </div>

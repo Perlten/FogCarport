@@ -53,10 +53,10 @@ public class GiveStyling extends Command {
         }
 
         if (submit.equals("Update")) {
-            return new Styling().execute(request, response);
+            return new StylingPage().execute(request, response);
         }
 
-        return "WEB-INF/credentialsPage";
+        return "WEB-INF/requesting/credentials";
     }
 
 }

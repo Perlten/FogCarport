@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class GetOrders extends Command {
+public class GetOrdersPage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        return "WEB-INF/orders";
+        return "WEB-INF/update/orders";
     }
 
 }

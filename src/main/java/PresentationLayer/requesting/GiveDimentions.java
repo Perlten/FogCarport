@@ -99,7 +99,7 @@ public class GiveDimentions extends Command {
             session.setAttribute("active", "Styling");
             return "index";
         }
-        return new Styling().execute(request, response);
+        return new StylingPage().execute(request, response);
     }
 
 }

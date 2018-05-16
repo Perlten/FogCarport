@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New Password</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <link href="../css/EmployeeLogin.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>

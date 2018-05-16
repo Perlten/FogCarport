@@ -4,10 +4,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="../bootstrap.jsp" %>
-        <link href="css/EmployeeLogin.css" rel="stylesheet" type="text/css"/>
+        <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
+        <style>
+            .loginStyle{
+                margin: auto;
+                width: 25%;
+                border: 3px solid black;
+                padding: 10px;
+                text-align: center;
+            }
+        </style>
         <div class="loginStyle">
             <form action="FrontController" method="post">
                 <h1>Login</h1>
@@ -17,7 +25,7 @@
                     <input type="text" class="form-control" name="email" placeholder="email">
                     <br>
                     <button type="submit" class="btn btn-primary">Recover password</button>
-                    <h3>An email will be sent with your new password</h3>
+                    <h5>An email will be sent with your new password</h5>
                 </div>
             </form>
         </div>

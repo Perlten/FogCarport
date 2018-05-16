@@ -4,10 +4,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
-        <%@include file="../employeesNavBar.jsp"%>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
             <%
                 String type = request.getParameter("type");

@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Contact Info</title>
-        <%@include file="../bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <%
 
             Order orderSelected = (Order) session.getAttribute("order");
@@ -32,7 +32,7 @@
         %>
     </head>
     <body>
-        <%@include file="../customerNavBar.jsp" %>
+        <%@include file="../include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <%@include file="overview.jsp" %>
+                    <%@include file="../include/includeOverview.jsp" %>
                 </div>
             </div>
         </div>

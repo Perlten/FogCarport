@@ -30,6 +30,6 @@ public class EditOrderPage extends Command {
         request.setAttribute("claddingList", claddingList);
         request.setAttribute("tileList", tileList);
         request.setAttribute("order", order);
-        return "WEB-INF/editOrder";
+        return "WEB-INF/update/editOrder";
     }
 }

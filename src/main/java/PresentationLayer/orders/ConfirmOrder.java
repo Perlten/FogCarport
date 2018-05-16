@@ -1,6 +1,6 @@
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrders;
+import PresentationLayer.orders.GetOrdersPage;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Employee;

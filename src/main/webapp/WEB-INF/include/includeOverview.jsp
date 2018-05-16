@@ -39,7 +39,7 @@
     </div>
     <div class="card-body">
         <div style="height: 350px; width: 95%; margin: auto">
-            <%@include file="../SVGDraw.jsp" %>
+            <%@include file="includeSVG.jsp" %>
         </div>
 
         <div>

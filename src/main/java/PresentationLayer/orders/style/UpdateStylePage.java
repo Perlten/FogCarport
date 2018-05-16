@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer.requesting;
+package PresentationLayer.orders.style;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
@@ -15,22 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author adamlass
+ * @author Perlt
  */
-public class Styling extends Command {
+public class UpdateStylePage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
-            List<StyleOption> claddings = LogicFacade.getCladdingList();
-            request.setAttribute("claddings", claddings);
-            List<StyleOption> tiles = LogicFacade.getTileList() ;
-            request.setAttribute("tiles", tiles);
-        } catch (Exception e) {
-            throw new FOGException("StyleOptions could not load!");
-        }
-        return "WEB-INF/styling";
 
+        List<StyleOption> claddingList = LogicFacade.getCladdingList();
+        List<StyleOption> tileList = LogicFacade.getTileList();
+
+        request.setAttribute("claddingList", claddingList);
+        request.setAttribute("tileList", tileList);
+
+        return "WEB-INF/update/updateStyle";
     }
 
 }

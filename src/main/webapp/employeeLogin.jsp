@@ -12,6 +12,7 @@
         <title>Login</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <%@include file="css/employeeLogin.jsp" %>
+        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
     </head>
     <body>
         <div class="container-fluid">

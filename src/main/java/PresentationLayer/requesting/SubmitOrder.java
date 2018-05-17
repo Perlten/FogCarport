@@ -32,12 +32,13 @@ public class SubmitOrder extends Command {
         Calculator calc = new Calculator(order);
         calc.calculate();
         LogicFacade.writeLines(calc.getProducts(), order.getOrderid());
+        
+        LogicFacade.sendEmailToCustomer(order);
+        LogicFacade.emailToAllEmployeeWithNewOrder(order.getOrderid());
 
         order.setOrdered(true);
         session.setAttribute("order", null);
         request.setAttribute("confirmedId", order.getOrderid());
-        LogicFacade.sendEmailToCustomer(order);
-        LogicFacade.emailToAllEmployeeWithNewOrder(order.getOrderid());
 
         //event
         LogicFacade.writeOrderEvent(new Event(1, order.getOrderid()));

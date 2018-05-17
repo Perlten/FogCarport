@@ -38,3 +38,5 @@
     <li><a href="FrontController?command=UpdateStaff" style="width: 100%">Update staff</a></li>
         <%}%>
 </ul>
+
+        <%@include file="includeErrorBanner.jsp" %>

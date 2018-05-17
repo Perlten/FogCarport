@@ -12,6 +12,7 @@
         <title>Customer Orders</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
+    <%@include file="../include/includeEmployeeNav.jsp"%>
     <body>
         <%
             Order selectedOrder = (Order) request.getAttribute("order");
@@ -41,7 +42,7 @@
                 xhttp.send();
             }
         </script>
-        <%@include file="../include/includeEmployeeNav.jsp"%>
+
         <div class="container-fluid">
             <h1>Customer Orders</h1>
             <div class="row">

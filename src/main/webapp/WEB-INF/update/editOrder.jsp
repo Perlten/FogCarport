@@ -1,5 +1,5 @@
+<%@page import="FunctionLayer.Calculator"%>
 <%@page import="FunctionLayer.LogicFacade"%>
-<%@page import="FunctionLayer.calculator.Calculator"%>
 <%@page import="java.util.List"%>
 <%@page import="FunctionLayer.entities.StyleOption"%>
 <%@page import="FunctionLayer.entities.Customer"%>

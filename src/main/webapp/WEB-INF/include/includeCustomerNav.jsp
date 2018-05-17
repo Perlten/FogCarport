@@ -67,6 +67,6 @@
 
 
 </ul>
-<br>
-
-<%@include file="includeErrorBanner.jsp" %>
+    <br>
+        <%@include file="includeErrorBanner.jsp" %>
+  

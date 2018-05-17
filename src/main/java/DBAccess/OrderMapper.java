@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -72,8 +70,8 @@ public class OrderMapper {
 
             return list;
 
-        } catch (FOGException | SQLException e) {
-            throw new FOGException("Cant get orders");
+        } catch (SQLException e) {
+            throw new FOGException(e.getMessage());
         }
     }
 
@@ -89,7 +87,7 @@ public class OrderMapper {
             ResultSet res = ps.executeQuery();
             return customerConverter(res);
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException("Could not get order");
         }
     }
 
@@ -277,8 +275,19 @@ public class OrderMapper {
 
                 int tile = res.getInt("tile");
                 int cladding = res.getInt("cladding");
-                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
-                StyleOption tileStyle = LogicFacade.getTile(tile);
+                StyleMapper styleMapper = new StyleMapper(con);
+                List<StyleOption> claddingList = styleMapper.getCladding(cladding);
+                List<StyleOption> tileList = styleMapper.getTile(tile);
+                StyleOption tileStyle = null;
+                StyleOption claddingStyle = null;
+
+                if (!claddingList.isEmpty()) {
+                    claddingStyle = claddingList.get(0);
+                }
+                
+                if (!tileList.isEmpty()) {
+                    tileStyle = tileList.get(0);
+                }
 
                 Shed shedEntity = null;
                 if (shed) {

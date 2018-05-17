@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import DBAccess.DatabaseFacade;
 import DBAccess.EmployeeMapper;
 import DBAccess.EventMapper;
 import DBAccess.StyleMapper;
@@ -23,29 +24,29 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static List<Order> getOrders() throws FOGException {
-        return new OrderMapper().getOrders(-1);
+        return DatabaseFacade.getAllOrders();
     }
 
     public static List<Order> getCustomerList(int limit) throws FOGException {
-        return new OrderMapper().getOrderCustomerList(limit);
+        return DatabaseFacade.getCustomerList(limit);
     }
 
     /**
      * Returns a specific order.
      *
-     * @param orderid A valid id of an order.
+     * @param orderId A valid id of an order.
      * @return if valid input, the
      * @throws FOGException
      */
-    public static Order getOrder(int orderid) throws FOGException {
-        if (orderid < 0) {
-            throw new IllegalArgumentException("orderid can't be negative");
+    public static Order getOrder(int orderId) throws FOGException {
+        if (orderId < 0) {
+            throw new FOGException("orderid can't be negative");
         }
-        return new OrderMapper().getOrders(orderid).get(0);
+        return DatabaseFacade.getOrder(orderId);
     }
 
     public static void makeOrder(Order order) throws FOGException {
-        new OrderMapper().makeOrder(order);
+        DatabaseFacade.makeOrder(order);
     }
 
     /**
@@ -55,7 +56,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void confirmOrder(int orderId) throws FOGException {
-        new OrderMapper().confirmOrder(orderId);
+        DatabaseFacade.confirmOrder(orderId);
     }
 
     /**
@@ -65,7 +66,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void changeOrder(Order order) throws FOGException {
-        new OrderMapper().changeOrder(order);
+        DatabaseFacade.changeOrder(order);
     }
 
     /**
@@ -75,7 +76,7 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static void removeOrder(int orderId) throws FOGException {
-        new OrderMapper().removeOrder(orderId);
+        DatabaseFacade.removeOrder(orderId);
     }
 
     /**
@@ -83,7 +84,7 @@ public class LogicFacade {
      * @return @throws FOGException
      */
     public static List<StyleOption> getCladdingList() throws FOGException {
-        return new StyleMapper().getCladding(-1);
+        return DatabaseFacade.getCladdingList();
     }
 
     /**
@@ -91,7 +92,7 @@ public class LogicFacade {
      * @return @throws FOGException
      */
     public static List<StyleOption> getTileList() throws FOGException {
-        return new StyleMapper().getTile(-1);
+        return DatabaseFacade.getTileList();
     }
 
     /**
@@ -101,14 +102,11 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static StyleOption getCladding(int id) throws FOGException {
-        if (!new StyleMapper().getCladding(id).isEmpty()) {
-            return new StyleMapper().getCladding(id).get(0);
-        }
-        return null;
+        return DatabaseFacade.getCladding(id);
     }
 
     public static void unconfirmOrder(int id) throws FOGException {
-        new OrderMapper().unconfirmOrder(id);
+        DatabaseFacade.unconfirmOrder(id);
     }
 
     /**
@@ -118,34 +116,31 @@ public class LogicFacade {
      * @throws FOGException
      */
     public static StyleOption getTile(int id) throws FOGException {
-        if (!new StyleMapper().getTile(id).isEmpty()) {
-            return new StyleMapper().getTile(id).get(0);
-        }
-        return null;
+        return DatabaseFacade.getTile(id);
     }
 
     public static void updateCladding(StyleOption cladding, int id) throws FOGException {
-        new StyleMapper().updateCladding(cladding, id);
+        DatabaseFacade.updateCladding(cladding, id);
     }
 
     public static void updateTile(StyleOption tile, int id) throws FOGException {
-        new StyleMapper().updateTile(tile, id);
+        DatabaseFacade.updateTile(tile, id);
     }
 
     public static void createCladding(StyleOption cladding) throws FOGException {
-        new StyleMapper().createCladding(cladding);
+        DatabaseFacade.createCladding(cladding);
     }
 
     public static void createTile(StyleOption tile) throws FOGException {
-        new StyleMapper().createTile(tile);
+        DatabaseFacade.createTile(tile);
     }
 
     public static void removeCladding(int id) throws FOGException {
-        new StyleMapper().removeStyleOption(id, "cladding");
+        DatabaseFacade.removeCladding(id);
     }
 
     public static void removeTile(int id) throws FOGException {
-        new StyleMapper().removeStyleOption(id, "tile");
+        DatabaseFacade.removeTile(id);
     }
 
     public static void sendEmailToCustomer(Order order) throws FOGException {
@@ -162,22 +157,22 @@ public class LogicFacade {
     }
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
-        String salt = new EmployeeMapper().getSalt(username);
+        String salt = DatabaseFacade.getSalt(username);
         password = password.concat(salt);
         String hash = HashPassword(password);
-        return new EmployeeMapper().verfyLogin(username, hash);
+        return DatabaseFacade.verfyLogin(username, hash);
     }
 
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
-        Employee emp = new EmployeeMapper().getEmployeeByEmail(email);
+        Employee emp = DatabaseFacade.getEmployeeByEmail(email);
 
         String password = Hashing.randomString(20);
-        
+
         String salt = Hashing.randomString(10);
         String newPassword = password.concat(salt);
         String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().changePassword(emp.getEmployeeId(), hash, salt, true);
+        DatabaseFacade.resetPasswordAndSetResetTrue(emp.getEmployeeId(), hash, salt);
 
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
@@ -187,55 +182,55 @@ public class LogicFacade {
     }
 
     public static Employee getEmployeeByEmail(String email) throws FOGException {
-        return new EmployeeMapper().getEmployeeByEmail(email);
+        return DatabaseFacade.getEmployeeByEmail(email);
     }
 
     public static int numberOfConfirmedOrder() throws FOGException {
-        return new OrderMapper().numberOfUnconfirmedOrders();
+        return DatabaseFacade.numberOfConfirmedOrder();
     }
 
     public static List<Order> getLatest10UnconfirmedOrders() throws FOGException {
-        return new OrderMapper().getUnconfirmedOrders(10);
+        return DatabaseFacade.getLatestUnconfirmedOrders(10);
     }
 
     public static void writeOrderEmployeeEvent(Event event) throws FOGException {
-        new EventMapper().writeOrderEmployeeEvent(event);
+        DatabaseFacade.writeOrderEmployeeEvent(event);
     }
 
     public static void writeOrderEvent(Event event) throws FOGException {
-        new EventMapper().writeOrderEvent(event);
+        DatabaseFacade.writeOrderEvent(event);
     }
 
     public static void writeEmployeeEvent(Event event) throws FOGException {
-        new EventMapper().writeEmployeeEvent(event);
+        DatabaseFacade.writeEmployeeEvent(event);
     }
 
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
-        return new EventMapper().getOrderEvent(orderid);
+       return DatabaseFacade.getOrderEvent(orderid);
     }
 
     public static List<Event> getEmployeeEvent(int employeeId, int limit) throws FOGException {
-        return new EventMapper().getEmployeeEvent(employeeId, limit);
+        return DatabaseFacade.getEmployeeEvent(employeeId, limit);
     }
 
     public static List<Employee> getAllEmployees() throws FOGException {
-        return new EmployeeMapper().getAllEmployees(false);
+       return DatabaseFacade.getAllEmployees(false);
     }
 
     public static Employee getEmployeeById(int id) throws FOGException {
-        return new EmployeeMapper().getEmployeeById(id);
+        return DatabaseFacade.getEmployeeById(id);
     }
 
     public static void UpdateEmployee(Employee employee) throws FOGException {
-        new EmployeeMapper().updateEmployee(employee);
+        DatabaseFacade.UpdateEmployee(employee);
     }
 
     public static void fireEmployee(int employeeId) throws FOGException {
-        new EmployeeMapper().fireEmployee(employeeId);
+      DatabaseFacade.fireEmployee(employeeId);
     }
 
     public static void resetEmployeePassword(int employeeId) throws FOGException {
-        new EmployeeMapper().resetPassword(employeeId);
+        DatabaseFacade.resetEmployeePassword(employeeId);
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
@@ -243,7 +238,7 @@ public class LogicFacade {
         password = password.concat(salt);
         String hash = HashPassword(password);
 
-        new EmployeeMapper().changePassword(employeeId, hash, salt, false);
+        DatabaseFacade.changePassword(employeeId, hash, salt);
     }
 
     public static void createEmployee(Employee emp) throws FOGException {
@@ -254,7 +249,7 @@ public class LogicFacade {
         String newPassword = password.concat(salt);
         String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().createEmployee(emp, hash, salt);
+        DatabaseFacade.CreateEmployee(emp, hash, salt);
 
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
@@ -263,11 +258,10 @@ public class LogicFacade {
                 + "\n Kindest regards FOG A/S";
 
         SendEmail.sendMail(emp.getEmail(), title, message);
-
     }
 
     public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
-        List<Employee> empList = new EmployeeMapper().getAllEmployees(true);
+        List<Employee> empList = DatabaseFacade.getAllEmployees(true);
         Order order = getOrder(orderId);
         String Tile = "New Order";
         String message = "At " + order.simpleDate() + " We recived a new order from " + order.getCustomer().getFirstname()
@@ -280,26 +274,23 @@ public class LogicFacade {
     }
 
     public static void writeLine(Product prod, int orderId) throws FOGException {
-        new ProductMapper().writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
+        DatabaseFacade.writeLine(prod, orderId);
     }
 
     public static void writeLines(List<Product> prods, int orderId) throws FOGException {
-        ProductMapper productMapper = new ProductMapper();
-        for (Product prod : prods) {
-            productMapper.writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
-        }
+        DatabaseFacade.writeLines(prods, orderId);
     }
 
     public static void removeLines(int orderId) throws FOGException {
-        new ProductMapper().removeLines(orderId);
+        DatabaseFacade.removeLines(orderId);
     }
 
     public static List<Product> orderProducts(int orderId) throws FOGException {
-        return new ProductMapper().orderProducts(orderId);
+        return DatabaseFacade.orderProducts(orderId);
     }
 
     public static Product getProduct(int id) throws FOGException {
-        return new ProductMapper().getProduct(id);
+        return DatabaseFacade.getProduct(id);
     }
 
     public static Calculator getCalculator(Order order) throws FOGException {

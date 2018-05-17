@@ -51,7 +51,7 @@ public class GiveDimentions extends Command {
 
         if (roof) {
             if (roofAngle <= 0 || roofAngle > 89) {
-                throw new IllegalArgumentException();
+                throw new FOGException("Invalid roof angle");
             }
         } else {
             roofAngle = 0;

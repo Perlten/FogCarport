@@ -19,7 +19,7 @@
 
     <li style="margin-right: 5px; margin-left: 5px;">
         <a href="index.jsp">
-        <img src="content/foglogok.png" alt="" style="height: 42px; margin: 0px"/>
+            <img src="content/foglogok.png" alt="" style="height: 42px; margin: 0px"/>
         </a>
     </li>
     <li class="nav-item">
@@ -62,10 +62,47 @@
         <a class="nav-link disabled" href="#">Confirm</a>
         <%}%>
     </li>
-    
-    
+
+
 
 
 </ul>
-    
 <br>
+
+<script>
+    var x = document.cookie;
+    window.onload = function () {
+        if(getCookie("refresh") === "true"){
+           document.cookie = "refresh = false";
+          location.reload();
+        }
+    };
+    
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+
+<%
+    if (session.getAttribute("error") != null) {
+%>
+<div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= session.getAttribute("error")%>
+</div>
+<%
+        session.setAttribute("error", null);
+    }
+%>

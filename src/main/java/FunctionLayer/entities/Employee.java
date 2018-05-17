@@ -30,6 +30,10 @@ public class Employee {
         this.dateCreated = dateCreated;
         this.resetPassword = resetPassword;
     }
+    
+    public Employee(String firstName, String lastName, String userName, String email, int accessLevel){
+        this(-1, accessLevel, userName, firstName, lastName, email, false, null, false);
+    }
 
     public int getEmployeeId() {
         return employeeId;

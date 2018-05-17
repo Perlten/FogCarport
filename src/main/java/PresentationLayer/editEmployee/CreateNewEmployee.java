@@ -26,8 +26,10 @@ public class CreateNewEmployee extends Command {
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         int accessLevel = Integer.parseInt(request.getParameter("accessLevel"));
+        
+        Employee newEmp = new Employee(firstName, lastName, userName, email, accessLevel);
 
-        LogicFacade.createEmployee(firstName, lastName, userName, email, accessLevel);
+        LogicFacade.createEmployee(newEmp);
         
         Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 7));

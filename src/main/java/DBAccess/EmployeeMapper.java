@@ -58,19 +58,18 @@ public class EmployeeMapper {
             throw new FOGException("could not verify login");
         }
     }
-    //TODO: make use of dummy employee object
-    public void createEmployee(String firstname, String lastname, String username, String email, int accessLevel, String password, String salt) throws FOGException {
+    public void createEmployee(Employee emp, String password, String salt) throws FOGException {
         String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email, salt)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setInt(2, accessLevel);
-            ps.setString(3, firstname);
-            ps.setString(4, lastname);
+            ps.setString(1, emp.getUsername());
+            ps.setInt(2, emp.getAuthenticationLevel());
+            ps.setString(3, emp.getFirstname());
+            ps.setString(4, emp.getLastname());
             ps.setString(5, password);
-            ps.setString(6, email);
+            ps.setString(6, emp.getEmail());
             ps.setString(7, salt);
             ps.execute();
         } catch (SQLException ex) {
@@ -91,18 +90,6 @@ public class EmployeeMapper {
         }
     }
 
-    public void changePasswordAndResetPassword(int id, String password, String salt) throws FOGException {
-        String sql = "UPDATE employee SET reset_password = true, password = ?, salt = ?  WHERE idemployee = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, password);
-            ps.setString(2, salt);
-            ps.setInt(3, id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new FOGException("Could not change password");
-        }
-    }
 
     public List<Employee> getAllEmployees(boolean noFired) throws FOGException {
         String sql = "SELECT * FROM employee";
@@ -190,14 +177,14 @@ public class EmployeeMapper {
             throw new FOGException("Could not reset password");
         }
     }
-    //TODO: merge with similar method
-    public void changePasswordAndRemoveResetPassword(int employeeId, String newPassword, String salt) throws FOGException {
-        String sql = "UPDATE employee SET reset_password = false, password = ?, salt = ? WHERE idemployee = ?";
+    public void changePassword(int employeeId, String newPassword, String salt, boolean resetPassword) throws FOGException {
+        String sql = "UPDATE employee SET reset_password = ?, password = ?, salt = ? WHERE idemployee = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, newPassword);
-            ps.setString(2, salt);
-            ps.setInt(3, employeeId);
+            ps.setBoolean(1, resetPassword);
+            ps.setString(2, newPassword);
+            ps.setString(3, salt);
+            ps.setInt(4, employeeId);
             ps.execute();
         } catch (SQLException e) {
             throw new FOGException("Could not change password");

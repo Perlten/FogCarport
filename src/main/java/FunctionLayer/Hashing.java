@@ -31,10 +31,10 @@ public class Hashing {
         }
     }
 
-    public static String makeSalt() {
+    public static String randomString(int stringLength) {
         Random ra = new SecureRandom();
         String salt = "";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < stringLength; i++) {
             char ch = 'a';
             ch += ra.nextInt(25);
             salt += ch;

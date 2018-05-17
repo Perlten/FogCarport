@@ -102,7 +102,6 @@ public class OrderMapperTest {
         order.getCustomer().setFirstname("Hello");
         order.getCustomer().setLastname("World");
         StyleMapper styleMapper = new StyleMapper(con);
-        //TODO: Make Better
         StyleOption cladding = styleMapper.getCladding(1).get(0);
         StyleOption tile = styleMapper.getTile(1).get(0);
 

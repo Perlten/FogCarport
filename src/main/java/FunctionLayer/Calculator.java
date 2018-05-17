@@ -25,20 +25,24 @@ public class Calculator {
     private Shed shed;
 
     private List<Product> products;
-    private final int rafterWoodLength = 600; //TODO make db
-    private final int lathLength = 540; //TODO make db
-    private final int tileWidth = 600;
+    private final int RAFTERWOODLENGTH;
+    private final int LATHLENGTH;
+    private final int TILEWIDTH;
 
-    private final double width;
+    private final double WIDTH;
     private double maxShedWidth;
     private double poleDistanceWidth;
 
-    public Calculator(Order order) {
+    public Calculator(Order order) throws FOGException {
+        this.RAFTERWOODLENGTH = (int) LogicFacade.getProduct(1).getLength();
+        this.LATHLENGTH = (int) LogicFacade.getProduct(7).getLength();
+        this.TILEWIDTH = (int) LogicFacade.getProduct(8).getLength();
+        
         this.order = order;
         this.cust = order.getCustomization();
         this.products = new ArrayList<>();
-        this.width = cust.getWidth();
-        this.maxShedWidth = width - (2 * Customization.padding);
+        this.WIDTH = cust.getWidth();
+        this.maxShedWidth = WIDTH - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
 
@@ -96,7 +100,7 @@ public class Calculator {
 
     private void calculateRafter() throws FOGException {
         int amountOfRafters = (int) (cust.getLength() / 50);
-        double remainder = width / rafterWoodLength; //TODO make db
+        double remainder = WIDTH / RAFTERWOODLENGTH;
         if (remainder % 1 != 0) {
             remainder++;
         }
@@ -109,7 +113,7 @@ public class Calculator {
 
         amountOfRafters *= remainder;
 
-        double lengthOfRafters = (width / remainder);
+        double lengthOfRafters = (WIDTH / remainder);
 
         if (amountOfRafters > 0) {
             products.add(new Product(1, amountOfRafters, lengthOfRafters));
@@ -120,26 +124,26 @@ public class Calculator {
         int lanes = 2 + pitstops;
         int placingLength = cust.getLength() - Customization.padding;
 
-        double amountOfBeams = ((double) placingLength) / rafterWoodLength;
+        double amountOfBeams = ((double) placingLength) / RAFTERWOODLENGTH;
 
         if (amountOfBeams < 1) {
             amountOfBeams = 1;
         }
 
         if (amountOfBeams % 1 != 0) {
-            int lastBeam = placingLength % rafterWoodLength;
+            int lastBeam = placingLength % RAFTERWOODLENGTH;
 
             products.add(new Product(2, lanes, lastBeam));
         }
 
         int beamsOnLane = (int) amountOfBeams;
 
-        products.add(new Product(3, beamsOnLane * lanes, rafterWoodLength));
+        products.add(new Product(3, beamsOnLane * lanes, RAFTERWOODLENGTH));
         int poles = 1;
 
-        poles += placingLength / (rafterWoodLength / 2);
+        poles += placingLength / (RAFTERWOODLENGTH / 2);
 
-        if ((placingLength / ((double) (rafterWoodLength)) / 2) % 1 != 0) {
+        if ((placingLength / ((double) (RAFTERWOODLENGTH)) / 2) % 1 != 0) {
             poles++;
         }
 
@@ -165,14 +169,14 @@ public class Calculator {
 
     private void laths() throws FOGException {
         int lathDistance = 30;
-        int lanes = (int) (width / lathDistance) + 1;
+        int lanes = (int) (WIDTH / lathDistance) + 1;
 
-        int lathsOnLane = (int) (cust.getLength() / lathLength);
+        int lathsOnLane = (int) (cust.getLength() / LATHLENGTH);
 
-        double remainder = cust.getLength() % lathLength;
+        double remainder = cust.getLength() % LATHLENGTH;
 
         if (lathsOnLane != 0) {
-            products.add(new Product(7, lanes * lathsOnLane, lathLength));
+            products.add(new Product(7, lanes * lathsOnLane, LATHLENGTH));
         }
 
         if (remainder != 0) {
@@ -184,13 +188,13 @@ public class Calculator {
         double currentWidth = 0.0;
         int amount = 0;
 
-        while (currentWidth != width) {
+        while (currentWidth != WIDTH) {
 
-            if ((currentWidth + tileWidth) < width) {
+            if ((currentWidth + TILEWIDTH) < WIDTH) {
                 amount++;
-                currentWidth += tileWidth;
+                currentWidth += TILEWIDTH;
             } else {
-                double remainder = width - currentWidth;
+                double remainder = WIDTH - currentWidth;
                 currentWidth += remainder;
             }
         }

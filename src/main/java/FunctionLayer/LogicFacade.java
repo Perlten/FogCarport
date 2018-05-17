@@ -171,20 +171,13 @@ public class LogicFacade {
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
         Employee emp = new EmployeeMapper().getEmployeeByEmail(email);
 
-        //TODO: Might use our encryption class when we make it ;)
-        Random ra = new Random();
-        String password = "";
-        String toChange = emp.getUsername() + emp.getEmail();
-        for (int i = 0; i < toChange.length(); i++) {
-            char x = toChange.charAt(i);
-            x += ra.nextInt(5);
-            password += x;
-        }
-        String salt = Hashing.makeSalt();
+        String password = Hashing.randomString(20);
+        
+        String salt = Hashing.randomString(10);
         String newPassword = password.concat(salt);
         String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().changePasswordAndResetPassword(emp.getEmployeeId(), hash, salt);
+        new EmployeeMapper().changePassword(emp.getEmployeeId(), hash, salt, true);
 
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
@@ -246,29 +239,22 @@ public class LogicFacade {
     }
 
     public static void changePassword(int employeeId, String password) throws FOGException {
-        String salt = Hashing.makeSalt();
+        String salt = Hashing.randomString(10);
         password = password.concat(salt);
         String hash = HashPassword(password);
 
-        new EmployeeMapper().changePasswordAndRemoveResetPassword(employeeId, hash, salt);
+        new EmployeeMapper().changePassword(employeeId, hash, salt, false);
     }
 
-    public static void createEmployee(String firstname, String lastname, String username, String email, int accessLevel) throws FOGException {
+    public static void createEmployee(Employee emp) throws FOGException {
 
-        Random ra = new Random();
-        String password = "";
+        String password = Hashing.randomString(20);
 
-        for (int i = 0; i < 20; i++) {
-            char x = 'a';
-            x += ra.nextInt(25);
-            password += x;
-        }
-
-        String salt = Hashing.makeSalt();
+        String salt = Hashing.randomString(10);
         String newPassword = password.concat(salt);
         String hash = HashPassword(newPassword);
 
-        new EmployeeMapper().createEmployee(firstname, lastname, username, email, accessLevel, hash, salt);
+        new EmployeeMapper().createEmployee(emp, hash, salt);
 
         String title = "Welcome to Fog";
         String message = "Welcome to fog we are very excited to work with you.\n"
@@ -276,7 +262,7 @@ public class LogicFacade {
                 + "Password: " + password
                 + "\n Kindest regards FOG A/S";
 
-        SendEmail.sendMail(email, title, message);
+        SendEmail.sendMail(emp.getEmail(), title, message);
 
     }
 
@@ -316,7 +302,7 @@ public class LogicFacade {
         return new ProductMapper().getProduct(id);
     }
 
-    public static Calculator getCalculator(Order order) {
+    public static Calculator getCalculator(Order order) throws FOGException {
         return new Calculator(order);
     }
 

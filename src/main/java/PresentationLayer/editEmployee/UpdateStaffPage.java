@@ -17,14 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class UpdateStaff extends Command {
+public class UpdateStaffPage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        
         request.setAttribute("empList", LogicFacade.getAllEmployees());
-        
         return "WEB-INF/update/updateStaff";
     }
-    
+
 }

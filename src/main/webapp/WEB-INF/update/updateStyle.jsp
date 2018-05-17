@@ -23,7 +23,7 @@
     <body>
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
-        <h1>Update Styleing</h1>
+        <h1>Update Styling</h1>
 
         <div class="row">
             <div class="col-lg-4">
@@ -65,10 +65,6 @@
                     <button type="submit" class="btn btn-success">Create new Cladding</button>
                 </form>
                 <br>
-                 <!--TODO: make better-->
-                <form action="index.jsp" method="post">
-                    <input type="submit" class="btn btn-primary" value="Back">
-                </form>
             </div>
 
             <div class="col-lg-4">

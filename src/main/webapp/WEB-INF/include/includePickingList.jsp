@@ -1,17 +1,13 @@
 
+<%@page import="FunctionLayer.entities.Product"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="FunctionLayer.calculator.Product"%>
 <%@page import="java.util.List"%>
+
 <%
     List<Product> products = (List<Product>) request.getAttribute("pickingList");
 %>
+<%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
 
-
-<script>
-    $('#cmd').click(function () {
-        window.print();
-    });
-</script>
 
 <table id="content" class="table table-xstriped table-hover">
     <thead>

@@ -5,17 +5,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@include file="../include/includeBootstrap.jsp" %>
+        <%@include file="../../css/employeeLogin.jsp" %>
+
     </head>
     <body>
-        <style>
-            .loginStyle{
-                margin: auto;
-                width: 25%;
-                border: 3px solid black;
-                padding: 10px;
-                text-align: center;
-            }
-        </style>
         <div class="loginStyle">
             <form action="FrontController" method="post">
                 <h1>Login</h1>

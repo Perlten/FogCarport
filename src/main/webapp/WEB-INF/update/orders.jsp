@@ -1,4 +1,4 @@
-<%@page import="FunctionLayer.calculator.Calculator"%>
+<%@page import="FunctionLayer.Calculator"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="FunctionLayer.entities.Customer"%>
 <%@page import="java.util.List"%>
@@ -10,8 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
-        <%--<%@include file="../bootstrap.jsp" %>--%>
-        <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
@@ -39,7 +37,7 @@
                         document.getElementById("orders").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("post", "includeOrdersAjax.jsp?num=" + num, true);
+                xhttp.open("post", "ordersAjax.jsp?num=" + num, true);
                 xhttp.send();
             }
         </script>
@@ -49,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div id="orders"></div>
-                    <input type="submit" onclick="showCustomer(true)" class="btn btn-primary" value="Load">
+                    <input type="submit" onclick="showCustomer(true)" class="btn btn-secondary" value="Load" style="width: 100%; margin-bottom: 20px">
                 </div>
                 <% if (selectedOrder != null) {
 
@@ -132,7 +130,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <p style="color: green"> </p>
                         </div>
                     </div>
                     <% if (!selectedOrder.isConfirmed()) {%>

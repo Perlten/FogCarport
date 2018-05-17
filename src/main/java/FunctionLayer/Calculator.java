@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FunctionLayer.calculator;
+package FunctionLayer;
 
+import FunctionLayer.entities.Product;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customization;

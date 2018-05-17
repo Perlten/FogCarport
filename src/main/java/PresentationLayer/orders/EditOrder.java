@@ -7,7 +7,7 @@ package PresentationLayer.orders;
 
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
-import FunctionLayer.calculator.Calculator;
+import FunctionLayer.Calculator;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Employee;

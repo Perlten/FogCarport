@@ -5,8 +5,9 @@
  */
 package DBAccess;
 
+import DBAccess.LiveConnection;
 import FunctionLayer.FOGException;
-import FunctionLayer.calculator.Product;
+import FunctionLayer.entities.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

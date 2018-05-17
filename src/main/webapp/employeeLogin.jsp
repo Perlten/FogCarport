@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
-        <link href="css/employeeLogin.css" rel="stylesheet" type="text/css"/>
+        <%@include file="css/employeeLogin.jsp" %>
     </head>
     <body>
         <div class="container-fluid">

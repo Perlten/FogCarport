@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : pickingListPage
     Created on : 11-05-2018, 20:32:14
     Author     : adamlass
@@ -9,10 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
-    <title>Picking List</title>
-</head>
-<body>
-    <%@include file="../PickingList.jsp" %>
-</body>
+        <title>Picking List</title>
+    </head>
+    <body>
+        <%@include file="../PickingList.jsp" %>
+    </body>
 </html>

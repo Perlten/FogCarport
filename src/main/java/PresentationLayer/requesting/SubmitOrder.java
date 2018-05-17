@@ -7,7 +7,7 @@ package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.calculator.Calculator;
+import FunctionLayer.Calculator;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
@@ -48,7 +48,7 @@ public class SubmitOrder extends Command {
         allowed.put("Styling", false);
         allowed.put("Credentials", false);
 
-        return new LoadOrder().execute(request, response);
+        return new LoadOrderPage().execute(request, response);
     }
 
 }

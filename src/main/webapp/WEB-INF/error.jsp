@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
-        <%@include file="../css/cssErrorPage.jsp" %>
+        <%@include file="../css/cssError.jsp" %>
     </head>
     <body>
         <%

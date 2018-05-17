@@ -8,7 +8,6 @@
     if (orderOverview == null) {
         orderOverview = (Order) request.getSession().getAttribute("confirmedOrder");
     }
-    
 
     Customization custSelected = orderOverview.getCustomization();
     Customer customerSelected = orderOverview.getCustomer();
@@ -22,8 +21,16 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Overview</h2>
-
+        <div style="float: right">
+            <a class="text-muted" style="">Est. Price:</a> <span class="badge badge-success"><%= orderOverview.getPrice()%> DKK</span>
+        </div>
+        <div style="padding-left: 15px; margin-bottom: 10px">
+            <% if (orderOverview.getCustomer() != null) {%>
+            <h2><%= orderOverview.getCustomer().getFirstname()%>'s Carport Request</h2>
+            <%} else {%>
+            <h2>Overview</h2>
+            <%}%>
+        </div>
         <div class="container-fluid">
             <div class="progress">
                 <%                    String status = "progress-bar";
@@ -139,9 +146,7 @@
         </div>
 
         <%}%>
-        <div>
-            <a class="text-muted">Est. Price:</a> <span class="badge badge-success"><%= orderOverview.getPrice() %> DKK</span>
-        </div>
+
     </div>
 </div>
 

@@ -5,6 +5,7 @@
  */
 package DBAccess;
 
+import DBAccess.LiveConnection;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.StyleOption;
 import java.sql.Connection;

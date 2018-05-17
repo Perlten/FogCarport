@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FunctionLayer.passwordHashing;
+package FunctionLayer;
 
 import FunctionLayer.FOGException;
 import java.security.MessageDigest;

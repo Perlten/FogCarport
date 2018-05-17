@@ -31,7 +31,7 @@ public class CreateNewEmployee extends Command {
         
         Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 7));
-        return new UpdateStaff().execute(request, response);
+        return new UpdateStaffPage().execute(request, response);
     }
 
 }

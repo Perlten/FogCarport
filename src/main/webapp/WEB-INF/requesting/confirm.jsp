@@ -25,7 +25,6 @@
     <body>
         <%@include file="../include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
-            <h1><%= orderConfirm.getCustomer().getFirstname()%>'s Carport Request</h1>
             <div class="row">
                 <% if (!orderConfirm.isOrdered()) { %>
                 <div class="col-lg-6">

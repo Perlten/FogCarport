@@ -11,18 +11,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New Password</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
-        <link href="../css/EmployeeLogin.css" rel="stylesheet" type="text/css"/>
+        <%@include file="../../css/employeeLogin.jsp" %>
+
     </head>
     <body>
-        <!--//TODO: Use EmployeeLogin.css file-->
-        <div style="   
-             margin: auto;
-             width: 25%;
-             border: 3px solid black;
-             padding: 10px;
-             text-align: center;">
+
+        <div class="loginStyle">
             <div class="container-fluid">
-                
                 <form action="FrontController" method="post">
                     <h1>Reset Password</h1>
                     <div class="form-group">

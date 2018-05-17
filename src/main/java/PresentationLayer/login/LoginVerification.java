@@ -28,15 +28,14 @@ public class LoginVerification extends Command {
         Employee emp = LogicFacade.verfyLogin(username, password);
         request.getSession().setAttribute("employee", emp);
 
-        //TODO activate
-//        //event
-//            LogicFacade.writeOrderEvent(new Event(emp, 6));
-            
+        //event
+        LogicFacade.writeEmployeeEvent(new Event(emp, 6));
+
         if (emp.isResetPassword()) {
             return "WEB-INF/employeeLogin/newPassword";
         }
-        
-        return new Overview().execute(request, response);
+
+        return new employeeOverviewPage().execute(request, response);
     }
 
 }

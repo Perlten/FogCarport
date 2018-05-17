@@ -1,6 +1,6 @@
 package PresentationLayer.editEmployee;
 
-import PresentationLayer.editEmployee.UpdateStaff;
+import PresentationLayer.editEmployee.UpdateStaffPage;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
@@ -22,7 +22,7 @@ public class EditEmployee extends Command {
         request.setAttribute("selectedEmployee", selectedEmployee);
         
         
-       return new UpdateStaff().execute(request, response);
+       return new UpdateStaffPage().execute(request, response);
     }
     
 }

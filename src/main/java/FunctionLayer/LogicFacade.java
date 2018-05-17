@@ -5,15 +5,12 @@ import DBAccess.EventMapper;
 import DBAccess.StyleMapper;
 import DBAccess.OrderMapper;
 import DBAccess.ProductMapper;
-import FunctionLayer.calculator.Calculator;
-import FunctionLayer.calculator.Product;
+import FunctionLayer.entities.Product;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
-import FunctionLayer.mail.SendEmail;
-import FunctionLayer.passwordHashing.Hashing;
-import static FunctionLayer.passwordHashing.Hashing.HashPassword;
+import static FunctionLayer.Hashing.HashPassword;
 import java.util.List;
 import java.util.Random;
 

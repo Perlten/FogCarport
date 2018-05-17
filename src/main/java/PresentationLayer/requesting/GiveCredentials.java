@@ -50,7 +50,7 @@ public class GiveCredentials extends Command {
 
         }
 
-        return "WEB-INF/requesting/confirm";
+        return new LoadOrderPage().execute(request, response);
     }
 
 }

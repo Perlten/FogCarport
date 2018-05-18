@@ -23,7 +23,7 @@ public class NewPassword extends Command {
             LogicFacade.verfyLogin(emp.getUsername(), password);
         } catch (FOGException e) {
             LogicFacade.changePassword(emp.getEmployeeId(), password);
-            return new Overview().execute(request, response);
+            return new employeeOverviewPage().execute(request, response);
         }
             throw new FOGException("The password you entered is the same as your old password");
     }

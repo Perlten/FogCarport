@@ -13,7 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customize Carport - Enter Dimentions</title>
-        <%@include file="bootstrap.jsp" %>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
+
         <% Order order = (Order) session.getAttribute("order");
 
             Customization cust = null;
@@ -44,16 +45,18 @@
         %>
     </head>
     <body>
+        <%@include file="WEB-INF/include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
-            <h1>Customize Carport</h1>
             <div class="row">
                 <div class="col-lg-6">
+
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Enter Dimentions</h4>
-                        </div>
-                        <div class="card-body">
-                            <form name="configure" action="FrontController" method="POST" >
+                        <form name="configure" action="FrontController" method="POST" >
+
+                            <div class="card-header">
+                                <h4>Enter Dimentions</h4>
+                            </div>
+                            <div class="card-body">
 
                                 <input type="hidden" name="command" value="GiveDimentions">
                                 <label>
@@ -123,17 +126,21 @@
                                 </label>
 
                                 <br><br>
-                                <input type="submit" class="btn btn-primary" value="Style">
-                            </form>
-                        </div>
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin: 10px; margin-top: 0px">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <% if (order != null) {%>
                 <div class="col-lg-6">
-                    <%@include file="WEB-INF/overview.jsp" %>
+                    <%@include file="WEB-INF/include/includeOverview.jsp" %>
                 </div>       
                 <%}%>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

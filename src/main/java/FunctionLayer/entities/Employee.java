@@ -30,6 +30,10 @@ public class Employee {
         this.dateCreated = dateCreated;
         this.resetPassword = resetPassword;
     }
+    
+    public Employee(String firstName, String lastName, String userName, String email, int accessLevel){
+        this(-1, accessLevel, userName, firstName, lastName, email, false, null, false);
+    }
 
     public int getEmployeeId() {
         return employeeId;
@@ -94,6 +98,13 @@ public class Employee {
     public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(dateCreated.getTime());
+    }
+    
+    public String getShortEmail(){
+        if(email.length() >= 10){
+            return email.substring(0,10) + "...";
+        }
+        return email;
     }
 
 }

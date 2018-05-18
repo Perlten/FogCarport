@@ -5,8 +5,9 @@
  */
 package DBAccess;
 
+import DBAccess.LiveConnection;
 import FunctionLayer.FOGException;
-import FunctionLayer.calculator.Product;
+import FunctionLayer.entities.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,21 +73,18 @@ public class ProductMapper {
         } catch (SQLException e) {
             throw new FOGException(e.getMessage());
         }
-
         return res;
     }
 
     public Product getProduct(int id) throws FOGException {
-        Product res = null;
         try {
             String sql = "SELECT * FROM fog.product WHERE idproduct = ?";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
-            res = convertProducts(pre.executeQuery()).get(0);
+            return convertProducts(pre.executeQuery()).get(0);
         } catch (Exception e) {
             throw new FOGException(e.getMessage());
         }
-        return res;
     }
     
     

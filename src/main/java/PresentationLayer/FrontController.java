@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
 
- @author kasper
- */
 @WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
 public class FrontController extends HttpServlet {
 
@@ -36,8 +33,8 @@ public class FrontController extends HttpServlet {
             String view = action.execute( request, response );
             request.getRequestDispatcher(view + ".jsp" ).forward( request, response );
         } catch ( FOGException ex ) {
-            request.setAttribute( "error", ex.getMessage() );
-            request.getRequestDispatcher( "/WEB-INF/errorPage.jsp" ).forward( request, response );
+            request.getSession().setAttribute("error", ex.getMessage() );
+            request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
         }
     }
 

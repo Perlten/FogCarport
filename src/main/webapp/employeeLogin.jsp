@@ -10,8 +10,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <%@include file="bootstrap.jsp" %>
-        <link href="css/EmployeeLogin.css" rel="stylesheet" type="text/css"/>
+        <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
+        <%@include file="css/employeeLogin.jsp" %>
+        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
     </head>
     <body>
         <div class="container-fluid">
@@ -29,7 +30,8 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
-                <form action="recoverPassword.jsp" method="post">
+                <form action="FrontController" method="post">
+                    <input type="hidden" name="command" value="ForgotPassword">
                     <button type="submit" class="btn btn-primary">Forgot password</button>
                 </form>
             </div>

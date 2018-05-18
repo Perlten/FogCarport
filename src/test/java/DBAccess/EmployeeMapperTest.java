@@ -14,10 +14,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static junit.framework.Assert.*;
 
@@ -74,10 +72,11 @@ public class EmployeeMapperTest {
      */
     @Test
     public void testCreateEmployee() throws Exception {
-        mapper.createEmployee("Pernille", "Jensen", "Persille", "Persille@gmail.com", 1, "1234", "salt");
+        Employee emp = new Employee("Pernille", "Jensen", "Persille", "Persille@gmail.com", 1);
+        mapper.createEmployee(emp, "1234", "salt");
 
         int sizeExpected = 4;
-        int sizeActual = mapper.getAllEmployees().size();
+        int sizeActual = mapper.getAllEmployees(false).size();
         assertEquals(sizeExpected, sizeActual);
 
         String nameExpected = "Pernille";
@@ -99,22 +98,12 @@ public class EmployeeMapperTest {
     }
 
     /**
-     * Test of changePasswordForEmployee method, of class EmployeeMapper.
-     */
-    @Test
-    public void testChangePasswordForEmployee() throws Exception {
-        mapper.changePasswordAndRemoveResetPassword(1, "test", "salt");
-        Employee emp = mapper.verfyLogin("Nikolai123", "test");
-        assertNotNull(emp);
-    }
-
-    /**
      * Test of getAllEmployees method, of class EmployeeMapper.
      */
     @Test
     public void testGetAllEmployees() throws Exception {
         int expected = 3;
-        int actual = mapper.getAllEmployees().size();
+        int actual = mapper.getAllEmployees(false).size();
 
         assertEquals(expected, actual);
     }
@@ -170,7 +159,7 @@ public class EmployeeMapperTest {
     @Test
     public void testChangePasswordAndRemoveResetPassword() throws Exception {
         mapper.resetPassword(1);
-        mapper.changePasswordAndRemoveResetPassword(1, "test", "salt");
+        mapper.changePassword(1, "test", "salt", false);
         Employee emp = mapper.verfyLogin("Nikolai123", "test");
         assertNotNull(emp);
         assertFalse(emp.isResetPassword());

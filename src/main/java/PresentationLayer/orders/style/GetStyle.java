@@ -1,6 +1,6 @@
 package PresentationLayer.orders.style;
 
-import PresentationLayer.orders.style.updateStylePage;
+import PresentationLayer.orders.style.UpdateStylePage;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import PresentationLayer.Command;
@@ -24,7 +24,7 @@ public class GetStyle extends Command {
             request.setAttribute("type", "cladding");
         }
 
-        return new updateStylePage().execute(request, response);
+        return new UpdateStylePage().execute(request, response);
     }
 
 }

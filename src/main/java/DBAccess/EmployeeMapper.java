@@ -38,6 +38,13 @@ public class EmployeeMapper {
         this.con = con;
     }
 
+    /**
+     * 
+     * @param username
+     * @param password Password is encryptet
+     * @return
+     * @throws FOGException 
+     */
     public Employee verfyLogin(String username, String password) throws FOGException {
         String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM employee WHERE BINARY username = ? and BINARY password = ? AND employed = true";
         try {
@@ -45,25 +52,24 @@ public class EmployeeMapper {
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            List<Employee> list = getEmployees(rs);
+            List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException ex) {
             throw new FOGException("could not verify login");
         }
     }
-
-    public void createEmployee(String firstname, String lastname, String username, String email, int accessLevel, String password, String salt) throws FOGException {
+    public void createEmployee(Employee emp, String password, String salt) throws FOGException {
         String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email, salt)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setInt(2, accessLevel);
-            ps.setString(3, firstname);
-            ps.setString(4, lastname);
+            ps.setString(1, emp.getUsername());
+            ps.setInt(2, emp.getAuthenticationLevel());
+            ps.setString(3, emp.getFirstname());
+            ps.setString(4, emp.getLastname());
             ps.setString(5, password);
-            ps.setString(6, email);
+            ps.setString(6, emp.getEmail());
             ps.setString(7, salt);
             ps.execute();
         } catch (SQLException ex) {
@@ -77,32 +83,23 @@ public class EmployeeMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            List<Employee> list = getEmployees(rs);
+            List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
             throw new FOGException("Could not find employee");
         }
     }
 
-    public void changePasswordAndResetPassword(int id, String password, String salt) throws FOGException {
-        String sql = "UPDATE employee SET reset_password = true, password = ?, salt = ?  WHERE idemployee = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, password);
-            ps.setString(2, salt);
-            ps.setInt(3, id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new FOGException("Could not change password");
-        }
-    }
 
-    public List<Employee> getAllEmployees() throws FOGException {
+    public List<Employee> getAllEmployees(boolean noFired) throws FOGException {
         String sql = "SELECT * FROM employee";
+        if(noFired){
+            sql += " where employed = true";
+        }
         try {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            return getEmployees(rs);
+            return convert(rs);
         } catch (SQLException e) {
             throw new FOGException("Could not find employees");
         }
@@ -114,14 +111,14 @@ public class EmployeeMapper {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            List<Employee> list = getEmployees(rs);
+            List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
             throw new FOGException("Could not find employee");
         }
     }
 
-    private List<Employee> getEmployees(ResultSet rs) throws SQLException, FOGException {
+    private List<Employee> convert(ResultSet rs) throws SQLException, FOGException {
         List<Employee> list = new ArrayList<>();
         while (rs.next()) {
             int employeeId = rs.getInt("idemployee");
@@ -180,14 +177,14 @@ public class EmployeeMapper {
             throw new FOGException("Could not reset password");
         }
     }
-
-    public void changePasswordAndRemoveResetPassword(int employeeId, String newPassword, String salt) throws FOGException {
-        String sql = "UPDATE employee SET reset_password = false, password = ?, salt = ? WHERE idemployee = ?";
+    public void changePassword(int employeeId, String newPassword, String salt, boolean resetPassword) throws FOGException {
+        String sql = "UPDATE employee SET reset_password = ?, password = ?, salt = ? WHERE idemployee = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, newPassword);
-            ps.setString(2, salt);
-            ps.setInt(3, employeeId);
+            ps.setBoolean(1, resetPassword);
+            ps.setString(2, newPassword);
+            ps.setString(3, salt);
+            ps.setInt(4, employeeId);
             ps.execute();
         } catch (SQLException e) {
             throw new FOGException("Could not change password");

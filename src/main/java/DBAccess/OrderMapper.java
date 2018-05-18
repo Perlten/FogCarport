@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -64,7 +62,7 @@ public class OrderMapper {
 
             ResultSet res = pre.executeQuery();
 
-            List<Order> list = getOrderFromDB(res);
+            List<Order> list = orderConverter(res);
 
             if (orderid > 0 && list.size() < 1) {
                 throw new FOGException("Could not find order");
@@ -72,12 +70,12 @@ public class OrderMapper {
 
             return list;
 
-        } catch (FOGException | SQLException e) {
-            throw new FOGException("Cant get orders");
+        } catch (SQLException e) {
+            throw new FOGException(e.getMessage());
         }
     }
 
-    public List<Order> getCustomerList(int limit) throws FOGException {
+    public List<Order> getOrderCustomerList(int limit) throws FOGException {
 
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order order by idorder desc LIMIT ?";
 
@@ -87,9 +85,9 @@ public class OrderMapper {
             ps.setInt(1, limit);
 
             ResultSet res = ps.executeQuery();
-            return getCustomerFromDB(res);
+            return customerConverter(res);
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException("Could not get order");
         }
     }
 
@@ -101,7 +99,7 @@ public class OrderMapper {
     public void changeOrder(Order order) throws FOGException {
         String sql = "UPDATE .order SET "
                 + "confirmed = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, length = ?, width = ?, height = ?,"
-                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ? where idorder = ?";
+                + "roofangle = ?, shed = ?, shed_length = ?, shed_width = ?, tile = ?, cladding = ?, price = ? where idorder = ?";
         Customization customization = order.getCustomization();
         Customer customer = order.getCustomer();
         int shedLength = 0;
@@ -128,7 +126,9 @@ public class OrderMapper {
             ps.setInt(12, shedWidth);
             ps.setInt(13, customization.getTile().getId());
             ps.setInt(14, customization.getCladding().getId());
-            ps.setInt(15, order.getOrderid());
+            ps.setDouble(15, order.getPrice());
+            ps.setInt(16, order.getOrderid());
+
             ps.execute();
         } catch (SQLException ex) {
             throw new FOGException(ex.getMessage());
@@ -247,13 +247,13 @@ public class OrderMapper {
                 ps.setInt(1, limit);
             }
             ResultSet rs = ps.executeQuery();
-            return getCustomerFromDB(rs);
+            return customerConverter(rs);
         } catch (SQLException e) {
             throw new FOGException("Could not get orders");
         }
     }
 
-    private List<Order> getOrderFromDB(ResultSet res) throws FOGException {
+    private List<Order> orderConverter(ResultSet res) throws FOGException {
         try {
             List<Order> orderList = new ArrayList<>();
             while (res.next()) {
@@ -275,8 +275,19 @@ public class OrderMapper {
 
                 int tile = res.getInt("tile");
                 int cladding = res.getInt("cladding");
-                StyleOption claddingStyle = LogicFacade.getCladding(cladding);
-                StyleOption tileStyle = LogicFacade.getTile(tile);
+                StyleMapper styleMapper = new StyleMapper(con);
+                List<StyleOption> claddingList = styleMapper.getCladding(cladding);
+                List<StyleOption> tileList = styleMapper.getTile(tile);
+                StyleOption tileStyle = null;
+                StyleOption claddingStyle = null;
+
+                if (!claddingList.isEmpty()) {
+                    claddingStyle = claddingList.get(0);
+                }
+                
+                if (!tileList.isEmpty()) {
+                    tileStyle = tileList.get(0);
+                }
 
                 Shed shedEntity = null;
                 if (shed) {
@@ -296,7 +307,7 @@ public class OrderMapper {
         }
     }
 
-    private List<Order> getCustomerFromDB(ResultSet res) throws FOGException {
+    private List<Order> customerConverter(ResultSet res) throws FOGException {
         try {
             List<Order> list = new ArrayList<>();
             while (res.next()) {

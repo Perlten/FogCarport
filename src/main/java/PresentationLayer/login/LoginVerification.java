@@ -10,7 +10,7 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
-import PresentationLayer.orders.GetOrders;
+import PresentationLayer.orders.GetOrdersPage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,14 +28,14 @@ public class LoginVerification extends Command {
         Employee emp = LogicFacade.verfyLogin(username, password);
         request.getSession().setAttribute("employee", emp);
 
-//        //event
-//            LogicFacade.writeOrderEvent(new Event(emp, 6));
-            
+        //event
+        LogicFacade.writeEmployeeEvent(new Event(emp, 6));
+
         if (emp.isResetPassword()) {
-            return "WEB-INF/newPasswordPage";
+            return "WEB-INF/employeeLogin/newPassword";
         }
-        
-        return new Overview().execute(request, response);
+
+        return new employeeOverviewPage().execute(request, response);
     }
 
 }

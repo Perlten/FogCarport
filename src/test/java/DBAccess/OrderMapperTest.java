@@ -91,7 +91,7 @@ public class OrderMapperTest {
     @Test
     public void getCustomerListLimit2() throws FOGException {
         int expected = 2;
-        int actual = mapper.getCustomerList(2).size();
+        int actual = mapper.getOrderCustomerList(2).size();
 
         assertEquals(expected, actual);
     }
@@ -102,7 +102,6 @@ public class OrderMapperTest {
         order.getCustomer().setFirstname("Hello");
         order.getCustomer().setLastname("World");
         StyleMapper styleMapper = new StyleMapper(con);
-        //TODO: Make Better
         StyleOption cladding = styleMapper.getCladding(1).get(0);
         StyleOption tile = styleMapper.getTile(1).get(0);
 

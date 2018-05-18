@@ -1,0 +1,8 @@
+May 18, 2018 3:43:19 PM FunctionLayer.logging.Logging run
+OFF: Only this message will be logged
+May 18, 2018 3:57:00 PM FunctionLayer.logging.Logging write
+OFF: test
+May 18, 2018 4:04:07 PM FunctionLayer.logging.Logging write
+OFF: test
+May 18, 2018 4:15:59 PM FunctionLayer.logging.Logging write
+OFF: test

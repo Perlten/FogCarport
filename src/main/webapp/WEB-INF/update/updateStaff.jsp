@@ -14,11 +14,22 @@
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
     <body>
+
         <%
             List<Employee> empList = (List<Employee>) request.getAttribute("empList");
             Employee selectedEmployee = (Employee) request.getAttribute("selectedEmployee");
             String newEmployee = request.getParameter("newEmployee");
         %>
+        <script>
+            <%if (selectedEmployee != null){%>
+            function fireEmployee() {
+                var message = prompt("Are you sure you whant to fire <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname() %>. If you are, please type in \"fire\" and press enter");
+                if (message === "fire") {
+                    window.location.replace("FrontController?command=FireEmployee&employeeId=<%=selectedEmployee.getEmployeeId()%>");
+                }
+            }
+            <%}%>
+        </script>
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
             <div class="row">
@@ -118,11 +129,7 @@
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
                             <input type="submit" class="btn btn-primary" value="Edit"/>
                         </form>
-                        <form>
-                            <input type="hidden" name="command" value="FireEmployee"/>
-                            <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
-                            <input type="submit" class="btn btn-danger" value="FIRE!"/>
-                        </form>
+                            <input type="submit" class="btn btn-danger" onclick="fireEmployee()" value="FIRE!" style="width: 7%"/>
                         <%if (!selectedEmployee.isResetPassword()) {%>
                         <form>
                             <input type="hidden" name="command" value="ResetPassword"/>

@@ -5,6 +5,9 @@
  */
 package DBAccess;
 
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
+import FunctionLayer.entities.Order;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,16 +15,14 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
-/**
- *
- * @author Perlt
- */
+
 public class EventMapperTest {
 
     private final String sql;
@@ -49,18 +50,21 @@ public class EventMapperTest {
     }
 
     /**
-     * Test of writeEvent method, of class EventMapper.
-     */
-    @Test
-    public void testWriteEvent() throws Exception {
-        
-    }
-
-    /**
      * Test of getOrderEvent method, of class EventMapper.
      */
     @Test
     public void testGetOrderEvent() throws Exception {
+        List<Event> events = mapper.getOrderEvent(2);
+        Event event1 = events.get(0);
+        Event event2 = events.get(1);
+
+        assertEquals(4, event1.getEventId());
+        assertEquals(3, event2.getEventId());
+
+        assertEquals(0, event1.getEmployee());
+
+        assertEquals(4, event1.getEventType());
+        assertEquals(3, event2.getEventType());
     }
 
     /**
@@ -68,6 +72,42 @@ public class EventMapperTest {
      */
     @Test
     public void testGetEmployeeEvent() throws Exception {
+        List<Event> events = mapper.getEmployeeEvent(1, 99);
+        Event event1 = events.get(1);
+        Event event2 = events.get(0);
+
+        assertEquals(1, event1.getEventId());
+        assertEquals(2, event2.getEventId());
+
+    }
+
+    @Test
+    public void testWriteOrderEvent() throws Exception {
+        Event event = new Event(6, 3);
+        mapper.writeOrderEvent(event);
+
+        Event actual = mapper.getOrderEvent(3).get(0);
+        assertEquals(6, actual.getEventType());
+    }
+
+    @Test
+    public void testWriteOrderEmployeeEvent() throws Exception {
+        Employee emp = new Employee(3, 0, null, null, null, null, false, null, false);
+        Event event = new Event(emp, 1, 2);
+        mapper.writeOrderEmployeeEvent(event);
+
+        Event actual = mapper.getOrderEvent(2).get(0);
+        assertEquals(3, event.getEmployee());
+    }
+
+    @Test
+    public void testWriteEmployeeEvent() throws Exception {
+         Employee emp = new Employee(3, 0, null, null, null, null, false, null, false);
+        Event event = new Event(emp, 2);
+        mapper.writeEmployeeEvent(event);
+
+        Event actual = mapper.getEmployeeEvent(3, 99).get(0);
+        assertEquals(2, event.getEventType());
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -27,23 +28,27 @@ public class Logging {
 
     public static void main(String[] args) throws IOException {
         Logging lg = new Logging();
-        lg.run();
+        lg.write("test");
     }
 
-    public void run() throws IOException {
+    public void write(String message) throws IOException {
         addHandlers();
-        LOGGER.log(Level.OFF, "Only this message will be logged");
+        LOGGER.log(Level.OFF, message);
+
+        Handler[] handlers = LOGGER.getHandlers();
+        for (int i = 0; i < handlers.length; i++) {
+            handlers[i].close();
+        }
     }
 
     public void addHandlers() throws IOException {
-        LOGGER.addHandler(new ConsoleHandler());
 
-        String path = "devLog.log";
+        String path = Conf.LOGDEVFILEPATH;
 
         if (new File(Conf.LOGFILEPATH).exists()) {
             path = Conf.LOGFILEPATH;
         }
-
+//        String path = Conf.LOGFILEPATH;
         FileHandler handler = new FileHandler(path, true);
 
         handler.setFormatter(new SimpleFormatter());

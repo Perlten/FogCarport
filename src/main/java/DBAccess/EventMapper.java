@@ -47,7 +47,7 @@ public class EventMapper {
     public void writeOrderEvent(Event event) throws FOGException {
         try {
 
-            String sql = "INSERT INTO fog.event(idevent_type, idorder) values (?,?)";
+            String sql = "INSERT INTO event(idevent_type, idorder) values (?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getOrderid());
@@ -59,7 +59,7 @@ public class EventMapper {
 
     public void writeOrderEmployeeEvent(Event event) throws FOGException {
         try {
-            String sql = "INSERT INTO fog.event(idevent_type, idorder, employee) values (?,?,?)";
+            String sql = "INSERT INTO event(idevent_type, idorder, employee) values (?,?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getOrderid());
@@ -73,7 +73,7 @@ public class EventMapper {
     public void writeEmployeeEvent(Event event) throws FOGException {
         try {
 
-            String sql = "INSERT INTO fog.event(idevent_type, employee) values (?,?)";
+            String sql = "INSERT INTO event(idevent_type, employee) values (?,?)";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, event.getEventType());
             pre.setInt(2, event.getEmployee());

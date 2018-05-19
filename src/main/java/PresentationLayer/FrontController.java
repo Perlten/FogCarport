@@ -6,6 +6,7 @@
 package PresentationLayer;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.logging.Logging;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,8 @@ public class FrontController extends HttpServlet {
             request.getRequestDispatcher(view + ".jsp" ).forward( request, response );
         } catch ( FOGException ex ) {
             request.getSession().setAttribute("error", ex.getMessage() );
+            //logging
+            new Logging().write(ex.getMessage());
             request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
         }
     }

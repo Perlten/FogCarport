@@ -61,7 +61,7 @@
                     <table class="table table-xstriped table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th>name</th>
+                                <th>Name</th>
                                 <th>Description</th>
                                 <th>Date</th>
                             </tr>

@@ -1,6 +1,5 @@
 <%@page import="FunctionLayer.entities.Employee"%>
 <% Employee empNavBar = (Employee) session.getAttribute("employee"); %>
-<link href="../../css/navBar.css" rel="stylesheet" type="text/css"/>
 <!--This is the only working solution at the moment-->
 <style>
     ul {

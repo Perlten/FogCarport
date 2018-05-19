@@ -39,8 +39,8 @@
             }
         %>
         <div class="container-fluid">
-            <div class="row">
                 <form action="FrontController" method="post">
+            <div class="row">
                         <div class="col-lg-3">
                             <h3>Edit Dimensions</h3>
                             <div class="form-group">
@@ -113,23 +113,16 @@
                             <div class="form-group"> 
                                 <label class="control-label">First Name</label>
                                 <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstname()%>">
-                            </div>	
 
-                            <div class="form-group"> 
                                 <label class="control-label">Last Name</label>
                                 <input type="text" class="form-control" name="lastName" value="<%= customer.getLastname()%>">
-                            </div>					
 
-                            <div class="form-group"> 
                                 <label class="control-label">Email</label>
                                 <input type="text" class="form-control" name="email" value="<%= customer.getEmail()%>">
-                            </div>	
 
-                            <div class="form-group"> 
                                 <label class="control-label">Phone Number</label>
                                 <input type="number" class="form-control" name="phoneNumber" value="<%= customer.getPhonenumber()%>">
                             </div>	
-
                         </div>
                         <div class="col-lg-3">
                             <h3>Price</h3>
@@ -139,7 +132,7 @@
                                 out.print(calc.totalPrice());
                                 %> DKK</p>
                             <label class="control-label">Total Price</label>
-                            <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK">
+                            <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK"/>
                         </div>
 
                     <div class="col-lg-12">
@@ -147,8 +140,8 @@
                             <button type="submit" class="btn btn-primary">Edit Order</button>
                         </div>
                     </div>
-                </form>
             </div>
+                </form>
         </div>
     </body>
 </html>

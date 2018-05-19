@@ -57,7 +57,7 @@
                                 <label class="control-label">Roof Angle</label>
                                 <input type="number" class="form-control" name="roofAngle" min="0" value="<%= order.getCustomization().getRoofangle()%>">
                                 <label class="control-label">Shed</label>
-                                <input style="width: 45px" type="checkbox" class="form-control" name="shed" value="true" <%= checked%>>
+                                <input style="width: 30px; height: 30px" type="checkbox" class="form-control" name="shed" value="true" <%= checked%>>
                                 <label class="control-label">Shed Length</label>
                                 <input type="number" class="form-control" name="shedLength" min="0" max="<%= order.getCustomization().getLength()%>" value="<%= shedLength%>">
                                 <label class="control-label">Shed Width</label>

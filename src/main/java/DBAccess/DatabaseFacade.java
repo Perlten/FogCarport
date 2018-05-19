@@ -188,7 +188,7 @@ public class DatabaseFacade {
     }
 
     public static List<Product> orderProducts(int orderId) throws FOGException {
-        return new ProductMapper().orderProducts(orderId);
+        return new ProductMapper().getOrderProducts(orderId);
     }
 
     public static Product getProduct(int id) throws FOGException {

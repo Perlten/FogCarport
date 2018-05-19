@@ -7,7 +7,6 @@ package DBAccess;
 
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
-import FunctionLayer.entities.Order;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,10 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
@@ -36,7 +32,7 @@ public class EventMapperTest {
         String line;
         while ((line = br.readLine()) != null) {
             sb.append(line);
-            sb.append("\n");
+            sb.append(System.lineSeparator());
         }
         this.sql = sb.toString();
         this.con = new TestConnection().connection();
@@ -97,7 +93,7 @@ public class EventMapperTest {
         mapper.writeOrderEmployeeEvent(event);
 
         Event actual = mapper.getOrderEvent(2).get(0);
-        assertEquals(3, event.getEmployee());
+        assertEquals(3, actual.getEmployee());
     }
 
     @Test
@@ -107,7 +103,6 @@ public class EventMapperTest {
         mapper.writeEmployeeEvent(event);
 
         Event actual = mapper.getEmployeeEvent(3, 99).get(0);
-        assertEquals(2, event.getEventType());
+        assertEquals(2, actual.getEventType());
     }
-
 }

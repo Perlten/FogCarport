@@ -36,7 +36,7 @@ public class EmployeeMapperTest {
         String line;
         while ((line = br.readLine()) != null) {
             sb.append(line);
-            sb.append("\n");
+            sb.append(System.lineSeparator());
         }
         this.sql = sb.toString();
         this.con = new TestConnection().connection();

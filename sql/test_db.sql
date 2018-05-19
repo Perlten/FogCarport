@@ -260,6 +260,79 @@ INSERT INTO `tile` VALUES
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `idproduct` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `length` double DEFAULT NULL,
+  `unit` varchar(45) NOT NULL DEFAULT '"pcs"',
+  `description` varchar(205) NOT NULL,
+  `price` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idproduct`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES 
+(1,'Rafter',600,'pcs','Used on beam',95),
+(2,'Beam',600,'pcs','Used together with the poles to support the rafters. This is the end piece!',97),
+(3,'Beam',600,'pcs','Used together with the poles to support the rafters.',97),
+(4,'Pole',300,'pcs','Used to support the beams',305),
+(5,'Cladding',210,'pcs','Cladding used og the shed',0),
+(6,'Pole',300,'pcs','Purposed for shed.',305),
+(7,'Lath',540,'pcs','Used for mounting on rafters to hold the roof.',24),
+(8,'Tile',600,'pcs','Used for roof',0);
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_line`
+--
+
+DROP TABLE IF EXISTS `product_line`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_line` (
+  `idproduct_line` int(11) NOT NULL AUTO_INCREMENT,
+  `length_used` double DEFAULT NULL,
+  `amount` int(11) NOT NULL DEFAULT '0',
+  `idproduct` int(11) NOT NULL,
+  `idorder` int(11) NOT NULL,
+  PRIMARY KEY (`idproduct_line`),
+  KEY `fk_line_product_idx` (`idproduct`),
+  KEY `fk_line_order_idx` (`idorder`),
+  CONSTRAINT `fk_line_order` FOREIGN KEY (`idorder`) REFERENCES `order` (`idorder`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_line_product` FOREIGN KEY (`idproduct`) REFERENCES `product` (`idproduct`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=962 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_line`
+--
+
+LOCK TABLES `product_line` WRITE;
+/*!40000 ALTER TABLE `product_line` DISABLE KEYS */;
+INSERT INTO `product_line` VALUES 
+(1, 600, 2, 1, 2),
+(2, 400, 10, 8, 1),
+(3, 210, 22, 5, 4),
+(4, 600, 5, 2, 3),
+(6, 450, 5, 2, 3);
+/*!40000 ALTER TABLE `product_line` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

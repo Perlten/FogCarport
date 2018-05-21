@@ -5,7 +5,7 @@
  */
 package FunctionLayer;
 
-import FunctionLayer.FOGException;
+import FunctionLayer.entities.Employee;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -14,33 +14,26 @@ import javax.mail.internet.*;
  *
  * @author Perlt
  */
-public class SendEmail {
+public class SendEmail implements Runnable {
 
-    private static Session session = null;
-    private final static String USERNAME = "fogcarport@gmail.com";
-    private final static String PASSWORD = "FoggyFrog420";
+    private Session session = null;
+    private final String USERNAME = "fogcarport@gmail.com";
+    private final String PASSWORD = "FoggyFrog420";
+    private String title;
+    private String textMessage;
+    private List<String> empList;
 
-    public static void sendMail(String mailTo, String title, String textMessage) throws FOGException {
-
-        if(session == null){
-            makeSession();
-        }
-        
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(USERNAME));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
-            message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(USERNAME));
-            message.setSubject(title);
-            message.setText(textMessage);
-            Transport.send(message);
-
-        } catch (MessagingException e) {
-            throw new FOGException("Could not send email");
-        }
+    public SendEmail(List<String> mailList, String title, String textMessage) {
+        this.title = title;
+        this.textMessage = textMessage;
+        this.empList = mailList;
     }
 
-    private static void makeSession() {
+    public SendEmail(String mailTo, String title, String textMessage) {
+        this(Arrays.asList(mailTo), title, textMessage);
+    }
+
+    private void makeSession() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -54,8 +47,30 @@ public class SendEmail {
             }
         });
     }
-    
-    public static void main(String[] args) throws FOGException {
-        sendMail("karron11@gmail.com", "Test", "test");
+
+    private void sendEmail(String mailTo) {
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(USERNAME));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
+            message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(USERNAME));
+            message.setSubject(title);
+            message.setText(textMessage);
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException("Could not send email");
+        }
+    }
+
+    @Override
+    public void run() {
+        if (session == null) {
+            makeSession();
+        }
+        for (String mailTo : empList) {
+            sendEmail(mailTo);
+        }
     }
 }

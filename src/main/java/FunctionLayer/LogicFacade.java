@@ -1,19 +1,14 @@
 package FunctionLayer;
 
 import DBAccess.DatabaseFacade;
-import DBAccess.EmployeeMapper;
-import DBAccess.EventMapper;
-import DBAccess.StyleMapper;
-import DBAccess.OrderMapper;
-import DBAccess.ProductMapper;
 import FunctionLayer.entities.Product;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import static FunctionLayer.Hashing.HashPassword;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class LogicFacade {
 
@@ -152,8 +147,9 @@ public class LogicFacade {
                 + " reference link:\n\n"
                 + " http://159.89.19.132/FogCarport/FrontController?command=LoadOrder&id=" + order.getOrderid()
                 + "\n\nRegards,\nFog";
-
-        SendEmail.sendMail(order.getCustomer().getEmail(), title, textMessage);
+        SendEmail email = new SendEmail(order.getCustomer().getEmail(), title, textMessage);
+        Thread thread = new Thread(email);
+        thread.start();
     }
 
     public static Employee verfyLogin(String username, String password) throws FOGException {
@@ -177,8 +173,9 @@ public class LogicFacade {
         String title = "New password";
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
                 + "Password: " + password;
-
-        SendEmail.sendMail(emp.getEmail(), title, text);
+        SendEmail emailSender = new SendEmail(email, title, text);
+        Thread thread = new Thread(email);
+        thread.start();
     }
 
     public static Employee getEmployeeByEmail(String email) throws FOGException {
@@ -256,11 +253,13 @@ public class LogicFacade {
                 + "Below you will find your new password, the first time toy log in you wil be asked to create a new.\n"
                 + "Password: " + password
                 + "\n Kindest regards FOG A/S";
-
-        SendEmail.sendMail(emp.getEmail(), title, message);
+        SendEmail email = new SendEmail(emp.getEmail(), title, message);
+        Thread thread = new Thread(email);
+        thread.start();
     }
 
     public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
+
         List<Employee> empList = DatabaseFacade.getAllEmployees(true);
         Order order = getOrder(orderId);
         String Tile = "New Order";
@@ -268,12 +267,13 @@ public class LogicFacade {
                 + " " + order.getCustomer().getLastname() + ". We should do our best to fit his/hers needs.\n\n"
                 + "And remember teamwork makes the dream work...";
 
-        for (Employee emp : empList) {
-            try {
-                SendEmail.sendMail(emp.getEmail(), Tile, message);
-            } catch (Exception e) {
-            }
+        List<String> emailList = new ArrayList<>();
+        for (Employee employee : empList) {
+            emailList.add(employee.getEmail());
         }
+        SendEmail email = new SendEmail(emailList, Tile, message);
+        Thread thread = new Thread(email);
+        thread.start();
     }
 
     public static void writeLine(Product prod, int orderId) throws FOGException {

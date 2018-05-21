@@ -8,14 +8,12 @@ package PresentationLayer.requesting;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Calculator;
-import FunctionLayer.entities.Product;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
-import PresentationLayer.Helper;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +44,7 @@ public class GiveDimentions extends Command {
         double roofAngle = 0;
         int shedLength = 0;
         int shedWidth = 0;
-        
+
         if (roof) {
             roofAngle = Double.parseDouble(request.getParameter("roofAngle"));
             if (roofAngle <= 0 || roofAngle > 89) {

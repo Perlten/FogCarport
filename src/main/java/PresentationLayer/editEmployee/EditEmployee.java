@@ -20,6 +20,7 @@ public class EditEmployee extends Command {
         int empId = Integer.parseInt(request.getParameter("employeeId"));
         Employee selectedEmployee = LogicFacade.getEmployeeById(empId);
         request.setAttribute("selectedEmployee", selectedEmployee);
+        request.setAttribute("eventList", LogicFacade.getEmployeeEvent(selectedEmployee.getEmployeeId(), 10));
         
         
        return new UpdateStaffPage().execute(request, response);

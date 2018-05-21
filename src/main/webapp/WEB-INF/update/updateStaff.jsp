@@ -4,6 +4,7 @@
     Author     : Perlt
 --%>
 
+<%@page import="FunctionLayer.entities.Event"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,11 +20,12 @@
             List<Employee> empList = (List<Employee>) request.getAttribute("empList");
             Employee selectedEmployee = (Employee) request.getAttribute("selectedEmployee");
             String newEmployee = request.getParameter("newEmployee");
+            List<Event> eventList = (List<Event>) request.getAttribute("eventList");
         %>
         <script>
-            <%if (selectedEmployee != null){%>
+            <%if (selectedEmployee != null) {%>
             function fireEmployee() {
-                var message = prompt("Are you sure you whant to fire <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname() %>. If you are, please type in \"fire\" and press enter");
+                var message = prompt("Are you sure you whant to fire <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname()%>. If you are, please type in \"fire\" and press enter");
                 if (message === "fire") {
                     window.location.replace("FrontController?command=FireEmployee&employeeId=<%=selectedEmployee.getEmployeeId()%>");
                 }
@@ -129,7 +131,7 @@
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
                             <input type="submit" class="btn btn-primary" value="Edit"/>
                         </form>
-                            <input type="submit" class="btn btn-danger" onclick="fireEmployee()" value="FIRE!" style="width: 7%"/>
+                        <input type="submit" class="btn btn-danger" onclick="fireEmployee()" value="FIRE!" style="width: 7%"/>
                         <%if (!selectedEmployee.isResetPassword()) {%>
                         <form>
                             <input type="hidden" name="command" value="ResetPassword"/>
@@ -139,6 +141,28 @@
                         <%}
                             }%>
                     </div>
+                    <br>
+                    <h3>Latest evnts for <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname() %></h3>
+                    <table class="table table-xstriped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% for (Event event : eventList) {
+                            %>
+                            <tr>
+                                <td><%= event.getEventName()%></td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription()%>"><%= event.getShortDescription()%></td>
+                                <td><%= event.simpleDate()%></td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
                 </div>
                 <%}%>
             </div>

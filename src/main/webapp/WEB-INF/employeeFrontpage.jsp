@@ -40,17 +40,19 @@
                             </tr>
                         </thead>
 
+                        <tbody>
                         <% for (Order order : unConfirmedOrders) {
                                 Customer cust = order.getCustomer();
                         %>
-                        <tbody>
+                        <tr>
                         <td><%= order.getOrderid()%></td>
                         <td><%= cust.getEmail()%></td>
                         <td><%= order.simpleDate()%></td>
                         <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
                         <td><%= cust.getPhonenumber()%></td>
-                        </tbody>
+                        </tr>
                         <% }%>
+                        </tbody>
                     </table>
                     <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
                 </div>
@@ -67,14 +69,16 @@
                             </tr>
                         </thead>
 
+                        <tbody>
                         <% for (Event event : eventList) {
                         %>
-                        <tbody>
+                        <tr>
                         <td><%= event.getEventName()%></td>
                         <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription() %>"><%= event.getShortDescription()%></td>
                         <td><%= event.simpleDate()%></td>
-                        </tbody>
+                        </tr>
                         <% }%>
+                        </tbody>
                     </table>
                 </div>
             </div>

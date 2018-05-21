@@ -38,6 +38,11 @@ public class FrontController extends HttpServlet {
             //logging
             new Logging().write(ex.getMessage());
             request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
+        } catch ( Exception ex ) {
+            request.getSession().setAttribute("error", "Something went wrong" );
+            //logging
+            new Logging().write(ex.getMessage());
+            request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
         }
     }
 

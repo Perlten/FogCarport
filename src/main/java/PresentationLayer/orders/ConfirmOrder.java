@@ -17,16 +17,13 @@ public class ConfirmOrder extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
-        try {
             int orderId = Integer.parseInt(request.getParameter("orderId"));
             LogicFacade.confirmOrder(orderId);
 
             //event
             Employee emp = (Employee) request.getSession().getAttribute("employee");
             LogicFacade.writeOrderEmployeeEvent(new Event(emp, 2, orderId));
-        } catch (Exception ex) {
-            throw new FOGException("Could not confirm order!");
-        }
+        
 
         return new ShowOrder().execute(request, response);
     }

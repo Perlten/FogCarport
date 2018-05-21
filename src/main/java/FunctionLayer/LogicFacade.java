@@ -206,7 +206,7 @@ public class LogicFacade {
     }
 
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
-       return DatabaseFacade.getOrderEvent(orderid);
+        return DatabaseFacade.getOrderEvent(orderid);
     }
 
     public static List<Event> getEmployeeEvent(int employeeId, int limit) throws FOGException {
@@ -214,7 +214,7 @@ public class LogicFacade {
     }
 
     public static List<Employee> getAllEmployees() throws FOGException {
-       return DatabaseFacade.getAllEmployees(false);
+        return DatabaseFacade.getAllEmployees(false);
     }
 
     public static Employee getEmployeeById(int id) throws FOGException {
@@ -226,7 +226,7 @@ public class LogicFacade {
     }
 
     public static void fireEmployee(int employeeId) throws FOGException {
-      DatabaseFacade.fireEmployee(employeeId);
+        DatabaseFacade.fireEmployee(employeeId);
     }
 
     public static void resetEmployeePassword(int employeeId) throws FOGException {
@@ -269,7 +269,10 @@ public class LogicFacade {
                 + "And remember teamwork makes the dream work...";
 
         for (Employee emp : empList) {
-            SendEmail.sendMail(emp.getEmail(), Tile, message);
+            try {
+                SendEmail.sendMail(emp.getEmail(), Tile, message);
+            } catch (Exception e) {
+            }
         }
     }
 

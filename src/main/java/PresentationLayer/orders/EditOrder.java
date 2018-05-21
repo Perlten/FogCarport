@@ -28,7 +28,6 @@ public class EditOrder extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
         //Dimensions
-        try {
 
             int length = Integer.parseInt(request.getParameter("length"));
             int height = Integer.parseInt(request.getParameter("height"));
@@ -87,11 +86,7 @@ public class EditOrder extends Command {
             //event
             Employee emp = (Employee) request.getSession().getAttribute("employee");
             LogicFacade.writeOrderEmployeeEvent(new Event(emp, 4, orderId));
-        } catch (NumberFormatException e) {
-            throw new FOGException("Cannot have empty style option");
-        } catch (FOGException fe){
-            throw new FOGException(fe.getMessage());
-        }
+        
         return new ShowOrder().execute(request, response);
     }
 

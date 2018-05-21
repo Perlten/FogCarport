@@ -24,7 +24,6 @@ public class LoadOrderPage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
             HttpSession session = request.getSession();
 
             Order order = null;
@@ -51,9 +50,6 @@ public class LoadOrderPage extends Command {
             allowed.put("Confirm", true);
             allowed.put("Dimentions", false);
 
-        } catch (Exception e) {
-            throw new FOGException("Not a valid order!");
-        }
         return "WEB-INF/requesting/confirm";
     }
 

@@ -35,27 +35,30 @@ public class GiveDimentions extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        int length = Helper.safeInt(request, "length");
-        int width = Helper.safeInt(request, "width");
-        int height = Helper.safeInt(request, "height");
+        int length = Integer.parseInt(request.getParameter("length"));
+        int width = Integer.parseInt(request.getParameter("width"));
+        int height = Integer.parseInt(request.getParameter("height"));
 
         boolean roof = Boolean.parseBoolean(request.getParameter("roof"));
 
         boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
 
-        double roofAngle = Helper.safeDouble(request, "roofAngle");
-        int shedLength = Helper.safeInt(request, "shedLength");
-        int shedWidth = Helper.safeInt(request, "shedWidth");
-
-        String submit = request.getParameter("submit");
-
+        double roofAngle = 0;
+        int shedLength = 0;
+        int shedWidth = 0;
+        
         if (roof) {
+            roofAngle = Double.parseDouble(request.getParameter("roofAngle"));
             if (roofAngle <= 0 || roofAngle > 89) {
                 throw new FOGException("Invalid roof angle");
             }
-        } else {
-            roofAngle = 0;
         }
+        if (shed) {
+            shedLength = Integer.parseInt(request.getParameter("shedLength"));
+            shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
+        }
+
+        String submit = request.getParameter("submit");
 
         Shed shedObj = null;
         if (shed) {
@@ -93,7 +96,6 @@ public class GiveDimentions extends Command {
         allowed.put("Dimentions", true);
         allowed.put("Styling", true);
         allowed.put("Confirm", false);
-
 
         if (submit.equals("Update")) {
             session.setAttribute("active", "Styling");

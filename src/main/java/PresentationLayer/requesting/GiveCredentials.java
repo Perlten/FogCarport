@@ -23,7 +23,6 @@ public class GiveCredentials extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         String submit = "";
 
-        try {
             submit = request.getParameter("submit");
             if (submit.equals("Back")) {
                 return new StylingPage().execute(request, response);
@@ -42,12 +41,9 @@ public class GiveCredentials extends Command {
             HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
             allowed.put("Confirm", true);
 
-        } catch (Exception e) {
-            throw new FOGException("Failed to add contact information!");
-        }
+       
         if (submit.equals("Update")) {
             return new GiveCredentialsPage().execute(request, response);
-
         }
 
         return new LoadOrderPage().execute(request, response);

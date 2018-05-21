@@ -21,16 +21,11 @@ public class StylingPage extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
-            List<StyleOption> claddings = LogicFacade.getCladdingList();
-            request.setAttribute("claddings", claddings);
-            List<StyleOption> tiles = LogicFacade.getTileList() ;
-            request.setAttribute("tiles", tiles);
-        } catch (Exception e) {
-            throw new FOGException("StyleOptions could not load!");
-        }
+        List<StyleOption> claddings = LogicFacade.getCladdingList();
+        request.setAttribute("claddings", claddings);
+        List<StyleOption> tiles = LogicFacade.getTileList();
+        request.setAttribute("tiles", tiles);
         return "WEB-INF/requesting/styling";
-
     }
 
 }

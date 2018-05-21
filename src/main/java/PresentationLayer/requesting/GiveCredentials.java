@@ -6,6 +6,7 @@
 package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
+import static FunctionLayer.LogicFacade.PATTERN;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -23,25 +24,28 @@ public class GiveCredentials extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         String submit = "";
 
-            submit = request.getParameter("submit");
-            if (submit.equals("Back")) {
-                return new StylingPage().execute(request, response);
-            }
-            Order order = (Order) request.getSession().getAttribute("order");
+        submit = request.getParameter("submit");
+        if (submit.equals("Back")) {
+            return new StylingPage().execute(request, response);
+        }
+        Order order = (Order) request.getSession().getAttribute("order");
 
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-            String email = request.getParameter("email");
-            int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
 
-            Customer customer = new Customer(firstName, lastName, email, phoneNumber);
-            order.setCustomer(customer);
-            
-            //setting allowed
-            HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
-            allowed.put("Confirm", true);
+        if (!PATTERN.matcher(email).matches()) {
+            throw new FOGException("Not a valid email");
+        }
 
-       
+        Customer customer = new Customer(firstName, lastName, email, phoneNumber);
+        order.setCustomer(customer);
+
+        //setting allowed
+        HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+        allowed.put("Confirm", true);
+
         if (submit.equals("Update")) {
             return new GiveCredentialsPage().execute(request, response);
         }

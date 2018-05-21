@@ -50,7 +50,6 @@ public class SendEmail implements Runnable {
 
     private void sendEmail(String mailTo) {
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
@@ -60,7 +59,6 @@ public class SendEmail implements Runnable {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            throw new RuntimeException("Could not send email");
         }
     }
 

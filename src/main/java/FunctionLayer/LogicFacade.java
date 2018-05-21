@@ -9,8 +9,15 @@ import FunctionLayer.entities.StyleOption;
 import static FunctionLayer.Hashing.HashPassword;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 public class LogicFacade {
+    
+    public static final Pattern PATTERN = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
 
     /**
      * returns all of the orders by inputing -1 in getOrders
@@ -174,7 +181,7 @@ public class LogicFacade {
         String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
                 + "Password: " + password;
         SendEmail emailSender = new SendEmail(email, title, text);
-        Thread thread = new Thread(email);
+        Thread thread = new Thread(emailSender);
         thread.start();
     }
 
@@ -239,7 +246,7 @@ public class LogicFacade {
     }
 
     public static void createEmployee(Employee emp) throws FOGException {
-
+        
         String password = Hashing.randomString(20);
 
         String salt = Hashing.randomString(10);

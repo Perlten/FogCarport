@@ -26,6 +26,10 @@ public class EmployeeMapper {
 
     private Connection con;
 
+    /**
+     * Set connection to the live database
+     * @throws FOGException
+     */
     public EmployeeMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -33,17 +37,21 @@ public class EmployeeMapper {
             throw new FOGException("Could not find connection");
         }
     }
-
+    /**
+     * Give the connection to which the mapper should connect to.
+     * @param con 
+     */
     public EmployeeMapper(Connection con) {
         this.con = con;
     }
 
     /**
-     * 
-     * @param username
+     * If user exits in database that corresponse to the username and password given the method wil return said employee
+     * if not the method will throw a exception.
+     * @param username Username of employee
      * @param password Password is encryptet
-     * @return
-     * @throws FOGException 
+     * @return Employee
+     * @throws FOGException
      */
     public Employee verfyLogin(String username, String password) throws FOGException {
         String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM employee WHERE BINARY username = ? and BINARY password = ? AND employed = true";
@@ -58,6 +66,7 @@ public class EmployeeMapper {
             throw new FOGException("could not verify login");
         }
     }
+
     public void createEmployee(Employee emp, String password, String salt) throws FOGException {
         String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email, salt)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -90,10 +99,9 @@ public class EmployeeMapper {
         }
     }
 
-
     public List<Employee> getAllEmployees(boolean noFired) throws FOGException {
         String sql = "SELECT * FROM employee";
-        if(noFired){
+        if (noFired) {
             sql += " where employed = true";
         }
         try {
@@ -177,6 +185,7 @@ public class EmployeeMapper {
             throw new FOGException("Could not reset password");
         }
     }
+
     public void changePassword(int employeeId, String newPassword, String salt, boolean resetPassword) throws FOGException {
         String sql = "UPDATE employee SET reset_password = ?, password = ?, salt = ? WHERE idemployee = ?";
         try {

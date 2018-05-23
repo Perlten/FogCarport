@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Perlt
  */
-public class DatabaseFacade {
+public class DataFacade {
 
     public static List<Order> getAllOrders() throws FOGException {
         return new OrderMapper().getOrders(-1);

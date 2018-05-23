@@ -6,7 +6,6 @@
 package PresentationLayer.requesting;
 
 import FunctionLayer.FOGException;
-import static FunctionLayer.LogicFacade.PATTERN;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;

@@ -35,11 +35,14 @@ import PresentationLayer.requesting.LoadOrderPage;
 import PresentationLayer.requesting.StylingPage;
 import PresentationLayer.requesting.SubmitOrder;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class Command {
 
+    public static final Pattern PATTERN = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+    
     private static HashMap<String, Command> commands;
 
     private static void initCommands() {

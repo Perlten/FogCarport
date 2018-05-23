@@ -8,7 +8,6 @@ package PresentationLayer.orders;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.Calculator;
-import static FunctionLayer.LogicFacade.PATTERN;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Employee;

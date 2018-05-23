@@ -24,12 +24,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class Logging {
 
-    static final Logger LOGGER = Logger.getLogger(Logger.class.getName());
-
-    public static void main(String[] args) throws IOException {
-        Logging lg = new Logging();
-        lg.write("test");
-    }
+    private static final Logger LOGGER = Logger.getLogger(Logger.class.getName());
 
     public void write(String message) throws IOException {
         addHandlers();

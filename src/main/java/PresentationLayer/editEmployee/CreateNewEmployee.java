@@ -7,7 +7,6 @@ package PresentationLayer.editEmployee;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import static FunctionLayer.LogicFacade.PATTERN;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;

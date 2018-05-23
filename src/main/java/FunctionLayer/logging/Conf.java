@@ -12,6 +12,6 @@ import java.util.logging.Logger;
  * @author adamlass
  */
 public class Conf {
-    public static final String LOGFILEPATH = "Fog.log";
+    public static final String LOGFILEPATH = "/logging/Fog.log";
     public static final String LOGDEVFILEPATH = "FogDev.%u.%g.log";
 }

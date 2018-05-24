@@ -70,16 +70,6 @@
 <br>
 <%@include file="includeErrorBanner.jsp" %>
 
-<script>
-    
-     window.onload = function () {
-         if(sessionStorage.getItem("load") !== "false"){
-             document.getElementById('censorBanner').style.display = "block";
-         }
-     }
-</script>
-
-
 <div id="censorBanner" style="margin-left: 15px; margin-right: 15px; display: none">
     <div class="alert alert-success alert-dismissible fade show">
         <button type="button" onclick="sessionStorage.setItem('load', 'false')" class="close" data-dismiss="alert">&times;</button>

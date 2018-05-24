@@ -3,6 +3,12 @@
 <script>
     var x = document.cookie;
     window.onload = function () {
+
+        //We need to put this here becuase there can only be one onload function
+        if (sessionStorage.getItem("load") !== "false") {
+            document.getElementById('censorBanner').style.display = "block";
+        }
+        //for error banner
         if (getCookie("refresh") === "true") {
             document.cookie = "refresh = false";
             location.reload();

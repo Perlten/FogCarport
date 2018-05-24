@@ -81,5 +81,3 @@
     <%}%>
 </div>
 
-<%            session.setAttribute("welcommed", true);
-%>

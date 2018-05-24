@@ -36,15 +36,31 @@
                 </form>
             </div>
             <br>
-            <div>
-                <div class="card" style="width: 300px">
-                    <div class="card-body">
-                        <p>Censor/Teacher login: admin</p>
-                        <p>Censor/Teacher password: 1234</p>
+            <center>
+                <div>
+                    <div class="card" style="width: 400px">
+                        <div class="card-body">
+                            <h4>Exam access</h4>
+                            <p>login: <b>admin</b></p>
+                            <p>password: <b>1234</b></p>
+                            <br>
+                            <h5>Gmail for password reset:</h5>
+                            <p>login: <b>FogCarportAdm@gmail.com</b></p>
+                            <p>password: <b>Fortado#1234</b></p>
+                            <p><i>Please always reset the password to <b>1234</b>!</i></p>
+                            <br>
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="GiveDimentionsPage">
+                                <button type="submit" class="btn btn-light">Back to Customer-page</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
+            </center>
         </div>
     </body>
 </html>
+
+<%            session.setAttribute("welcommed", true);
+%>

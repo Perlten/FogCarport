@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class DeleteStyle extends Command {
+public class DeleteStyle implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

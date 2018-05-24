@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author adamlass
  */
-public class LoadOrderPage extends Command {
+public class LoadOrderPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

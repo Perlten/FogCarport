@@ -10,7 +10,6 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
-import PresentationLayer.orders.GetOrdersPage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class LoginVerification extends Command {
+public class LoginVerification implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

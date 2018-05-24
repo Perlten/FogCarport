@@ -5,10 +5,11 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
+import static PresentationLayer.Invoker.PATTERN;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateEmployee extends Command {
+public class UpdateEmployee implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

@@ -5,10 +5,9 @@
  */
 package PresentationLayer.requesting;
 
+import FunctionLayer.Calculator;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Calculator;
-import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author adamlass
  */
-public class SubmitOrder extends Command {
+public class SubmitOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

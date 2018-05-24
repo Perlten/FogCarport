@@ -13,12 +13,9 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class PickingListPage extends Command {
+public class PickingListPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

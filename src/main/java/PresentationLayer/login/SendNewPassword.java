@@ -7,7 +7,6 @@ package PresentationLayer.login;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.entities.Employee;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class SendNewPassword extends Command {
+public class SendNewPassword implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

@@ -5,11 +5,9 @@
  */
 package FunctionLayer;
 
-import FunctionLayer.entities.Product;
-import FunctionLayer.FOGException;
-import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
+import FunctionLayer.entities.Product;
 import FunctionLayer.entities.Shed;
 import java.util.ArrayList;
 import java.util.List;

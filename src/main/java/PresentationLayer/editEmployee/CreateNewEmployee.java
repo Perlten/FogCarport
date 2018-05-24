@@ -10,6 +10,7 @@ import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
+import static PresentationLayer.Invoker.PATTERN;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class CreateNewEmployee extends Command {
+public class CreateNewEmployee implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

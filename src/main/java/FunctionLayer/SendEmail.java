@@ -5,7 +5,6 @@
  */
 package FunctionLayer;
 
-import FunctionLayer.entities.Employee;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;

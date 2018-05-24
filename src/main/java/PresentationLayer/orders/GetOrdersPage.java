@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class GetOrdersPage extends Command {
+public class GetOrdersPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

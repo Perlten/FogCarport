@@ -5,8 +5,6 @@
  */
 package FunctionLayer.logging;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author adamlass

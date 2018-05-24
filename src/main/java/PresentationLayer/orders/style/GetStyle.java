@@ -1,13 +1,12 @@
 package PresentationLayer.orders.style;
 
-import PresentationLayer.orders.style.UpdateStylePage;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GetStyle extends Command {
+public class GetStyle implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

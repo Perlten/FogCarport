@@ -1,18 +1,17 @@
 package DBAccess;
 
-import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
 import FunctionLayer.entities.StyleOption;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

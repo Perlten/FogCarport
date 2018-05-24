@@ -5,9 +5,9 @@
  */
 package PresentationLayer.orders;
 
-import FunctionLayer.LogicFacade;
-import FunctionLayer.FOGException;
 import FunctionLayer.Calculator;
+import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Employee;
@@ -15,6 +15,7 @@ import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Shed;
 import PresentationLayer.Command;
+import static PresentationLayer.Invoker.PATTERN;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class EditOrder extends Command {
+public class EditOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

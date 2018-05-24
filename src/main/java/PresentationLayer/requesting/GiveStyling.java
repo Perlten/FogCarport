@@ -5,9 +5,9 @@
  */
 package PresentationLayer.requesting;
 
+import FunctionLayer.Calculator;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Calculator;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class GiveStyling extends Command {
+public class GiveStyling implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

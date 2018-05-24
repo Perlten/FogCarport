@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class ForgotPasswordPage extends Command{
+public class ForgotPasswordPage implements Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

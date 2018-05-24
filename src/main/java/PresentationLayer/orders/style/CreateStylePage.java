@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class CreateStylePage extends Command {
+public class CreateStylePage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

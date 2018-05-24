@@ -1,15 +1,14 @@
 package FunctionLayer;
 
 import DBAccess.DataFacade;
-import FunctionLayer.entities.Product;
+import static FunctionLayer.Hashing.HashPassword;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
+import FunctionLayer.entities.Product;
 import FunctionLayer.entities.StyleOption;
-import static FunctionLayer.Hashing.HashPassword;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class LogicFacade {
     

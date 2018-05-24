@@ -5,10 +5,7 @@
  */
 package DBAccess;
 
-import FunctionLayer.Calculator;
 import FunctionLayer.FOGException;
-import FunctionLayer.Hashing;
-import static FunctionLayer.Hashing.HashPassword;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;

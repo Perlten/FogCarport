@@ -5,8 +5,8 @@
  */
 package PresentationLayer.orders;
 
-import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class EditOrderPage extends Command {
+public class EditOrderPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

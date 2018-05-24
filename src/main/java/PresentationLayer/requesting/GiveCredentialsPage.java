@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class GiveCredentialsPage extends Command {
+public class GiveCredentialsPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

@@ -9,6 +9,7 @@ import FunctionLayer.FOGException;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
+import static PresentationLayer.Invoker.PATTERN;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class GiveCredentials extends Command {
+public class GiveCredentials implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

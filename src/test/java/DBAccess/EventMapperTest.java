@@ -15,9 +15,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.Assert.assertEquals;
 
 public class EventMapperTest {
 

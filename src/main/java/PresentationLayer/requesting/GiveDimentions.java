@@ -5,9 +5,9 @@
  */
 package PresentationLayer.requesting;
 
+import FunctionLayer.Calculator;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
-import FunctionLayer.Calculator;
 import FunctionLayer.entities.Customer;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author adamlass
  */
-public class GiveDimentions extends Command {
+public class GiveDimentions implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

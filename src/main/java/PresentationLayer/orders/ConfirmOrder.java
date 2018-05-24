@@ -1,18 +1,14 @@
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrdersPage;
-import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ConfirmOrder extends Command {
+public class ConfirmOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {

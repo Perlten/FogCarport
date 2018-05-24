@@ -70,14 +70,23 @@
 <br>
 <%@include file="includeErrorBanner.jsp" %>
 
+<script>
+    function changeSession(){
+        sessionStorage.setItem("load", "false");
+    }
+    
+     window.onload = function () {
+         if(sessionStorage.getItem("load") === "false"){
+             document.getElementById('censorBanner').style.display = "none";
+         }
+     }
+</script>
 
 
-<div style="margin-left: 15px; margin-right: 15px">
-    <% if (session.getAttribute("welcommed") == null) {%>
+<div id="censorBanner" style="margin-left: 15px; margin-right: 15px">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" onclick="changeSession()" class="close" data-dismiss="alert">&times;</button>
         To log in as an Employee, please follow <a href="employeeLogin.jsp">this link!</a>
     </div>
-    <%}%>
 </div>
 

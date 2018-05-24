@@ -15,6 +15,11 @@
         <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
     </head>
     <body>
+        <script>
+             window.onload = function () {
+                 sessionStorage.setItem("load", "false");
+             }
+        </script>
         <div class="container-fluid">
             <div class="loginStyle">
                 <form action="FrontController" method="post">
@@ -61,6 +66,3 @@
         </div>
     </body>
 </html>
-
-<%            session.setAttribute("welcommed", true);
-%>

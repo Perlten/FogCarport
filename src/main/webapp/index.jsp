@@ -46,6 +46,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/include/includeCustomerNav.jsp" %>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">

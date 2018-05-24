@@ -67,6 +67,19 @@
 
 
 </ul>
-    <br>
-        <%@include file="includeErrorBanner.jsp" %>
-  
+<br>
+<%@include file="includeErrorBanner.jsp" %>
+
+
+
+<div style="margin-left: 15px; margin-right: 15px">
+    <% if (session.getAttribute("welcommed") == null) {%>
+    <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        To log in as an Employee, please follow <a href="employeeLogin.jsp">this link!</a>
+    </div>
+    <%}%>
+</div>
+
+<%            session.setAttribute("welcommed", true);
+%>

@@ -35,6 +35,16 @@
                     <button type="submit" class="btn btn-primary">Forgot password</button>
                 </form>
             </div>
+            <br>
+            <div>
+                <div class="card" style="width: 300px">
+                    <div class="card-body">
+                        <p>Censor/Teacher login: admin</p>
+                        <p>Censor/Teacher password: 1234</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </body>
 </html>

@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class LiveConnection implements Connector{
+/**
+ The purpose of Connector is to...
 
-    private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog?autoReconnect=true&serverTimezone=UTC&useSSL=false";
-    private static final String USERNAME = "doorkeeper";
-    private static final String PASSWORD = "Fortado#420";
+ @author kasper
+ */
+public class BadConnection implements Connector{
+
+   private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog_test?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowMultiQueries=true";
+    private static final String USERNAME = "errorConnection";
+    private static final String PASSWORD = "Test.1234";
 
     private static Connection singleton;
 
@@ -27,4 +32,3 @@ public class LiveConnection implements Connector{
     }
 
 }
-

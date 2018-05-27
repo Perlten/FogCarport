@@ -25,8 +25,8 @@ import org.junit.Test;
 public class EmployeeMapperTest {
 
     private final String sql;
-    private final EmployeeMapper mapper;
-    private final Connection con;
+    private EmployeeMapper mapper;
+    private Connection con;
 
     public EmployeeMapperTest() throws IOException, ClassNotFoundException, SQLException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("sql/test_db.sql"), "UTF-8"));
@@ -43,9 +43,20 @@ public class EmployeeMapperTest {
     }
 
     @Before
-    public void setUp() throws SQLException {
+    public void setUp() throws SQLException, ClassNotFoundException {
+        con = new TestConnection().connection();
+        mapper = new EmployeeMapper(con);
         Statement statement = con.createStatement();
         statement.executeUpdate(sql);
+    }
+
+    @Test
+    public void testCreateMapper() throws Exception {
+        EmployeeMapper map = new EmployeeMapper();
+        assertEquals(map.getCon().getCatalog(), "fog");
+        
+        map = new EmployeeMapper(new TestConnection().connection());
+        assertEquals(map.getCon().getCatalog(), "fog_test");
     }
 
     /**
@@ -62,7 +73,7 @@ public class EmployeeMapperTest {
      */
     @Test(expected = FOGException.class)
     public void testUnsuccessfulVerfyLogin() throws Exception {
-        Employee emp = mapper.verfyLogin("larsen", "lasslass");
+        Employee emp = mapper.verfyLogin("error", "error");
         assert false;
     }
 
@@ -103,6 +114,15 @@ public class EmployeeMapperTest {
     public void testGetAllEmployees() throws Exception {
         int expected = 3;
         int actual = mapper.getAllEmployees(false).size();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetAllEmployeesWithoutFired() throws Exception {
+        mapper.fireEmployee(1);
+        int expected = 2;
+        int actual = mapper.getAllEmployees(true).size();
 
         assertEquals(expected, actual);
     }
@@ -163,11 +183,19 @@ public class EmployeeMapperTest {
         assertNotNull(emp);
         assertFalse(emp.isResetPassword());
     }
-    
+
     @Test
-    public void testGetSalt() throws Exception{
+    public void testGetSalt() throws Exception {
         String expected = "mille";
         String actual = mapper.getSalt("Larsen");
         assertEquals(expected, actual);
+    }
+
+    @Test(expected = FOGException.class)
+    public void testForSqlExceptionsInVerifyLogin() throws Exception {
+        con = new BadConnection().connection();
+        mapper = new EmployeeMapper(con);
+
+        Employee emp = mapper.verfyLogin("Larsen", "LassLass");
     }
 }

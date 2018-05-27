@@ -33,6 +33,7 @@
                     num += 10;
                 }
                 var xhttp = new XMLHttpRequest();
+                //onreadystatechange gets called every time whenever the readyState attribute changes.
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("orders").innerHTML = this.responseText;

@@ -25,6 +25,7 @@
     }
 
     li a:hover {
+        color: black;
         background-color: activeborder;
         text-decoration: none;
     }

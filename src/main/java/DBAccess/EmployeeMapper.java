@@ -212,4 +212,9 @@ public class EmployeeMapper {
             throw new FOGException(e.getMessage());
         }
     }
+
+    public Connection getCon() {
+        return con;
+    }
+    
 }

@@ -1,8 +1,6 @@
 package FunctionLayer;
 
 import DBAccess.DataFacade;
-import DBAccess.EventMapper;
-import static FunctionLayer.Hashing.HashPassword;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
@@ -10,9 +8,9 @@ import FunctionLayer.entities.Product;
 import FunctionLayer.entities.StyleOption;
 import java.util.ArrayList;
 import java.util.List;
+import static FunctionLayer.Hashing.hashPassword;
 
 public class LogicFacade {
-    
 
     /**
      * returns all of the orders by inputing -1 in getOrders
@@ -157,7 +155,7 @@ public class LogicFacade {
     public static Employee verfyLogin(String username, String password) throws FOGException {
         String salt = DataFacade.getSalt(username);
         password = password.concat(salt);
-        String hash = HashPassword(password);
+        String hash = hashPassword(password);
         return DataFacade.verfyLogin(username, hash);
     }
 
@@ -168,7 +166,7 @@ public class LogicFacade {
 
         String salt = Hashing.randomString(10);
         String newPassword = password.concat(salt);
-        String hash = HashPassword(newPassword);
+        String hash = hashPassword(newPassword);
 
         DataFacade.resetPasswordAndSetResetTrue(emp.getEmployeeId(), hash, salt);
 
@@ -235,18 +233,18 @@ public class LogicFacade {
     public static void changePassword(int employeeId, String password) throws FOGException {
         String salt = Hashing.randomString(10);
         password = password.concat(salt);
-        String hash = HashPassword(password);
+        String hash = hashPassword(password);
 
         DataFacade.changePassword(employeeId, hash, salt);
     }
 
     public static void createEmployee(Employee emp) throws FOGException {
-        
+
         String password = Hashing.randomString(20);
 
         String salt = Hashing.randomString(10);
         String newPassword = password.concat(salt);
-        String hash = HashPassword(newPassword);
+        String hash = hashPassword(newPassword);
 
         DataFacade.CreateEmployee(emp, hash, salt);
 
@@ -301,8 +299,8 @@ public class LogicFacade {
     public static Calculator getCalculator(Order order) throws FOGException {
         return new Calculator(order);
     }
-    
-    public static List<Event> getAllEvents(int limit) throws FOGException{
+
+    public static List<Event> getAllEvents(int limit) throws FOGException {
         return new DataFacade().getAllEvents(limit);
     }
 

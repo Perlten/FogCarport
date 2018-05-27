@@ -44,8 +44,6 @@ public class EmployeeMapperTest {
 
     @Before
     public void setUp() throws SQLException, ClassNotFoundException {
-        con = new TestConnection().connection();
-        mapper = new EmployeeMapper(con);
         Statement statement = con.createStatement();
         statement.executeUpdate(sql);
     }
@@ -193,9 +191,11 @@ public class EmployeeMapperTest {
 
     @Test(expected = FOGException.class)
     public void testForSqlExceptionsInVerifyLogin() throws Exception {
-        con = new BadConnection().connection();
-        mapper = new EmployeeMapper(con);
+        Connection badCon = new BadConnection().connection();
+        EmployeeMapper badMapper = new EmployeeMapper(badCon);
 
-        Employee emp = mapper.verfyLogin("Larsen", "LassLass");
+        Employee emp = badMapper.verfyLogin("Larsen", "LassLass");
+        
+        assert false;
     }
 }

@@ -37,6 +37,9 @@
     <li><a href="FrontController?command=UpdateStylePage">Stylings</a></li>
     <li><a href="FrontController?command=UpdateStaff" style="width: 100%">Update staff</a></li>
         <%}%>
+        <% if (empNavBar.getAuthenticationLevel() >= 3) { %>
+    <li><a href="FrontController?command=AllEventsPage">All Events</a></li>
+        <%}%>
 </ul>
 
 <%@include file="includeErrorBanner.jsp" %>

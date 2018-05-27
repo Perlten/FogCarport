@@ -43,7 +43,6 @@ public class EventMapper {
      * @param event
      * @throws FunctionLayer.FOGException
      */
-
     public void writeOrderEvent(Event event) throws FOGException {
         try {
 
@@ -123,21 +122,44 @@ public class EventMapper {
                     + "INNER JOIN event_type "
                     + "ON event.idevent_type = event_type.idevent_type "
                     + "WHERE employee = ? order by idevent desc";
-            
-            if(limit > 0){
+
+            if (limit > 0) {
                 sql += " LIMIT ?";
             }
 
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, employeeId);
-            
-             if(limit > 0){
+
+            if (limit > 0) {
                 pre.setInt(2, limit);
             }
 
             return convert(pre.executeQuery());
         } catch (SQLException e) {
             throw new FOGException(e.getMessage());
+        }
+    }
+
+    public List<Event> getAllEvents(int limit) throws FOGException {
+        try {
+            String sql = "SELECT * FROM event "
+                    + "INNER JOIN event_type "
+                    + "ON event.idevent_type = event_type.idevent_type "
+                    + "order by idevent desc";
+
+            if (limit > 0) {
+                sql += " LIMIT ?";
+            }
+
+            PreparedStatement pre = con.prepareStatement(sql);
+
+            if (limit > 0) {
+                pre.setInt(1, limit);
+            }
+
+            return convert(pre.executeQuery());
+        } catch (Exception e) {
+            throw new FOGException("Could not get all orders");
         }
     }
 

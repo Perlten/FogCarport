@@ -1,6 +1,7 @@
 package FunctionLayer;
 
 import DBAccess.DataFacade;
+import DBAccess.EventMapper;
 import static FunctionLayer.Hashing.HashPassword;
 import FunctionLayer.entities.Employee;
 import FunctionLayer.entities.Event;
@@ -299,6 +300,10 @@ public class LogicFacade {
 
     public static Calculator getCalculator(Order order) throws FOGException {
         return new Calculator(order);
+    }
+    
+    public static List<Event> getAllEvents(int limit) throws FOGException{
+        return new DataFacade().getAllEvents(limit);
     }
 
 }

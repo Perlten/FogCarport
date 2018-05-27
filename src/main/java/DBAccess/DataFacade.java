@@ -191,4 +191,8 @@ public class DataFacade {
     public static Product getProduct(int id) throws FOGException {
         return new ProductMapper().getProduct(id);
     }
+    
+    public static List<Event> getAllEvents(int limit) throws FOGException{
+        return new EventMapper().getAllEvents(limit);
+    }
 }

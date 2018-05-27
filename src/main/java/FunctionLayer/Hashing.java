@@ -17,7 +17,7 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class Hashing {
 
-    public static String HashPassword(String password) throws FOGException {
+    public static String hashPassword(String password) throws FOGException {
         try {
             String ans = "";
             MessageDigest md = MessageDigest.getInstance("SHA-1");

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : Aug 22, 2017, 2:01:06 PM
-    Author     : kasper
---%>
 
 <%@page import="FunctionLayer.entities.Shed"%>
 <%@page import="FunctionLayer.entities.Customization"%>

@@ -28,6 +28,7 @@ public class Calculator {
     private final int TILEWIDTH;
 
     private final double WIDTH;
+    private final double LENGTH;
     private double maxShedWidth;
     private double poleDistanceWidth;
 
@@ -35,17 +36,17 @@ public class Calculator {
         this.RAFTERWOODLENGTH = (int) LogicFacade.getProduct(1).getLength();
         this.LATHLENGTH = (int) LogicFacade.getProduct(7).getLength();
         this.TILEWIDTH = (int) LogicFacade.getProduct(8).getLength();
-        
+
         this.order = order;
         this.cust = order.getCustomization();
         this.products = new ArrayList<>();
         this.WIDTH = cust.getWidth();
+        this.LENGTH = cust.getLength();
         this.maxShedWidth = WIDTH - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
 
     public void calculate() throws FOGException {
-        products.add(new Product(8, 1, 0));
 
         calculateRafter();
         laths();
@@ -64,16 +65,6 @@ public class Calculator {
             product.setAmount(prod.getAmount());
             estPrice += product.totalPrice();
 
-            //customization options
-//            if (product.getTitle().equals("Cladding")) {
-//                if (cust.getCladding() != null) {
-//                    double cmPrice = cust.getCladding().getPrice() / 100;
-//                    estPrice += (product.getLength() * prod.getAmount()) * cmPrice;
-//                }
-//
-//            } else if (product.getTitle().equals("Tile")) {
-//
-//            }
             switch (product.getTitle()) {
                 case "Cladding":
                     if (cust.getCladding() != null) {
@@ -183,23 +174,57 @@ public class Calculator {
     }
 
     private void roof() {
-        double currentWidth = 0.0;
-        int amount = 0;
+        double currentLength = 0.0;
+        int lengthAmount = 0;
+        double lengthRemainder = 0;
 
-        while (currentWidth != WIDTH) {
+        while (currentLength != LENGTH) {
 
-            if ((currentWidth + TILEWIDTH) < WIDTH) {
-                amount++;
-                currentWidth += TILEWIDTH;
+            if ((currentLength + TILEWIDTH) <= LENGTH) {
+                lengthAmount++;
+                currentLength += TILEWIDTH;
             } else {
-                double remainder = WIDTH - currentWidth;
-                currentWidth += remainder;
+                lengthRemainder = LENGTH - currentLength;
+                currentLength += lengthRemainder;
             }
         }
 
-    }
+        double currentWidth = 0.0;
+        int widthAmount = 0;
 
-    public static void main(String[] args) throws FOGException {
+        if (cust.getRoofangle() == 0) {
+            //flat roof
+            while (currentWidth < WIDTH) {
+                widthAmount++;
+                currentWidth += TILEWIDTH;
+            }
+
+            //add products
+            products.add(new Product(8, lengthAmount * widthAmount, TILEWIDTH));
+            if (lengthRemainder != 0) {
+                products.add(new Product(8, widthAmount, lengthRemainder));
+
+            }
+
+        } else {
+            //angled roof
+            double roofAngle = cust.getRoofangle();
+
+            double lastAngle = 180 - (roofAngle * 2);
+            double sideWidth = (Math.sin(Math.toRadians(roofAngle)) * WIDTH)
+                    / Math.sin(Math.toRadians(lastAngle));
+
+            while (currentWidth < sideWidth) {
+                widthAmount++;
+                currentWidth += TILEWIDTH;
+            }
+
+            //add products
+            products.add(new Product(8, 2 * lengthAmount * widthAmount, TILEWIDTH));
+            if (lengthRemainder != 0) {
+                products.add(new Product(8, 2 * widthAmount, lengthRemainder));
+            }
+        }
 
     }
 

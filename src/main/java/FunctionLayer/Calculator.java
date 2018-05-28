@@ -56,6 +56,12 @@ public class Calculator {
             calculateCladding();
 
         }
+        
+        for(Product product : products){
+            if(product.getAmount() < 1){
+                products.remove(product);
+            }
+        }
     }
 
     public double totalPrice() throws FOGException {

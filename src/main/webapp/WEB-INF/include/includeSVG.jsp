@@ -10,12 +10,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    Order orderDraw = (Order) request.getSession().getAttribute("order");
+    Order orderDraw = (Order) request.getAttribute("order");
+
     if (orderDraw == null) {
-        orderDraw = (Order) request.getSession().getAttribute("confirmedOrder");
+        orderDraw = (Order) request.getSession().getAttribute("order");
+
     }
     if (orderDraw == null) {
-        orderDraw = (Order) request.getAttribute("order");
+        orderDraw = (Order) request.getSession().getAttribute("confirmedOrder");
     }
 
     Customization drawCust = orderDraw.getCustomization();

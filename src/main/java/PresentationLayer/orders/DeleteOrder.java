@@ -5,9 +5,10 @@
  */
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrders;
-import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,13 +17,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class DeleteOrder extends Command {
+public class DeleteOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int orderId = Integer.parseInt(request.getParameter("orderToDelete"));
+        
+        //event
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeOrderEmployeeEvent(new Event(emp, 3, orderId));
+        
         LogicFacade.removeOrder(orderId);
-        return new GetOrders().execute(request, response);
+        return new GetOrdersPage().execute(request, response);
     }
-    
+
 }

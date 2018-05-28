@@ -5,9 +5,8 @@
  */
 package PresentationLayer.orders;
 
-import PresentationLayer.orders.GetOrders;
-import FunctionLayer.LogicFacade;
 import FunctionLayer.FOGException;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +17,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adamlass
  */
-public class ShowOrder extends Command {
+public class ShowOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         int orderid = Integer.parseInt(request.getParameter("orderId"));
         Order order = LogicFacade.getOrder(orderid);
         request.setAttribute("order", order);
-        return new GetOrders().execute(request, response);
+        return new GetOrdersPage().execute(request, response);
     }
 }

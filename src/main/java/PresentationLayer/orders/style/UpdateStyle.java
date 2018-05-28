@@ -7,6 +7,8 @@ package PresentationLayer.orders.style;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.StyleOption;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class UpdateStyle extends Command {
+public class UpdateStyle implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
@@ -45,6 +47,10 @@ public class UpdateStyle extends Command {
         if (type.equals("tile")) {
             LogicFacade.updateTile(selectedStyle, selectedStyle.getId());
         }
+        
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 13));
 
         return new GetStyle().execute(request, response);
     }

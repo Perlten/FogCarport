@@ -5,10 +5,13 @@
  */
 package PresentationLayer.requesting;
 
+import FunctionLayer.Calculator;
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Event;
 import FunctionLayer.entities.Order;
 import PresentationLayer.Command;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,22 +20,35 @@ import javax.servlet.http.HttpSession;
  *
  * @author adamlass
  */
-public class SubmitOrder extends Command {
+public class SubmitOrder implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        try {
-            HttpSession session = request.getSession();
-            Order order = (Order) session.getAttribute("order");
-            LogicFacade.makeOrder(order);
-            order.setOrdered(true);
-            session.setAttribute("order", null);
-            session.setAttribute("confirmedOrder", order);
-            LogicFacade.sendEmailToCustomer(order);
-        } catch (Exception e) {
-            throw new FOGException("Could not submit order!");
-        }
-        return "WEB-INF/confirm";
+        HttpSession session = request.getSession();
+        Order order = (Order) session.getAttribute("order");
+        LogicFacade.makeOrder(order);
+
+        Calculator calc = new Calculator(order);
+        calc.calculate();
+        LogicFacade.writeLines(calc.getProducts(), order.getOrderid());
+        
+        LogicFacade.sendEmailToCustomer(order);
+        LogicFacade.emailToAllEmployeeWithNewOrder(order.getOrderid());
+
+        order.setOrdered(true);
+        session.setAttribute("order", null);
+        request.setAttribute("confirmedId", order.getOrderid());
+
+        //event
+        LogicFacade.writeOrderEvent(new Event(1, order.getOrderid()));
+
+        //setting allowed
+        HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+        allowed.put("Dimentions", false);
+        allowed.put("Styling", false);
+        allowed.put("Credentials", false);
+
+        return new LoadOrderPage().execute(request, response);
     }
 
 }

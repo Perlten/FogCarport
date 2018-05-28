@@ -6,6 +6,7 @@
 package PresentationLayer;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.logging.Logging;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
 
- @author kasper
- */
 @WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
 public class FrontController extends HttpServlet {
 
@@ -32,12 +30,20 @@ public class FrontController extends HttpServlet {
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         try {
-            Command action = Command.from( request );
+            
+            Command action = Invoker.from( request );
             String view = action.execute( request, response );
             request.getRequestDispatcher(view + ".jsp" ).forward( request, response );
         } catch ( FOGException ex ) {
-            request.setAttribute( "error", ex.getMessage() );
-            request.getRequestDispatcher( "/WEB-INF/errorPage.jsp" ).forward( request, response );
+            request.getSession().setAttribute("error", ex.getMessage() );
+            //logging
+            new Logging().write(ex.getMessage());
+            request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
+        } catch ( Exception ex ) {
+            request.getSession().setAttribute("error", "Something went wrong. Please try again" );
+            //logging
+            new Logging().write(ex.getMessage());
+            request.getRequestDispatcher( "/WEB-INF/error.jsp" ).forward( request, response );
         }
     }
 

@@ -7,6 +7,8 @@ package PresentationLayer.orders.style;
 
 import FunctionLayer.FOGException;
 import FunctionLayer.LogicFacade;
+import FunctionLayer.entities.Employee;
+import FunctionLayer.entities.Event;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Perlt
  */
-public class DeleteStyle extends Command {
+public class DeleteStyle implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
@@ -30,6 +32,10 @@ public class DeleteStyle extends Command {
             LogicFacade.removeTile(id);
         }
         
-        return new updateStylePage().execute(request, response);
+        
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeEmployeeEvent(new Event(emp, 12));
+        
+        return new UpdateStylePage().execute(request, response);
     }
 }

@@ -24,18 +24,20 @@ public class Order {
     private Calendar date;
     private Customer customer;
     private Customization customization;
+    private double price;
 
-    public Order(int orderid, boolean ordered, boolean confirmed, Calendar date, Customer customer, Customization customization) {
+    public Order(int orderid, boolean ordered, boolean confirmed, Calendar date, Customer customer, Customization customization, double price) {
         this.orderid = orderid;
         this.confirmed = confirmed;
         this.date = date;
         this.customer = customer;
         this.customization = customization;
         this.ordered = ordered;
+        this.price = price;
     }
 
     public Order(Customer customer, Customization customization) {
-        this(-1, false, false, null, customer, customization);
+        this(-1, false, false, null, customer, customization, 0);
     }
 
     public int percentage() {
@@ -58,6 +60,10 @@ public class Order {
         return res;
     }
 
+    public double getPrice() {
+        return price;
+    }
+    
     public int getOrderid() {
         return orderid;
     }
@@ -96,6 +102,10 @@ public class Order {
 
     public void setOrdered(boolean ordered) {
         this.ordered = ordered;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String simpleDate() {

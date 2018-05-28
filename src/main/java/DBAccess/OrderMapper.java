@@ -124,7 +124,14 @@ public class OrderMapper {
             ps.setInt(11, shedLength);
             ps.setInt(12, shedWidth);
             ps.setInt(13, customization.getTile().getId());
-            ps.setInt(14, customization.getCladding().getId());
+
+            StyleOption cladding = order.getCustomization().getCladding();
+            if (cladding != null) {
+                ps.setInt(14, cladding.getId());
+            } else {
+                ps.setNull(14, java.sql.Types.INTEGER);
+            }
+
             ps.setDouble(15, order.getPrice());
             ps.setInt(16, order.getOrderid());
 
@@ -202,7 +209,13 @@ public class OrderMapper {
             ps.setInt(10, shedLength);
             ps.setInt(11, shedWidth);
             ps.setInt(12, order.getCustomization().getTile().getId());
-            ps.setInt(13, order.getCustomization().getCladding().getId());
+
+            if (order.getCustomization().getShed() != null) {
+                ps.setInt(13, order.getCustomization().getCladding().getId());
+            } else {
+                ps.setNull(13, java.sql.Types.INTEGER);
+
+            }
             ps.setDouble(14, order.getPrice());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();

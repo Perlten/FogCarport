@@ -33,15 +33,19 @@ public class GiveStyling implements Command {
 
         int cladding = 0;
         int tile = 0;
-        try {
-            cladding = Integer.parseInt(request.getParameter("cladding"));
-            tile = Integer.parseInt(request.getParameter("tile"));
-        } catch (Exception ex) {
-            throw new FOGException("You must choose a cladding and a tile option");
-        }
+
         Customization cust = order.getCustomization();
 
-        cust.setCladding(LogicFacade.getCladding(cladding));
+        try {
+            tile = Integer.parseInt(request.getParameter("tile"));
+            if (order.getCustomization().getShed() != null) {
+                cladding = Integer.parseInt(request.getParameter("cladding"));
+                cust.setCladding(LogicFacade.getCladding(cladding));
+            }
+
+        } catch (Exception e) {
+            throw new FOGException("Please choose a style for all categories!");
+        }
         cust.setTile(LogicFacade.getTile(tile));
 
         Calculator calc = LogicFacade.getCalculator(order);

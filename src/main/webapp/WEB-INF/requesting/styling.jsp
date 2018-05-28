@@ -50,6 +50,7 @@
                             <div class="card-body">
                                 <input type="hidden" name="command" value="GiveStyling">
 
+                                <% if(order.getCustomization().getShed() != null) { %>
                                 <h4>Cladding</h4>
                                 <% for (StyleOption option : claddings) {%>
                                 <label>
@@ -71,7 +72,7 @@
                                 </label>
                                 <%}%>
                                 <br>
-
+                                <%}%>
                                 <h4>Tiles</h4>
                                 <% for (StyleOption option : tiles) {%>
                                 <label>

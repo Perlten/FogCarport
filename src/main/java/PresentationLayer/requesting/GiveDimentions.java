@@ -33,6 +33,8 @@ public class GiveDimentions implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
+        Order sessionOrder = (Order) request.getSession().getAttribute("order");
+
         int length = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));
         int height = Integer.parseInt(request.getParameter("height"));
@@ -54,6 +56,10 @@ public class GiveDimentions implements Command {
         if (shed) {
             shedLength = Integer.parseInt(request.getParameter("shedLength"));
             shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
+        } else {
+            if (sessionOrder != null) {
+                sessionOrder.getCustomization().setCladding(null);
+            }
         }
 
         String submit = request.getParameter("submit");
@@ -63,7 +69,6 @@ public class GiveDimentions implements Command {
             shedObj = new Shed(shedLength, shedWidth);
         }
 
-        Order sessionOrder = (Order) request.getSession().getAttribute("order");
         Customization sessionCustomization = null;
         StyleOption cladding = null;
         StyleOption tile = null;

@@ -101,18 +101,23 @@
 
         </div>
 
-        <% if (claddingSelected != null && tileSelected != null) {%> 
+        <% if (claddingSelected != null || tileSelected != null) {%> 
         <div>
             <h5 class="text-muted">Styling</h5>
             <table class="table table-xstriped">
                 <thead>
-                <th>Cladding</th>
                 <th>Tile</th>
+                    <% if (claddingSelected != null) {%>
+                <th>Cladding</th>
+
+                <%}%>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><%= claddingSelected.getName()%></td>
                         <td><%= tileSelected.getName()%></td>
+                        <% if (claddingSelected != null) {%>
+                        <td><%= claddingSelected.getName()%></td>
+                        <%}%>
                     </tr>
 
                 </tbody>

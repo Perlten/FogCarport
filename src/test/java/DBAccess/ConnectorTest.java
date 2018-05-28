@@ -15,7 +15,8 @@ public class ConnectorTest {
 
     /**
      * Test of the connection to the mysql server.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testConnection() throws Exception {

@@ -283,7 +283,7 @@ public class OrderMapper {
                 if (!claddingList.isEmpty()) {
                     claddingStyle = claddingList.get(0);
                 }
-                
+
                 if (!tileList.isEmpty()) {
                     tileStyle = tileList.get(0);
                 }

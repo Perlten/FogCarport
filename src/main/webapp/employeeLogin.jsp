@@ -16,9 +16,9 @@
     </head>
     <body>
         <script>
-             window.onload = function () {
-                 sessionStorage.setItem("load", "false");
-             }
+            window.onload = function () {
+                sessionStorage.setItem("load", "false");
+            }
         </script>
         <div class="container-fluid">
             <div class="loginStyle">

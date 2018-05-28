@@ -14,15 +14,13 @@
     if (orderDraw == null) {
         orderDraw = (Order) request.getSession().getAttribute("confirmedOrder");
     }
-    if(orderDraw == null){
+    if (orderDraw == null) {
         orderDraw = (Order) request.getAttribute("order");
     }
-    
+
     Customization drawCust = orderDraw.getCustomization();
     int drawLength = drawCust.getLength();
     int drawWidth = drawCust.getWidth();
-
-    
 
     int padding = Customization.padding;
     int beam = Customization.beam;
@@ -87,10 +85,10 @@
 
     for (int i = 0; i < amountOfPoles; i++) {
 %>
-<rect x="<%= padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5 %>" width="10" height="10" 
+<rect x="<%= padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5%>" width="10" height="10" 
       style="fill: white; stroke: black; stroke-drawWidth: 2"/>
 
-<rect x="<%= drawWidth - padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5 %>" width="10" height="10" 
+<rect x="<%= drawWidth - padding - (beam / 2 + 3)%>" y="<%= (i * poleDistance + padding) - 5%>" width="10" height="10" 
       style="fill: white; stroke: black; stroke-width: 2"/>
 <%
     }

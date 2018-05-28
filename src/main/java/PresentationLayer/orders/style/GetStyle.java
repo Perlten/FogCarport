@@ -10,15 +10,15 @@ public class GetStyle implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        
+
         int id = Integer.parseInt(request.getParameter("styleId"));
         String type = request.getParameter("type");
-        
-        if(type.equals("tile")){
+
+        if (type.equals("tile")) {
             request.setAttribute("selectedStyle", LogicFacade.getTile(id));
             request.setAttribute("type", "tile");
         }
-        if(type.equals("cladding")){
+        if (type.equals("cladding")) {
             request.setAttribute("selectedStyle", LogicFacade.getCladding(id));
             request.setAttribute("type", "cladding");
         }

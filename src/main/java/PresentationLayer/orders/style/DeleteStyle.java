@@ -24,18 +24,17 @@ public class DeleteStyle implements Command {
 
         int id = Integer.parseInt(request.getParameter("styleId"));
         String type = request.getParameter("type");
-        
-        if(type.equals("cladding")){
+
+        if (type.equals("cladding")) {
             LogicFacade.removeCladding(id);
         }
-        if(type.equals("tile")){
+        if (type.equals("tile")) {
             LogicFacade.removeTile(id);
         }
-        
-        
+
         Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 12));
-        
+
         return new UpdateStylePage().execute(request, response);
     }
 }

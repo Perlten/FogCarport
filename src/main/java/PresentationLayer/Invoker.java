@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class Invoker {
 
     public static final Pattern PATTERN = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
-    
+
     private static HashMap<String, Command> commands;
 
     private static void initCommands() {
@@ -84,12 +84,12 @@ public abstract class Invoker {
         commands.put("AllEventsPage", new GetAllEventsPage());
     }
 
-    static Command from( HttpServletRequest request ) {
-        String commandName = request.getParameter( "command" );
-        if ( commands == null ) {
+    static Command from(HttpServletRequest request) {
+        String commandName = request.getParameter("command");
+        if (commands == null) {
             initCommands();
         }
-        return commands.getOrDefault(commandName, new UnknownCommand() );
+        return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
 }

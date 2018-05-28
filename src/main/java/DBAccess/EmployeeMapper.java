@@ -28,6 +28,7 @@ public class EmployeeMapper {
 
     /**
      * Set connection to the live database
+     *
      * @throws FOGException
      */
     public EmployeeMapper() throws FOGException {
@@ -37,17 +38,21 @@ public class EmployeeMapper {
             throw new FOGException("Could not find connection");
         }
     }
+
     /**
      * Give the connection to which the mapper should connect to.
-     * @param con 
+     *
+     * @param con
      */
     public EmployeeMapper(Connection con) {
         this.con = con;
     }
 
     /**
-     * If user exits in database that corresponse to the username and password given the method wil return said employee
-     * if not the method will throw a exception.
+     * If user exits in database that corresponse to the username and password
+     * given the method wil return said employee if not the method will throw a
+     * exception.
+     *
      * @param username Username of employee
      * @param password Password is encryptet
      * @return Employee
@@ -216,5 +221,5 @@ public class EmployeeMapper {
     public Connection getCon() {
         return con;
     }
-    
+
 }

@@ -24,5 +24,4 @@ public class GetAllEvents implements Command {
         return new GetAllEventsPage().execute(request, response);
     }
 
-    
 }

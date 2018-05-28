@@ -12,13 +12,13 @@
         <title>Error</title>
     </head>
     <body>
-        <% 
+        <%
         %>
-            <script>
-                window.onload = function () {
-                  document.cookie = "refresh = true";
-                  window.history.back();
-                };
-            </script>
+        <script>
+            window.onload = function () {
+                document.cookie = "refresh = true";
+                window.history.back();
+            };
+        </script>
     </body>
 </html>

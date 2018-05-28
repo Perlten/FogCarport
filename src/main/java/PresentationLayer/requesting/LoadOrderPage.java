@@ -24,31 +24,31 @@ public class LoadOrderPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-            Order order = null;
+        Order order = null;
 
-            int orderid = 0;
+        int orderid = 0;
 
-            if (request.getAttribute("confirmedId") != null) {
-                orderid = (int) request.getAttribute("confirmedId");
-            } else if (request.getParameter("id") != null) {
-                orderid = Integer.parseInt(request.getParameter("id"));
-            } else {
-                return "WEB-INF/requesting/confirm";
-            }
+        if (request.getAttribute("confirmedId") != null) {
+            orderid = (int) request.getAttribute("confirmedId");
+        } else if (request.getParameter("id") != null) {
+            orderid = Integer.parseInt(request.getParameter("id"));
+        } else {
+            return "WEB-INF/requesting/confirm";
+        }
 
-            order = LogicFacade.getOrder(orderid);
-            session.setAttribute("confirmedOrder", order);
-            
-            //setting events
-            List<Event> events = LogicFacade.getOrderEvent(orderid);
-            request.getSession().setAttribute("orderEvents", events);
-            
-            //setting allowed
-            HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
-            allowed.put("Confirm", true);
-            allowed.put("Dimentions", false);
+        order = LogicFacade.getOrder(orderid);
+        session.setAttribute("confirmedOrder", order);
+
+        //setting events
+        List<Event> events = LogicFacade.getOrderEvent(orderid);
+        request.getSession().setAttribute("orderEvents", events);
+
+        //setting allowed
+        HashMap<String, Boolean> allowed = (HashMap<String, Boolean>) request.getSession().getAttribute("allowed");
+        allowed.put("Confirm", true);
+        allowed.put("Dimentions", false);
 
         return "WEB-INF/requesting/confirm";
     }

@@ -47,8 +47,7 @@ public class UpdateStyle implements Command {
         if (type.equals("tile")) {
             LogicFacade.updateTile(selectedStyle, selectedStyle.getId());
         }
-        
-        
+
         Employee emp = (Employee) request.getSession().getAttribute("employee");
         LogicFacade.writeEmployeeEvent(new Event(emp, 13));
 

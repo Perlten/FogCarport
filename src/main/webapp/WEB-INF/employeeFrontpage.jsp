@@ -41,17 +41,17 @@
                         </thead>
 
                         <tbody>
-                        <% for (Order order : unConfirmedOrders) {
-                                Customer cust = order.getCustomer();
-                        %>
-                        <tr>
-                        <td><%= order.getOrderid()%></td>
-                        <td><%= cust.getEmail()%></td>
-                        <td><%= order.simpleDate()%></td>
-                        <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
-                        <td><%= cust.getPhonenumber()%></td>
-                        </tr>
-                        <% }%>
+                            <% for (Order order : unConfirmedOrders) {
+                                    Customer cust = order.getCustomer();
+                            %>
+                            <tr>
+                                <td><%= order.getOrderid()%></td>
+                                <td><%= cust.getEmail()%></td>
+                                <td><%= order.simpleDate()%></td>
+                                <td><%= cust.getLastname() + ", " + cust.getFirstname()%></td>
+                                <td><%= cust.getPhonenumber()%></td>
+                            </tr>
+                            <% }%>
                         </tbody>
                     </table>
                     <p> Total unconfirmed orders <%= numberOfConfirmedOrder%></p>
@@ -70,14 +70,14 @@
                         </thead>
 
                         <tbody>
-                        <% for (Event event : eventList) {
-                        %>
-                        <tr>
-                        <td><%= event.getEventName()%></td>
-                        <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription() %>"><%= event.getShortDescription()%></td>
-                        <td><%= event.simpleDate()%></td>
-                        </tr>
-                        <% }%>
+                            <% for (Event event : eventList) {
+                            %>
+                            <tr>
+                                <td><%= event.getEventName()%></td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription()%>"><%= event.getShortDescription()%></td>
+                                <td><%= event.simpleDate()%></td>
+                            </tr>
+                            <% }%>
                         </tbody>
                     </table>
                 </div>

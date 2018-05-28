@@ -98,7 +98,7 @@ public class EventMapperTest {
 
     @Test
     public void testWriteEmployeeEvent() throws Exception {
-         Employee emp = new Employee(3, 0, null, null, null, null, false, null, false);
+        Employee emp = new Employee(3, 0, null, null, null, null, false, null, false);
         Event event = new Event(emp, 2);
         mapper.writeEmployeeEvent(event);
 

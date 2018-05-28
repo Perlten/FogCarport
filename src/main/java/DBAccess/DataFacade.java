@@ -179,7 +179,7 @@ public class DataFacade {
             productMapper.writeLine(prod.getId(), orderId, prod.getAmount(), prod.getLengthUsed());
         }
     }
-    
+
     public static void removeLines(int orderId) throws FOGException {
         new ProductMapper().removeLines(orderId);
     }
@@ -191,8 +191,8 @@ public class DataFacade {
     public static Product getProduct(int id) throws FOGException {
         return new ProductMapper().getProduct(id);
     }
-    
-    public static List<Event> getAllEvents(int limit) throws FOGException{
+
+    public static List<Event> getAllEvents(int limit) throws FOGException {
         return new EventMapper().getAllEvents(limit);
     }
 }

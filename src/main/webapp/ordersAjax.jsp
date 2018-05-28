@@ -30,7 +30,7 @@
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="ShowOrder">
                     <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
-                    <input type="hidden" name="loads" value="<%= orderList.size() %>">
+                    <input type="hidden" name="loads" value="<%= orderList.size()%>">
                     <input type="submit" class="btn btn-primary" value="Order <%= order.getOrderid()%>">
                 </form>
 

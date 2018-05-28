@@ -142,7 +142,7 @@
                             }%>
                     </div>
                     <br>
-                    <h3>Latest evnts for <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname() %></h3>
+                    <h3>Latest evnts for <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname()%></h3>
                     <table class="table table-xstriped table-hover">
                         <thead class="thead-dark">
                             <tr>

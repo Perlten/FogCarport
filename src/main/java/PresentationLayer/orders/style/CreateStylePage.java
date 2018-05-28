@@ -18,8 +18,8 @@ public class CreateStylePage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        
+
         return "WEB-INF/update/createStyle";
     }
-    
+
 }

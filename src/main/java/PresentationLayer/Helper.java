@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Used to hold static helper methods for the presentationlayer.
+ *
  * @author adamlass
  */
 public class Helper {

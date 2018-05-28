@@ -83,42 +83,40 @@ public class ProductMapper {
             throw new FOGException("Could not get product");
         }
     }
-    
-    
 
     private List<Product> convert(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
-        
-            while (res.next()) {
-                double lengthUsed = res.getDouble("length_used");
-                int amount = res.getInt("amount");
 
-                int id = res.getInt("idproduct");
-                String title = res.getString("title");
-                String description = res.getString("description");
-                String unit = res.getString("unit");
-                double length = res.getDouble("length");
-                double price = res.getDouble("price");
+        while (res.next()) {
+            double lengthUsed = res.getDouble("length_used");
+            int amount = res.getInt("amount");
 
-                products.add(new Product(title, description, unit, amount, id, price, length, lengthUsed));
-            }
-         
+            int id = res.getInt("idproduct");
+            String title = res.getString("title");
+            String description = res.getString("description");
+            String unit = res.getString("unit");
+            double length = res.getDouble("length");
+            double price = res.getDouble("price");
+
+            products.add(new Product(title, description, unit, amount, id, price, length, lengthUsed));
+        }
+
         return products;
     }
-    
+
     private List<Product> convertProducts(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
-            while (res.next()) {
+        while (res.next()) {
 
-                int id = res.getInt("idproduct");
-                String title = res.getString("title");
-                String description = res.getString("description");
-                String unit = res.getString("unit");
-                double length = res.getDouble("length");
-                double price = res.getDouble("price");
+            int id = res.getInt("idproduct");
+            String title = res.getString("title");
+            String description = res.getString("description");
+            String unit = res.getString("unit");
+            double length = res.getDouble("length");
+            double price = res.getDouble("price");
 
-                products.add(new Product(title, description, unit, 0, id, price, length, 0));
-            }
+            products.add(new Product(title, description, unit, 0, id, price, length, 0));
+        }
         return products;
     }
 }

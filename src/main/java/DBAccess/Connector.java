@@ -17,5 +17,5 @@ public interface Connector {
     public void setConnection(Connection con);
 
     public Connection connection() throws ClassNotFoundException, SQLException;
-    
+
 }

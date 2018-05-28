@@ -12,14 +12,12 @@
         <title>Login</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <%@include file="css/employeeLogin.jsp" %>
-        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
+
     </head>
     <body>
-        <script>
-            window.onload = function () {
-                sessionStorage.setItem("load", "false");
-            }
-        </script>
+        <div>
+            <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
+        </div>
         <div class="container-fluid">
             <div class="loginStyle">
                 <form action="FrontController" method="post">
@@ -57,6 +55,10 @@
                             <form action="FrontController" method="post">
                                 <input type="hidden" name="command" value="GiveDimentionsPage">
                                 <button type="submit" class="btn btn-light">Back to Customer-page</button>
+                            </form>
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="ResetAdmin">
+                                <button type="submit" class="btn btn-warning">Reset Admin User</button>
                             </form>
                         </div>
                     </div>

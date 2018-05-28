@@ -11,6 +11,7 @@ import PresentationLayer.events.GetAllEventsPage;
 import PresentationLayer.login.ForgotPasswordPage;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.NewPassword;
+import PresentationLayer.login.ResetAdmin;
 import PresentationLayer.login.SendNewPassword;
 import PresentationLayer.login.employeeOverviewPage;
 import PresentationLayer.orders.ConfirmOrder;
@@ -82,6 +83,7 @@ public abstract class Invoker {
         commands.put("ForgotPassword", new ForgotPasswordPage());
         commands.put("AllEvents", new GetAllEvents());
         commands.put("AllEventsPage", new GetAllEventsPage());
+        commands.put("ResetAdmin", new ResetAdmin());
     }
 
     static Command from(HttpServletRequest request) {

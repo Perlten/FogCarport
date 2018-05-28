@@ -6,6 +6,8 @@
 package DBAccess;
 
 import FunctionLayer.FOGException;
+import FunctionLayer.Hashing;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -220,6 +222,31 @@ public class EmployeeMapper {
 
     public Connection getCon() {
         return con;
+    }
+
+    /**
+     * Exam purpose
+     *
+     * @throws FunctionLayer.FOGException
+     */
+    public static void resetAdmin() throws FOGException {
+        try {
+            String sql = "DELETE FROM employee WHERE email='FogCarportAdm@gmail.com' OR username='admin'";
+            Connection staticCon = new LiveConnection().connection();
+            PreparedStatement ps = staticCon.prepareStatement(sql);
+            ps.execute();
+            Employee emp = new Employee("admin", "admin", "admin", "FogCarportAdm@gmail.com", 3);
+            LogicFacade.createEmployee(emp);
+            emp = LogicFacade.getEmployeeByEmail(emp.getEmail());
+            DataFacade.changePassword(emp.getEmployeeId(), "FB96595462E15B1E814EA9C784428B0424136067", "aovppjgmtr");
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new FOGException("Could not reset admin user!");
+        }
+
+    }
+
+    public static void main(String[] args) throws FOGException {
+        EmployeeMapper.resetAdmin();
     }
 
 }

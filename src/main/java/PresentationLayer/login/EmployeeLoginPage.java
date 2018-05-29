@@ -6,22 +6,20 @@
 package PresentationLayer.login;
 
 import FunctionLayer.FOGException;
-import FunctionLayer.LogicFacade;
 import PresentationLayer.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Perlt
+ * @author adamlass
  */
-public class SendNewPassword implements Command {
+public class EmployeeLoginPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-        String email = request.getParameter("email");
-        LogicFacade.SendNewPasswordToEmployee(email);
-        return new EmployeeLoginPage().execute(request, response);
+        request.getSession().setAttribute("employee", null);
+        return "employeeLogin";
     }
-    
+
 }

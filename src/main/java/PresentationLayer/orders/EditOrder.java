@@ -28,18 +28,8 @@ public class EditOrder implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
 
-        //Dimensions
-        int length = Integer.parseInt(request.getParameter("length"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        int width = Integer.parseInt(request.getParameter("width"));
-        double roofAngle = Double.parseDouble(request.getParameter("roofAngle"));
-        int shedLength = Integer.parseInt(request.getParameter("shedLength"));
-        int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        int claddingId = Integer.parseInt(request.getParameter("cladding"));
-        int tileId = Integer.parseInt(request.getParameter("tile"));
+        //price
         double price = Double.parseDouble(request.getParameter("price"));
-
         if (price < 0) {
             throw new FOGException("Price can't be under 0!");
         }
@@ -54,7 +44,25 @@ public class EditOrder implements Command {
             throw new FOGException("Not a valid email");
         }
 
-        String isShed = request.getParameter("shed");
+        //Dimentions
+        int length = Integer.parseInt(request.getParameter("length"));
+        int height = Integer.parseInt(request.getParameter("height"));
+        int width = Integer.parseInt(request.getParameter("width"));
+        double roofAngle = Double.parseDouble(request.getParameter("roofAngle"));
+        int shedLength = Integer.parseInt(request.getParameter("shedLength"));
+        int shedWidth = Integer.parseInt(request.getParameter("shedWidth"));
+        boolean shed = Boolean.parseBoolean(request.getParameter("shed"));
+
+        //order
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+
+        //styling
+        int tileId = Integer.parseInt(request.getParameter("tile"));
+
+        int claddingId = 0;
+        if (shed) {
+            claddingId = Integer.parseInt(request.getParameter("cladding"));
+        }
 
         Order order = LogicFacade.getOrder(orderId);
 
@@ -63,8 +71,13 @@ public class EditOrder implements Command {
         c.setHeight(height);
         c.setWidth(width);
         c.setRoofangle(roofAngle);
-        c.setCladding(LogicFacade.getCladding(claddingId));
         c.setTile(LogicFacade.getTile(tileId));
+
+        if (shed) {
+            c.setCladding(LogicFacade.getCladding(claddingId));
+        } else {
+            c.setCladding(null);
+        }
 
         //recalculate
         Calculator calc = LogicFacade.getCalculator(order);
@@ -73,10 +86,10 @@ public class EditOrder implements Command {
         LogicFacade.writeLines(calc.getProducts(), orderId);
         order.setPrice(price);
 
-        if (isShed == null) {
-            c.setShed(null);
-        } else if (isShed.equals("true")) {
+        if (shed) {
             c.setShed(new Shed(shedLength, shedWidth));
+        } else {
+            c.setShed(null);
         }
 
         Customer customer = order.getCustomer();

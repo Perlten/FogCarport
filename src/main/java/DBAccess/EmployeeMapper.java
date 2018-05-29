@@ -190,10 +190,12 @@ public class EmployeeMapper {
         }
         return list;
     }
+
     /**
      * Update Employee
+     *
      * @param employee
-     * @throws FOGException 
+     * @throws FOGException
      */
     public void updateEmployee(Employee employee) throws FOGException {
         String sql = "UPDATE employee SET username = ?, roleid = ?, firstname = ?, lastname = ?, email = ? where idemployee = ?";
@@ -210,10 +212,12 @@ public class EmployeeMapper {
             throw new FOGException("Could not update employee");
         }
     }
+
     /**
      * Fire Employee
+     *
      * @param employeeId
-     * @throws FOGException 
+     * @throws FOGException
      */
     public void fireEmployee(int employeeId) throws FOGException {
         String sql = "UPDATE employee SET employed = false WHERE idemployee = ?";
@@ -225,10 +229,12 @@ public class EmployeeMapper {
             throw new FOGException("Could not fire Employee");
         }
     }
+
     /**
      * Reset password
+     *
      * @param employeeId
-     * @throws FOGException 
+     * @throws FOGException
      */
     public void resetPassword(int employeeId) throws FOGException {
         String sql = "UPDATE employee SET reset_password = true WHERE idemployee = ?";
@@ -240,13 +246,15 @@ public class EmployeeMapper {
             throw new FOGException("Could not reset password");
         }
     }
+
     /**
      * Changes password for Employee
+     *
      * @param employeeId
      * @param newPassword
      * @param salt
      * @param resetPassword
-     * @throws FOGException 
+     * @throws FOGException
      */
     public void changePassword(int employeeId, String newPassword, String salt, boolean resetPassword) throws FOGException {
         String sql = "UPDATE employee SET reset_password = ?, password = ?, salt = ? WHERE idemployee = ?";
@@ -261,11 +269,13 @@ public class EmployeeMapper {
             throw new FOGException("Could not change password");
         }
     }
+
     /**
      * Gets salt
+     *
      * @param username
      * @return String
-     * @throws FOGException 
+     * @throws FOGException
      */
     public String getSalt(String username) throws FOGException {
         String sql = "SELECT salt FROM employee where username = ?";

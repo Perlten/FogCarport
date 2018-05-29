@@ -152,11 +152,13 @@ public class EventMapper {
             throw new FOGException(e.getMessage());
         }
     }
+
     /**
      * Gets all Events
+     *
      * @param limit
      * @return List with Events
-     * @throws FOGException 
+     * @throws FOGException
      */
     public List<Event> getAllEvents(int limit) throws FOGException {
         try {

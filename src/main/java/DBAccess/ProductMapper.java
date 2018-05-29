@@ -95,11 +95,13 @@ public class ProductMapper {
         }
         return res;
     }
+
     /**
      * Get Product
+     *
      * @param id
      * @return Product
-     * @throws FOGException 
+     * @throws FOGException
      */
     public Product getProduct(int id) throws FOGException {
         try {
@@ -111,11 +113,13 @@ public class ProductMapper {
             throw new FOGException("Could not get product");
         }
     }
+
     /**
      * Converts ResultSet to a List Products
+     *
      * @param res
      * @return List of Product
-     * @throws SQLException 
+     * @throws SQLException
      */
     //TODO: Hvorfor er der 2 convert til product ?
     private List<Product> convert(ResultSet res) throws SQLException {
@@ -137,11 +141,13 @@ public class ProductMapper {
 
         return products;
     }
+
     /**
      * Converts ResultSet to a List Products
+     *
      * @param res
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     private List<Product> convertProducts(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();

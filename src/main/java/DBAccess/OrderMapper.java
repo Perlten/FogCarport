@@ -185,10 +185,12 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
+
     /**
      * Delets Order
+     *
      * @param orderId
-     * @throws FOGException 
+     * @throws FOGException
      */
     public void removeOrder(int orderId) throws FOGException {
         String sql = "DELETE FROM .order WHERE idorder = ?";
@@ -248,10 +250,12 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
+
     /**
      * Number of unconfirmed Orders
+     *
      * @return int
-     * @throws FOGException 
+     * @throws FOGException
      */
     public int numberOfUnconfirmedOrders() throws FOGException {
         String sql = "SELECT COUNT(idorder) FROM .order WHERE confirmed = false";
@@ -290,11 +294,13 @@ public class OrderMapper {
             throw new FOGException("Could not get orders");
         }
     }
+
     /**
      * Converts ResultSet to a list with Orders
+     *
      * @param res
      * @return List with Order
-     * @throws FOGException 
+     * @throws FOGException
      */
     private List<Order> orderConverter(ResultSet res) throws FOGException {
         try {
@@ -349,11 +355,13 @@ public class OrderMapper {
             throw new FOGException("Could not find order");
         }
     }
+
     /**
      * Converts ResultSet to List with Customer
+     *
      * @param res
      * @return
-     * @throws FOGException 
+     * @throws FOGException
      */
     private List<Order> customerConverter(ResultSet res) throws FOGException {
         try {

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Connection design to fail
- * 
+ *
  */
 public class BadConnection implements Connector {
 
@@ -15,12 +15,11 @@ public class BadConnection implements Connector {
     private static final String PASSWORD = "Test.1234";
 
     private static Connection singleton;
-    
+
     @Override
     public void setConnection(Connection con) {
         singleton = con;
     }
-
 
     @Override
     public Connection connection() throws ClassNotFoundException, SQLException {

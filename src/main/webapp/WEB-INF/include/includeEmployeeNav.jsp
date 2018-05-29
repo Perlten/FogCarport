@@ -45,9 +45,3 @@
 </ul>
 
 <%@include file="includeErrorBanner.jsp" %>
-
-<p class="text-muted">
-<%=
-    "Logged in as " + ((Employee) session.getAttribute("employee")).getUsername()
-%>
-</p>

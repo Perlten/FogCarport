@@ -56,7 +56,6 @@ public class SendEmail implements Runnable {
             message.setSubject(title);
             message.setText(textMessage);
             Transport.send(message);
-
         } catch (MessagingException e) {
         }
     }

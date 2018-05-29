@@ -171,7 +171,7 @@ public class LogicFacade {
         DataFacade.resetPasswordAndSetResetTrue(emp.getEmployeeId(), hash, salt);
 
         String title = "New password";
-        String text = "Here stupid here is your new password... DONT LOSE IT AGAIN... moron!!\n\n"
+        String text = "Here is your new password... DONT LOSE IT AGAIN...\n\n"
                 + "Password: " + password;
         SendEmail emailSender = new SendEmail(email, title, text);
         Thread thread = new Thread(emailSender);

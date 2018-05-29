@@ -15,9 +15,7 @@
 
     </head>
     <body>
-        <div>
-            <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
-        </div>
+        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
         <div class="container-fluid">
             <div class="loginStyle">
                 <form action="FrontController" method="post">

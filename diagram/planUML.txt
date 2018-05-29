@@ -1,0 +1,34 @@
+@startuml
+title Verfy employee login
+
+participant LoginVerification << (C,#ADD1B2) >>
+participant LogicFacade << (C,#ADD1B2) >>
+participant DataFacade << (C,#ADD1B2) >>
+participant EmployeeMapper << (C,#ADD1B2) >>
+participant Hashing << (C,#ADD1B2) >>
+database database
+
+
+LoginVerification -> LogicFacade: verfyLogin()
+
+LogicFacade -> DataFacade: getSalt()
+note left: Get salt by username
+DataFacade -> EmployeeMapper: getSalt()
+EmployeeMapper -> database: execute()
+database --> EmployeeMapper: String
+EmployeeMapper --> DataFacade: String
+DataFacade --> LogicFacade: String
+
+LogicFacade -> Hashing: hashPassword()
+Hashing --> LogicFacade: String
+
+LogicFacade -> DataFacade: verfyLogin()
+DataFacade -> EmployeeMapper: verfyLogin()
+EmployeeMapper -> database: executeQuery()
+note left: if employee is found return employee
+
+database --> EmployeeMapper: Employee
+EmployeeMapper --> DataFacade: Employee
+DataFacade --> LogicFacade: Employee
+LogicFacade --> LoginVerification: Employee
+@endum

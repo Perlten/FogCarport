@@ -5,17 +5,12 @@
  */
 package FunctionLayer;
 
-import DBAccess.ProductMapper;
 import FunctionLayer.entities.Customization;
 import FunctionLayer.entities.Order;
 import FunctionLayer.entities.Product;
 import FunctionLayer.entities.Shed;
 import FunctionLayer.entities.StyleOption;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

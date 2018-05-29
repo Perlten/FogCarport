@@ -86,7 +86,9 @@ public class Event {
     public Calendar getDate() {
         return date;
     }
-
+    /**
+     * @return Date in a simple form
+     */
     public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(date.getTime());

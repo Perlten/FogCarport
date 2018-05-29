@@ -25,6 +25,11 @@ public class OrderMapper {
 
     private Connection con;
 
+    /**
+     * Creates Mapper with Connection to live database
+     *
+     * @throws FOGException
+     */
     public OrderMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -74,6 +79,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Gets a List with Customer
+     *
+     * @param limit
+     * @return List with Customer
+     * @throws FOGException
+     */
     public List<Order> getOrderCustomerList(int limit) throws FOGException {
 
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order order by idorder desc LIMIT ?";
@@ -150,6 +162,12 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Unconfirms Order
+     *
+     * @param id
+     * @throws FOGException
+     */
     public void unconfirmOrder(int id) throws FOGException {
         String sql = "UPDATE .order SET confirmed = false WHERE idorder = ?;";
         try {
@@ -160,7 +178,11 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
-
+    /**
+     * Delets Order
+     * @param orderId
+     * @throws FOGException 
+     */
     public void removeOrder(int orderId) throws FOGException {
         String sql = "DELETE FROM .order WHERE idorder = ?";
         try {
@@ -213,7 +235,11 @@ public class OrderMapper {
             throw new FOGException(ex.getMessage());
         }
     }
-
+    /**
+     * Number of unconfirmed Orders
+     * @return int
+     * @throws FOGException 
+     */
     public int numberOfUnconfirmedOrders() throws FOGException {
         String sql = "SELECT COUNT(idorder) FROM .order WHERE confirmed = false";
         try {
@@ -251,7 +277,12 @@ public class OrderMapper {
             throw new FOGException("Could not get orders");
         }
     }
-
+    /**
+     * Converts ResultSet to a list with Orders
+     * @param res
+     * @return List with Order
+     * @throws FOGException 
+     */
     private List<Order> orderConverter(ResultSet res) throws FOGException {
         try {
             List<Order> orderList = new ArrayList<>();
@@ -305,7 +336,12 @@ public class OrderMapper {
             throw new FOGException("Could not find order");
         }
     }
-
+    /**
+     * Converts ResultSet to List with Customer
+     * @param res
+     * @return
+     * @throws FOGException 
+     */
     private List<Order> customerConverter(ResultSet res) throws FOGException {
         try {
             List<Order> list = new ArrayList<>();

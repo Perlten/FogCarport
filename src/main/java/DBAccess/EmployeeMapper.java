@@ -6,7 +6,6 @@
 package DBAccess;
 
 import FunctionLayer.FOGException;
-import FunctionLayer.Hashing;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.entities.Employee;
 import java.sql.Connection;
@@ -74,6 +73,14 @@ public class EmployeeMapper {
         }
     }
 
+    /**
+     * Creates Employee
+     *
+     * @param emp
+     * @param password
+     * @param salt
+     * @throws FOGException
+     */
     public void createEmployee(Employee emp, String password, String salt) throws FOGException {
         String sql = "INSERT INTO employee(username, roleid, firstname, lastname, password, email, salt)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -93,6 +100,13 @@ public class EmployeeMapper {
         }
     }
 
+    /**
+     * Gets Employee on email
+     *
+     * @param email
+     * @return
+     * @throws FOGException
+     */
     public Employee getEmployeeByEmail(String email) throws FOGException {
         String sql = "SELECT idemployee, username, roleid, firstname, lastname, email, employed, date_created, reset_password FROM employee WHERE email = ?";
         try {
@@ -106,6 +120,13 @@ public class EmployeeMapper {
         }
     }
 
+    /**
+     * Gets all Employees
+     *
+     * @param noFired Include fired employees
+     * @return List with Employee
+     * @throws FOGException
+     */
     public List<Employee> getAllEmployees(boolean noFired) throws FOGException {
         String sql = "SELECT * FROM employee";
         if (noFired) {
@@ -120,6 +141,13 @@ public class EmployeeMapper {
         }
     }
 
+    /**
+     * Gets Employee by id
+     *
+     * @param id
+     * @return Employee
+     * @throws FOGException
+     */
     public Employee getEmployeeById(int id) throws FOGException {
         String sql = "SELECT * FROM employee WHERE idemployee = ?";
         try {
@@ -133,6 +161,14 @@ public class EmployeeMapper {
         }
     }
 
+    /**
+     * Converts a Prepared Statements into a List of Employee
+     *
+     * @param rs ResultSet
+     * @return List with Employee
+     * @throws SQLException
+     * @throws FOGException
+     */
     private List<Employee> convert(ResultSet rs) throws SQLException, FOGException {
         List<Employee> list = new ArrayList<>();
         while (rs.next()) {
@@ -154,7 +190,11 @@ public class EmployeeMapper {
         }
         return list;
     }
-
+    /**
+     * Update Employee
+     * @param employee
+     * @throws FOGException 
+     */
     public void updateEmployee(Employee employee) throws FOGException {
         String sql = "UPDATE employee SET username = ?, roleid = ?, firstname = ?, lastname = ?, email = ? where idemployee = ?";
         try {
@@ -170,7 +210,11 @@ public class EmployeeMapper {
             throw new FOGException("Could not update employee");
         }
     }
-
+    /**
+     * Fire Employee
+     * @param employeeId
+     * @throws FOGException 
+     */
     public void fireEmployee(int employeeId) throws FOGException {
         String sql = "UPDATE employee SET employed = false WHERE idemployee = ?";
         try {
@@ -181,7 +225,11 @@ public class EmployeeMapper {
             throw new FOGException("Could not fire Employee");
         }
     }
-
+    /**
+     * Reset password
+     * @param employeeId
+     * @throws FOGException 
+     */
     public void resetPassword(int employeeId) throws FOGException {
         String sql = "UPDATE employee SET reset_password = true WHERE idemployee = ?";
         try {
@@ -192,7 +240,14 @@ public class EmployeeMapper {
             throw new FOGException("Could not reset password");
         }
     }
-
+    /**
+     * Changes password for Employee
+     * @param employeeId
+     * @param newPassword
+     * @param salt
+     * @param resetPassword
+     * @throws FOGException 
+     */
     public void changePassword(int employeeId, String newPassword, String salt, boolean resetPassword) throws FOGException {
         String sql = "UPDATE employee SET reset_password = ?, password = ?, salt = ? WHERE idemployee = ?";
         try {
@@ -206,7 +261,12 @@ public class EmployeeMapper {
             throw new FOGException("Could not change password");
         }
     }
-
+    /**
+     * Gets salt
+     * @param username
+     * @return String
+     * @throws FOGException 
+     */
     public String getSalt(String username) throws FOGException {
         String sql = "SELECT salt FROM employee where username = ?";
         try {
@@ -244,9 +304,4 @@ public class EmployeeMapper {
         }
 
     }
-
-    public static void main(String[] args) throws FOGException {
-        EmployeeMapper.resetAdmin();
-    }
-
 }

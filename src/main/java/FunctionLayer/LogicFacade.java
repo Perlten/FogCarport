@@ -40,6 +40,12 @@ public class LogicFacade {
         return DataFacade.getOrder(orderId);
     }
 
+    /**
+     * Creates Order
+     *
+     * @param order
+     * @throws FOGException
+     */
     public static void makeOrder(Order order) throws FOGException {
         DataFacade.makeOrder(order);
     }
@@ -114,30 +120,74 @@ public class LogicFacade {
         return DataFacade.getTile(id);
     }
 
+    /**
+     * Updates Cladding
+     *
+     * @param cladding
+     * @param id
+     * @throws FOGException
+     */
     public static void updateCladding(StyleOption cladding, int id) throws FOGException {
         DataFacade.updateCladding(cladding, id);
     }
 
+    /**
+     * Update Tile
+     *
+     * @param tile
+     * @param id
+     * @throws FOGException
+     */
     public static void updateTile(StyleOption tile, int id) throws FOGException {
         DataFacade.updateTile(tile, id);
     }
 
+    /**
+     * Create Cladding
+     *
+     * @param cladding
+     * @throws FOGException
+     */
     public static void createCladding(StyleOption cladding) throws FOGException {
         DataFacade.createCladding(cladding);
     }
 
+    /**
+     * Create Tile
+     *
+     * @param tile
+     * @throws FOGException
+     */
     public static void createTile(StyleOption tile) throws FOGException {
         DataFacade.createTile(tile);
     }
 
+    /**
+     * Remove Cladding
+     *
+     * @param id
+     * @throws FOGException
+     */
     public static void removeCladding(int id) throws FOGException {
         DataFacade.removeCladding(id);
     }
 
+    /**
+     * Remove Tile
+     *
+     * @param id
+     * @throws FOGException
+     */
     public static void removeTile(int id) throws FOGException {
         DataFacade.removeTile(id);
     }
 
+    /**
+     * Send email to customer with confirmation of purchase
+     *
+     * @param order
+     * @throws FOGException
+     */
     public static void sendEmailToCustomer(Order order) throws FOGException {
         String title = "Fog carport offer";
 
@@ -152,6 +202,15 @@ public class LogicFacade {
         thread.start();
     }
 
+    /**
+     * Return an Employee if username and password exits for a employee in
+     * database, or Exception if it does not. Is case sensitive
+     *
+     * @param username
+     * @param password
+     * @return Employee
+     * @throws FOGException
+     */
     public static Employee verfyLogin(String username, String password) throws FOGException {
         String salt = DataFacade.getSalt(username);
         password = password.concat(salt);
@@ -159,6 +218,12 @@ public class LogicFacade {
         return DataFacade.verfyLogin(username, hash);
     }
 
+    /**
+     * Sends a new password to a employee trough mail
+     *
+     * @param email
+     * @throws FOGException
+     */
     public static void SendNewPasswordToEmployee(String email) throws FOGException {
         Employee emp = DataFacade.getEmployeeByEmail(email);
 
@@ -178,58 +243,147 @@ public class LogicFacade {
         thread.start();
     }
 
+    /**
+     * Gets Employee by email
+     *
+     * @param email
+     * @return Employee
+     * @throws FOGException
+     */
     public static Employee getEmployeeByEmail(String email) throws FOGException {
         return DataFacade.getEmployeeByEmail(email);
     }
 
+    /**
+     * Gets number of unconfirmed Order
+     *
+     * @return int
+     * @throws FOGException
+     */
     public static int numberOfConfirmedOrder() throws FOGException {
         return DataFacade.numberOfConfirmedOrder();
     }
 
+    /**
+     * Return the 10 latest orders
+     *
+     * @return List of Order
+     * @throws FOGException
+     */
     public static List<Order> getLatest10UnconfirmedOrders() throws FOGException {
         return DataFacade.getLatestUnconfirmedOrders(10);
     }
 
+    /**
+     * Write Event relating to a Employee and Order
+     *
+     * @param event
+     * @throws FOGException
+     */
     public static void writeOrderEmployeeEvent(Event event) throws FOGException {
         DataFacade.writeOrderEmployeeEvent(event);
     }
 
+    /**
+     * Write Event relating to a Order
+     *
+     * @param event
+     * @throws FOGException
+     */
     public static void writeOrderEvent(Event event) throws FOGException {
         DataFacade.writeOrderEvent(event);
     }
 
+    /**
+     * Write Event relating to a Employee
+     *
+     * @param event
+     * @throws FOGException
+     */
     public static void writeEmployeeEvent(Event event) throws FOGException {
         DataFacade.writeEmployeeEvent(event);
     }
 
+    /**
+     * Gets Order event
+     *
+     * @param orderid
+     * @return List of Events
+     * @throws FOGException
+     */
     public static List<Event> getOrderEvent(int orderid) throws FOGException {
         return DataFacade.getOrderEvent(orderid);
     }
 
+    /**
+     * Gets Employee event
+     *
+     * @param orderid
+     * @return List of Events
+     * @throws FOGException
+     */
     public static List<Event> getEmployeeEvent(int employeeId, int limit) throws FOGException {
         return DataFacade.getEmployeeEvent(employeeId, limit);
     }
 
+    /**
+     * Gets all Employees
+     *
+     * @return List with Employee
+     * @throws FOGException
+     */
     public static List<Employee> getAllEmployees() throws FOGException {
         return DataFacade.getAllEmployees(false);
     }
 
+    /**
+     * Gets Employee by id
+     *
+     * @param id
+     * @return Employee
+     * @throws FOGException
+     */
     public static Employee getEmployeeById(int id) throws FOGException {
         return DataFacade.getEmployeeById(id);
     }
 
+    /**
+     * Update Employee
+     *
+     * @param employee
+     * @throws FOGException
+     */
     public static void UpdateEmployee(Employee employee) throws FOGException {
         DataFacade.UpdateEmployee(employee);
     }
 
+    /**
+     * Fire Employee
+     *
+     * @param employeeId
+     * @throws FOGException
+     */
     public static void fireEmployee(int employeeId) throws FOGException {
         DataFacade.fireEmployee(employeeId);
     }
 
+    /**
+     * Resets Employee´s password
+     *
+     * @param employeeId
+     * @throws FOGException
+     */
     public static void resetEmployeePassword(int employeeId) throws FOGException {
         DataFacade.resetEmployeePassword(employeeId);
     }
 
+    /**
+     * Changes Employee´s password
+     *
+     * @param employeeId
+     * @param password
+     * @throws FOGException
+     */
     public static void changePassword(int employeeId, String password) throws FOGException {
         String salt = Hashing.randomString(10);
         password = password.concat(salt);
@@ -238,6 +392,12 @@ public class LogicFacade {
         DataFacade.changePassword(employeeId, hash, salt);
     }
 
+    /**
+     * Creates Employee
+     *
+     * @param emp
+     * @throws FOGException
+     */
     public static void createEmployee(Employee emp) throws FOGException {
 
         String password = Hashing.randomString(20);
@@ -258,6 +418,12 @@ public class LogicFacade {
         thread.start();
     }
 
+    /**
+     * Sends out an email to all employee regarding a order
+     *
+     * @param orderId
+     * @throws FOGException
+     */
     public static void emailToAllEmployeeWithNewOrder(int orderId) throws FOGException {
 
         List<Employee> empList = DataFacade.getAllEmployees(true);
@@ -276,30 +442,78 @@ public class LogicFacade {
         thread.start();
     }
 
+    /**
+     * Write an order line
+     *
+     * @param prod
+     * @param orderId
+     * @throws FOGException
+     */
     public static void writeLine(Product prod, int orderId) throws FOGException {
         DataFacade.writeLine(prod, orderId);
     }
 
+    /**
+     * Write multiple order lines
+     *
+     * @param prods
+     * @param orderId
+     * @throws FOGException
+     */
     public static void writeLines(List<Product> prods, int orderId) throws FOGException {
         DataFacade.writeLines(prods, orderId);
     }
 
+    /**
+     * Removes order line
+     *
+     * @param orderId
+     * @throws FOGException
+     */
     public static void removeLines(int orderId) throws FOGException {
         DataFacade.removeLines(orderId);
     }
 
+    /**
+     * List of Product for a Order
+     *
+     * @param orderId
+     * @return List of Product
+     * @throws FOGException
+     */
     public static List<Product> orderProducts(int orderId) throws FOGException {
         return DataFacade.orderProducts(orderId);
     }
 
+    /**
+     * Gets Product
+     *
+     * @param id
+     * @return Product
+     * @throws FOGException
+     */
     public static Product getProduct(int id) throws FOGException {
         return DataFacade.getProduct(id);
     }
 
+    /**
+     * Return Calculator
+     *
+     * @param order
+     * @return Calculator
+     * @throws FOGException
+     */
     public static Calculator getCalculator(Order order) throws FOGException {
         return new Calculator(order);
     }
 
+    /**
+     * Get all events
+     *
+     * @param limit
+     * @return List of Events
+     * @throws FOGException
+     */
     public static List<Event> getAllEvents(int limit) throws FOGException {
         return new DataFacade().getAllEvents(limit);
     }

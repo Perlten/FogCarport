@@ -61,7 +61,7 @@ public class LogicFacade {
     }
 
     /**
-     * Changes to order in
+     * Changes Order
      *
      * @param order
      * @throws FOGException

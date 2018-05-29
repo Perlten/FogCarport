@@ -38,7 +38,6 @@ public class Logging {
         if (new File(Conf.LOGFILEPATH).exists()) {
             path = Conf.LOGFILEPATH;
         }
-//        String path = Conf.LOGFILEPATH;
         FileHandler handler = new FileHandler(path, true);
 
         handler.setFormatter(new SimpleFormatter());

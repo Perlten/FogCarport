@@ -45,8 +45,10 @@ public class Calculator {
         this.maxShedWidth = WIDTH - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
-
-    public void calculate() throws FOGException {
+    /**
+     * Calculates PieceList
+     */
+    public void calculate() {
 
         calculateRafter();
         laths();
@@ -56,14 +58,18 @@ public class Calculator {
             calculateCladding();
 
         }
-        
-        for(Product product : products){
-            if(product.getAmount() < 1){
+
+        for (Product product : products) {
+            if (product.getAmount() < 1) {
                 products.remove(product);
             }
         }
     }
-
+    /**
+     * Return the total price
+     * @return Total price
+     * @throws FOGException
+     */
     public double totalPrice() throws FOGException {
         double estPrice = 0.0;
         for (Product prod : products) {
@@ -88,12 +94,17 @@ public class Calculator {
 
         return estPrice;
     }
-
+    /**
+     * Returns PieceList
+     * @return PieceList
+     */
     public List<Product> getProducts() {
         return products;
     }
-
-    private void calculateRafter() throws FOGException {
+    /**
+     * Calculates rafter and adds them to pieceList
+     */
+    private void calculateRafter() {
         int amountOfRafters = (int) (cust.getLength() / 50);
         double remainder = WIDTH / RAFTERWOODLENGTH;
         if (remainder % 1 != 0) {
@@ -114,8 +125,11 @@ public class Calculator {
             products.add(new Product(1, amountOfRafters, lengthOfRafters));
         }
     }
-
-    private void polesAndBeams(int pitstops) throws FOGException {
+    /**
+     * Calculates poles and beams and adds them to pieceList
+     * @param pitstops
+     */
+    private void polesAndBeams(int pitstops){
         int lanes = 2 + pitstops;
         int placingLength = cust.getLength() - Customization.padding;
 
@@ -144,16 +158,20 @@ public class Calculator {
 
         products.add(new Product(4, poles * lanes, cust.getHeight() + 90));
     }
-
-    private void calculateCladding() throws FOGException {
+    /**
+     * Calculate Cladding
+     */
+    private void calculateCladding() {
         int circumsference = shed.getLength() + shed.getWidth() * 2;
         int claddingNeeded = (int) Math.ceil(circumsference * 0.125);
         int claddingHeight = cust.getHeight() - 20; //20 cm air from floor
         products.add(new Product(5, claddingNeeded, claddingHeight));
 
     }
-
-    private void shedPoles() throws FOGException {
+    /**
+     * Calculate poles for shed
+     */
+    private void shedPoles() {
         double lanesPasses = shed.getWidth() / poleDistanceWidth;
         int numPoles = (int) (lanesPasses + 1);
         if (lanesPasses % 1 != 0) {
@@ -161,8 +179,10 @@ public class Calculator {
         }
         products.add(new Product(6, numPoles, cust.getHeight() + 90));
     }
-
-    private void laths() throws FOGException {
+    /**
+     * Calculate laths
+     */
+    private void laths() {
         int lathDistance = 30;
         int lanes = (int) (WIDTH / lathDistance) + 1;
 
@@ -178,7 +198,9 @@ public class Calculator {
             products.add(new Product(7, lanes, remainder));
         }
     }
-
+    /**
+     * Calculates roof tiles
+     */
     private void roof() {
         double currentLength = 0.0;
         int lengthAmount = 0;
@@ -233,5 +255,4 @@ public class Calculator {
         }
 
     }
-
 }

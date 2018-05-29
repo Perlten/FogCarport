@@ -16,7 +16,12 @@ import javax.xml.bind.DatatypeConverter;
  * @author Perlt
  */
 public class Hashing {
-
+    /**
+     * Hash String to a 160 bit / 40 character hexadecimal String
+     * @param password
+     * @return String
+     * @throws FOGException 
+     */
     public static String hashPassword(String password) throws FOGException {
         try {
             String ans = "";
@@ -29,7 +34,11 @@ public class Hashing {
             throw new FOGException("Could not hash password");
         }
     }
-
+    /**
+     * Generate random String
+     * @param stringLength
+     * @return String
+     */
     public static String randomString(int stringLength) {
         Random ra = new SecureRandom();
         String salt = "";

@@ -14,14 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author adamlass
- */
 public class ProductMapper {
 
     private Connection con;
 
+    /**
+     * Creates mapper with Connection to live database
+     *
+     * @throws FOGException
+     */
     public ProductMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -34,6 +35,15 @@ public class ProductMapper {
         this.con = con;
     }
 
+    /**
+     * Writes line to order_line
+     *
+     * @param idProduct
+     * @param orderId
+     * @param amount
+     * @param lengthUsed
+     * @throws FOGException
+     */
     public void writeLine(int idProduct, int orderId, int amount, double lengthUsed) throws FOGException {
         try {
             String sql = "INSERT INTO product_line(idproduct,idorder,amount,length_used) values (?,?,?,?)";
@@ -48,6 +58,12 @@ public class ProductMapper {
         }
     }
 
+    /**
+     * Removes lines from order_line
+     *
+     * @param orderid
+     * @throws FOGException
+     */
     public void removeLines(int orderid) throws FOGException {
         try {
             String sql = "DELETE FROM product_line WHERE idorder = ?";
@@ -59,6 +75,13 @@ public class ProductMapper {
         }
     }
 
+    /**
+     * Gets List of Products from order_line
+     *
+     * @param orderid
+     * @return
+     * @throws FOGException
+     */
     public List<Product> getOrderProducts(int orderid) throws FOGException {
         List<Product> res = null;
         try {
@@ -72,7 +95,12 @@ public class ProductMapper {
         }
         return res;
     }
-
+    /**
+     * Get Product
+     * @param id
+     * @return Product
+     * @throws FOGException 
+     */
     public Product getProduct(int id) throws FOGException {
         try {
             String sql = "SELECT * FROM product WHERE idproduct = ?";
@@ -83,7 +111,13 @@ public class ProductMapper {
             throw new FOGException("Could not get product");
         }
     }
-
+    /**
+     * Converts ResultSet to a List Products
+     * @param res
+     * @return List of Product
+     * @throws SQLException 
+     */
+    //TODO: Hvorfor er der 2 convert til product ?
     private List<Product> convert(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
 
@@ -103,7 +137,12 @@ public class ProductMapper {
 
         return products;
     }
-
+    /**
+     * Converts ResultSet to a List Products
+     * @param res
+     * @return
+     * @throws SQLException 
+     */
     private List<Product> convertProducts(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
         while (res.next()) {

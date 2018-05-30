@@ -7,8 +7,7 @@ public class FOGException extends Exception {
     public final Level LEVEL;
 
     public FOGException(String msg) {
-        super(msg);
-        this.LEVEL = Level.OFF;
+        this(msg, Level.OFF);
     }
     
     public FOGException(String msg, Level level) {

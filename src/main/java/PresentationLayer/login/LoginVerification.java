@@ -34,7 +34,7 @@ public class LoginVerification implements Command {
             return "WEB-INF/employeeLogin/newPassword";
         }
 
-        return new employeeOverviewPage().execute(request, response);
+        return new EmployeeOverviewPage().execute(request, response);
     }
 
 }

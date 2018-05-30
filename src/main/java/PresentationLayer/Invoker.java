@@ -14,7 +14,7 @@ import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.NewPassword;
 import PresentationLayer.login.ResetAdmin;
 import PresentationLayer.login.SendNewPassword;
-import PresentationLayer.login.employeeOverviewPage;
+import PresentationLayer.login.EmployeeOverviewPage;
 import PresentationLayer.orders.ConfirmOrder;
 import PresentationLayer.orders.DeleteOrder;
 import PresentationLayer.orders.EditOrder;
@@ -72,7 +72,7 @@ public abstract class Invoker {
         commands.put("LoadOrder", new LoadOrderPage());
         commands.put("LoginVerification", new LoginVerification());
         commands.put("SendNewPassword", new SendNewPassword());
-        commands.put("Overview", new employeeOverviewPage());
+        commands.put("Overview", new EmployeeOverviewPage());
         commands.put("UpdateStaff", new UpdateStaffPage());
         commands.put("EditEmployee", new EditEmployee());
         commands.put("UpdateEmployee", new UpdateEmployee());

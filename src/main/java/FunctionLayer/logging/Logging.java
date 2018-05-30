@@ -21,9 +21,9 @@ public class Logging {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.class.getName());
 
-    public void write(String message) throws IOException {
+    public void write(Level level, String message) throws IOException {
         addHandlers();
-        LOGGER.log(Level.OFF, message);
+        LOGGER.log(level, message);
 
         Handler[] handlers = LOGGER.getHandlers();
         for (int i = 0; i < handlers.length; i++) {

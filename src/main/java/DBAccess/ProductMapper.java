@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ProductMapper {
 
@@ -27,7 +28,7 @@ public class ProductMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection");
+            throw new FOGException("Could not find connection", Level.SEVERE);
         }
     }
 
@@ -54,7 +55,7 @@ public class ProductMapper {
             pre.setDouble(4, lengthUsed);
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not write line");
+            throw new FOGException("Could not write line", Level.WARNING);
         }
     }
 
@@ -71,7 +72,7 @@ public class ProductMapper {
             pre.setInt(1, orderid);
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not remove line");
+            throw new FOGException("Could not remove line", Level.INFO);
         }
     }
 
@@ -89,9 +90,9 @@ public class ProductMapper {
                     + "ON product_line.idproduct = product.idproduct WHERE idorder = ?";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, orderid);
-            res = convert(pre.executeQuery());
+            res = convertWithProductLines(pre.executeQuery());
         } catch (SQLException e) {
-            throw new FOGException("could not get products");
+            throw new FOGException("Could not get products", Level.INFO);
         }
         return res;
     }
@@ -108,21 +109,20 @@ public class ProductMapper {
             String sql = "SELECT * FROM product WHERE idproduct = ?";
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
-            return convertProducts(pre.executeQuery()).get(0);
+            return convert(pre.executeQuery()).get(0);
         } catch (SQLException e) {
-            throw new FOGException("Could not get product");
+            throw new FOGException("Could not get product", Level.WARNING);
         }
     }
 
     /**
      * Converts ResultSet to a List Products
      *
-     * @param res
+     * @param res Has to be inner joined with product_line
      * @return List of Product
      * @throws SQLException
      */
-    //TODO: Hvorfor er der 2 convert til product ?
-    private List<Product> convert(ResultSet res) throws SQLException {
+    private List<Product> convertWithProductLines(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
 
         while (res.next()) {
@@ -149,7 +149,7 @@ public class ProductMapper {
      * @return
      * @throws SQLException
      */
-    private List<Product> convertProducts(ResultSet res) throws SQLException {
+    private List<Product> convert(ResultSet res) throws SQLException {
         List<Product> products = new ArrayList<>();
         while (res.next()) {
 

@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -31,7 +32,7 @@ public class StyleMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection");
+            throw new FOGException("Could not find connection", Level.SEVERE);
         }
     }
 
@@ -68,7 +69,7 @@ public class StyleMapper {
                 list.add(new StyleOption(name, description, price, Claddingid));
             }
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
         return list;
     }
@@ -102,7 +103,7 @@ public class StyleMapper {
                 list.add(new StyleOption(name, description, price, tileId));
             }
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
         return list;
     }
@@ -122,7 +123,7 @@ public class StyleMapper {
             ps.setDouble(3, cladding.getPrice());
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -141,7 +142,7 @@ public class StyleMapper {
             ps.setDouble(3, tile.getPrice());
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -162,7 +163,7 @@ public class StyleMapper {
             ps.setInt(4, id);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.INFO);
         }
     }
 
@@ -183,7 +184,7 @@ public class StyleMapper {
             ps.setInt(4, id);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.INFO);
         }
     }
 
@@ -201,7 +202,7 @@ public class StyleMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.INFO);
         }
     }
 }

@@ -8,6 +8,7 @@ package PresentationLayer;
 import FunctionLayer.FOGException;
 import FunctionLayer.logging.Logging;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +37,12 @@ public class FrontController extends HttpServlet {
         } catch (FOGException ex) {
             request.getSession().setAttribute("error", ex.getMessage());
             //logging
-            new Logging().write(ex.getMessage());
+            new Logging().write(ex.LEVEL, ex.getMessage());
             request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
         } catch (Exception ex) {
             request.getSession().setAttribute("error", "Something went wrong. Please try again");
             //logging
-            new Logging().write(ex.getMessage());
+            new Logging().write(Level.WARNING, ex.getMessage());
             request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
         }
     }

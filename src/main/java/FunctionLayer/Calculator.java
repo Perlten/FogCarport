@@ -45,6 +45,7 @@ public class Calculator {
         this.maxShedWidth = WIDTH - (2 * Customization.padding);
         this.shed = cust.getShed();
     }
+
     /**
      * Calculates PieceList
      */
@@ -65,8 +66,10 @@ public class Calculator {
             }
         }
     }
+
     /**
      * Return the total price
+     *
      * @return Total price
      * @throws FOGException
      */
@@ -94,13 +97,16 @@ public class Calculator {
 
         return estPrice;
     }
+
     /**
      * Returns PieceList
+     *
      * @return PieceList
      */
     public List<Product> getProducts() {
         return products;
     }
+
     /**
      * Calculates rafter and adds them to pieceList
      */
@@ -111,25 +117,26 @@ public class Calculator {
             remainder++;
         }
 
-        int pitstops = (int) (remainder - 1);
-
-        poleDistanceWidth = maxShedWidth / (pitstops + 1);
-
-        polesAndBeams(pitstops);
-
         amountOfRafters *= remainder;
 
         double lengthOfRafters = (WIDTH / remainder);
 
-        if (amountOfRafters > 0) {
-            products.add(new Product(1, amountOfRafters, lengthOfRafters));
-        }
+        products.add(new Product(1, amountOfRafters, lengthOfRafters));
+
+        int pitstops = (int) (remainder - 1);
+
+        polesAndBeams(pitstops);
     }
+
     /**
      * Calculates poles and beams and adds them to pieceList
+     *
      * @param pitstops
      */
-    private void polesAndBeams(int pitstops){
+    private void polesAndBeams(int pitstops) {
+        //setting variable
+        poleDistanceWidth = maxShedWidth / (pitstops + 1);
+
         int lanes = 2 + pitstops;
         int placingLength = cust.getLength() - Customization.padding;
 
@@ -158,6 +165,7 @@ public class Calculator {
 
         products.add(new Product(4, poles * lanes, cust.getHeight() + 90));
     }
+
     /**
      * Calculate Cladding
      */
@@ -168,6 +176,7 @@ public class Calculator {
         products.add(new Product(5, claddingNeeded, claddingHeight));
 
     }
+
     /**
      * Calculate poles for shed
      */
@@ -179,6 +188,7 @@ public class Calculator {
         }
         products.add(new Product(6, numPoles, cust.getHeight() + 90));
     }
+
     /**
      * Calculate laths
      */
@@ -198,6 +208,7 @@ public class Calculator {
             products.add(new Product(7, lanes, remainder));
         }
     }
+
     /**
      * Calculates roof tiles
      */

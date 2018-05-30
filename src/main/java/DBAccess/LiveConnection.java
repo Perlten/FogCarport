@@ -25,6 +25,6 @@ public class LiveConnection implements Connector{
         }
         return singleton;
     }
-
+   
 }
 

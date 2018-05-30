@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.logging.Level;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -26,7 +27,7 @@ public class Hashing {
             ans = DatatypeConverter.printHexBinary(toHash);
             return ans;
         } catch (NoSuchAlgorithmException e) {
-            throw new FOGException("Could not hash password");
+            throw new FOGException("Could not hash password", Level.WARNING);
         }
     }
 

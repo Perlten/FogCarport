@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -34,7 +35,7 @@ public class EmployeeMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection");
+            throw new FOGException("Could not find connection", Level.FINE);
         }
     }
     /**
@@ -63,7 +64,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException ex) {
-            throw new FOGException("could not verify login");
+            throw new FOGException("could not verify login", Level.WARNING);
         }
     }
 
@@ -82,7 +83,7 @@ public class EmployeeMapper {
             ps.setString(7, salt);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException("Could not create employee", Level.WARNING);
         }
     }
 
@@ -95,7 +96,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
-            throw new FOGException("Could not find employee");
+            throw new FOGException("Could not find employee", Level.WARNING);
         }
     }
 
@@ -109,7 +110,7 @@ public class EmployeeMapper {
             ResultSet rs = statement.executeQuery(sql);
             return convert(rs);
         } catch (SQLException e) {
-            throw new FOGException("Could not find employees");
+            throw new FOGException("Could not find employees", Level.WARNING);
         }
     }
 
@@ -122,7 +123,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
-            throw new FOGException("Could not find employee");
+            throw new FOGException("Could not find employee", Level.WARNING);
         }
     }
 
@@ -143,7 +144,7 @@ public class EmployeeMapper {
             list.add(new Employee(employeeId, authenticationLevel, username, firstName, lastName, email, employed, date, resetPassword));
         }
         if (list.isEmpty()) {
-            throw new FOGException("Could not find employee(s)");
+            throw new FOGException("Could not find employee(s)", Level.WARNING);
         }
         return list;
     }
@@ -160,7 +161,7 @@ public class EmployeeMapper {
             ps.setInt(6, employee.getEmployeeId());
             ps.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not update employee");
+            throw new FOGException("Could not update employee", Level.WARNING);
         }
     }
 
@@ -171,7 +172,7 @@ public class EmployeeMapper {
             ps.setInt(1, employeeId);
             ps.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not fire Employee");
+            throw new FOGException("Could not fire Employee", Level.WARNING);
         }
     }
 
@@ -182,7 +183,7 @@ public class EmployeeMapper {
             ps.setInt(1, employeeId);
             ps.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not reset password");
+            throw new FOGException("Could not reset password", Level.WARNING);
         }
     }
 
@@ -196,7 +197,7 @@ public class EmployeeMapper {
             ps.setInt(4, employeeId);
             ps.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not change password");
+            throw new FOGException("Could not change password", Level.WARNING);
         }
     }
 
@@ -209,7 +210,7 @@ public class EmployeeMapper {
             rs.next();
             return rs.getString(1);
         } catch (SQLException e) {
-            throw new FOGException(e.getMessage());
+            throw new FOGException("Could not get salt", Level.WARNING);
         }
     }
 

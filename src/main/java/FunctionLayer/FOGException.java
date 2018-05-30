@@ -15,6 +15,5 @@ public class FOGException extends Exception {
         super(msg);
         this.LEVEL = level;
     }
-    
 
 }

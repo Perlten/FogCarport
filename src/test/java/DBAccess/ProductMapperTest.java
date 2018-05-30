@@ -21,8 +21,7 @@ import org.junit.Test;
  * @author Perlt
  */
 public class ProductMapperTest {
-    
-   
+
     private final String sql;
     private final ProductMapper mapper;
     private final Connection con;
@@ -46,6 +45,7 @@ public class ProductMapperTest {
         Statement statement = con.createStatement();
         statement.executeUpdate(sql);
     }
+
     /**
      * Test of writeLine method, of class ProductMapper.
      */

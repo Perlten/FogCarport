@@ -20,6 +20,5 @@ public class GetAllEventsPage implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         return "WEB-INF/allEvents";
     }
-   
-    
+
 }

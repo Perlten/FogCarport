@@ -63,7 +63,7 @@ public class Order {
     public double getPrice() {
         return price;
     }
-    
+
     public int getOrderid() {
         return orderid;
     }

@@ -11,7 +11,7 @@ public class Customization {
     private Shed shed;
     private StyleOption cladding;
     private StyleOption tile;
-    
+
     public static final int padding = 30;
     public static final int beam = 5;
 
@@ -40,7 +40,7 @@ public class Customization {
     public void setTile(StyleOption tile) {
         this.tile = tile;
     }
-    
+
     public int getLength() {
         return length;
     }
@@ -85,9 +85,6 @@ public class Customization {
     public String toString() {
         return "Customization{" + "length=" + length + ", width=" + width + ", height=" + height + ", roofangle=" + roofangle + ", shed=" + shed + ", cladding=" + cladding + ", tile=" + tile + '}';
     }
-
-    
-
 
     @Override
     public int hashCode() {

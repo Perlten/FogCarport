@@ -22,16 +22,30 @@ public class SendEmail implements Runnable {
     private String textMessage;
     private List<String> empList;
 
+    /**
+     * Constructor with a list of addresses to send to.
+     *
+     * @param mailList
+     * @param title
+     * @param textMessage
+     */
     public SendEmail(List<String> mailList, String title, String textMessage) {
         this.title = title;
         this.textMessage = textMessage;
         this.empList = mailList;
     }
-
+    /**
+     * Constructor with a single address to send to
+     * @param mailTo
+     * @param title
+     * @param textMessage 
+     */
     public SendEmail(String mailTo, String title, String textMessage) {
         this(Arrays.asList(mailTo), title, textMessage);
     }
-
+    /**
+     * Logs into Fog´s gmail account
+     */
     private void makeSession() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -46,7 +60,10 @@ public class SendEmail implements Runnable {
             }
         });
     }
-
+    /**
+     * Sends Email. makeSession() have to be called prior to this method
+     * @param mailTo 
+     */
     private void sendEmail(String mailTo) {
         try {
             Message message = new MimeMessage(session);
@@ -56,7 +73,6 @@ public class SendEmail implements Runnable {
             message.setSubject(title);
             message.setText(textMessage);
             Transport.send(message);
-
         } catch (MessagingException e) {
         }
     }

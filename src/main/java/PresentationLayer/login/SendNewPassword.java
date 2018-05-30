@@ -21,7 +21,7 @@ public class SendNewPassword implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         String email = request.getParameter("email");
         LogicFacade.SendNewPasswordToEmployee(email);
-        return "employeeLogin";
+        return new EmployeeLoginPage().execute(request, response);
     }
     
 }

@@ -42,7 +42,7 @@ public class Event {
         this.date = date;
         this.statusColor = statusColor;
     }
-    
+
     public String getShortDescription() {
         if (description.length() >= 40) {
             return description.substring(0, 40) + "...";
@@ -86,7 +86,9 @@ public class Event {
     public Calendar getDate() {
         return date;
     }
-
+    /**
+     * @return Date in a simple form
+     */
     public String simpleDate() {
         SimpleDateFormat sp = new SimpleDateFormat("dd/MM/YYYY HH:mm");
         return sp.format(date.getTime());

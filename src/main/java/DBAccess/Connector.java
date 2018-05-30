@@ -14,8 +14,20 @@ import java.sql.SQLException;
  */
 public interface Connector {
 
+    /**
+     * Sets connection
+     *
+     * @param con Connection
+     */
     public void setConnection(Connection con);
 
+    /**
+     * Gets Connection
+     *
+     * @return Connection
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public Connection connection() throws ClassNotFoundException, SQLException;
-    
+
 }

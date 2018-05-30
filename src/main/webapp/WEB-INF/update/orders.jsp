@@ -12,8 +12,8 @@
         <title>Customer Orders</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <%@include file="../include/includeEmployeeNav.jsp"%>
     <body>
+        <%@include file="../include/includeEmployeeNav.jsp"%>
         <%
             Order selectedOrder = (Order) request.getAttribute("order");
             int loads = 0;

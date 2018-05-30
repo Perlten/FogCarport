@@ -22,6 +22,11 @@ public class StyleMapper {
 
     private Connection con;
 
+    /**
+     * Creates Mapper with Connection to live database
+     *
+     * @throws FOGException
+     */
     public StyleMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -34,6 +39,13 @@ public class StyleMapper {
         this.con = con;
     }
 
+    /**
+     * Returns List with Cladding. If id is under 1 all Claddings gets returned
+     *
+     * @param id
+     * @return List with Cladding
+     * @throws FOGException
+     */
     public List<StyleOption> getCladding(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from cladding";
@@ -61,6 +73,13 @@ public class StyleMapper {
         return list;
     }
 
+    /**
+     * Returns List with tiles. If id is under 1 all tiles gets returned
+     *
+     * @param id
+     * @return List with Tile
+     * @throws FOGException
+     */
     public List<StyleOption> getTile(int id) throws FOGException {
         List<StyleOption> list = new ArrayList<>();
         String sql = "select * from tile";
@@ -88,6 +107,12 @@ public class StyleMapper {
         return list;
     }
 
+    /**
+     * Creates Cladding
+     *
+     * @param cladding
+     * @throws FOGException
+     */
     public void createCladding(StyleOption cladding) throws FOGException {
         String sql = "INSERT INTO cladding (name, description, price) VALUES(?,?,?)";
         try {
@@ -101,6 +126,12 @@ public class StyleMapper {
         }
     }
 
+    /**
+     * Creates Tile
+     *
+     * @param tile
+     * @throws FOGException
+     */
     public void createTile(StyleOption tile) throws FOGException {
         String sql = "INSERT INTO tile (name, description, price) VALUES(?,?,?)";
         try {
@@ -114,6 +145,13 @@ public class StyleMapper {
         }
     }
 
+    /**
+     * Updates Cladding
+     *
+     * @param cladding
+     * @param id
+     * @throws FOGException
+     */
     public void updateCladding(StyleOption cladding, int id) throws FOGException {
         String sql = "UPDATE cladding SET name = ?, description = ?, price = ? WHERE idcladding = ?";
         try {
@@ -128,6 +166,13 @@ public class StyleMapper {
         }
     }
 
+    /**
+     * Updates Cladding
+     *
+     * @param tile
+     * @param id
+     * @throws FOGException
+     */
     public void updateTile(StyleOption tile, int id) throws FOGException {
         String sql = "UPDATE tile SET name = ?, description = ?, price = ? WHERE idtile = ?";
         try {
@@ -142,6 +187,13 @@ public class StyleMapper {
         }
     }
 
+    /**
+     * Removes StyleOption
+     *
+     * @param id
+     * @param type Type of StyleOption
+     * @throws FOGException
+     */
     public void removeStyleOption(int id, String type) throws FOGException {
         String sql = "DELETE FROM " + type + " WHERE id" + type + " = ?";
         try {

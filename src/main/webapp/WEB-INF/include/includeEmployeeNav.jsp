@@ -30,7 +30,9 @@
         text-decoration: none;
     }
 </style>
+
 <ul>
+    <li style="float: right;"><a href="FrontController?command=LogOut">Log Out</a></li>
     <li><a href="FrontController?command=Overview">Overview</a></li>
     <li><a href="FrontController?command=GetOrders">Orders</a></li>
         <% if (empNavBar.getAuthenticationLevel() >= 2) { %>

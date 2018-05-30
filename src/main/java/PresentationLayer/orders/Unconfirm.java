@@ -21,14 +21,13 @@ public class Unconfirm implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
-            int orderId = Integer.parseInt(request.getParameter("orderId"));
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-            LogicFacade.unconfirmOrder(orderId);
+        LogicFacade.unconfirmOrder(orderId);
 
-            //event
-            Employee emp = (Employee) request.getSession().getAttribute("employee");
-            LogicFacade.writeOrderEmployeeEvent(new Event(emp, 5, orderId));
-            
+        //event
+        Employee emp = (Employee) request.getSession().getAttribute("employee");
+        LogicFacade.writeOrderEmployeeEvent(new Event(emp, 5, orderId));
 
         return new ShowOrder().execute(request, response);
     }

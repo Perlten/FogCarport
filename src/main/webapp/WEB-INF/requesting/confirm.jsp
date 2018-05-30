@@ -50,7 +50,7 @@
                     </div>
 
                 </div>
-                <%} else if(orderEvents != null) {%>
+                <%} else if (orderEvents != null) {%>
                 <div class="col-lg-6">
                     <% for (Event event : orderEvents) {%>
 

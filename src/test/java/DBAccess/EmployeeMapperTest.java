@@ -52,7 +52,7 @@ public class EmployeeMapperTest {
     public void testCreateMapper() throws Exception {
         EmployeeMapper map = new EmployeeMapper();
         assertEquals(map.getCon().getCatalog(), "fog");
-        
+
         map = new EmployeeMapper(new TestConnection().connection());
         assertEquals(map.getCon().getCatalog(), "fog_test");
     }
@@ -195,7 +195,7 @@ public class EmployeeMapperTest {
         EmployeeMapper badMapper = new EmployeeMapper(badCon);
 
         Employee emp = badMapper.verfyLogin("Larsen", "LassLass");
-        
+
         assert false;
     }
 }

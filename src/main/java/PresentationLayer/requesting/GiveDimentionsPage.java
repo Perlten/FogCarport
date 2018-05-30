@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GiveDimentionsPage implements Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException{
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws FOGException {
         return "index";
     }
 

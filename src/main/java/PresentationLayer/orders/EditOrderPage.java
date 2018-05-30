@@ -25,7 +25,7 @@ public class EditOrderPage implements Command {
         int id = Integer.parseInt(request.getParameter("orderToEdit"));
         Order order = LogicFacade.getOrder(id);
         List<StyleOption> claddingList = LogicFacade.getCladdingList();
-            List<StyleOption> tileList = LogicFacade.getTileList();
+        List<StyleOption> tileList = LogicFacade.getTileList();
 
         request.setAttribute("claddingList", claddingList);
         request.setAttribute("tileList", tileList);

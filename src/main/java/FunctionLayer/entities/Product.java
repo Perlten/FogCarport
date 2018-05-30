@@ -17,6 +17,7 @@ public class Product {
 
     /**
      * Dummy constructer. Used for writing product lines
+     *
      * @param id of the product
      * @param amount of the product
      * @param lengthUsed of the product
@@ -67,7 +68,6 @@ public class Product {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
 
     /**
      * Use this to get the price of a single product of this type

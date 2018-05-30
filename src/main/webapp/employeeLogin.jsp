@@ -12,14 +12,10 @@
         <title>Login</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
         <%@include file="css/employeeLogin.jsp" %>
-        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
+
     </head>
     <body>
-        <script>
-             window.onload = function () {
-                 sessionStorage.setItem("load", "false");
-             }
-        </script>
+        <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
         <div class="container-fluid">
             <div class="loginStyle">
                 <form action="FrontController" method="post">
@@ -43,20 +39,28 @@
             <br>
             <center>
                 <div>
-                    <div class="card" style="width: 400px">
-                        <div class="card-body">
+                    <div class="card" style="width: 400px; background-color: lightblue; font-family: initial; color: darkslategrey">
+                        <div class="card-header">
                             <h4>Exam access</h4>
+                        </div>
+                        <div class="card-body">
                             <p>login: <b>admin</b></p>
                             <p>password: <b>1234</b></p>
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="ResetAdmin">
+                                <button type="submit" class="btn btn-warning">Reset Admin User</button>
+                            </form>
                             <br>
-                            <h5>Gmail for password reset:</h5>
+
+                            <h6>Gmail for password reset:</h6>
                             <p>login: <b>FogCarportAdm@gmail.com</b></p>
                             <p>password: <b>Fortado#1234</b></p>
                             <p><i>Please always reset the password to <b>1234</b>!</i></p>
-                            <br>
+                        </div>
+                        <div class="card-footer">
                             <form action="FrontController" method="post">
                                 <input type="hidden" name="command" value="GiveDimentionsPage">
-                                <button type="submit" class="btn btn-light">Back to Customer-page</button>
+                                <button type="submit" class="btn btn-dark">Back to Customer-page</button>
                             </form>
                         </div>
                     </div>

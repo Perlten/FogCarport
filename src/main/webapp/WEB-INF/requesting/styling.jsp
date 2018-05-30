@@ -50,6 +50,7 @@
                             <div class="card-body">
                                 <input type="hidden" name="command" value="GiveStyling">
 
+                                <% if (order.getCustomization().getShed() != null) { %>
                                 <h4>Cladding</h4>
                                 <% for (StyleOption option : claddings) {%>
                                 <label>
@@ -71,7 +72,7 @@
                                 </label>
                                 <%}%>
                                 <br>
-
+                                <%}%>
                                 <h4>Tiles</h4>
                                 <% for (StyleOption option : tiles) {%>
                                 <label>
@@ -94,13 +95,13 @@
                                 <%}%>
                             </div>
 
+                            <div class="card-footer">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
+                                <input type="submit" name="submit" class="btn btn-white" value="Back">
+                                <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
+                            </div>
+                    </div>
 
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
-                        <input type="submit" name="submit" class="btn btn-white" value="Back">
-                        <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
-                    </div>
                     </form>
                 </div>
                 <% if (order != null) {%>

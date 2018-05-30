@@ -17,14 +17,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author adamlass
- */
 public class EventMapper {
 
     private Connection con;
 
+    /**
+     * Set the mapper with Connection to live database
+     *
+     * @throws FOGException
+     */
     public EventMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -56,6 +57,12 @@ public class EventMapper {
         }
     }
 
+    /**
+     * Writes Event that involves a order and employee
+     *
+     * @param event
+     * @throws FOGException
+     */
     public void writeOrderEmployeeEvent(Event event) throws FOGException {
         try {
             String sql = "INSERT INTO event(idevent_type, idorder, employee) values (?,?,?)";
@@ -69,6 +76,12 @@ public class EventMapper {
         }
     }
 
+    /**
+     * Writes Event that involves a employee
+     *
+     * @param event
+     * @throws FOGException
+     */
     public void writeEmployeeEvent(Event event) throws FOGException {
         try {
 
@@ -140,6 +153,13 @@ public class EventMapper {
         }
     }
 
+    /**
+     * Gets all Events
+     *
+     * @param limit
+     * @return List with Events
+     * @throws FOGException
+     */
     public List<Event> getAllEvents(int limit) throws FOGException {
         try {
             String sql = "SELECT * FROM event "

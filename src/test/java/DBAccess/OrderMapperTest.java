@@ -37,7 +37,7 @@ public class OrderMapperTest {
     private final String sql;
     private final OrderMapper mapper;
     private final Connection con;
-    
+
     public OrderMapperTest() throws IOException, ClassNotFoundException, SQLException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("sql/test_db.sql"), "UTF-8"));
         StringBuilder sb = new StringBuilder();
@@ -51,7 +51,7 @@ public class OrderMapperTest {
         this.con = new TestConnection().connection();
         this.mapper = new OrderMapper(con);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
 

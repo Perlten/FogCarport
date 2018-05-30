@@ -31,7 +31,7 @@ public class SubmitOrder implements Command {
         Calculator calc = new Calculator(order);
         calc.calculate();
         LogicFacade.writeLines(calc.getProducts(), order.getOrderid());
-        
+
         LogicFacade.sendEmailToCustomer(order);
         LogicFacade.emailToAllEmployeeWithNewOrder(order.getOrderid());
 

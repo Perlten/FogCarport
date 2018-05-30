@@ -8,9 +8,11 @@ import PresentationLayer.editEmployee.ResetPassword;
 import PresentationLayer.editEmployee.UpdateEmployee;
 import PresentationLayer.editEmployee.UpdateStaffPage;
 import PresentationLayer.events.GetAllEventsPage;
+import PresentationLayer.login.EmployeeLoginPage;
 import PresentationLayer.login.ForgotPasswordPage;
 import PresentationLayer.login.LoginVerification;
 import PresentationLayer.login.NewPassword;
+import PresentationLayer.login.ResetAdmin;
 import PresentationLayer.login.SendNewPassword;
 import PresentationLayer.login.employeeOverviewPage;
 import PresentationLayer.orders.ConfirmOrder;
@@ -42,7 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class Invoker {
 
     public static final Pattern PATTERN = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
-    
+
     private static HashMap<String, Command> commands;
 
     private static void initCommands() {
@@ -82,14 +84,16 @@ public abstract class Invoker {
         commands.put("ForgotPassword", new ForgotPasswordPage());
         commands.put("AllEvents", new GetAllEvents());
         commands.put("AllEventsPage", new GetAllEventsPage());
+        commands.put("ResetAdmin", new ResetAdmin());
+        commands.put("LogOut", new EmployeeLoginPage());
     }
 
-    static Command from( HttpServletRequest request ) {
-        String commandName = request.getParameter( "command" );
-        if ( commands == null ) {
+    static Command from(HttpServletRequest request) {
+        String commandName = request.getParameter("command");
+        if (commands == null) {
             initCommands();
         }
-        return commands.getOrDefault(commandName, new UnknownCommand() );
+        return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
 }

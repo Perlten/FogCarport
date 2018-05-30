@@ -25,6 +25,11 @@ public class OrderMapper {
 
     private Connection con;
 
+    /**
+     * Creates Mapper with Connection to live database
+     *
+     * @throws FOGException
+     */
     public OrderMapper() throws FOGException {
         try {
             con = new LiveConnection().connection();
@@ -74,6 +79,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Gets a List with Customer
+     *
+     * @param limit
+     * @return List with Customer
+     * @throws FOGException
+     */
     public List<Order> getOrderCustomerList(int limit) throws FOGException {
 
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order order by idorder desc LIMIT ?";
@@ -124,7 +136,14 @@ public class OrderMapper {
             ps.setInt(11, shedLength);
             ps.setInt(12, shedWidth);
             ps.setInt(13, customization.getTile().getId());
-            ps.setInt(14, customization.getCladding().getId());
+
+            StyleOption cladding = order.getCustomization().getCladding();
+            if (cladding != null) {
+                ps.setInt(14, cladding.getId());
+            } else {
+                ps.setNull(14, java.sql.Types.INTEGER);
+            }
+
             ps.setDouble(15, order.getPrice());
             ps.setInt(16, order.getOrderid());
 
@@ -150,6 +169,12 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Unconfirms Order
+     *
+     * @param id
+     * @throws FOGException
+     */
     public void unconfirmOrder(int id) throws FOGException {
         String sql = "UPDATE .order SET confirmed = false WHERE idorder = ?;";
         try {
@@ -161,6 +186,12 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Delets Order
+     *
+     * @param orderId
+     * @throws FOGException
+     */
     public void removeOrder(int orderId) throws FOGException {
         String sql = "DELETE FROM .order WHERE idorder = ?";
         try {
@@ -202,7 +233,13 @@ public class OrderMapper {
             ps.setInt(10, shedLength);
             ps.setInt(11, shedWidth);
             ps.setInt(12, order.getCustomization().getTile().getId());
-            ps.setInt(13, order.getCustomization().getCladding().getId());
+
+            if (order.getCustomization().getShed() != null) {
+                ps.setInt(13, order.getCustomization().getCladding().getId());
+            } else {
+                ps.setNull(13, java.sql.Types.INTEGER);
+
+            }
             ps.setDouble(14, order.getPrice());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -214,6 +251,12 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Number of unconfirmed Orders
+     *
+     * @return int
+     * @throws FOGException
+     */
     public int numberOfUnconfirmedOrders() throws FOGException {
         String sql = "SELECT COUNT(idorder) FROM .order WHERE confirmed = false";
         try {
@@ -252,6 +295,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Converts ResultSet to a list with Orders
+     *
+     * @param res
+     * @return List with Order
+     * @throws FOGException
+     */
     private List<Order> orderConverter(ResultSet res) throws FOGException {
         try {
             List<Order> orderList = new ArrayList<>();
@@ -283,7 +333,7 @@ public class OrderMapper {
                 if (!claddingList.isEmpty()) {
                     claddingStyle = claddingList.get(0);
                 }
-                
+
                 if (!tileList.isEmpty()) {
                     tileStyle = tileList.get(0);
                 }
@@ -306,6 +356,13 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * Converts ResultSet to List with Customer
+     *
+     * @param res
+     * @return
+     * @throws FOGException
+     */
     private List<Order> customerConverter(ResultSet res) throws FOGException {
         try {
             List<Order> list = new ArrayList<>();

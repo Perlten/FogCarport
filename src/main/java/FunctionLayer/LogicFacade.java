@@ -318,7 +318,8 @@ public class LogicFacade {
     /**
      * Gets Employee event
      *
-     * @param orderid
+     * @param employeeId
+     * @param limit
      * @return List of Events
      * @throws FOGException
      */

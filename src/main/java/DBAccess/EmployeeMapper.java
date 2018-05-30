@@ -37,7 +37,7 @@ public class EmployeeMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection", Level.FINE);
+            throw new FOGException("Could not find connection", Level.WARNING);
         }
     }
 
@@ -70,7 +70,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException ex) {
-            throw new FOGException("could not verify login", Level.WARNING);
+            throw new FOGException("Could not verify login", Level.INFO);
         }
     }
 
@@ -97,7 +97,7 @@ public class EmployeeMapper {
             ps.setString(7, salt);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException("Could not create employee", Level.WARNING);
+            throw new FOGException("Could not create employee", Level.INFO);
         }
     }
 
@@ -117,7 +117,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
-            throw new FOGException("Could not find employee", Level.WARNING);
+            throw new FOGException("Could not find employee", Level.INFO);
         }
     }
 
@@ -158,7 +158,7 @@ public class EmployeeMapper {
             List<Employee> list = convert(rs);
             return list.get(0);
         } catch (SQLException e) {
-            throw new FOGException("Could not find employee", Level.WARNING);
+            throw new FOGException("Could not find employee", Level.INFO);
         }
     }
 
@@ -296,7 +296,9 @@ public class EmployeeMapper {
     }
 
     /**
-     * Exam purpose
+     * Exam purpose.
+     *
+     * Delete later
      *
      * @throws FunctionLayer.FOGException
      */
@@ -311,7 +313,7 @@ public class EmployeeMapper {
             emp = LogicFacade.getEmployeeByEmail(emp.getEmail());
             DataFacade.changePassword(emp.getEmployeeId(), "FB96595462E15B1E814EA9C784428B0424136067", "aovppjgmtr");
         } catch (SQLException | ClassNotFoundException e) {
-            throw new FOGException("Could not reset admin user!");
+            throw new FOGException("Could not reset admin user!", Level.SEVERE);
         }
 
     }

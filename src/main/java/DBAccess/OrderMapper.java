@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -34,7 +35,7 @@ public class OrderMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection");
+            throw new FOGException("Could not find connection", Level.WARNING);
         }
     }
 
@@ -69,13 +70,13 @@ public class OrderMapper {
             List<Order> list = orderConverter(res);
 
             if (orderid > 0 && list.size() < 1) {
-                throw new FOGException("Could not find order");
+                throw new FOGException("Could not find order", Level.INFO);
             }
 
             return list;
 
         } catch (SQLException e) {
-            throw new FOGException(e.getMessage());
+            throw new FOGException(e.getMessage(), Level.WARNING);
         }
     }
 
@@ -98,7 +99,7 @@ public class OrderMapper {
             ResultSet res = ps.executeQuery();
             return customerConverter(res);
         } catch (SQLException ex) {
-            throw new FOGException("Could not get order");
+            throw new FOGException("Could not find order", Level.INFO);
         }
     }
 
@@ -106,6 +107,7 @@ public class OrderMapper {
      * Changes the order in the database
      *
      * @param order
+     * @throws FunctionLayer.FOGException
      */
     public void changeOrder(Order order) throws FOGException {
         String sql = "UPDATE .order SET "
@@ -149,7 +151,7 @@ public class OrderMapper {
 
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -157,6 +159,7 @@ public class OrderMapper {
      * Confirms order
      *
      * @param id
+     * @throws FunctionLayer.FOGException
      */
     public void confirmOrder(int id) throws FOGException {
         String sql = "UPDATE .order SET confirmed = true WHERE idorder = ?;";
@@ -165,7 +168,7 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException("Cound not confirm order");
+            throw new FOGException("Cound not confirm order", Level.WARNING);
         }
     }
 
@@ -182,7 +185,7 @@ public class OrderMapper {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -199,7 +202,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ps.execute();
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -207,6 +210,7 @@ public class OrderMapper {
      * Creates a order
      *
      * @param order
+     * @throws FunctionLayer.FOGException
      */
     public void makeOrder(Order order) throws FOGException {
         String sql = "INSERT INTO .order(firstname, lastname, email, phonenumber, length, width, height, roofangle, shed, shed_length, shed_width, tile, cladding, price)"
@@ -247,7 +251,7 @@ public class OrderMapper {
             order.setOrderid(rs.getInt(1));
 
         } catch (SQLException ex) {
-            throw new FOGException(ex.getMessage());
+            throw new FOGException(ex.getMessage(), Level.WARNING);
         }
     }
 
@@ -266,7 +270,7 @@ public class OrderMapper {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            throw new FOGException("Could not find number of unconfirmed orders");
+            throw new FOGException("Could not find number of unconfirmed orders", Level.WARNING);
         }
         return 0;
     }
@@ -277,6 +281,7 @@ public class OrderMapper {
      * @param limit Limits the number of orders. give 0 for all unconfirmed
      * orders
      * @return List with orders
+     * @throws FunctionLayer.FOGException
      */
     public List<Order> getUnconfirmedOrders(int limit) throws FOGException {
         String sql = "SELECT idorder, confirmed, date, firstname, lastname, email, phonenumber FROM .order WHERE confirmed = false order by idorder desc";
@@ -291,7 +296,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             return customerConverter(rs);
         } catch (SQLException e) {
-            throw new FOGException("Could not get orders");
+            throw new FOGException("Could not get orders", Level.INFO);
         }
     }
 
@@ -352,7 +357,7 @@ public class OrderMapper {
             }
             return orderList;
         } catch (SQLException e) {
-            throw new FOGException("Could not find order");
+            throw new FOGException("Could not find order", Level.INFO);
         }
     }
 
@@ -382,7 +387,7 @@ public class OrderMapper {
             return list;
 
         } catch (SQLException ex) {
-            throw new FOGException("Could not find customer");
+            throw new FOGException("Could not find customer", Level.INFO);
         }
     }
 }

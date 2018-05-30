@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 public class EventMapper {
 
@@ -30,7 +31,7 @@ public class EventMapper {
         try {
             con = new LiveConnection().connection();
         } catch (ClassNotFoundException | SQLException e) {
-            throw new FOGException("Could not find connection");
+            throw new FOGException("Could not find connection", Level.WARNING);
         }
     }
 
@@ -53,7 +54,7 @@ public class EventMapper {
             pre.setInt(2, event.getOrderid());
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not write order event");
+            throw new FOGException("Could not write order event", Level.WARNING);
         }
     }
 
@@ -72,7 +73,7 @@ public class EventMapper {
             pre.setInt(3, event.getEmployee());
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not write order employee event");
+            throw new FOGException("Could not write order employee event", Level.INFO);
         }
     }
 
@@ -91,7 +92,7 @@ public class EventMapper {
             pre.setInt(2, event.getEmployee());
             pre.execute();
         } catch (SQLException e) {
-            throw new FOGException("Could not write employee event");
+            throw new FOGException("Could not write employee event", Level.INFO);
 
         }
     }
@@ -117,7 +118,7 @@ public class EventMapper {
             return convert(pre.executeQuery());
 
         } catch (SQLException e) {
-            throw new FOGException("Could not find events");
+            throw new FOGException("Could not find events", Level.INFO);
         }
     }
 
@@ -149,7 +150,7 @@ public class EventMapper {
 
             return convert(pre.executeQuery());
         } catch (SQLException e) {
-            throw new FOGException(e.getMessage());
+            throw new FOGException("Could not get employee event", Level.INFO);
         }
     }
 
@@ -179,7 +180,7 @@ public class EventMapper {
 
             return convert(pre.executeQuery());
         } catch (Exception e) {
-            throw new FOGException("Could not get all orders");
+            throw new FOGException("Could not get all events", Level.WARNING);
         }
     }
 
@@ -191,25 +192,30 @@ public class EventMapper {
      * @return A list of Event objects from db
      * @throws SQLException
      */
-    private List<Event> convert(ResultSet res) throws SQLException {
+    private List<Event> convert(ResultSet res) throws FOGException {
         List<Event> events = new ArrayList<>();
-        while (res.next()) {
-            int eventId = res.getInt("idevent");
-            int eventType = res.getInt("idevent_type");
-            int orderId = res.getInt("idorder");
-            int asignee = res.getInt("employee");
-            int accessLevel = res.getInt("access_level");
+        try {
+            while (res.next()) {
+                int eventId = res.getInt("idevent");
+                int eventType = res.getInt("idevent_type");
+                int orderId = res.getInt("idorder");
+                int asignee = res.getInt("employee");
+                int accessLevel = res.getInt("access_level");
 
-            Calendar date = Calendar.getInstance();
-            Timestamp ts = res.getTimestamp("date");
-            date.setTime((Date) ts);
+                Calendar date = Calendar.getInstance();
+                Timestamp ts = res.getTimestamp("date");
+                date.setTime((Date) ts);
 
-            String title = res.getString("title");
-            String description = res.getString("description");
-            String eventName = res.getString("name");
-            String statusColor = res.getString("statuscolor");
-            events.add(new Event(eventId, orderId, asignee, accessLevel, eventType, title, description, eventName, date, statusColor));
+                String title = res.getString("title");
+                String description = res.getString("description");
+                String eventName = res.getString("name");
+                String statusColor = res.getString("statuscolor");
+                events.add(new Event(eventId, orderId, asignee, accessLevel, eventType, title, description, eventName, date, statusColor));
+            }
+        } catch (Exception e) {
+            throw new FOGException("Could not find event(s)", Level.SEVERE);
         }
+
         return events;
     }
 

@@ -14,7 +14,6 @@
         request.getSession().setAttribute("allowed", allowed);
     }
 %>
-
 <ul class="nav nav-tabs">
 
     <li style="margin-right: 5px; margin-left: 0px;">

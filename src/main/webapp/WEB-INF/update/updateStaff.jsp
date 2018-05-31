@@ -14,7 +14,7 @@
         <title>Update Staff</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <body style="background-color: #2E3338">
+    <body>
 
 
         <%
@@ -35,21 +35,15 @@
         </script>
 
         <%@include file="../include/includeEmployeeNav.jsp"%>
-        <style>
-            li a:hover {
-                color: white;
-                background-color: #2E3338;
-                text-decoration: none;
-            }
-        </style>
+        
         <div class="container-fluid">
-            <h1 class="text-white">Update Staff</h1>
+            <h1>Update Staff</h1>
         </div>
         <hr style="background-color: white">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="card bg-dark text-white">
+                    <div class="card">
                         <div class="card-body" style="padding: 0px">
                             <table class="table table-xstriped table-hover" style="table-layout: fixed; margin: 0px">
                                 <thead>

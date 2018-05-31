@@ -8,8 +8,10 @@
 <%@page import="FunctionLayer.entities.Event"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All Events</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
@@ -17,21 +19,56 @@
         <% List<Event> events = (List<Event>) request.getAttribute("allEvents");
         %>
     </head>
-    <body style="background-color: #2E3338">
-        <%@include file="include/includeEmployeeNav.jsp"%>
-        <style>
-            li a:hover {
-                color: white;
-                background-color: #2E3338;
-                text-decoration: none;
+    <!--<body style="background-color: #2E3338">-->
+    <body id="bodyMode">
+        <script>
+            function toggleDarkMode() {
+//                console.log(sessionStorage.getItem("darkMode"));
+//                var darkMode = sessionStorage.getItem("darkMode");
+
+                var darkMode = sessionStorage.getItem("darkMode");
+                console.log(darkMode);
+                
+//                if (darkMode === null) {
+//                    sessionStorage.setItem("darkMode", false);
+//                } else {
+                if (darkMode) {
+                    sessionStorage.setItem("darkMode", false);
+                } else {
+                    sessionStorage.setItem("darkMode", true);
+                }
+
+                console.log(sessionStorage.getItem("darkMode"));
+                location.reload();
+
+
             }
-        </style>
+        </script>
+
+
+
+        <%@include file="include/includeEmployeeNav.jsp"%>
+
+        <button class="btn btn-danger" onclick="toggleDarkMode()">Toggle Darkmode</button>
+
+        <!--                <style>
+                            li a:hover {
+                                color: white;
+                                background-color: #2E3338;
+                                text-decoration: none;
+                            }
+                        </style>-->
+        <!--        <style id="styleMode">
+        
+                </style>-->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8">
-                    <h1 class="text-light">All Events</h1>
+                    <!--<h1 class="text-light">All Events</h1>-->
+                    <h1 id='h1Mode'>All Events</h1>
                 </div>
-                
+                <hr>
+
                 <div class="col-lg-4">
 
                     <% if (events != null) { %>
@@ -45,7 +82,8 @@
         </div>
         <hr>
         <div class="container-fluid">
-            <div class="card bg-dark text-white">
+            <div class="card" id="cardMode">
+                <!--<div class="card bg-dark text-white">-->
                 <table class="table table-hover" style="margin: 0px">
                     <thead>
                         <tr>
@@ -87,5 +125,6 @@
             </div>
             <br>
         </div>
+
     </body>
 </html>

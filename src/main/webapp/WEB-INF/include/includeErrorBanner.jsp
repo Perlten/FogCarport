@@ -1,8 +1,19 @@
 
 
 <script>
+    function applyMode() {
+        console.log("apply");
+        if (true) {
+            document.getElementById('h1Mode').style = "color: white";
+            document.getElementById("bodyMode").style = "background-color: #2E3338";
+        }
+    }
+
+
+
     var x = document.cookie;
     window.onload = function () {
+        applyMode();
 
         //We need to put this here becuase there can only be one onload function
         if (sessionStorage.getItem("load") !== "false") {

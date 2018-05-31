@@ -30,7 +30,6 @@
                     document.getElementById("bodyMode").style = "background-color: #2E3338";
                     document.getElementById('h1Mode').style = "color: white; display: inline";
                      document.getElementById("cardBody1").className = "card bg-dark text-white";
-//                    document.getElementById("cardFooter1").className = "card bg-dark text-white";
                     document.getElementById("slider").checked = true;
                 }
             }
@@ -85,7 +84,7 @@
                                 <h3>Contents of Order </h3>
                             </div>
                         </div>
-                        <div class="card-body bg-light text-dark" style="padding: 0px" id="">
+                        <div class="card-body bg-light text-dark" style="padding: 0px">
                             <table class="table table">
                                 <thead>
                                 <th>ID</th>

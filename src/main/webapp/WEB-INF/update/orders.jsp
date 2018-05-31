@@ -22,6 +22,7 @@
             }
 
         %>
+        
         <script>
             window.onload = function () {
                 showCustomer(false);

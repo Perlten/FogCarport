@@ -48,5 +48,10 @@
     <li><a href="FrontController?command=AllEventsPage">All Events</a></li>
         <%}%>
 </ul>
+<script>
+    function setUserStatus() {
+        sessionStorage.setItem("employee", "true");
+    }
+</script>
 
 <%@include file="includeErrorBanner.jsp" %>

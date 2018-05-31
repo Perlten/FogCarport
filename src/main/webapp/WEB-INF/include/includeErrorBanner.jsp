@@ -1,36 +1,37 @@
 
 
 <script>
-   
-
-
 
     var x = document.cookie;
     window.onload = function () {
-    applyMode();
-    //We need to put this here becuase there can only be one onload function
-    if (sessionStorage.getItem("load") !== "false") {
-    document.getElementById('censorBanner').style.display = "block";
-    }
-    //for error banner
-    if (getCookie("refresh") === "true") {
-    document.cookie = "refresh = false";
-    }
+        setUserStatus();
+        var employee = sessionStorage.getItem("employee");
+        //We need to put this here becuase there can only be one onload function
+        if (sessionStorage.getItem("load") !== "false" && employee === "false") {
+            document.getElementById('censorBanner').style.display = "block";
+        }
+        //for error banner
+        if (getCookie("refresh") === "true") {
+            document.cookie = "refresh = false";
+        }
+        if (employee === "true") {
+            applyMode();
+        }
     };
     function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-    c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-    return c.substring(name.length, c.length);
-    }
-    }
-    return "";
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 </script>
 

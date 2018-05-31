@@ -11,7 +11,7 @@
             function applyMode() {
                 var darkMode = sessionStorage.getItem("darkMode");
                 if (darkMode === "true") {
-                    document.getElementById("bodyMode").style = "color: white; background-color: black";
+                    document.getElementById("bodyMode").style = "color: white; background-color: #2E3338";
                 }
             }
         </script>

@@ -17,6 +17,8 @@
         if (employee === "true") {
             applyMode();
         }
+        showCustomer(false);
+        
     };
     function getCookie(cname) {
         var name = cname + "=";

@@ -39,6 +39,10 @@
             }
         %>
         <div class="container-fluid">
+            <h1>Edit Order <span class="badge badge-dark"><%= order.getOrderid() %></span></h1>
+        </div>
+        <hr>
+        <div class="container-fluid">
             <form action="FrontController" method="post">
                 <div class="row">
                     <div class="col-lg-3">

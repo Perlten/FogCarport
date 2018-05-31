@@ -6,14 +6,14 @@
         list-style-type: none;
         overflow: hidden;
         padding: 0;
-        background-color: orange;
+        background-color: #004794;
     }
 
     li a {
         display: block;
         width: 120px;
-        background-color: darkorange;
-        color: white;
+        background-color: #004187;
+        color: #fbfbfb;
         text-align: center;
         font-size: large;
         padding: 10px;
@@ -26,12 +26,17 @@
 
     li a:hover {
         color: black;
-        background-color: activeborder;
+        background-color: white;
         text-decoration: none;
     }
 </style>
 
 <ul>
+    <li>
+        <a href="index.jsp" style="height: 47px; width: 55px; padding: 0px">
+            <img src="content/FOGLogo.jpg" alt="" style="height: 47px; margin: 0px"/>
+        </a>
+    </li>
     <li style="float: right;"><a href="FrontController?command=LogOut">Log Out</a></li>
     <li><a href="FrontController?command=Overview">Overview</a></li>
     <li><a href="FrontController?command=GetOrders">Orders</a></li>

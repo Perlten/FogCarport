@@ -32,17 +32,20 @@
     }
 </script>
 
-<div style="margin-left: 15px; margin-right: 15px">
+<div >
     <%
         if (session.getAttribute("error") != null) {
     %>
-    <div class="alert alert-danger alert-dismissible fade show">
+    <div class="alert alert-danger alert-dismissible fade show"
+         style="margin-left: 15px; margin-right: 15px">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <%= session.getAttribute("error")%>
     </div>
+    <hr>
     <%
             session.setAttribute("error", null);
         }
     %>
 
 </div>
+

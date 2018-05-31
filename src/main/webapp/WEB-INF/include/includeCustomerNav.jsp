@@ -17,7 +17,7 @@
 
 <ul class="nav nav-tabs">
 
-    <li style="margin-right: 5px; margin-left: 5px;">
+    <li style="margin-right: 5px; margin-left: 0px;">
         <a href="index.jsp">
             <img src="content/foglogok.png" alt="" style="height: 42px; margin: 0px"/>
         </a>

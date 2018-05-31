@@ -8,7 +8,10 @@
     List<Order> orderList = LogicFacade.getCustomerList(num);
 %>
 
-<table class="table table-xstriped">
+
+
+
+<table class="table table-xstriped" style="margin: 0px">
     <thead>
         <tr>
             <th>Order Number</th>
@@ -43,3 +46,7 @@
     </tbody>
     <% }%>
 </table>
+
+
+
+

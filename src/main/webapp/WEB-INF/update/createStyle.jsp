@@ -8,15 +8,19 @@
     </head>
     <body>
         <%@include file="../include/includeEmployeeNav.jsp"%>
-        <div class="container-fluid">
-            <%
+        <%
                 String type = request.getParameter("type");
             %>
+        <div class="container-fluid">
+            <h1>Create New <%= type%></h1>
+        </div>
+        <hr>
+        <div class="container-fluid">
+            
             <div class="row">
                 <div class="col-lg-1"></div>
                 <form action="FrontController" method="post">
                     <div class="col-lg-6" style="width: 600px">
-                        <h1>New <%= type%></h1>
                         <div class="form-group">
                             <input type="hidden" name="command" value="CreateStyle">
                             <input type="hidden" name="type" value="<%= type%>">

@@ -43,13 +43,24 @@
                 xhttp.send();
             }
         </script>
-
         <div class="container-fluid">
             <h1>Customer Orders</h1>
+        </div>
+        <hr>
+
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <div id="orders"></div>
-                    <input type="submit" onclick="showCustomer(true)" class="btn btn-secondary" value="Load" style="width: 100%; margin-bottom: 20px">
+                    <div class="card">
+                        <div class="card-body bg-light text-dark" style="padding: 0px">
+                            <div id="orders"></div>
+                        </div>
+                        <div class="card-footer" style="padding: 0px">
+                            <input type="submit" onclick="showCustomer(true)" class="btn"  value="Load" style="width: 100%; margin: 0px; background-color: darkorange; color: white">
+
+                        </div>
+                    </div>
+
                 </div>
                 <% if (selectedOrder != null) {
 
@@ -59,13 +70,13 @@
                         }
                 %>
                 <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header <%= card%>">
+                    <div class="card <%= card%>">
+                        <div class="card-header">
                             <div>
                                 <h3>Contents of Order </h3>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-light text-dark" style="padding: 0px">
                             <table class="table table">
                                 <thead>
                                 <th>ID</th>
@@ -101,8 +112,7 @@
                                 <%@include file="../include/includeSVG.jsp" %>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <h4>Price</h4>
+                        <div class="card-footer bg-light text-dark" style="padding: 0px">
                             <% Calculator calc = LogicFacade.getCalculator(selectedOrder);
                                 calc.calculate();
 
@@ -110,7 +120,7 @@
                                 double price = selectedOrder.getPrice();
                                 double diff = price - productPrice;
                             %>
-                            <table class="table" style="width: 100%">
+                            <table class="table" style="width: 100%; margin-bottom: 0px">
                                 <tbody>
                                     <tr class="text-primary">
                                         <td><p >Total Product Price</p></td>
@@ -175,7 +185,6 @@
                             <input type="submit" class="btn btn-light" value="Picking List">
                         </form>
                     </div>
-
                 </div>
                 <% }%>
 

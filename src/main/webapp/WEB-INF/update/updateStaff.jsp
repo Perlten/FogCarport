@@ -14,7 +14,8 @@
         <title>Update Staff</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <body>
+    <body style="background-color: #2E3338">
+
 
         <%
             List<Employee> empList = (List<Employee>) request.getAttribute("empList");
@@ -32,50 +33,71 @@
             }
             <%}%>
         </script>
+
         <%@include file="../include/includeEmployeeNav.jsp"%>
+        <style>
+            li a:hover {
+                color: white;
+                background-color: #2E3338;
+                text-decoration: none;
+            }
+        </style>
+        <div class="container-fluid">
+            <h1 class="text-white">Update Staff</h1>
+        </div>
+        <hr style="background-color: white">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <table class="table table-xstriped table-hover" style="table-layout: fixed">
-                        <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>Username</th>
-                                <th style="width: 10%">Access</th>
-                                <th>Email</th>
-                                <th>Hire Date</th>
-                                <th style="width: 13%"></th>
-                            </tr>
-                        </thead>
+                    <div class="card bg-dark text-white">
+                        <div class="card-body" style="padding: 0px">
+                            <table class="table table-xstriped table-hover" style="table-layout: fixed; margin: 0px">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Username</th>
+                                        <th style="width: 10%">Access</th>
+                                        <th>Email</th>
+                                        <th>Hire Date</th>
+                                        <th style="width: 13%"></th>
+                                    </tr>
+                                </thead>
 
-                        <% for (Employee emp : empList) {
-                        %>
-                        <tbody>
-                            <tr <%if (!emp.isEmployed()) { %>
-                                class="btn-danger"
-                                <%}%>>
-                                <td><%= emp.getLastname() + ", " + emp.getFirstname()%></td>
-                                <td><%= emp.getUsername()%></td>
-                                <td><%= emp.getAuthenticationLevel()%></td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="<%= emp.getEmail()%>"><%= emp.getShortEmail()%></td>
+                                <% for (Employee emp : empList) {
+                                %>
+                                <tbody>
+                                    <tr <%if (!emp.isEmployed()) { %>
+                                        class="btn-danger"
+                                        <%}%>>
+                                        <td><%= emp.getLastname() + ", " + emp.getFirstname()%></td>
+                                        <td><%= emp.getUsername()%></td>
+                                        <td><%= emp.getAuthenticationLevel()%></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="<%= emp.getEmail()%>"><%= emp.getShortEmail()%></td>
 
-                                <td><%= emp.simpleDate()%></td>
-                                <td>
-                                    <form action="FrontController" method="post">
-                                        <input type="hidden" name="command" value="EditEmployee">
-                                        <input type="hidden" name="employeeId" value="<%= emp.getEmployeeId()%>">
-                                        <input type="submit" class="btn btn-primary" value="Edit">
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <% }%>
-                    </table>
-                    <form action="FrontController" method="post">
-                        <input type="hidden" name="command" value="UpdateStaff">
-                        <input type="hidden" name="newEmployee" value="true">
-                        <input type="submit" class="btn btn-success" value="Create New Employee">
-                    </form>
+                                        <td><%= emp.simpleDate()%></td>
+                                        <td>
+                                            <form action="FrontController" method="post">
+                                                <input type="hidden" name="command" value="EditEmployee">
+                                                <input type="hidden" name="employeeId" value="<%= emp.getEmployeeId()%>">
+                                                <input type="submit" class="btn btn-primary" value="Edit">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <% }%>
+                            </table>
+                        </div>
+                        <div class="card-footer" style="padding: 0px">
+                            <form action="FrontController" method="post">
+                                <input type="hidden" name="command" value="UpdateStaff">
+                                <input type="hidden" name="newEmployee" value="true">
+                                <input type="submit" class="btn btn-success" style="width: 100%" value="Create New Employee">
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+
+
                 </div>
                 <%if (newEmployee != null) {%>
                 <div class="col-lg-6">
@@ -104,7 +126,7 @@
                 <%}%>
                 <%if (selectedEmployee != null) {%>
                 <div class="col-lg-6">
-                    <div class="card">
+                    <div class="card bg-info text-white">
                         <form action="FrontController" method="post">
                             <table class="table table-xstriped">
                                 <thead>
@@ -126,43 +148,55 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <%if (selectedEmployee.isEmployed()) {%>        
+                            <%if (selectedEmployee.isEmployed()) {%>
+
                             <input type="hidden" name="command" value="UpdateEmployee"/>
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
-                            <input type="submit" class="btn btn-primary" value="Edit"/>
+                            <input type="submit" style="width: 100%" class="btn btn-primary" value="Edit" style="float: left"/>
                         </form>
-                        <input type="submit" class="btn btn-danger" onclick="fireEmployee()" value="FIRE!" style="width: 7%"/>
+                        <input style="width: 100%" type="submit" class="btn btn-danger" onclick="fireEmployee()" value="FIRE!" style="width: 7%"/>
                         <%if (!selectedEmployee.isResetPassword()) {%>
                         <form>
                             <input type="hidden" name="command" value="ResetPassword"/>
                             <input type="hidden" name="employeeId" value="<%= selectedEmployee.getEmployeeId()%>"/> 
-                            <input type="submit" class="btn btn-primary" value="Reset Password"/>
+                            <input type="submit" style="width: 100%" class="btn btn-primary" value="Reset Password" />
                         </form>
                         <%}
                             }%>
                     </div>
                     <br>
-                    <h3>Latest evnts for <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname()%></h3>
-                    <table class="table table-xstriped table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <% for (Event event : eventList) {
-                            %>
-                            <tr>
-                                <td><%= event.getEventName()%></td>
-                                <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription()%>"><%= event.getShortDescription()%></td>
-                                <td><%= event.simpleDate()%></td>
-                            </tr>
-                            <% }%>
-                        </tbody>
-                    </table>
+
+
+
+                    <div class="card bg-secondary text-white">
+                        <div class="card-header">               
+                            <h3>Latest evnts for <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname()%></h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-xstriped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% for (Event event : eventList) {
+                                    %>
+                                    <tr>
+                                        <td><%= event.getEventName()%></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="<%= event.getDescription()%>"><%= event.getShortDescription()%></td>
+                                        <td><%= event.simpleDate()%></td>
+                                    </tr>
+                                    <% }%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
                 <%}%>
             </div>

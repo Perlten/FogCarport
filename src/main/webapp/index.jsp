@@ -52,6 +52,18 @@
                 document.getElementById("sWidth").max = newWidth;
                 setRequiredShed();
             }
+            
+             function setMaxShedLength() {
+                var length = document.getElementById("length").value;
+                var newLength = length - 30;
+                if(newLength < 0){
+                    newLength = 0;
+                }
+                console.log(newLength);
+                
+                document.getElementById("sLength").max = newLength;
+                setRequiredShed();
+            }
 
 
             function setRequiredShed() {
@@ -99,7 +111,7 @@
 
                                     <label>
                                         Length<br>
-                                        <input type="number" class="form-control" name="length"  min="100" placeholder="cm" value="<%= length%>" required>
+                                        <input id="length" type="number" class="form-control" name="length"  min="100" placeholder="cm" value="<%= length%>" required>
                                     </label>
                                     <br>
 
@@ -150,7 +162,7 @@
 
                                     <label>
                                         Shed Length
-                                        <input type="number" onclick="setRequiredShed()" id="sLength" class="form-control" name="shedLength" min="0" placeholder="cm" onclick="setMinMax(length)" value="<%= shedLength%>" >
+                                        <input type="number" onclick="setMaxShedLength()" id="sLength" class="form-control" name="shedLength" min="0" placeholder="cm" onclick="setMinMax(length)" value="<%= shedLength%>" >
                                     </label>
 
                                     <br>

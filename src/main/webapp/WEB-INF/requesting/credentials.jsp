@@ -48,20 +48,20 @@
                                 <div class="form-group">
                                     <input type="hidden" name="command" value="GiveCredentials">
                                     <label class="control-label">First Name</label>
-                                    <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>"/>
+                                    <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>" required/>
 
                                     <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>"/>
+                                    <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>" required/>
 
                                     <label class="control-label">Email</label>
-                                    <input type="text" class="form-control" name="email" placeholder="Enter email" value="<%= email%>"/>
+                                    <input type="email" class="form-control" name="email" placeholder="Enter email" value="<%= email%>" required/>
 
                                     <label class="control-label">Phone Number</label>
                                     <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
                                         if (phonenumber != 0) {
                                             out.print(phonenumber);
                                         }
-                                           %>"/>
+                                        %>" required/>
                                     <br>
                                 </div>
                             </div>

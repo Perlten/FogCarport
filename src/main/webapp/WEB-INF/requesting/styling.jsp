@@ -65,7 +65,7 @@
                                                 if (option.equals(cladding)) {
                                                     out.print("checked");
                                                 }
-                                                   %>>
+                                            %> required>
                                             <a class="text-body"><%= option.getPrice() + " DKK/m"%> </a>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                                 if (option.equals(tile)) {
                                                     out.print("checked");
                                                 }
-                                                   %>>
+                                                %> required>
                                             <a class="text-body"><%= option.getPrice() + " DKK/tile"%> </a>
                                         </div>
                                     </div>

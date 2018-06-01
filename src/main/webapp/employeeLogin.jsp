@@ -28,10 +28,10 @@
                         <div class="form-group">
                             <input type="hidden" name="command" value="LoginVerification">
                             <label class="control-label">Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" placeholder="Username" required>
 
                             <label class="control-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                             <br>
                         </div>
                 </div>

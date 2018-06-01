@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <input type="hidden" name="command" value="SendNewPassword">
                         <label class="control-label">Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="email">
+                        <input type="text" class="form-control" name="email" placeholder="email" required>
 
                     </div>
             </div>

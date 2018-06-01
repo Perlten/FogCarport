@@ -40,6 +40,45 @@
         %>
     </head>
     <body>
+        <script>
+            function setMaxShedWidth() {
+                var width = document.getElementById("width").value;
+                var newWidth = width - 60;
+                if(newWidth < 0){
+                    newWidth = 0;
+                }
+                console.log(newWidth);
+                
+                document.getElementById("sWidth").max = newWidth;
+                setRequiredShed();
+            }
+
+
+            function setRequiredShed() {
+                var sToggle = 'false';
+
+                if (document.getElementById("shed").checked) {
+                    sToggle = 'true';
+                }
+
+                console.log(sToggle);
+                var isTrue = (sToggle === 'true');
+                document.getElementById("sLength").required = isTrue;
+                document.getElementById("sWidth").required = isTrue;
+            }
+
+            function setRequiredRA() {
+                var sToggle = 'false';
+
+                if (document.getElementById("roof").checked) {
+                    sToggle = 'true';
+                }
+
+                console.log(sToggle);
+                var isTrue = (sToggle === 'true');
+                document.getElementById("RA").required = isTrue;
+            }
+        </script>
         <%@include file="WEB-INF/include/includeCustomerNav.jsp" %>
 
         <div class="container-fluid">
@@ -66,7 +105,7 @@
 
                                     <label>
                                         Width
-                                        <input type="number" class="form-control" name="width" min="100" placeholder="cm" value="<%= width%>" required>
+                                        <input type="number" id="width" onclick="setMaxShedWidth()" class="form-control" name="width" min="100" placeholder="cm" value="<%= width%>" required>
                                     </label>
                                     <br>
 
@@ -80,7 +119,7 @@
                                 <br>
                                 <label><h4>Roof Options</h4>
                                     <label class="form-control">
-                                        <input type="checkbox" name="roof" value="true" <%
+                                        <input type="checkbox" onclick="setRequiredRA()" id="roof" name="roof" value="true" <%
                                             if (cust != null) {
                                                 if (cust.getRoofangle() > 0) {
                                                     out.print("checked");
@@ -91,15 +130,16 @@
 
                                     <label>
                                         Roof Angle
-                                        <input type="number" class="form-control" name="roofAngle" min="0" max="89" placeholder="°" value="<%= roofAngle%>">
+                                        <input type="number" id="RA" onclick="setRequiredRA()" class="form-control" name="roofAngle" min="0" max="89" placeholder="°" value="<%= roofAngle%>">
                                     </label>
                                 </label>
                                 <br>
                                 <br>
+
                                 <label>
                                     <h4>Shed Options</h4>
                                     <label class="form-control">
-                                        <input type="checkbox" name="shed" value="true" <%
+                                        <input type="checkbox" onclick="setRequiredShed()" id="shed" name="shed" value="true" <%
                                             if (cust != null) {
                                                 if (cust.getShed() != null) {
                                                     out.print("checked");
@@ -110,14 +150,14 @@
 
                                     <label>
                                         Shed Length
-                                        <input type="number" class="form-control" name="shedLength" min="0" placeholder="cm" value="<%= shedLength%>" >
+                                        <input type="number" onclick="setRequiredShed()" id="sLength" class="form-control" name="shedLength" min="0" placeholder="cm" onclick="setMinMax(length)" value="<%= shedLength%>" >
                                     </label>
 
                                     <br>
 
                                     <label>
                                         Shed Width
-                                        <input type="number" class="form-control" name="shedWidth" min="0" placeholder="cm" value="<%= shedWidth%>">
+                                        <input type="number" onclick="setMaxShedWidth()" id="sWidth" class="form-control" name="shedWidth" min="0" placeholder="cm" onclick="setMinMax(width)" value="<%= shedWidth%>">
                                     </label>
                                 </label>
 

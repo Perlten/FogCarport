@@ -50,22 +50,22 @@
                         <div class="form-group">
                             <input type="hidden" name="command" value="EditOrder">
                             <label class="control-label">Length</label>
-                            <input type="number" class="form-control" name="length" min="100" value="<%= order.getCustomization().getLength()%>">
+                            <input type="number" class="form-control" name="length" min="100" value="<%= order.getCustomization().getLength()%>" required>
 
                             <label class="control-label">Width</label>
-                            <input type="number" class="form-control" name="width" min="100" value="<%= order.getCustomization().getWidth()%>">
+                            <input type="number" class="form-control" name="width" min="100" value="<%= order.getCustomization().getWidth()%>" required>
 
                             <label class="control-label">Height</label>
-                            <input type="number" class="form-control" name="height" min="100" value="<%= order.getCustomization().getHeight()%>">
+                            <input type="number" class="form-control" name="height" min="100" value="<%= order.getCustomization().getHeight()%>" required>
 
                             <label class="control-label">Roof Angle</label>
-                            <input type="number" class="form-control" name="roofAngle" min="0" value="<%= order.getCustomization().getRoofangle()%>">
+                            <input type="number" class="form-control" name="roofAngle" min="0" value="<%= order.getCustomization().getRoofangle()%>" required>
                             <label class="control-label">Shed</label>
                             <input style="width: 30px; height: 30px" type="checkbox" class="form-control" name="shed" value="true" <%= checked%>>
                             <label class="control-label">Shed Length</label>
-                            <input type="number" class="form-control" name="shedLength" min="0" max="<%= order.getCustomization().getLength()%>" value="<%= shedLength%>">
+                            <input type="number" class="form-control" name="shedLength" min="0" max="<%= order.getCustomization().getLength()%>" value="<%= shedLength%>" required>
                             <label class="control-label">Shed Width</label>
-                            <input type="number" class="form-control" name="shedWidth" min="0" max="<%= order.getCustomization().getWidth() - 60%>" value="<%= shedWidth%>">
+                            <input type="number" class="form-control" name="shedWidth" min="0" max="<%= order.getCustomization().getWidth() - 60%>" value="<%= shedWidth%>" required>
                             <input type="hidden" name="orderId" value="<%= order.getOrderid()%>">
                         </div>
                     </div>

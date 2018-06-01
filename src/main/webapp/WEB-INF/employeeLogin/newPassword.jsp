@@ -11,9 +11,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New Password</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
+        <%@include file="../include/includeErrorBanner.jsp" %>
     </head>
     <body>
-
+        <script>
+            function setUserStatus() {
+                sessionStorage.setItem("employee", "true");
+            }
+            function applyMode() {
+            }
+        </script>
         <div class="loginStyle">
             <div class="container-fluid">
                 <center>

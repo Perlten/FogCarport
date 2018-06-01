@@ -119,17 +119,17 @@
                             <form action="FrontController" method="post">
                                 <input type="hidden" name="command" value="CreateNewEmployee">
 
-                                <label class="control-label">First name</label>
-                                <input type="text" class="form-control" name="firstName">
+                                <label class="control-label" >First name</label>
+                                <input type="text" class="form-control" name="firstName" required/>
 
                                 <label class="control-label">Last name</label>
-                                <input type="text" class="form-control" name="lastName">
+                                <input type="text" class="form-control" name="lastName" required>
 
                                 <label class="control-label">Username</label>
-                                <input type="text" class="form-control" name="username">
+                                <input type="text" class="form-control" name="username" required>
 
                                 <label class="control-label">Email</label>
-                                <input type="text" class="form-control" name="email">
+                                <input type="email" class="form-control" name="email" required>
 
                                 <label class="control-label">Access level</label>
                                 <input type="number" class="form-control" name="accessLevel" min="1">

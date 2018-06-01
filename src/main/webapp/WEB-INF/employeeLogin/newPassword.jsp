@@ -33,10 +33,10 @@
                                 <div class="form-group">
                                     <input type="hidden" name="command" value="NewPassword">
                                     <label class="control-label">New Password</label>
-                                    <input type="password" class="form-control" name="password" placeholder="New password">
+                                    <input type="password" class="form-control" name="password" placeholder="New password" required>
 
                                     <label class="control-label">Repeat new Password</label>
-                                    <input type="password" class="form-control" name="passwordRepeat" placeholder="Repeat new password">
+                                    <input type="password" class="form-control" name="passwordRepeat" placeholder="Repeat new password" required>
                                     <br>
                                 </div>
                         </div>

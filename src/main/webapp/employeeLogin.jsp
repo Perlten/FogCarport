@@ -16,6 +16,11 @@
     <body>
     <center>
         <%@include file="WEB-INF/include/includeErrorBanner.jsp" %>
+        <script>
+            function setUserStatus() {
+                sessionStorage.setItem("employee", "true");
+            }
+        </script>
         <div class="container-fluid">
             <div class="card bg-secondary text-white" style="width: 500px; margin: auto">
                 <div class="card-header">

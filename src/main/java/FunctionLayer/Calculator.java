@@ -60,11 +60,16 @@ public class Calculator {
 
         }
 
-        for (Product product : products) {
-            if (product.getAmount() < 1) {
-                products.remove(product);
+            List<Product> toRemove = new ArrayList<>();
+
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getAmount() < 1) {
+                    toRemove.add(products.get(i));
+                }
             }
-        }
+            
+            products.removeAll(toRemove);
+
     }
 
     /**

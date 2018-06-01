@@ -19,7 +19,26 @@
             }
         </style>
     </head>
-    <body>
+    <body id="bodyMode">
+        <script>
+            function applyMode() {
+                var darkMode = sessionStorage.getItem("darkMode");
+                if (darkMode === "true") {
+                    document.getElementById('h1Mode').style = "color: white; display: inline";
+                    document.getElementById("bodyMode").style = "background-color: #2E3338";
+                    document.getElementById("h3Mode1").style = "color: white";
+                    document.getElementById("h3Mode2").style = "color: white";
+                    document.getElementById("h3Mode3").style = "color: white";
+                    document.getElementById("h3Mode4").style = "color: white";
+                    document.getElementById("h4Mode1").style = "color: white";
+                    document.getElementById("h4Mode2").style = "color: white";
+                    document.getElementById("form1").style = "color: white";
+                    document.getElementById("form2").style = "color: white";
+                    document.getElementById("form3").style = "color: white";
+                    document.getElementById("form4").style = "color: white";
+                }
+            }
+        </script>
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <%
             Order order = (Order) request.getAttribute("order");
@@ -39,15 +58,15 @@
             }
         %>
         <div class="container-fluid">
-            <h1>Edit Order <span class="badge badge-dark"><%= order.getOrderid() %></span></h1>
+            <h1 id="h1Mode">Edit Order <span class="badge badge-danger"><%= order.getOrderid()%></span></h1>
         </div>
         <hr>
         <div class="container-fluid">
             <form action="FrontController" method="post">
                 <div class="row">
                     <div class="col-lg-3">
-                        <h3>Edit Dimensions</h3>
-                        <div class="form-group">
+                        <h3 id="h3Mode1">Edit Dimensions</h3>
+                        <div class="form-group" id="form1">
                             <input type="hidden" name="command" value="EditOrder">
                             <label class="control-label">Length</label>
                             <input type="number" class="form-control" name="length" min="100" value="<%= order.getCustomization().getLength()%>" required>
@@ -71,8 +90,8 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <h3>Edit Style</h3>
-                        <h4>Cladding</h4>
+                        <h3 id="h3Mode2">Edit Style</h3>
+                        <h4 id="h4Mode1">Cladding</h4>
                         <div class="form-group">
                             <select name="cladding" class="form-control">
                                 <%if (order.getCustomization().getCladding() == null) {%>
@@ -92,8 +111,8 @@
                                 %>
                             </select>
                         </div>
-                        <h4>Tile</h4>
-                        <div class="form-group">
+                        <h4 id="h4Mode2">Tile</h4>
+                        <div class="form-group" id="form2">
                             <select name="tile" class="form-control">
                                 <%if (order.getCustomization().getTile() == null) {%>
                                 <option value="" selected/>
@@ -113,8 +132,8 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <h3>Edit User</h3>
-                        <div class="form-group"> 
+                        <h3 id="h3Mode3">Edit User</h3>
+                        <div class="form-group" id="form3"> 
                             <label class="control-label">First Name</label>
                             <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstname()%>">
 
@@ -129,13 +148,13 @@
                         </div>	
                     </div>
                     <div class="col-lg-3">
-                        <h3>Price</h3>
+                        <h3 id="h3Mode4">Price</h3>
                         <p class="text-warning">Price Of Products: <%
                             Calculator calc = LogicFacade.getCalculator(order);
                             calc.calculate();
                             out.print(calc.totalPrice());
                             %> DKK</p>
-                        <label class="control-label">Total Price</label>
+                        <label id="form4" class="control-label">Total Price</label>
                         <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK"/>
                     </div>
 

@@ -12,7 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Orders</title>
         <%@include file="../include/includeBootstrap.jsp" %>
-        <link href="OrdersStyle.css" rel="stylesheet" type="text/css"/>
         <%
             List<StyleOption> claddingList = (List<StyleOption>) request.getAttribute("claddingList");
             List<StyleOption> tileList = (List<StyleOption>) request.getAttribute("tileList");
@@ -20,17 +19,33 @@
             String type = (String) request.getAttribute("type");
         %>
     </head>
-    <body>
+    <body id="bodyMode">
+        <script>
+
+            function applyMode() {
+                var darkMode = sessionStorage.getItem("darkMode");
+                if (darkMode === "true") {
+                    document.getElementById('h1Mode').style = "color: white; display: inline";
+                    document.getElementById("bodyMode").style = "background-color: #2E3338";
+                    document.getElementById("cardMode").className = "card bg-dark text-white";
+                    document.getElementById("cardMode2").className = "card bg-dark text-white";
+                    document.getElementById("slider").checked = true;
+                }
+            }
+        </script>
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <div class="container-fluid">
-            <h1>Update Styling</h1>
-        </div>
-        <hr>
-        <div class="container-fluid">
-
+            <div class="row">
+                <div class="container-fluid">
+                    <h1 id="h1Mode" style="display: inline">Update Stylings</h1>
+                    <div style="float: right">
+                        <%@include file="../include/includeDarkModeSlider.jsp" %>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-5">
-                    <div class="card">
+                    <div class="card" id="cardMode">
                         <div class="card-header">
                             <h2>Cladding</h2>
                         </div>
@@ -79,7 +94,7 @@
                 </div>
 
                 <div class="col-lg-5">
-                    <div class="card">
+                    <div class="card" id="cardMode2">
                         <div class="card-header">
                             <h2>Tile</h2>
                         </div>

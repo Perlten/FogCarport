@@ -14,9 +14,7 @@
         <title>Update Staff</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <body>
-
-
+    <body id="bodyMode">
         <%
             List<Employee> empList = (List<Employee>) request.getAttribute("empList");
             Employee selectedEmployee = (Employee) request.getAttribute("selectedEmployee");
@@ -24,6 +22,15 @@
             List<Event> eventList = (List<Event>) request.getAttribute("eventList");
         %>
         <script>
+            function applyMode() {
+                var darkMode = sessionStorage.getItem("darkMode");
+                if (darkMode === "true") {
+                    document.getElementById('h1Mode').style = "color: white; display: inline";
+                    document.getElementById("bodyMode").style = "background-color: #2E3338";
+                    document.getElementById("cardMode").className = "card bg-dark text-white";
+                    document.getElementById("slider").checked = true;
+                }
+            }
             <%if (selectedEmployee != null) {%>
             function fireEmployee() {
                 var message = prompt("Are you sure you whant to fire <%= selectedEmployee.getFirstname() + " " + selectedEmployee.getLastname()%>. If you are, please type in \"fire\" and press enter");
@@ -36,14 +43,20 @@
 
         <%@include file="../include/includeEmployeeNav.jsp"%>
 
-        <div class="container-fluid">
-            <h1>Update Staff</h1>
-        </div>
-        <hr style="background-color: white">
+
         <div class="container-fluid">
             <div class="row">
+                <div class="container-fluid">
+                    <h1 id="h1Mode" style="display: inline">Update Staff</h1>
+                    <div style="float: right">
+                        <%@include file="../include/includeDarkModeSlider.jsp" %>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
                 <div class="col-lg-6">
-                    <div class="card">
+                    <div class="card" id="cardMode">
                         <div class="card-body" style="padding: 0px">
                             <table class="table table-xstriped table-hover" style="table-layout: fixed; margin: 0px">
                                 <thead>

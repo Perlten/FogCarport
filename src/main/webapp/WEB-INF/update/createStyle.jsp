@@ -6,17 +6,25 @@
         <title>JSP Page</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <body>
+    <body id="bodyMode">
+        <script>
+            function applyMode() {
+                var darkMode = sessionStorage.getItem("darkMode");
+                if (darkMode === "true") {
+                    document.getElementById("bodyMode").style = "color: white; background-color: #2E3338";
+                }
+            }
+        </script>
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <%
-                String type = request.getParameter("type");
-            %>
+            String type = request.getParameter("type");
+        %>
         <div class="container-fluid">
             <h1>Create New <%= type%></h1>
         </div>
         <hr>
         <div class="container-fluid">
-            
+
             <div class="row">
                 <div class="col-lg-1"></div>
                 <form action="FrontController" method="post">

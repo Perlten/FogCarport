@@ -12,7 +12,7 @@
         <title>Customer Orders</title>
         <%@include file="../include/includeBootstrap.jsp" %>
     </head>
-    <body>
+    <body id="bodyMode">
         <%@include file="../include/includeEmployeeNav.jsp"%>
         <%
             Order selectedOrder = (Order) request.getAttribute("order");
@@ -22,11 +22,17 @@
             }
 
         %>
-        
+
         <script>
-            window.onload = function () {
-                showCustomer(false);
-            };
+            function applyMode() {
+                var darkMode = sessionStorage.getItem("darkMode");
+                if (darkMode === "true") {
+                    document.getElementById("bodyMode").style = "background-color: #2E3338";
+                    document.getElementById('h1Mode').style = "color: white; display: inline";
+                     document.getElementById("cardBody1").className = "card bg-dark text-white";
+                    document.getElementById("slider").checked = true;
+                }
+            }
 
             var num = <%= loads%>;
             function showCustomer(add) {
@@ -45,23 +51,24 @@
             }
         </script>
         <div class="container-fluid">
-            <h1>Customer Orders</h1>
-        </div>
-        <hr>
-
-        <div class="container-fluid">
+            <div class="row">
+                <div class="container-fluid">
+                    <h1 id="h1Mode" style="display: inline">Orders</h1>
+                    <div style="float: right">
+                        <%@include file="../include/includeDarkModeSlider.jsp" %>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="card-body bg-light text-dark" style="padding: 0px">
+                        <div class="card-body bg-light text-dark" style="padding: 0px" id="cardBody1">
                             <div id="orders"></div>
                         </div>
                         <div class="card-footer" style="padding: 0px">
                             <input type="submit" onclick="showCustomer(true)" class="btn"  value="Load" style="width: 100%; margin: 0px; background-color: darkorange; color: white">
-
                         </div>
                     </div>
-
                 </div>
                 <% if (selectedOrder != null) {
 

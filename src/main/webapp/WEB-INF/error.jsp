@@ -17,6 +17,7 @@
         <script>
             window.onload = function () {
                 document.cookie = "refresh = true";
+                console.log("Exception");
                 window.history.back();
             };
         </script>

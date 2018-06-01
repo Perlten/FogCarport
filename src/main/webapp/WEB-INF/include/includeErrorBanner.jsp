@@ -13,10 +13,17 @@
         //for error banner
         if (getCookie("refresh") === "true") {
             document.cookie = "refresh = false";
+            location.reload();
         }
         if (employee === "true") {
             applyMode();
         }
+        try {
+            showCustomer(false);
+        } catch (exception) {
+            console.log("error");
+        }
+
     };
     function getCookie(cname) {
         var name = cname + "=";

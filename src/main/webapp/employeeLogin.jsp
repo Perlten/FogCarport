@@ -20,6 +20,8 @@
             function setUserStatus() {
                 sessionStorage.setItem("employee", "true");
             }
+              function applyMode() {
+            }
         </script>
         <div class="container-fluid">
             <div class="card bg-secondary text-white" style="width: 500px; margin: auto">

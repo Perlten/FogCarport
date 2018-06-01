@@ -34,13 +34,13 @@
                             <input type="hidden" name="type" value="<%= type%>">
 
                             <label class="control-label">Name</label>
-                            <input type="Text" class="form-control" name="name">
+                            <input type="Text" class="form-control" name="name" required>
 
                             <label class="control-label">Description</label>
                             <textarea class="form-control" rows="5" name="description"> </textarea>
 
                             <label class="control-label">Price</label>
-                            <input type="number" class="form-control" name="price" min="0">
+                            <input type="number" class="form-control" name="price" min="0" required>
                             <br>
                             <button type="submit" class="btn btn-primary">Create new <%= type%></button>
                         </div>

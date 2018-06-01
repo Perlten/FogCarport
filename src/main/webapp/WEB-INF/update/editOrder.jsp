@@ -135,16 +135,16 @@
                         <h3 id="h3Mode3">Edit User</h3>
                         <div class="form-group" id="form3"> 
                             <label class="control-label">First Name</label>
-                            <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstname()%>">
+                            <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstname()%>" required>
 
                             <label class="control-label">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" value="<%= customer.getLastname()%>">
+                            <input type="text" class="form-control" name="lastName" value="<%= customer.getLastname()%>" required>
 
                             <label class="control-label">Email</label>
-                            <input type="text" class="form-control" name="email" value="<%= customer.getEmail()%>">
+                            <input type="email" class="form-control" name="email" value="<%= customer.getEmail()%>" required>
 
                             <label class="control-label">Phone Number</label>
-                            <input type="number" class="form-control" name="phoneNumber" value="<%= customer.getPhonenumber()%>">
+                            <input type="number" class="form-control" name="phoneNumber" value="<%= customer.getPhonenumber()%>" required>
                         </div>	
                     </div>
                     <div class="col-lg-3">
@@ -155,7 +155,7 @@
                             out.print(calc.totalPrice());
                             %> DKK</p>
                         <label id="form4" class="control-label">Total Price</label>
-                        <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK"/>
+                        <input type="number" class="form-control" min="0" name="price" value="<%= order.getPrice()%>" placeholder="DKK"/ required>
                     </div>
 
                     <div class="col-lg-12">

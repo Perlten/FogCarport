@@ -5,9 +5,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@include file="../include/includeBootstrap.jsp" %>
-
+        <%@include file="../include/includeErrorBanner.jsp" %>
     </head>
     <body>
+        <script>
+            function setUserStatus() {
+                sessionStorage.setItem("employee", "true");
+            }
+            function applyMode() {
+            }
+        </script>
     <center>
         <div class="card bg-secondary text-white" style="width: 500px">
             <div class="card-header">

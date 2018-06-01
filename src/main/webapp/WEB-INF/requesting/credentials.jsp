@@ -32,6 +32,14 @@
         %>
     </head>
     <body>
+        <script>
+            function removeRequired(){
+                document.getElementById("firstName").required = false;
+                document.getElementById("lastName").required = false;
+                document.getElementById("email").required = false;
+                document.getElementById("phoneNumber").required = false;
+            }
+        </script>
         <%@include file="../include/includeCustomerNav.jsp" %>
         <div class="container-fluid">
             <div class="row">
@@ -48,16 +56,16 @@
                                 <div class="form-group">
                                     <input type="hidden" name="command" value="GiveCredentials">
                                     <label class="control-label">First Name</label>
-                                    <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>" required/>
+                                    <input id="firstName" type="text" class="form-control" name="firstName" placeholder="Enter first name" value="<%= firstname%>" required/>
 
                                     <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>" required/>
+                                    <input id="lastName" type="text" class="form-control" name="lastName" placeholder="Enter last name" value="<%= lastname%>" required/>
 
                                     <label class="control-label">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Enter email" value="<%= email%>" required/>
+                                    <input id="email"  type="email" class="form-control" name="email" placeholder="Enter email" value="<%= email%>" required/>
 
                                     <label class="control-label">Phone Number</label>
-                                    <input type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
+                                    <input id="phoneNumber" type="number" class="form-control" name="phoneNumber" placeholder="Enter phone number" value="<%
                                         if (phonenumber != 0) {
                                             out.print(phonenumber);
                                         }
@@ -67,7 +75,7 @@
                             </div>
                             <div class="card-footer">
                                 <input type="submit" name="submit" class="btn btn-primary" value="Next" style="float: right">
-                                <input type="submit" name="submit" class="btn btn-white" value="Back">
+                                <input type="submit" onclick="removeRequired()" name="submit" class="btn btn-white" value="Back">
                                 <input type="submit" name="submit" class="btn btn-secondary" value="Update" style="float: right; margin-right: 10px;">
                             </div>
                         </form>

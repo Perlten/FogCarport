@@ -61,11 +61,11 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <input type="radio" name="cladding" value="<%= option.getId()%>" <%
+                                            <input id="cladding" type="radio" name="cladding" value="<%= option.getId()%>" <%
                                                 if (option.equals(cladding)) {
                                                     out.print("checked");
                                                 }
-                                            %> required>
+                                            %>>
                                             <a class="text-body"><%= option.getPrice() + " DKK/m"%> </a>
                                         </div>
                                     </div>
@@ -83,11 +83,11 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <input type="radio" name="tile" value="<%= option.getId()%>" <%
+                                            <input id="tile" type="radio" name="tile" value="<%= option.getId()%>" <%
                                                 if (option.equals(tile)) {
                                                     out.print("checked");
                                                 }
-                                                %> required>
+                                                %>>
                                             <a class="text-body"><%= option.getPrice() + " DKK/tile"%> </a>
                                         </div>
                                     </div>

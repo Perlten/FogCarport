@@ -61,6 +61,7 @@
                             <table class="table table-xstriped table-hover" style="table-layout: fixed; margin: 0px">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Full Name</th>
                                         <th>Username</th>
                                         <th style="width: 10%">Access</th>
@@ -76,6 +77,7 @@
                                     <tr <%if (!emp.isEmployed()) { %>
                                         class="btn-danger"
                                         <%}%>>
+                                        <td> <%= emp.getEmployeeId() %></td>
                                         <td><%= emp.getLastname() + ", " + emp.getFirstname()%></td>
                                         <td><%= emp.getUsername()%></td>
                                         <td><%= emp.getAuthenticationLevel()%></td>

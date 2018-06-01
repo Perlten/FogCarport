@@ -11,8 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New Password</title>
         <%@include file="/WEB-INF/include/includeBootstrap.jsp" %>
-        <%@include file="../../css/employeeLogin.jsp" %>
-
     </head>
     <body>
 

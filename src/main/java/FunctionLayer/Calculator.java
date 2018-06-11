@@ -60,15 +60,15 @@ public class Calculator {
 
         }
 
-            List<Product> toRemove = new ArrayList<>();
+        List<Product> toRemove = new ArrayList<>();
 
-            for (int i = 0; i < products.size(); i++) {
-                if (products.get(i).getAmount() < 1) {
-                    toRemove.add(products.get(i));
-                }
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getAmount() < 1) {
+                toRemove.add(products.get(i));
             }
-            
-            products.removeAll(toRemove);
+        }
+
+        products.removeAll(toRemove);
 
     }
 

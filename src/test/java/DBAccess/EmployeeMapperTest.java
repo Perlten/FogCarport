@@ -188,14 +188,14 @@ public class EmployeeMapperTest {
         String actual = mapper.getSalt("Larsen");
         assertEquals(expected, actual);
     }
-
-    @Test(expected = FOGException.class)
-    public void testForSqlExceptionsInVerifyLogin() throws Exception {
-        Connection badCon = new BadConnection().connection();
-        EmployeeMapper badMapper = new EmployeeMapper(badCon);
-
-        Employee emp = badMapper.verfyLogin("Larsen", "LassLass");
-
-        assert false;
-    }
+//
+//    @Test(expected = FOGException.class)
+//    public void testForSqlExceptionsInVerifyLogin() throws Exception {
+//        Connection badCon = new BadConnection().connection();
+//        EmployeeMapper badMapper = new EmployeeMapper(badCon);
+//
+//        Employee emp = badMapper.verfyLogin("Larsen", "LassLass");
+//
+//        assert false;
+//    }
 }

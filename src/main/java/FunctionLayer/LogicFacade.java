@@ -195,7 +195,7 @@ public class LogicFacade {
                 + "We thank you for your recent carport request!"
                 + "\nTo follow the process of your request, please use your"
                 + " reference link:\n\n"
-                + " http://159.89.19.132/FogCarport/FrontController?command=LoadOrder&id=" + order.getOrderid()
+                + " https://perlt.net/fog/FrontController?command=LoadOrder&id=" + order.getOrderid()
                 + "\n\nRegards,\nFog";
         SendEmail email = new SendEmail(order.getCustomer().getEmail(), title, textMessage);
         Thread thread = new Thread(email);

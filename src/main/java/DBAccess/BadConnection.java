@@ -10,9 +10,9 @@ import java.sql.SQLException;
  */
 public class BadConnection implements Connector {
 
-    private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog_test?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowMultiQueries=true";
-    private static final String USERNAME = "errorConnection";
-    private static final String PASSWORD = "Test.1234";
+    private static final String URL = "jdbc:mysql://165.227.144.45:3306/fog_test?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowMultiQueries=true";
+    private static final String USERNAME = "fog";
+    private static final String PASSWORD = "fog";
 
     private static Connection singleton;
 

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class LiveConnection implements Connector {
 
-    private static final String URL = "jdbc:mysql://159.89.19.132:3306/fog?autoReconnect=true&serverTimezone=UTC&useSSL=false";
-    private static final String USERNAME = "doorkeeper";
-    private static final String PASSWORD = "Fortado#420";
+    private static final String URL = "jdbc:mysql://165.227.144.45:3306/fog?autoReconnect=true&serverTimezone=UTC&useSSL=false";
+    private static final String USERNAME = "fog";
+    private static final String PASSWORD = "fog";
 
     private static Connection singleton;
 

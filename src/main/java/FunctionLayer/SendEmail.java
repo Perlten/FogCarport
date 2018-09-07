@@ -74,6 +74,7 @@ public class SendEmail implements Runnable {
             message.setText(textMessage);
             Transport.send(message);
         } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 
